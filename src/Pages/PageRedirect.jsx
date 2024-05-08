@@ -6,7 +6,6 @@ const PageRedirect = () => {
   return (
     <div>
       <CompNavLanding />
-
       <CompFooter />
     </div>
   );
