@@ -7,7 +7,7 @@ const AvatarDescriptionCard = ({ imagen, tituloImagen, descripcion, colorFondo =
             <Avatar p={5} sx={{ width: 80, height: 80, backgroundColor: colorFondo }}>
                 <img width={40} height={40} src={imagen} alt={tituloImagen} />
             </Avatar>
-            <Typography width="100%" textAlign="center" variant='p'>{descripcion}</Typography>
+            <Typography width="100%" textAlign="center" fontWeight={"normal"} variant='p'>{descripcion}</Typography>
         </Grid>)
 }
 
