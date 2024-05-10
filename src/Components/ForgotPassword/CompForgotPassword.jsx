@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import { useMediaQuery } from "@mui/material";
 //? --------------------------------------------- STYLES
 import { Colors } from "../../Utils/Colors";
+import "../Login/styles.css";
 
 export default function CompForgotPassword() {
   const mobile = useMediaQuery("(max-width:720px)");

@@ -6,7 +6,6 @@ import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
-import Visibility from "@mui/icons-material/Visibility";
 import Button from "@mui/material/Button";
 import { useMediaQuery } from "@mui/material";
 //? --------------------------------------------- STYLES
@@ -25,7 +24,7 @@ export default function CompLogin() {
   };
 
   const onClick = () => {
-    navigate("/login/forgot-password");
+    // navigate("/login/forgot-password");
   };
 
   return (
@@ -38,11 +37,22 @@ export default function CompLogin() {
         </div>
       )}
 
-      <div className="formContainer" style={{ width: mobile ? "100%" : "60%" }}>
+      <div
+        className="formContainer"
+        style={{
+          width: mobile ? "100%" : "40%",
+          border: mobile ? "" : "1px solid rgb(102, 113, 133, 0.3)",
+        }}
+      >
         <div className="headerContainer">
           <img src="src/assets/imgLanding/LogoCargaStore.svg" />
-          <h1> Inicia sesión </h1>
-          <p style={{ fontWeight: 400, color: Colors.secondary.contrastText }}>
+          <h1 style={{ fontSize: "1.5rem" }}> Inicia sesión </h1>
+          <p
+            style={{
+              fontWeight: 400,
+              color: Colors.secondary.contrastText,
+            }}
+          >
             Ingresa tus datos para ingresar al portal
           </p>
         </div>
@@ -51,10 +61,11 @@ export default function CompLogin() {
           {/* //? --------------------------------------------- EMAIL */}
           <p>Correo electrónico</p>
           <FormControl
-            sx={{ m: 1, width: mobile ? "350px" : "446px" }}
+            sx={{ m: 1, width: mobile ? "300px" : "350px" }}
             variant="outlined"
           >
             <OutlinedInput
+              style={{ height: mobile ? "40px" : "50px" }}
               endAdornment={
                 <InputAdornment position="end">
                   <img src="src/assets/imgLogin/EmailIcon.svg" />
@@ -65,11 +76,12 @@ export default function CompLogin() {
           {/* //? --------------------------------------------- PASSWORD */}
           <p>Contraseña</p>
           <FormControl
-            sx={{ m: 1, width: mobile ? "350px" : "446px" }}
+            sx={{ m: 1, width: mobile ? "300px" : "350px" }}
             variant="outlined"
           >
             <OutlinedInput
               type={showPassword ? "text" : "password"}
+              style={{ height: mobile ? "40px" : "50px" }}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -101,7 +113,11 @@ export default function CompLogin() {
           </span>
           <Button
             variant="contained"
-            sx={{ m: 1, width: mobile ? "350px" : "446px" }}
+            sx={{
+              m: 1,
+              width: mobile ? "300px" : "350px",
+              height: "40px",
+            }}
             style={{
               color: Colors.primary.contrastText,
               backgroundColor: Colors.primary.main,
@@ -115,7 +131,7 @@ export default function CompLogin() {
           style={{ width: "350px", padding: "10px" }}
           src="src/assets/imgLogin/Dividers.jpg"
         />
-        <p tyle={{ fontWeight: 400, padding: "10px" }}>
+        <p style={{ fontWeight: 400, padding: "10px" }}>
           ¿No tienes una cuenta?{" "}
           <span
             style={{
