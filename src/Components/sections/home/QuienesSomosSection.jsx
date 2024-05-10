@@ -22,7 +22,7 @@ const QuienesSomosSection = ({ imagen }) => {
                 <Box display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"}>
                     {!matches &&
                         <>
-                            <Typography variant='h4' fontWeight={"bold"} color={"secondary"}>¿Quiénes somos?</Typography>
+                            <Typography variant='h4' fontWeight={"bold"} color={"primary"}>¿Quiénes somos?</Typography>
                             <Box
                                 mt={2}
                                 p={6}
