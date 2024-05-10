@@ -5,7 +5,7 @@ export const Colors = {
   },
   secondary: {
     main: "#FEC200",
-    contrastText: "#0E2233",
+    contrastText: "#667185",
   },
   terciary: {
     main: "#2F2F2F",
