@@ -1,4 +1,4 @@
-import { Box, Stack, useMediaQuery, useTheme } from "@mui/material"
+import { Box, Stack, useMediaQuery, useTheme, Typography } from "@mui/material"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
@@ -20,38 +20,70 @@ export default function CompCarousel() {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,
-    // cssEase: "linear",
   }
+
   return (
     <Box>
-      <Slider
-        {...settings}
-        style={{
-          margin: "50px auto",
-          maxWidth: md ? "1302px" : "100%",
-          position: "relative",
-          width: "100%",
-          height: md ? "460px" : "68px",
-          Padding: "5px",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        {images.map((img, index) => (
-          <Stack key={index}>
-            <img
-              src={img}
-              alt={img}
-              style={{
-                margin: "10px auto",
-                gap: md ? "35px" : "15px",
-                width: md ? "100%" : "136px",
-                height: "100%",
-              }}
-            />
-          </Stack>
-        ))}
-      </Slider>
+      <Stack style={{ position: "relative", width: "100%", height: "100%" }}>
+        <Slider
+          {...settings}
+          sx={{
+            margin: "50px auto",
+            maxWidth: md ? "1302px" : "100%",
+            width: "100%",
+            xs: "430px",
+            height: md ? "460px" : "430px",
+            padding: "5px",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {images.map((img, index) => (
+            <Stack key={index}>
+              <img
+                src={img}
+                alt={img}
+                style={{
+                  margin: "10px auto",
+                  gap: md ? "35px" : "15px",
+                  width: md ? "100%" : "136px",
+                  height: "100%",
+                }}
+              />
+            </Stack>
+          ))}
+        </Slider>
+        <Stack sx={{ position: "absolute", top: "100px", left: "40px" }}>
+          <Typography
+            sx={{ color: "white", fontWeight: "700", fontSize: "38px" }}
+            variant="h6"
+          >
+            Envía tus productos con <br />
+            nosotros
+          </Typography>
+        </Stack>
+        <Stack
+          sx={{
+            marginY: "40px",
+            position: "absolute",
+            bottom: "20%",
+            left: "40px",
+          }}
+        >
+          <Typography
+            sx={{
+              color: "white",
+              fontSize: "21px",
+              fontWeight: "500",
+            }}
+            variant="body1"
+          >
+            Nuestros camiones garantizan que la <br />
+            mercancía se traslade de forma segura y <br />
+            oportuna hasta el lugar de destino
+          </Typography>
+        </Stack>
+      </Stack>
     </Box>
   )
 }

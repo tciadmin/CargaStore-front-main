@@ -82,15 +82,6 @@ const PageLanding = () => {
         </Stack>
       </Stack>
       <CompCarousel />
-      <Stack>
-        <Typography sx={{ marginTop: "-65px" }}>
-          Envía tus productos con nosotros
-        </Typography>
-        <Typography sx={{ marginTop: "10px" }}>
-          Nuestros camiones garantizan que la mercancía se traslade de forma
-          segura y oportuna hasta el lugar de destino
-        </Typography>
-      </Stack>
     </>
   )
 }
