@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -14,6 +15,7 @@ import "./styles.css";
 
 export default function CompLogin() {
   const mobile = useMediaQuery("(max-width:720px)");
+  const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -22,13 +24,17 @@ export default function CompLogin() {
     event.preventDefault();
   };
 
+  const onClick = () => {
+    navigate("/login/forgot-password");
+  };
+
   return (
     <Box sx={{ display: "flex" }} className="loginContainer">
       {mobile ? (
         ""
       ) : (
         <div className="imgContainer">
-          <img src="src/assets/imgLanding/LoginCamion.jpg" />
+          <img src="src/assets/imgLogin/LoginCamion.jpg" />
         </div>
       )}
 
@@ -51,7 +57,7 @@ export default function CompLogin() {
             <OutlinedInput
               endAdornment={
                 <InputAdornment position="end">
-                  <img src="src/assets/imgLanding/EmailIcon.svg" />
+                  <img src="src/assets/imgLogin/EmailIcon.svg" />
                 </InputAdornment>
               }
             />
@@ -63,7 +69,7 @@ export default function CompLogin() {
             variant="outlined"
           >
             <OutlinedInput
-              type={showPassword ? "password" : "text"}
+              type={showPassword ? "text" : "password"}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -73,9 +79,9 @@ export default function CompLogin() {
                     edge="end"
                   >
                     {showPassword ? (
-                      <img src="src/assets/imgLanding/EyeIcon.svg" />
+                      <img src="src/assets/imgLogin/OpenEyeIcon.svg" />
                     ) : (
-                      <Visibility />
+                      <img src="src/assets/imgLogin/EyeIcon.svg" />
                     )}
                   </IconButton>
                 </InputAdornment>
@@ -83,7 +89,9 @@ export default function CompLogin() {
             />
           </FormControl>
           <span
+            onClick={onClick}
             style={{
+              cursor: "pointer",
               fontWeight: 500,
               color: Colors.primary.main,
               padding: "20px",
@@ -105,7 +113,7 @@ export default function CompLogin() {
         </div>
         <img
           style={{ width: "350px", padding: "10px" }}
-          src="src/assets/imgLanding/Dividers.jpg"
+          src="src/assets/imgLogin/Dividers.jpg"
         />
         <p tyle={{ fontWeight: 400, padding: "10px" }}>
           ¿No tienes una cuenta?{" "}
