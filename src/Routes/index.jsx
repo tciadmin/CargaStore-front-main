@@ -5,6 +5,7 @@ import PageLogin from "../Pages/PageLogin";
 import PageRedirect from "../Pages/PageRedirect";
 import CompForgotPassword from "../Components/ForgotPassword/CompForgotPassword";
 import CompVerificationCode from "../Components/VerificationCode/CompVerificationCode";
+import CompNewPassword from "../Components/NewPassword/CompNewPassword";
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
     children: [
       { path: "forgot-password", element: <CompForgotPassword /> },
       { path: "verification-code", element: <CompVerificationCode /> },
+      { path: "new-password", element: <CompNewPassword /> },
     ],
   },
   {
