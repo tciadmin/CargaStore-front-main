@@ -4,6 +4,7 @@ import NotFound from "../Pages/PageNotFound";
 import PageLogin from "../Pages/PageLogin";
 import PageRedirect from "../Pages/PageRedirect";
 import CompForgotPassword from "../Components/ForgotPassword/CompForgotPassword";
+import CompVerificationCode from "../Components/VerificationCode/CompVerificationCode";
 
 export const router = createBrowserRouter([
   {
@@ -13,7 +14,10 @@ export const router = createBrowserRouter([
   {
     path: "/login",
     element: <PageLogin />,
-    children: [{ path: "forgot-password", element: <CompForgotPassword /> }],
+    children: [
+      { path: "forgot-password", element: <CompForgotPassword /> },
+      { path: "verification-code", element: <CompVerificationCode /> },
+    ],
   },
   {
     path: "/homeTeacher",
