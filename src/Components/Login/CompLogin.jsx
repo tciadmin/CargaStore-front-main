@@ -24,7 +24,7 @@ export default function CompLogin() {
   };
 
   const onClick = () => {
-    navigate("/login/forgot-password");
+    navigate("/forgot-password");
   };
 
   return (
@@ -69,7 +69,8 @@ export default function CompLogin() {
             variant="outlined"
           >
             <OutlinedInput
-              style={{ height: mobile ? "40px" : "50px" }}
+              placeholder="emailexample.com"
+              style={{ height: mobile ? "40px" : "50px", borderRadius: "8px" }}
               endAdornment={
                 <InputAdornment position="end">
                   <img src="src/assets/imgLogin/EmailIcon.svg" />
@@ -84,8 +85,9 @@ export default function CompLogin() {
             variant="outlined"
           >
             <OutlinedInput
+              placeholder="Ingresa contraseña"
               type={showPassword ? "text" : "password"}
-              style={{ height: mobile ? "40px" : "50px" }}
+              style={{ height: mobile ? "40px" : "50px", borderRadius: "8px" }}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -126,6 +128,7 @@ export default function CompLogin() {
             style={{
               color: Colors.primary.contrastText,
               backgroundColor: Colors.primary.main,
+              borderRadius: "8px",
               padding: 10,
             }}
           >

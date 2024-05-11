@@ -15,12 +15,12 @@ export const router = createBrowserRouter([
   {
     path: "/login",
     element: <PageLogin />,
-    children: [
-      { path: "forgot-password", element: <CompForgotPassword /> },
-      { path: "verification-code", element: <CompVerificationCode /> },
-      { path: "new-password", element: <CompNewPassword /> },
-    ],
+    children: [],
   },
+  { path: "forgot-password", element: <CompForgotPassword /> },
+  { path: "/verification-code", element: <CompVerificationCode /> },
+  { path: "/new-password", element: <CompNewPassword /> },
+
   {
     path: "/homeTeacher",
     element: <LayoutPublic />,

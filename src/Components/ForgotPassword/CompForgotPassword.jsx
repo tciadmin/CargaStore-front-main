@@ -19,7 +19,7 @@ export default function CompForgotPassword() {
   };
 
   const goForward = () => {
-    navigate("/login/verification-code");
+    navigate("/verification-code");
   };
 
   return (
@@ -79,7 +79,10 @@ export default function CompForgotPassword() {
         <div className="inputContainer">
           <p>Correo electrónico</p>
           <FormControl sx={{ m: 1, width: "350px" }} variant="outlined">
-            <OutlinedInput style={{ height: "50px" }} />
+            <OutlinedInput
+              placeholder="emailexample.com"
+              style={{ height: "50px", borderRadius: "8px" }}
+            />
           </FormControl>
 
           <Button
@@ -96,6 +99,7 @@ export default function CompForgotPassword() {
               padding: 10,
               marginTop: 30,
               marginBottom: 30,
+              borderRadius: "8px",
             }}
           >
             Siguiente

@@ -86,8 +86,9 @@ export default function CompNewPassword() {
           <p>Contraseña</p>
           <FormControl sx={{ m: 1, width: "350px" }} variant="outlined">
             <OutlinedInput
+              placeholder="Ingresa contraseña"
               type={showPassword ? "text" : "password"}
-              style={{ height: "50px" }}
+              style={{ height: "50px", borderRadius: "8px" }}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -110,8 +111,9 @@ export default function CompNewPassword() {
           <p>Confirma contraseña</p>
           <FormControl sx={{ m: 1, width: "350px" }} variant="outlined">
             <OutlinedInput
+              placeholder="Ingresa contraseña"
               type={showConfirmPassword ? "text" : "password"}
-              style={{ height: "50px" }}
+              style={{ height: "50px", borderRadius: "8px" }}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -143,6 +145,7 @@ export default function CompNewPassword() {
               padding: 10,
               marginTop: 30,
               marginBottom: 30,
+              borderRadius: "8px",
             }}
           >
             Cambiar contraseña

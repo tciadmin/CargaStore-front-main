@@ -15,11 +15,11 @@ export default function CompVerificationCode() {
   const navigate = useNavigate();
 
   const goBack = () => {
-    navigate("/login/forgot-password");
+    navigate("/forgot-password");
   };
 
   const goForward = () => {
-    navigate("/login/verification-code");
+    navigate("/new-password");
   };
 
   return (
@@ -86,7 +86,10 @@ export default function CompVerificationCode() {
         <div className="inputContainer">
           <p>Código de verificación</p>
           <FormControl sx={{ m: 1, width: "350px" }} variant="outlined">
-            <OutlinedInput style={{ height: "50px" }} />
+            <OutlinedInput
+              placeholder="122342445"
+              style={{ height: "50px", borderRadius: "8px" }}
+            />
           </FormControl>
 
           <Button
@@ -103,6 +106,7 @@ export default function CompVerificationCode() {
               padding: 10,
               marginTop: 30,
               marginBottom: 30,
+              borderRadius: "8px",
             }}
           >
             Siguiente
