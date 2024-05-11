@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -11,41 +12,85 @@ import "../Login/styles.css";
 
 export default function CompForgotPassword() {
   const mobile = useMediaQuery("(max-width:720px)");
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate("/login");
+  };
 
   return (
-    <Box sx={{ display: "flex" }} className="loginContainer">
+    <Box
+      sx={{ display: "flex" }}
+      className={mobile ? "" : "loginContainer"}
+      style={{ overflow: mobile ? "" : "hidden" }}
+    >
       {mobile ? (
-        ""
+        <img
+          onClick={goBack}
+          src="src/assets/imgLogin/GoBackArrow.svg"
+          style={{
+            display: "flex",
+            maxHeight: "50px",
+            maxWidth: "40px",
+            marginLeft: "20px",
+            cursor: "pointer",
+          }}
+        />
       ) : (
         <div className="imgContainer">
           <img src="src/assets/imgLogin/LoginCamion.jpg" />
         </div>
       )}
 
-      <div className="formContainer" style={{ width: mobile ? "100%" : "60%" }}>
-        <div className="headerContainer">
-          <img src="src/assets/imgLanding/LogoCargaStore.svg" />
-          <h1> Olvidé mi contraseña </h1>
-          <p style={{ fontWeight: 400, color: Colors.secondary.contrastText }}>
+      <div
+        className="formContainer"
+        style={{
+          width: mobile ? "80%" : "40%",
+          border: mobile ? "" : "1px solid rgb(102, 113, 133, 0.3)",
+          marginTop: mobile ? "" : "100px",
+          marginLeft: mobile ? "20px" : "",
+        }}
+      >
+        <div className="headerContainer" style={{ alignItems: "center" }}>
+          {mobile ? (
+            <img src="src/assets/imgLogin/ForgotPassword.jpg" />
+          ) : (
+            <img src="src/assets/imgLanding/LogoCargaStore.svg" />
+          )}
+
+          <h1 style={{ fontSize: "1.5rem", padding: 10 }}>
+            {" "}
+            Olvidé mi contraseña{" "}
+          </h1>
+          <p
+            style={{
+              fontWeight: 400,
+              color: Colors.secondary.contrastText,
+              textAlign: "left",
+            }}
+          >
             Introduce tu correo electrónico para cambiar tu contraseña
           </p>
         </div>
-
         <div className="inputContainer">
           <p>Correo electrónico</p>
-          <FormControl
-            sx={{ m: 1, width: mobile ? "350px" : "446px" }}
-            variant="outlined"
-          >
-            <OutlinedInput />
+          <FormControl sx={{ m: 1, width: "350px" }} variant="outlined">
+            <OutlinedInput style={{ height: "50px" }} />
           </FormControl>
+
           <Button
             variant="contained"
-            sx={{ m: 1, width: mobile ? "350px" : "446px" }}
+            sx={{
+              m: 1,
+              width: "350px",
+              height: "40px",
+            }}
             style={{
               color: Colors.primary.contrastText,
               backgroundColor: Colors.primary.main,
               padding: 10,
+              marginTop: 30,
+              marginBottom: 30,
             }}
           >
             Siguiente

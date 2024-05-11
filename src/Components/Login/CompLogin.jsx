@@ -24,11 +24,15 @@ export default function CompLogin() {
   };
 
   const onClick = () => {
-    // navigate("/login/forgot-password");
+    navigate("/login/forgot-password");
   };
 
   return (
-    <Box sx={{ display: "flex" }} className="loginContainer">
+    <Box
+      sx={{ display: "flex" }}
+      className="loginContainer"
+      style={{ overflow: mobile ? "" : "hidden" }}
+    >
       {mobile ? (
         ""
       ) : (
