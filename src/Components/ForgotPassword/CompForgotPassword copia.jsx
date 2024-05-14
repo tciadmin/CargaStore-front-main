@@ -19,7 +19,7 @@ export default function CompForgotPassword() {
   };
 
   const goForward = () => {
-    navigate("/login/verification-code");
+    navigate("/verification-code");
   };
 
   return (
@@ -28,19 +28,55 @@ export default function CompForgotPassword() {
       className={mobile ? "" : "loginContainer"}
       style={{ overflow: mobile ? "" : "hidden" }}
     >
-      <Box className="formContainer">
-        <Box className="headerContainer" style={{ alignItems: "center" }}>
-          <h1 style={{ fontSize: "1.5rem" }}> Olvidé mi contraseña </h1>
+      {mobile ? (
+        <img
+          onClick={goBack}
+          src="src/assets/imgLogin/GoBackArrow.svg"
+          style={{
+            display: "flex",
+            maxHeight: "50px",
+            maxWidth: "40px",
+            marginLeft: "20px",
+            cursor: "pointer",
+          }}
+        />
+      ) : (
+        <div className="imgContainer">
+          <img src="src/assets/imgLogin/LoginCamion.jpg" />
+        </div>
+      )}
+
+      <div
+        className="formContainer"
+        style={{
+          width: mobile ? "80%" : "30%",
+          border: mobile ? "" : "1px solid rgb(102, 113, 133, 0.3)",
+          marginTop: mobile ? "" : "100px",
+          marginLeft: mobile ? "10px" : "50px",
+        }}
+      >
+        <div className="headerContainer" style={{ alignItems: "center" }}>
+          {mobile ? (
+            <img src="src/assets/imgLogin/ForgotPassword.jpg" />
+          ) : (
+            <img src="src/assets/imgLanding/LogoCargaStore.svg" />
+          )}
+
+          <h1 style={{ fontSize: "1.5rem", padding: 10 }}>
+            {" "}
+            Olvidé mi contraseña{" "}
+          </h1>
           <p
             style={{
               fontWeight: 400,
               color: Colors.secondary.contrastText,
+              textAlign: "left",
             }}
           >
             Introduce tu correo electrónico para cambiar tu contraseña
           </p>
-        </Box>
-        <Box className="inputContainer">
+        </div>
+        <div className="inputContainer">
           <p>Correo electrónico</p>
           <FormControl sx={{ m: 1, width: "350px" }} variant="outlined">
             <OutlinedInput
@@ -60,13 +96,16 @@ export default function CompForgotPassword() {
             style={{
               color: Colors.primary.contrastText,
               backgroundColor: Colors.primary.main,
+              padding: 10,
+              marginTop: 30,
+              marginBottom: 30,
               borderRadius: "8px",
             }}
           >
             Siguiente
           </Button>
-        </Box>
-      </Box>
+        </div>
+      </div>
     </Box>
   );
 }

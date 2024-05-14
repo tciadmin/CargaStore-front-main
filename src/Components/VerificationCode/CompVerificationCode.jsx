@@ -15,11 +15,11 @@ export default function CompVerificationCode() {
   const navigate = useNavigate();
 
   const goBack = () => {
-    navigate("/forgot-password");
+    navigate("/login/forgot-password");
   };
 
   const goForward = () => {
-    navigate("/new-password");
+    navigate("/login/new-password");
   };
 
   return (
@@ -28,46 +28,13 @@ export default function CompVerificationCode() {
       className={mobile ? "" : "loginContainer"}
       style={{ overflow: mobile ? "" : "hidden" }}
     >
-      {mobile ? (
-        <img
-          onClick={goBack}
-          src="src/assets/imgLogin/GoBackArrow.svg"
-          style={{
-            display: "flex",
-            maxHeight: "50px",
-            maxWidth: "40px",
-            marginLeft: "20px",
-            cursor: "pointer",
-          }}
-        />
-      ) : (
-        <div className="imgContainer">
-          <img src="src/assets/imgLogin/LoginCamion.jpg" />
-        </div>
-      )}
-
-      <div
-        className="formContainer"
-        style={{
-          width: mobile ? "80%" : "30%",
-          border: mobile ? "" : "1px solid rgb(102, 113, 133, 0.3)",
-          marginTop: mobile ? "" : "100px",
-          marginLeft: mobile ? "10px" : "50px",
-        }}
-      >
-        <div className="headerContainer" style={{ alignItems: "center" }}>
-          {mobile ? (
-            <img src="src/assets/imgLogin/VerificationCodeImage.jpg" />
-          ) : (
-            <img src="src/assets/imgLanding/LogoCargaStore.svg" />
-          )}
-
+      <Box className="formContainer">
+        <Box className="headerContainer" style={{ alignItems: "center" }}>
           <h1
             style={{
               fontSize: "1.5rem",
               marginTop: 10,
               marginBottom: 10,
-              textAlign: mobile ? "justify" : "center",
             }}
           >
             {" "}
@@ -77,13 +44,12 @@ export default function CompVerificationCode() {
             style={{
               fontWeight: 400,
               color: Colors.secondary.contrastText,
-              textAlign: "left",
             }}
           >
             Consulta tu correo para obtener tu código de confirmación
           </p>
-        </div>
-        <div className="inputContainer">
+        </Box>
+        <Box className="inputContainer">
           <p>Código de verificación</p>
           <FormControl sx={{ m: 1, width: "350px" }} variant="outlined">
             <OutlinedInput
@@ -103,16 +69,13 @@ export default function CompVerificationCode() {
             style={{
               color: Colors.primary.contrastText,
               backgroundColor: Colors.primary.main,
-              padding: 10,
-              marginTop: 30,
-              marginBottom: 30,
               borderRadius: "8px",
             }}
           >
             Siguiente
           </Button>
-        </div>
-      </div>
+        </Box>
+      </Box>
     </Box>
   );
 }

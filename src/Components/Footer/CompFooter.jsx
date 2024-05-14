@@ -1,5 +1,6 @@
 import * as React from "react";
 //? --------------------------------------------- MUI
+import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
@@ -29,7 +30,7 @@ export default function CompFooter() {
   return (
     <footer style={{ backgoundColor: Colors.primary.contrastText }}>
       {mobile ? (
-        <div className="mobile">
+        <Box className="mobile">
           {/* //? --------------------------------------------- NUESTRA EMPRESA */}
           <List
             className="list"
@@ -103,31 +104,31 @@ export default function CompFooter() {
               </List>
             </Collapse>
           </List>
-        </div>
+        </Box>
       ) : (
-        <div className="footerContainer">
-          <div>
+        <Box className="footerContainer">
+          <Box>
             <h3 style={{ color: Colors.primary.main }}>Nuestra empresa</h3>
 
             <p>Quiénes somos</p>
             <p>Servicios</p>
             <p>Contáctanos</p>
-          </div>
+          </Box>
 
-          <div>
+          <Box>
             <h3 style={{ color: Colors.primary.main }}>Nuestras oficinas</h3>
             <p>TCI Ecuador</p>
             <p>TCI Perú</p>
             <p>TCI Colombia</p>
-          </div>
+          </Box>
 
-          <div>
+          <Box>
             <h3 style={{ color: Colors.primary.main }}>Páginas legales</h3>
             <p>Política de privacidad</p>
             <p>Términos y condiciones</p>
             <p>Descargo de responsabilidad</p>
-          </div>
-        </div>
+          </Box>
+        </Box>
       )}
     </footer>
   );

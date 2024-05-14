@@ -37,39 +37,8 @@ export default function CompNewPassword() {
       className={mobile ? "" : "loginContainer"}
       style={{ overflow: mobile ? "" : "hidden" }}
     >
-      {mobile ? (
-        <img
-          onClick={goBack}
-          src="src/assets/imgLogin/GoBackArrow.svg"
-          style={{
-            display: "flex",
-            maxHeight: "50px",
-            maxWidth: "40px",
-            marginLeft: "20px",
-            cursor: "pointer",
-          }}
-        />
-      ) : (
-        <div className="imgContainer">
-          <img src="src/assets/imgLogin/LoginCamion.jpg" />
-        </div>
-      )}
-
-      <div
-        className="formContainer"
-        style={{
-          width: mobile ? "100%" : "40%",
-          border: mobile ? "" : "1px solid rgb(102, 113, 133, 0.3)",
-          marginTop: mobile ? "" : "70px",
-        }}
-      >
-        <div className="headerContainer">
-          {mobile ? (
-            <img src="src/assets/imgLogin/NewPasswordImage.jpg" />
-          ) : (
-            <img src="src/assets/imgLanding/LogoCargaStore.svg" />
-          )}
-
+      <Box className="formContainer">
+        <Box className="headerContainer">
           <h1 style={{ fontSize: "1.5rem" }}> Elige una contraseña nueva </h1>
           <p
             style={{
@@ -79,9 +48,9 @@ export default function CompNewPassword() {
           >
             Introduce una contraseña nueva difícil de olvidar
           </p>
-        </div>
+        </Box>
 
-        <div className="inputContainer">
+        <Box className="inputContainer">
           {/* //? --------------------------------------------- PASSWORD */}
           <p>Contraseña</p>
           <FormControl sx={{ m: 1, width: "350px" }} variant="outlined">
@@ -98,9 +67,9 @@ export default function CompNewPassword() {
                     edge="end"
                   >
                     {showPassword ? (
-                      <img src="src/assets/imgLogin/OpenEyeIcon.svg" />
+                      <img src="/src/assets/imgLogin/OpenEyeIcon.svg" />
                     ) : (
-                      <img src="src/assets/imgLogin/EyeIcon.svg" />
+                      <img src="/src/assets/imgLogin/EyeIcon.svg" />
                     )}
                   </IconButton>
                 </InputAdornment>
@@ -123,9 +92,9 @@ export default function CompNewPassword() {
                     edge="end"
                   >
                     {showConfirmPassword ? (
-                      <img src="src/assets/imgLogin/OpenEyeIcon.svg" />
+                      <img src="/src/assets/imgLogin/OpenEyeIcon.svg" />
                     ) : (
-                      <img src="src/assets/imgLogin/EyeIcon.svg" />
+                      <img src="/src/assets/imgLogin/EyeIcon.svg" />
                     )}
                   </IconButton>
                 </InputAdornment>
@@ -142,16 +111,13 @@ export default function CompNewPassword() {
             style={{
               color: Colors.primary.contrastText,
               backgroundColor: Colors.primary.main,
-              padding: 10,
-              marginTop: 30,
-              marginBottom: 30,
               borderRadius: "8px",
             }}
           >
             Cambiar contraseña
           </Button>
-        </div>
-      </div>
+        </Box>
+      </Box>
     </Box>
   );
 }

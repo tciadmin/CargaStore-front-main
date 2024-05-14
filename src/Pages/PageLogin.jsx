@@ -1,11 +1,12 @@
 import React from "react";
+import { Stack } from "@mui/material";
 import CompLogin from "../Components/Login/CompLogin";
 
 const PageLogin = () => {
   return (
-    <div>
+    <Stack>
       <CompLogin />
-    </div>
+    </Stack>
   );
 };
 

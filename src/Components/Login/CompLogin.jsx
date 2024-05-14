@@ -24,7 +24,7 @@ export default function CompLogin() {
   };
 
   const onClick = () => {
-    navigate("/forgot-password");
+    navigate("/login/forgot-password");
   };
 
   return (
@@ -33,23 +33,8 @@ export default function CompLogin() {
       className="loginContainer"
       style={{ overflow: mobile ? "" : "hidden" }}
     >
-      {mobile ? (
-        ""
-      ) : (
-        <div className="imgContainer">
-          <img src="src/assets/imgLogin/LoginCamion.jpg" />
-        </div>
-      )}
-
-      <div
-        className="formContainer"
-        style={{
-          width: mobile ? "100%" : "40%",
-          border: mobile ? "" : "1px solid rgb(102, 113, 133, 0.3)",
-        }}
-      >
-        <div className="headerContainer">
-          <img src="src/assets/imgLanding/LogoCargaStore.svg" />
+      <Box className="formContainer">
+        <Box className="headerContainer">
           <h1 style={{ fontSize: "1.5rem" }}> Inicia sesión </h1>
           <p
             style={{
@@ -59,9 +44,9 @@ export default function CompLogin() {
           >
             Ingresa tus datos para ingresar al portal
           </p>
-        </div>
+        </Box>
 
-        <div className="inputContainer">
+        <Box className="inputContainer">
           {/* //? --------------------------------------------- EMAIL */}
           <p>Correo electrónico</p>
           <FormControl
@@ -73,7 +58,7 @@ export default function CompLogin() {
               style={{ height: mobile ? "40px" : "50px", borderRadius: "8px" }}
               endAdornment={
                 <InputAdornment position="end">
-                  <img src="src/assets/imgLogin/EmailIcon.svg" />
+                  <img src="/src/assets/imgLogin/EmailIcon.svg" />
                 </InputAdornment>
               }
             />
@@ -97,9 +82,9 @@ export default function CompLogin() {
                     edge="end"
                   >
                     {showPassword ? (
-                      <img src="src/assets/imgLogin/OpenEyeIcon.svg" />
+                      <img src="/src/assets/imgLogin/OpenEyeIcon.svg" />
                     ) : (
-                      <img src="src/assets/imgLogin/EyeIcon.svg" />
+                      <img src="/src/assets/imgLogin/EyeIcon.svg" />
                     )}
                   </IconButton>
                 </InputAdornment>
@@ -112,7 +97,6 @@ export default function CompLogin() {
               cursor: "pointer",
               fontWeight: 500,
               color: Colors.primary.main,
-              padding: "20px",
             }}
           >
             ¿Olvidaste la contraseña?
@@ -129,17 +113,16 @@ export default function CompLogin() {
               color: Colors.primary.contrastText,
               backgroundColor: Colors.primary.main,
               borderRadius: "8px",
-              padding: 10,
             }}
           >
             Ingresar
           </Button>
-        </div>
+        </Box>
         <img
-          style={{ width: "350px", padding: "10px" }}
-          src="src/assets/imgLogin/Dividers.jpg"
+          style={{ width: "350px" }}
+          src="/src/assets/imgLogin/Dividers.jpg"
         />
-        <p style={{ fontWeight: 400, padding: "10px" }}>
+        <p style={{ fontWeight: 400 }}>
           ¿No tienes una cuenta?{" "}
           <span
             style={{
@@ -150,7 +133,7 @@ export default function CompLogin() {
             Regístrate
           </span>
         </p>
-      </div>
+      </Box>
     </Box>
   );
 }
