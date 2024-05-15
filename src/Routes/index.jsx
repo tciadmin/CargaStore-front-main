@@ -8,6 +8,7 @@ import CompForgotPassword from "../Components/ForgotPassword/CompForgotPassword"
 import CompVerificationCode from "../Components/VerificationCode/CompVerificationCode";
 import CompNewPassword from "../Components/NewPassword/CompNewPassword";
 import PageLanding from "../Pages/PageLanding";
+import LayoutConfi from "../Layouts/LayoutConfi";
 
 export const router = createBrowserRouter([
   {
@@ -35,5 +36,10 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <PageRedirect />,
+  },
+  {
+    path: "/config",
+    element: <LayoutConfi />,
+    children: [{ path: "prueba", element: <CompVerificationCode /> }],
   },
 ]);
