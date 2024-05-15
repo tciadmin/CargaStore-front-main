@@ -1,15 +1,14 @@
-import React from "react";
-import { Stack } from "@mui/material";
-import CompNavLanding from "../Components/NavLanding/CompNavLanding";
-import CompFooter from "../Components/Footer/CompFooter";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const PageRedirect = () => {
-  return (
-    <Stack>
-      <CompNavLanding />
-      <CompFooter />
-    </Stack>
-  );
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("/landing");
+  });
+  return <div>PageRedirect</div>;
 };
 
 export default PageRedirect;

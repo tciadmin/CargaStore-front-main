@@ -1,0 +1,7 @@
+.hero{
+    background: linear-gradient(360deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%),url("/home/hero.png");
+    background-size: cover;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+  }
