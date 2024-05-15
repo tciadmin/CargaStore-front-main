@@ -1,11 +1,11 @@
 export const Colors = {
   primary: {
-    main: "#164773",
+    main: "#007C52",
     contrastText: "#fff",
   },
   secondary: {
     main: "#FEC200",
-    contrastText: "#0E2233",
+    contrastText: "#667185",
   },
   terciary: {
     main: "#2F2F2F",

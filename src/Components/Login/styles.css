@@ -1,0 +1,48 @@
+.loginContainer {
+  display: flex;
+  max-height: 100vh;
+  width: 100%;
+}
+
+.imgContainer {
+  max-width: 60%;
+}
+
+.imgContainer img {
+  height: 100%;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  gap: 30px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inputContainer input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
+  box-shadow: 0 0 0 1000px white inset !important;
+}
+
+.inputContainer p {
+  margin-left: 5px;
+  text-align: left;
+  font-weight: 500;
+}
+
+.inputContainer span {
+  text-align: right;
+}

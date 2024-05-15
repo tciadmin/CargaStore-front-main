@@ -1,3 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Montserrat", sans-serif !important;
+}
+
+body {
+  width: 100%;
+  font-family: "Montserrat", sans-serif !important;
+}
+
+Button {
+  font-family: "Montserrat", sans-serif !important;
+}
 body {
   margin: 0;
 }

@@ -1,7 +1,13 @@
 import React from "react";
+import { Stack } from "@mui/material";
+import CompLogin from "../Components/Login/CompLogin";
 
 const PageLogin = () => {
-  return <div>PageLogin</div>;
+  return (
+    <Stack>
+      <CompLogin />
+    </Stack>
+  );
 };
 
 export default PageLogin;

@@ -26,7 +26,7 @@ const theme = createTheme({
   components: {
     MuiTypography: {
       defaultProps: {
-        fontFamily: "Montserrat",
+        fontFamily: "Montserrat, sans-serif",
         fontWeight: 600,
       },
     },
