@@ -6,6 +6,7 @@ import LogoCarousel1 from "../../assets/Carousel/Logo.png"
 import LogoCarousel2 from "../../assets/Carousel/Logo2.png"
 import LogoCarousel3 from "../../assets/Carousel/Logo3.png"
 import LogoCarousel4 from "../../assets/Carousel/Logo4.png"
+import "./Style.css"
 
 const images = [LogoCarousel1, LogoCarousel2, LogoCarousel3, LogoCarousel4]
 
@@ -20,6 +21,7 @@ export default function CompCarousel() {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,
+    arrows: false,
   }
 
   return (
@@ -46,8 +48,8 @@ export default function CompCarousel() {
                 style={{
                   margin: "10px auto",
                   gap: md ? "35px" : "15px",
-                  width: md ? "100%" : "136px",
-                  height: "100%",
+                  width: md ? "100%" : "430px",
+                  height: md ? "100%" : "228px",
                 }}
               />
             </Stack>
@@ -55,7 +57,11 @@ export default function CompCarousel() {
         </Slider>
         <Stack sx={{ position: "absolute", top: "100px", left: "40px" }}>
           <Typography
-            sx={{ color: "white", fontWeight: "700", fontSize: "38px" }}
+            sx={{
+              color: "white",
+              fontWeight: "700",
+              fontSize: { md: "38px", xs: "15px" },
+            }}
             variant="h6"
           >
             Envía tus productos con <br />
@@ -73,7 +79,7 @@ export default function CompCarousel() {
           <Typography
             sx={{
               color: "white",
-              fontSize: "21px",
+              fontSize: { md: "21px", xs: "10px" },
               fontWeight: "500",
             }}
             variant="body1"

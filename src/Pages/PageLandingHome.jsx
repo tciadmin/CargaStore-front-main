@@ -12,15 +12,15 @@ const Lista = [
   "Ofrecemos servicios de montacargas y contenedores.",
 ]
 
-const PageLanding = () => {
+const PageLandingHome = () => {
   return (
     <>
-      <Stack
+      {/* <Stack
         sx={{
-          width: "1142px",
-          height: "500px",
+          width: { md: "1142px", xs: "100px" },
+          height: { md: "500px", xs: "600px" },
           marginTop: "58px",
-          marginLeft: "230px",
+          marginLeft: { md: "230px", xs: "50px" },
           display: "flex",
           flexDirection: "row",
         }}
@@ -42,8 +42,9 @@ const PageLanding = () => {
               fontSize: "40px",
               lineHeight: "58.8px",
               textAlign: "center",
-              marginLeft: "20px",
+              //marginLeft: "20px",
               marginTop: "-10px",
+              flexDirection: "column",
             }}
           >
             Otros Servicios
@@ -54,8 +55,7 @@ const PageLanding = () => {
                 display: "flex",
                 flexDirection: "row",
                 justifyContent: "start",
-                marginLeft: "30px",
-
+                marginLeft: { md: "30px", xs: "-300px" },
                 alignItems: "center",
               }}
               key={index}
@@ -69,9 +69,10 @@ const PageLanding = () => {
                   fontFamily: "Montserrat",
                   marginLeft: "10px",
 
-                  fontSize: "18px",
+                  fontSize: { md: "18px", xs: "12px" },
                   fontWeight: "400px",
-                  marginY: "8px",
+                  marginY: { md: "8px", xs: "5px" },
+                  mt: { xs: "6px" },
                 }}
                 key={index}
               >
@@ -80,10 +81,10 @@ const PageLanding = () => {
             </Stack>
           ))}
         </Stack>
-      </Stack>
+      </Stack> */}
       <CompCarousel />
     </>
   )
 }
 
-export default PageLanding
+export default PageLandingHome
