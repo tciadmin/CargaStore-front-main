@@ -7,6 +7,7 @@ import LayoutLogin from "../Layouts/LayoutLogin";
 import CompForgotPassword from "../Components/ForgotPassword/CompForgotPassword";
 import CompVerificationCode from "../Components/VerificationCode/CompVerificationCode";
 import CompNewPassword from "../Components/NewPassword/CompNewPassword";
+import PageLanding from "../Pages/PageLanding";
 
 export const router = createBrowserRouter([
   {
