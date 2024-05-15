@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 //? --------------------------------------------- MUI
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -12,6 +13,12 @@ import { Colors } from "../../Utils/Colors";
 
 export default function CompNavLanding() {
   const mobile = useMediaQuery("(max-width:720px)");
+
+  const navigate = useNavigate();
+
+  const onClickLogin = () => {
+    navigate("/login");
+  };
   return (
     <Box sx={{ display: "flex" }}>
       <AppBar
@@ -44,6 +51,7 @@ export default function CompNavLanding() {
           </Typography>
           <Stack spacing={mobile ? 1 : 2} direction="row">
             <Button
+              onClick={onClickLogin}
               variant="outlined"
               style={{
                 color: mobile

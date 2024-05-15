@@ -10,16 +10,16 @@ import { useMediaQuery } from "@mui/material";
 import { Colors } from "../../Utils/Colors";
 import "../Login/styles.css";
 
-export default function CompForgotPassword() {
+export default function CompVerificationCode() {
   const mobile = useMediaQuery("(max-width:720px)");
   const navigate = useNavigate();
 
   const goBack = () => {
-    navigate("/login");
+    navigate("/login/forgot-password");
   };
 
   const goForward = () => {
-    navigate("/login/verification-code");
+    navigate("/login/new-password");
   };
 
   return (
@@ -30,21 +30,30 @@ export default function CompForgotPassword() {
     >
       <Box className="formContainer">
         <Box className="headerContainer" style={{ alignItems: "center" }}>
-          <h1 style={{ fontSize: "1.5rem" }}> Olvidé mi contraseña </h1>
+          <h1
+            style={{
+              fontSize: "1.5rem",
+              marginTop: 10,
+              marginBottom: 10,
+            }}
+          >
+            {" "}
+            Te enviamos un código{" "}
+          </h1>
           <p
             style={{
               fontWeight: 400,
               color: Colors.secondary.contrastText,
             }}
           >
-            Introduce tu correo electrónico para cambiar tu contraseña
+            Consulta tu correo para obtener tu código de confirmación
           </p>
         </Box>
         <Box className="inputContainer">
-          <p>Correo electrónico</p>
+          <p>Código de verificación</p>
           <FormControl sx={{ m: 1, width: "350px" }} variant="outlined">
             <OutlinedInput
-              placeholder="emailexample.com"
+              placeholder="122342445"
               style={{ height: "50px", borderRadius: "8px" }}
             />
           </FormControl>

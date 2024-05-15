@@ -10,69 +10,54 @@ import Button from "@mui/material/Button";
 import { useMediaQuery } from "@mui/material";
 //? --------------------------------------------- STYLES
 import { Colors } from "../../Utils/Colors";
-import "./styles.css";
+import "../Login/styles.css";
 
-export default function CompLogin() {
+export default function CompNewPassword() {
   const mobile = useMediaQuery("(max-width:720px)");
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = React.useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowConfirmPassword = () =>
+    setShowConfirmPassword((show) => !show);
+
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
-  const onClick = () => {
-    navigate("/login/forgot-password");
+  const goBack = () => {
+    navigate("/login");
   };
 
   return (
     <Box
       sx={{ display: "flex" }}
-      className="loginContainer"
+      className={mobile ? "" : "loginContainer"}
       style={{ overflow: mobile ? "" : "hidden" }}
     >
       <Box className="formContainer">
         <Box className="headerContainer">
-          <h1 style={{ fontSize: "1.5rem" }}> Inicia sesión </h1>
+          <h1 style={{ fontSize: "1.5rem" }}> Elige una contraseña nueva </h1>
           <p
             style={{
               fontWeight: 400,
               color: Colors.secondary.contrastText,
             }}
           >
-            Ingresa tus datos para ingresar al portal
+            Introduce una contraseña nueva difícil de olvidar
           </p>
         </Box>
 
         <Box className="inputContainer">
-          {/* //? --------------------------------------------- EMAIL */}
-          <p>Correo electrónico</p>
-          <FormControl
-            sx={{ m: 1, width: mobile ? "300px" : "350px" }}
-            variant="outlined"
-          >
-            <OutlinedInput
-              placeholder="emailexample.com"
-              style={{ height: mobile ? "40px" : "50px", borderRadius: "8px" }}
-              endAdornment={
-                <InputAdornment position="end">
-                  <img src="/src/assets/imgLogin/EmailIcon.svg" />
-                </InputAdornment>
-              }
-            />
-          </FormControl>
           {/* //? --------------------------------------------- PASSWORD */}
           <p>Contraseña</p>
-          <FormControl
-            sx={{ m: 1, width: mobile ? "300px" : "350px" }}
-            variant="outlined"
-          >
+          <FormControl sx={{ m: 1, width: "350px" }} variant="outlined">
             <OutlinedInput
               placeholder="Ingresa contraseña"
               type={showPassword ? "text" : "password"}
-              style={{ height: mobile ? "40px" : "50px", borderRadius: "8px" }}
+              style={{ height: "50px", borderRadius: "8px" }}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -91,22 +76,36 @@ export default function CompLogin() {
               }
             />
           </FormControl>
-          <span
-            onClick={onClick}
-            style={{
-              cursor: "pointer",
-              fontWeight: 500,
-              color: Colors.primary.main,
-            }}
-          >
-            ¿Olvidaste la contraseña?
-          </span>
-
+          {/* //? --------------------------------------------- CONFIRM PASSWORD */}
+          <p>Confirma contraseña</p>
+          <FormControl sx={{ m: 1, width: "350px" }} variant="outlined">
+            <OutlinedInput
+              placeholder="Ingresa contraseña"
+              type={showConfirmPassword ? "text" : "password"}
+              style={{ height: "50px", borderRadius: "8px" }}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowConfirmPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showConfirmPassword ? (
+                      <img src="/src/assets/imgLogin/OpenEyeIcon.svg" />
+                    ) : (
+                      <img src="/src/assets/imgLogin/EyeIcon.svg" />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
           <Button
             variant="contained"
             sx={{
               m: 1,
-              width: mobile ? "300px" : "350px",
+              width: "350px",
               height: "40px",
             }}
             style={{
@@ -115,24 +114,9 @@ export default function CompLogin() {
               borderRadius: "8px",
             }}
           >
-            Ingresar
+            Cambiar contraseña
           </Button>
         </Box>
-        <img
-          style={{ width: "350px" }}
-          src="/src/assets/imgLogin/Dividers.jpg"
-        />
-        <p style={{ fontWeight: 400 }}>
-          ¿No tienes una cuenta?{" "}
-          <span
-            style={{
-              fontWeight: 500,
-              color: Colors.primary.main,
-            }}
-          >
-            Regístrate
-          </span>
-        </p>
       </Box>
     </Box>
   );

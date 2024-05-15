@@ -1,4 +1,5 @@
 import React from "react";
+import { Stack } from "@mui/material";
 import CompNavLanding from "../Components/NavLanding/CompNavLanding";
 import CompFooter from "../Components/Footer/CompFooter";
 import Hero from '../Components/sections/home/hero/Hero'
@@ -9,14 +10,14 @@ import ImagenYCapacitacion from '../Components/sections/home/ImagenYCapacitacion
 
 const PageRedirect = () => {
   return (
-    <div>
+    <Stack>
       <CompNavLanding />
       <Hero></Hero>
       <QuienesSomosSection imagen={"/home/quienes.png"}></QuienesSomosSection>
       <NuestroServicioSection></NuestroServicioSection>
       <ImagenYCapacitacion></ImagenYCapacitacion>
       <CompFooter />
-    </div>
+    </Stack>
   );
 };
 
