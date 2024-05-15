@@ -1,8 +1,8 @@
 import React from 'react'
-import Hero from '../components/sections/home/hero/Hero'
-import QuienesSomosSection from '../components/sections/home/QuienesSomosSection'
-import NuestroServicioSection from '../components/sections/home/NuestroServicioSection'
-import ImagenYCapacitacion from '../components/sections/home/ImagenYCapacitacion'
+import Hero from "../Components/sections/home/hero/Hero";
+import QuienesSomosSection from "../Components/sections/home/QuienesSomosSection";
+import NuestroServicioSection from "../Components/sections/home/NuestroServicioSection";
+import ImagenYCapacitacion from "../Components/sections/home/ImagenYCapacitacion";
 import CompNavLanding from '../Components/NavLanding/CompNavLanding'
 import CompFooter from '../Components/Footer/CompFooter'
 
