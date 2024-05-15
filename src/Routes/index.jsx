@@ -7,11 +7,13 @@ import LayoutLogin from "../Layouts/LayoutLogin";
 import CompForgotPassword from "../Components/ForgotPassword/CompForgotPassword";
 import CompVerificationCode from "../Components/VerificationCode/CompVerificationCode";
 import CompNewPassword from "../Components/NewPassword/CompNewPassword";
+import PageLanding from "../Pages/PageLanding";
+import LayoutConfi from "../Layouts/LayoutConfi";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
-    element: <PageRedirect />,
+    path: "/landing",
+    element: <PageLanding />,
   },
   {
     path: "/login",
@@ -30,5 +32,14 @@ export const router = createBrowserRouter([
     element: <LayoutPublic />,
     errorElement: <NotFound />,
     children: [],
+  },
+  {
+    path: "/",
+    element: <PageRedirect />,
+  },
+  {
+    path: "/config",
+    element: <LayoutConfi />,
+    children: [{ path: "prueba", element: <CompVerificationCode /> }],
   },
 ]);

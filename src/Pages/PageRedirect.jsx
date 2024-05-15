@@ -1,24 +1,14 @@
-import React from "react";
-import { Stack } from "@mui/material";
-import CompNavLanding from "../Components/NavLanding/CompNavLanding";
-import CompFooter from "../Components/Footer/CompFooter";
-import Hero from '../Components/sections/home/hero/Hero'
-import QuienesSomosSection from '../Components/sections/home/QuienesSomosSection'
-import NuestroServicioSection from '../Components/sections/home/NuestroServicioSection'
-import ImagenYCapacitacion from '../Components/sections/home/ImagenYCapacitacion'
-
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const PageRedirect = () => {
-  return (
-    <Stack>
-      <CompNavLanding />
-      <Hero></Hero>
-      <QuienesSomosSection imagen={"/home/quienes.png"}></QuienesSomosSection>
-      <NuestroServicioSection></NuestroServicioSection>
-      <ImagenYCapacitacion></ImagenYCapacitacion>
-      <CompFooter />
-    </Stack>
-  );
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("/landing");
+  });
+  return <div>PageRedirect</div>;
 };
 
 export default PageRedirect;
