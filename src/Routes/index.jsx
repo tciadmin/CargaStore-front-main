@@ -9,6 +9,7 @@ import CompVerificationCode from "../Components/VerificationCode/CompVerificatio
 import CompNewPassword from "../Components/NewPassword/CompNewPassword";
 import PageLanding from "../Pages/PageLanding";
 import LayoutConfi from "../Layouts/LayoutConfi";
+import MisEnvios from "../Pages/MisEnvios";
 
 export const router = createBrowserRouter([
   {
@@ -26,7 +27,11 @@ export const router = createBrowserRouter([
       { path: "new-password", element: <CompNewPassword /> },
     ],
   },
-
+  {
+    path: "/misenvios",
+    element: <MisEnvios/>,   
+    
+  },
   {
     path: "/homeTeacher",
     element: <LayoutPublic />,
