@@ -44,8 +44,8 @@ export default function CompNavLanding() {
             <img
               src={
                 mobile
-                  ? "src/assets/imgLanding/LogoMobileCargaStore.svg"
-                  : "src/assets/imgLanding/LogoCargaStore.svg"
+                  ? "/src/assets/imgLanding/LogoMobileCargaStore.svg"
+                  : "/src/assets/imgLanding/LogoCargaStore.svg"
               }
             />
           </Typography>

@@ -8,6 +8,7 @@ import CompForgotPassword from "../Components/ForgotPassword/CompForgotPassword"
 import CompVerificationCode from "../Components/VerificationCode/CompVerificationCode";
 import CompNewPassword from "../Components/NewPassword/CompNewPassword";
 import PageLanding from "../Pages/PageLanding";
+import PageRegister from "../Pages/PageRegister";
 
 export const router = createBrowserRouter([
   {
@@ -25,7 +26,7 @@ export const router = createBrowserRouter([
       { path: "new-password", element: <CompNewPassword /> },
     ],
   },
-
+  { path: "/register", element: <PageRegister /> },
   {
     path: "/homeTeacher",
     element: <LayoutPublic />,
