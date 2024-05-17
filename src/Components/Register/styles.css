@@ -1,11 +1,11 @@
 .registerContainer {
   display: flex;
   max-height: 100vh;
-  width: 100%;
+  max-width: 100%;
 }
 
 .imgContainer {
-  max-width: 60%;
+  max-width: 40%;
 }
 
 .imgContainer img {

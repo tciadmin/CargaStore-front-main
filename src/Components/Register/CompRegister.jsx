@@ -1,4 +1,5 @@
 import * as React from "react";
+//? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -7,6 +8,7 @@ import StepContent from "@mui/material/StepContent";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+//? --------------------------------------------- STYLES
 import "./styles.css";
 import { Colors } from "../../Utils/Colors";
 
@@ -42,89 +44,71 @@ export default function CompRegister() {
 
   return (
     <Box className="registerContainer">
-      <Box className="imgContainer">
-        {" "}
-        <img src="/src/assets/imgRegister/registerSideImg.jpg" />{" "}
-      </Box>
-      <Box sx={{ maxWidth: 400 }}>
-        <Stepper activeStep={activeStep} orientation="vertical">
-          {steps.map((step, index) => (
-            <Step key={step.label}>
-              <StepLabel
-                optional={
-                  index >= 0 ? (
-                    <Typography style={{ fontWeight: 400 }}>
-                      {step.description}
-                    </Typography>
-                  ) : (
-                    ""
-                  )
-                }
-              >
-                <Typography
-                  style={{ fontWeight: activeStep === index ? 600 : 500 }}
-                >
-                  {step.label}
-                </Typography>
-              </StepLabel>
-              <StepContent>
-                <Box sx={{ mb: 2 }}>
-                  <div>
-                    <Button
-                      variant="contained"
-                      onClick={handleNext}
-                      sx={{ mt: 1, mr: 1 }}
-                    >
-                      {index === steps.length - 1 ? "Finish" : "Continue"}
-                    </Button>
-                    <Button
-                      disabled={index === 0}
-                      onClick={handleBack}
-                      sx={{ mt: 1, mr: 1 }}
-                    >
-                      Back
-                    </Button>
-                  </div>
-                </Box>
-              </StepContent>
-            </Step>
-          ))}
-        </Stepper>
-        {activeStep === steps.length && (
-          <Paper square elevation={0} sx={{ p: 3 }}>
-            <Typography>All steps completed - you&apos;re finished</Typography>
-            <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
-              Reset
+      <Box
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          minWidth: "50%",
+          height: "100vh",
+          justifyContent: "center",
+        }}
+      >
+        <Box
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            padding: "20px",
+            border: "1px solid rgb(102, 113, 133, 0.3)",
+            borderRadius: "8px",
+            gap: 10,
+            width: "80%",
+          }}
+        >
+          <img src="/src/assets/imgLanding/LogoCargaStore.svg" />
+          <h1 style={{ fontWeight: 600, fontSize: "1.5rem" }}>
+            Bienvenido a Carga Store
+          </h1>
+          <p
+            style={{
+              color: Colors.secondary.contrastText,
+            }}
+          >
+            Elige tu perfil
+          </p>
+          <img
+            style={{ width: "100%" }}
+            src="/src/assets/imgRegister/RegDivider.svg"
+          />
+          <Box
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "10px",
+            }}
+          >
+            <img src="/src/assets/imgRegister/LoadImg.jpg" />
+            <Button
+              onClick={handleNext}
+              name="user"
+              sx={{ width: 324 }}
+              variant="outlined"
+            >
+              Quiero generar una carga
             </Button>
-          </Paper>
-        )}
-
-        <span
-          style={{
-            fontWeight: 600,
-            color: Colors.secondary.main,
-          }}
-        >
-          ¿Necesitas ayuda?
-        </span>
-        <p
-          style={{
-            fontWeight: 400,
-            color: Colors.secondary.contrastText,
-          }}
-        >
-          Escríbenos para que podamos resolver el problema.
-        </p>
-        <Button
-          style={{
-            color: Colors.secondary.contrastText,
-            borderColor: Colors.secondary.contrastText,
-          }}
-          variant="outlined"
-          sx={{ mt: 1, mr: 1 }}
-        >
-          Contáctanos
-        </Button>
+            <img src="/src/assets/imgRegister/AssociateImg.jpg" />
+            <Button
+              onClick={handleNext}
+              name="driver"
+              sx={{ width: 324 }}
+              variant="outlined"
+            >
+              Quiero ser socio conductor
+            </Button>
+          </Box>
+        </Box>
       </Box>
     </Box>
   );
