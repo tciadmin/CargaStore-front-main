@@ -1,37 +1,20 @@
 import * as React from "react";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import StepContent from "@mui/material/StepContent";
 import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
 //? --------------------------------------------- STYLES
 import "./styles.css";
 import { Colors } from "../../Utils/Colors";
-
-const steps = [
-  {
-    label: "Elige tu perfil",
-    description: `Selecciona si serás un generador de carga o socio conductor`,
-  },
-  {
-    label: "Datos personales",
-    description: "Carga tus datos personales para continuar",
-  },
-  {
-    label: "Datos del vehículo",
-    description: `Ingresa los datos de vehículo para más seguridad`,
-  },
-];
+import { useNavigate } from "react-router-dom";
 
 export default function CompRegister() {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const navigate = useNavigate();
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  const nextDriver = () => {
+    navigate("/register/driver");
+  };
+  const nextUser = () => {
+    navigate("/register/user");
   };
 
   const handleBack = () => {
@@ -49,7 +32,7 @@ export default function CompRegister() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          minWidth: "50%",
+          width: "100%",
           height: "100vh",
           justifyContent: "center",
         }}
@@ -64,6 +47,7 @@ export default function CompRegister() {
             borderRadius: "8px",
             gap: 10,
             width: "80%",
+            justifyContent: "center",
           }}
         >
           <img src="/src/assets/imgLanding/LogoCargaStore.svg" />
@@ -91,7 +75,7 @@ export default function CompRegister() {
           >
             <img src="/src/assets/imgRegister/LoadImg.jpg" />
             <Button
-              onClick={handleNext}
+              onClick={nextUser}
               name="user"
               sx={{ width: 324 }}
               variant="outlined"
@@ -100,7 +84,7 @@ export default function CompRegister() {
             </Button>
             <img src="/src/assets/imgRegister/AssociateImg.jpg" />
             <Button
-              onClick={handleNext}
+              onClick={nextDriver}
               name="driver"
               sx={{ width: 324 }}
               variant="outlined"

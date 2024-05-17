@@ -10,7 +10,7 @@ import Button from "@mui/material/Button";
 //? --------------------------------------------- STYLES
 import { Colors } from "../../Utils/Colors";
 
-export default function CompRegDriver() {
+export default function CompVehicleInfo() {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = React.useState(false);
@@ -24,7 +24,7 @@ export default function CompRegDriver() {
     event.preventDefault();
   };
   const onClick = () => {
-    navigate("/register/driver/vehicle-info");
+    navigate("/login/forgot-password");
   };
 
   return (
@@ -51,18 +51,7 @@ export default function CompRegDriver() {
             justifyContent: "center",
           }}
         >
-          <h1 style={{ fontSize: "1.5rem" }}>
-            {" "}
-            Registro de socios conductores{" "}
-          </h1>
-          <p
-            style={{
-              fontWeight: 400,
-              color: Colors.secondary.contrastText,
-            }}
-          >
-            Datos personales
-          </p>
+          <h1 style={{ fontSize: "1.5rem" }}> Información del vehículo </h1>
 
           <Box
             style={{
@@ -71,13 +60,13 @@ export default function CompRegDriver() {
               alignItems: "center",
             }}
           >
-            {/* //? --------------------------------------------- NAME */}
+            {/* //? --------------------------------------------- BRAND */}
             <span style={{ display: "flex", width: "100%" }}>
-              Nombre<p style={{ color: Colors.terciary.main }}>*</p>
+              Marca<p style={{ color: Colors.terciary.main }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
-                placeholder="Ingrese nombre"
+                placeholder="Honda"
                 style={{
                   borderRadius: "8px",
                   height: "40px",
@@ -85,89 +74,49 @@ export default function CompRegDriver() {
                 }}
               />
             </FormControl>
-            {/* //? --------------------------------------------- LAST NAME */}
+            {/* //? --------------------------------------------- MODEL */}
             <span style={{ display: "flex", width: "100%" }}>
-              Apellido<p style={{ color: Colors.terciary.main }}>*</p>
+              Modelo<p style={{ color: Colors.terciary.main }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
-                placeholder="Ingrese apellido"
+                placeholder="Dyna 300"
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
             </FormControl>
-            {/* //? --------------------------------------------- EMAIL */}
+            {/* //? --------------------------------------------- YEAR */}
             <span style={{ display: "flex", width: "100%" }}>
-              Correo electrónico<p style={{ color: Colors.terciary.main }}>*</p>
+              Año del camión<p style={{ color: Colors.terciary.main }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
-                placeholder="emailexample.com"
+                placeholder="2020"
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
             </FormControl>
-            {/* //? --------------------------------------------- PASSWORD */}
+            {/* //? --------------------------------------------- LOAD CAPACITY */}
             <span style={{ display: "flex", width: "100%" }}>
-              Crea una contraseña{" "}
+              Capacidad de carga<p style={{ color: Colors.terciary.main }}>*</p>
+            </span>
+            <FormControl sx={{ m: 1 }} variant="outlined">
+              <OutlinedInput
+                placeholder="2 toneladas"
+                style={{ borderRadius: "8px", height: "40px", width: 400 }}
+              />
+            </FormControl>
+            {/* //? --------------------------------------------- LOAD TYPE*/}
+            <span style={{ display: "flex", width: "100%" }}>
+              Tipo de unidad de carga
               <p style={{ color: Colors.terciary.main }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
-                placeholder="Máximo 8 carácteres"
-                type={showPassword ? "text" : "password"}
-                style={{
-                  borderRadius: "8px",
-                  height: "40px",
-                  width: 400,
-                }}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? (
-                        <img src="/src/assets/imgLogin/OpenEyeIcon.svg" />
-                      ) : (
-                        <img src="/src/assets/imgLogin/EyeIcon.svg" />
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </FormControl>
-            {/* //? --------------------------------------------- CONFIRM PASSWORD */}
-            <span style={{ display: "flex", width: "100%" }}>
-              Confirma contraseña{" "}
-              <p style={{ color: Colors.terciary.main }}>*</p>
-            </span>
-            <FormControl sx={{ m: 1 }} variant="outlined">
-              <OutlinedInput
-                placeholder="Máximo 8 carácteres"
-                type={showConfirmPassword ? "text" : "password"}
+                placeholder="Refrigeradas"
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowConfirmPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showConfirmPassword ? (
-                        <img src="/src/assets/imgLogin/OpenEyeIcon.svg" />
-                      ) : (
-                        <img src="/src/assets/imgLogin/EyeIcon.svg" />
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                }
               />
             </FormControl>
 
             <Button
-              onClick={onClick}
               variant="contained"
               sx={{
                 m: 1,
@@ -180,7 +129,7 @@ export default function CompRegDriver() {
                 borderRadius: "8px",
               }}
             >
-              Siguiente paso
+              Registrarse
             </Button>
           </Box>
         </Box>

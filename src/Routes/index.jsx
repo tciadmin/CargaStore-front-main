@@ -10,6 +10,8 @@ import CompNewPassword from "../Components/NewPassword/CompNewPassword";
 import PageLanding from "../Pages/PageLanding";
 import PageRegister from "../Pages/PageRegister";
 import LayoutRegister from "../Layouts/LayoutRegister";
+import CompRegDriver from "../Components/RegDriver/CompRegDriver";
+import CompVehicleInfo from "../Components/VehicleInfo/CompVehicleInfo";
 
 export const router = createBrowserRouter([
   {
@@ -30,7 +32,11 @@ export const router = createBrowserRouter([
   {
     path: "/register",
     element: <LayoutRegister />,
-    children: [{ index: true, element: <PageRegister /> }],
+    children: [
+      { index: true, element: <PageRegister /> },
+      { path: "driver", element: <CompRegDriver /> },
+      { path: "driver/vehicle-info", element: <CompVehicleInfo /> },
+    ],
   },
   {
     path: "/homeTeacher",

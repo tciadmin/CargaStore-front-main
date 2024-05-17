@@ -1,14 +1,13 @@
-import { Outlet } from "react-router-dom";
 import * as React from "react";
+import { Outlet, useLocation } from "react-router-dom";
 import { useState } from "react";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
+import { StepButton } from "@mui/material";
 import StepContent from "@mui/material/StepContent";
 import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 //? --------------------------------------------- STYLES
 import "../Components/Register/styles.css";
@@ -18,19 +17,38 @@ const steps = [
   {
     label: "Elige tu perfil",
     description: `Selecciona si serás un generador de carga o socio conductor`,
+    active: "/src/assets/imgRegister/1Active.svg",
+    done: "/src/assets/imgRegister/1Done.svg",
   },
   {
     label: "Datos personales",
     description: "Carga tus datos personales para continuar",
+    inactive: "/src/assets/imgRegister/2Inactive.svg",
+    active: "/src/assets/imgRegister/2Active.svg",
+    done: "/src/assets/imgRegister/2Done.svg",
   },
   {
     label: "Datos del vehículo",
     description: `Ingresa los datos de vehículo para más seguridad`,
+    inactive: "/src/assets/imgRegister/3Inactive.svg",
+    active: "/src/assets/imgRegister/3Active.svg",
   },
 ];
 
 const LayoutRegister = () => {
   const [activeStep, setActiveStep] = useState(0);
+  const location = useLocation();
+
+  const onChange = () => {
+    {
+      location.pathname === "/register/driver" ||
+      location.pathname === "/register/user"
+        ? setActiveStep(1)
+        : location.pathname === "/register/driver/vehicle-info"
+        ? setActiveStep(2)
+        : index === 1;
+    }
+  };
 
   return (
     <Box className="registerContainer">
@@ -49,15 +67,24 @@ const LayoutRegister = () => {
           backgroundColor: Colors.primary.contrastText,
           border: "1px solid rgb(102, 113, 133, 0.3)",
           justifyContent: "space-between",
-          marginTop: "30px",
-          marginBottom: "30px",
+          marginTop: "50px",
+          marginBottom: "50px",
           borderRadius: "8px",
         }}
       >
         <Stepper activeStep={activeStep} orientation="vertical">
           {steps.map((step, index) => (
-            <Step key={step.label}>
-              <StepLabel
+            <Step onChange={onChange} key={step.label}>
+              <StepButton
+                icon={
+                  index === activeStep ? (
+                    <img src={step.active} />
+                  ) : index > activeStep ? (
+                    <img src={step.inactive} />
+                  ) : (
+                    <img src={step.done} />
+                  )
+                }
                 optional={
                   index >= 0 ? (
                     <Typography style={{ fontWeight: 400 }}>
@@ -73,7 +100,8 @@ const LayoutRegister = () => {
                 >
                   {step.label}
                 </Typography>
-              </StepLabel>
+              </StepButton>
+
               <StepContent>
                 {/* <Box sx={{ mb: 2 }}>
                   <div>
