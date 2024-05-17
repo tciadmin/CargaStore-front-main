@@ -9,7 +9,9 @@ import CompVerificationCode from "../Components/VerificationCode/CompVerificatio
 import CompNewPassword from "../Components/NewPassword/CompNewPassword";
 import PageLanding from "../Pages/PageLanding";
 import LayoutConfi from "../Layouts/LayoutConfi";
-import MisEnvios from "../Pages/MisEnvios";
+import LayoutHome from "../Layouts/LayoutHome";
+import PageHome from "../Pages/PageHome";
+import PageCrearEnvios from "../Pages/PageCrearEnvios";
 
 export const router = createBrowserRouter([
   {
@@ -28,8 +30,12 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "/misenvios",
-    element: <MisEnvios/>,   
+    path: "/home",
+    element: <LayoutHome/>,   
+    children: [
+      { index: true, element: <PageHome /> },
+      { path: "crearEnvios", element: <PageCrearEnvios /> },
+    ],
     
   },
   {

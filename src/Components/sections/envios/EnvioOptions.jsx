@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { useState } from 'react';
 import { Button } from '@mui/material';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -41,6 +42,7 @@ function a11yProps(index) {
 
 export default function EnvioOptions() {
   const [value, setValue] = useState(0);
+  const navigate = useNavigate();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -113,7 +115,7 @@ export default function EnvioOptions() {
             {...a11yProps(3)}
             color="secondary" />
         </Tabs>
-        <Button variant="contained" color='primary' sx={{ fontWeight: 500 }}>Crear envío</Button>
+        <Button variant="contained" color='primary' onClick={()=>navigate("/home/crearEnvios")} sx={{ fontWeight: 500 }}>Crear envío</Button>
       </Box>
       <CustomTabPanel value={value} index={0}>
         <Box display="flex" flexDirection={"column"} alignItems={"center"} height="80vh" justifyContent={"center"}>
