@@ -14,6 +14,8 @@ import CompRegDriver from "../Components/RegisterDriver/CompRegDriver";
 import CompVehicleInfo from "../Components/VehicleInfo/CompVehicleInfo";
 import CompRegUser from "../Components/RegisterUser/CompRegUser";
 import CompCompanyInfo from "../Components/CompanyInfo/CompCompanyInfo";
+import CompPending from "../Components/Shipments/Pending/CompPending";
+import LayoutShipments from "../Layouts/LayoutShipments";
 
 export const router = createBrowserRouter([
   {
@@ -43,10 +45,8 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "/homeTeacher",
-    element: <LayoutPublic />,
-    errorElement: <NotFound />,
-    children: [],
+    path: "/shipments",
+    element: <CompPending />,
   },
   {
     path: "/",
