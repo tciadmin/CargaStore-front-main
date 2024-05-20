@@ -12,6 +12,7 @@ import LayoutConfi from "../Layouts/LayoutConfi";
 import LayoutHome from "../Layouts/LayoutHome";
 import PageHome from "../Pages/PageHome";
 import PageCrearEnvios from "../Pages/PageCrearEnvios";
+import PageMarketplace from "../Pages/PageMarketplace";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,8 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <PageHome /> },
       { path: "crearEnvios", element: <PageCrearEnvios /> },
+      { path: "Marketplace", element: <PageMarketplace /> },
+
     ],
     
   },
