@@ -1,11 +1,11 @@
 import * as React from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
-import { StepButton } from "@mui/material";
+import { StepButton, StepConnector } from "@mui/material";
 import StepContent from "@mui/material/StepContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -39,16 +39,39 @@ const LayoutRegister = () => {
   const [activeStep, setActiveStep] = useState(0);
   const location = useLocation();
 
-  const onChange = () => {
-    {
+  useEffect(() => {
+    if (
       location.pathname === "/register/driver" ||
       location.pathname === "/register/user"
-        ? setActiveStep(1)
-        : location.pathname === "/register/driver/vehicle-info"
-        ? setActiveStep(2)
-        : index === 1;
+    ) {
+      setActiveStep(1);
+    } else if (
+      location.pathname === "/register/driver/vehicle-info" ||
+      location.pathname === "/register/user/company-info"
+    ) {
+      setActiveStep(2);
+    } else {
+      setActiveStep(0);
     }
-  };
+    if (
+      location.pathname === "/register/user" ||
+      location.pathname === "/register/user/company-info"
+    ) {
+      steps[2] = {
+        label: "Información de la empresa",
+        description: "Ingresa la información de tu empresa o negocio",
+        inactive: "/src/assets/imgRegister/3Inactive.svg",
+        active: "/src/assets/imgRegister/3Active.svg",
+      };
+    } else {
+      steps[2] = {
+        label: "Datos del vehículo",
+        description: `Ingresa los datos de vehículo para más seguridad`,
+        inactive: "/src/assets/imgRegister/3Inactive.svg",
+        active: "/src/assets/imgRegister/3Active.svg",
+      };
+    }
+  }, [location.pathname]);
 
   return (
     <Box className="registerContainer">
@@ -74,7 +97,7 @@ const LayoutRegister = () => {
       >
         <Stepper activeStep={activeStep} orientation="vertical">
           {steps.map((step, index) => (
-            <Step onChange={onChange} key={step.label}>
+            <Step key={step.label}>
               <StepButton
                 icon={
                   index === activeStep ? (

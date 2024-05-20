@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 //? --------------------------------------------- STYLES
 import { Colors } from "../../Utils/Colors";
 
-export default function CompVehicleInfo() {
+export default function CompCompanyInfo() {
   return (
     <Box className="registerContainer">
       <Box
@@ -32,7 +32,7 @@ export default function CompVehicleInfo() {
             justifyContent: "center",
           }}
         >
-          <h1 style={{ fontSize: "1.5rem" }}> Información del vehículo </h1>
+          <h1 style={{ fontSize: "1.5rem" }}> Información de la empresa </h1>
 
           <Box
             style={{
@@ -41,13 +41,14 @@ export default function CompVehicleInfo() {
               alignItems: "center",
             }}
           >
-            {/* //? --------------------------------------------- BRAND */}
+            {/* //? --------------------------------------------- COMPANY NAME */}
             <span style={{ display: "flex", width: "100%" }}>
-              Marca<p style={{ color: Colors.terciary.main }}>*</p>
+              Nombre de la empresa
+              <p style={{ color: Colors.terciary.main }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
-                placeholder="Honda"
+                placeholder="El mundo del papel"
                 style={{
                   borderRadius: "8px",
                   height: "40px",
@@ -55,48 +56,37 @@ export default function CompVehicleInfo() {
                 }}
               />
             </FormControl>
-            {/* //? --------------------------------------------- MODEL */}
+            {/* //? --------------------------------------------- ADDRESS */}
             <span style={{ display: "flex", width: "100%" }}>
-              Modelo<p style={{ color: Colors.terciary.main }}>*</p>
+              Dirección<p style={{ color: Colors.terciary.main }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
-                placeholder="Dyna 300"
+                placeholder="Calle 1"
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
             </FormControl>
-            {/* //? --------------------------------------------- YEAR */}
+            {/* //? --------------------------------------------- CITY */}
             <span style={{ display: "flex", width: "100%" }}>
-              Año del camión<p style={{ color: Colors.terciary.main }}>*</p>
+              Ciudad<p style={{ color: Colors.terciary.main }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
-                placeholder="2020"
+                placeholder="Bogotá"
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
             </FormControl>
-            {/* //? --------------------------------------------- LOAD CAPACITY */}
+            {/* //? --------------------------------------------- CONTACT PHONE */}
             <span style={{ display: "flex", width: "100%" }}>
-              Capacidad de carga<p style={{ color: Colors.terciary.main }}>*</p>
-            </span>
-            <FormControl sx={{ m: 1 }} variant="outlined">
-              <OutlinedInput
-                placeholder="2 toneladas"
-                style={{ borderRadius: "8px", height: "40px", width: 400 }}
-              />
-            </FormControl>
-            {/* //? --------------------------------------------- LOAD TYPE*/}
-            <span style={{ display: "flex", width: "100%" }}>
-              Tipo de unidad de carga
+              Teléfono de contacto
               <p style={{ color: Colors.terciary.main }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
-                placeholder="Refrigeradas"
+                placeholder="123456"
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
             </FormControl>
-
             <Button
               variant="contained"
               sx={{

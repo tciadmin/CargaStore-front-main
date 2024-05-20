@@ -13,3 +13,7 @@
   height: 100%;
   object-fit: cover;
 }
+
+.MuiStepConnector-line.MuiStepConnector-lineVertical.css-8t49rw-MuiStepConnector-line {
+  display: none;
+}
