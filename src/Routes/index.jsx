@@ -14,6 +14,8 @@ import CompRegDriver from "../Components/RegisterDriver/CompRegDriver";
 import CompVehicleInfo from "../Components/VehicleInfo/CompVehicleInfo";
 import CompRegUser from "../Components/RegisterUser/CompRegUser";
 import CompCompanyInfo from "../Components/CompanyInfo/CompCompanyInfo";
+import LayoutConfi from "../Layouts/LayoutConfi";
+import MisEnvios from "../Pages/MisEnvios";
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +43,9 @@ export const router = createBrowserRouter([
       { path: "user", element: <CompRegUser /> },
       { path: "user/company-info", element: <CompCompanyInfo /> },
     ],
+    path: "/misenvios",
+    element: <MisEnvios/>,   
+    
   },
   {
     path: "/homeTeacher",
@@ -51,5 +56,10 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <PageRedirect />,
+  },
+  {
+    path: "/config",
+    element: <LayoutConfi />,
+    children: [{ path: "prueba", element: <CompVerificationCode /> }],
   },
 ]);

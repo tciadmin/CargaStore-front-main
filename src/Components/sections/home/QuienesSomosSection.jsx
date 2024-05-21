@@ -4,7 +4,7 @@ import React from 'react'
 const QuienesSomosSection = ({ imagen }) => {
     const matches = useMediaQuery('(max-width:1100px)');
     return (
-        <Grid width={matches ? "100%" : "90%"} mx={"auto"} container my={25 } columns={16}>
+        <Grid width={matches ? "100%" : "90%"} mx={"auto"} container my={25 } columns={16} maxWidth={"1400px"}>
             <Grid display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"} item xs={matches ? 16 : 8}>
                 {matches && <Typography variant='h4' fontWeight={"bold"} mb={3} color={"primary"}>¿Quiénes somos?</Typography>}
 
