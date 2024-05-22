@@ -15,7 +15,10 @@ import CompVehicleInfo from "../Components/VehicleInfo/CompVehicleInfo";
 import CompRegUser from "../Components/RegisterUser/CompRegUser";
 import CompCompanyInfo from "../Components/CompanyInfo/CompCompanyInfo";
 import LayoutConfi from "../Layouts/LayoutConfi";
-import MisEnvios from "../Pages/MisEnvios";
+import LayoutHome from "../Layouts/LayoutHome";
+import PageHome from "../Pages/PageHome";
+import PageCrearEnvios from "../Pages/PageCrearEnvios";
+import PageMarketplace from "../Pages/PageMarketplace";
 
 export const router = createBrowserRouter([
   {
@@ -42,9 +45,16 @@ export const router = createBrowserRouter([
       { path: "driver/vehicle-info", element: <CompVehicleInfo /> },
       { path: "user", element: <CompRegUser /> },
       { path: "user/company-info", element: <CompCompanyInfo /> },
+    ]},{
+    
+    path: "/home",
+    element: <LayoutHome/>,   
+    children: [
+      { index: true, element: <PageHome /> },
+      { path: "crearEnvios", element: <PageCrearEnvios /> },
+      { path: "Marketplace", element: <PageMarketplace /> },
+
     ],
-    path: "/misenvios",
-    element: <MisEnvios/>,   
     
   },
   {

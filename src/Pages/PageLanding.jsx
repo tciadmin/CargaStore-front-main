@@ -13,7 +13,7 @@ const PageLanding = () => {
       <Hero></Hero>
       <QuienesSomosSection imagen={"/home/quienes.png"}></QuienesSomosSection>
       <NuestroServicioSection></NuestroServicioSection>
-      <ImagenYCapacitacion></ImagenYCapacitacion>
+      <ImagenYCapacitacion></ImagenYCapacitacion>      
       <CompFooter />
     </>
   );
