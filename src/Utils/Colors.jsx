@@ -4,11 +4,11 @@ export const Colors = {
     contrastText: "#fff",
   },
   secondary: {
-    main: "#FEC200",
+    main: "#344054",
     contrastText: "#667185",
   },
   terciary: {
-    main: "#2F2F2F",
+    main: "#B90715",
     contrastText: "#fff",
   },
   cuaternary: {

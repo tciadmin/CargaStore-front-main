@@ -10,7 +10,6 @@ const PageLanding = () => {
   return (
     <>
       <CompNavLanding />
-
       <Hero></Hero>
       <QuienesSomosSection imagen={"/home/quienes.png"}></QuienesSomosSection>
       <NuestroServicioSection></NuestroServicioSection>

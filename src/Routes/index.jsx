@@ -8,6 +8,12 @@ import CompForgotPassword from "../Components/ForgotPassword/CompForgotPassword"
 import CompVerificationCode from "../Components/VerificationCode/CompVerificationCode";
 import CompNewPassword from "../Components/NewPassword/CompNewPassword";
 import PageLanding from "../Pages/PageLanding";
+import PageRegister from "../Pages/PageRegister";
+import LayoutRegister from "../Layouts/LayoutRegister";
+import CompRegDriver from "../Components/RegisterDriver/CompRegDriver";
+import CompVehicleInfo from "../Components/VehicleInfo/CompVehicleInfo";
+import CompRegUser from "../Components/RegisterUser/CompRegUser";
+import CompCompanyInfo from "../Components/CompanyInfo/CompCompanyInfo";
 import LayoutConfi from "../Layouts/LayoutConfi";
 import MisEnvios from "../Pages/MisEnvios";
 
@@ -28,6 +34,15 @@ export const router = createBrowserRouter([
     ],
   },
   {
+    path: "/register",
+    element: <LayoutRegister />,
+    children: [
+      { index: true, element: <PageRegister /> },
+      { path: "driver", element: <CompRegDriver /> },
+      { path: "driver/vehicle-info", element: <CompVehicleInfo /> },
+      { path: "user", element: <CompRegUser /> },
+      { path: "user/company-info", element: <CompCompanyInfo /> },
+    ],
     path: "/misenvios",
     element: <MisEnvios/>,   
     

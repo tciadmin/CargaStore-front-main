@@ -1,0 +1,19 @@
+.registerContainer {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.imgContainer {
+  max-width: 60%;
+}
+
+.imgContainer img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.MuiStepConnector-line.MuiStepConnector-lineVertical.css-8t49rw-MuiStepConnector-line {
+  display: none;
+}
