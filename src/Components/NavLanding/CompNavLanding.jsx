@@ -22,6 +22,10 @@ export default function CompNavLanding() {
   const onClickLogin = () => {
     navigate("/login");
   };
+
+  const onClickRegister = () => {
+    navigate("/register");
+  };
   return (
     <Box sx={{ display: "flex" }}>
       <AppBar
