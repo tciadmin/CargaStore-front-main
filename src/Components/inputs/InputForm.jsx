@@ -1,10 +1,11 @@
 import { Box, InputAdornment, MenuItem, OutlinedInput, Select } from '@mui/material'
 import React from 'react'
 
-const InputForm = ({label, type = "text", select = [], money=false}) => {
+const InputForm = ({label, type = "text", select = [], money=false, sizeH = "50px",inputW = "500px", marginB = 5, marginT = 0, sizeXL = false, readOnly = false}) => {
+
   return (
-<Box display="flex" flexDirection={"column"} mb={5}justifyContent={"flex-start"}  >
-    <label style={{color: "#475367", fontWeight: 500, marginBottom: 5}} htmlFor={label}>{label}</label>
+<Box display="flex" flexDirection={"column"} mb={marginB} mt={marginT} width={inputW} justifyContent={"flex-start"}  >
+    <label style={{color: "#475367", fontWeight: 500, marginBottom: 2}} htmlFor={label}>{label}</label>
    
    {
     type == "select" ?
@@ -29,11 +30,14 @@ const InputForm = ({label, type = "text", select = [], money=false}) => {
         </Select>
         :
         <OutlinedInput
+          readOnly= {readOnly}
+      
           id={label}
           type={type}
           startAdornment={money && <InputAdornment position="start">$</InputAdornment>}
           defaultValue=""
-          sx={{backgroundColor: "white"}}
+          
+          sx={{backgroundColor: "white", height: sizeH, alignItems: sizeXL ?  "flex-start" : "center"}}
         />
    }
         </Box>

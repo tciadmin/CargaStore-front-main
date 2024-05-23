@@ -19,6 +19,7 @@ import LayoutHome from "../Layouts/LayoutHome";
 import PageHome from "../Pages/PageHome";
 import PageCrearEnvios from "../Pages/PageCrearEnvios";
 import PageMarketplace from "../Pages/PageMarketplace";
+import PagePerfil from "../Pages/PagePerfil";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
       { path: "verification-code", element: <CompVerificationCode /> },
       { path: "new-password", element: <CompNewPassword /> },
     ],
+  },
+  {
+    path: "/perfil",
+    element: <PagePerfil/>
   },
   {
     path: "/register",
