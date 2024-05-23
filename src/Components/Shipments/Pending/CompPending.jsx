@@ -1,5 +1,6 @@
 import * as React from "react";
 import Header from "../Header";
+//? --------------------------------------------- MUI
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -13,7 +14,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+//? --------------------------------------------- STYLES
 import { Colors } from "../../../Utils/Colors";
+import "./styles.css";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -47,38 +50,427 @@ function a11yProps(index) {
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function createData(
+  product,
+  retire,
+  date,
+  delivery,
+  secondDate,
+  receiver,
+  unity,
+  load,
+  seca,
+  value
+) {
+  return {
+    product,
+    retire,
+    date,
+    delivery,
+    secondDate,
+    receiver,
+    unity,
+    load,
+    seca,
+    value,
+  };
 }
 
 const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
+  createData(
+    "#1205",
+    "Bobinas de papel",
+    "Calle 12, Quito, Peru",
+    "12/03/24 12:00hs",
+    "Calle 12, Quito, Peru",
+    "21/03/24 12:00hs",
+    "El mundo del papel",
+    "Furgón",
+    "Seca",
+    "$12.00"
+  ),
+  createData(
+    "#1205",
+    "Bobinas de papel",
+    "Calle 12, Quito, Peru",
+    "12/03/24 12:00hs",
+    "Calle 12, Quito, Peru",
+    "21/03/24 12:00hs",
+    "El mundo del papel",
+    "Furgón",
+    "Seca",
+    "$12.00"
+  ),
+  createData(
+    "#1205",
+    "Bobinas de papel",
+    "Calle 12, Quito, Peru",
+    "12/03/24 12:00hs",
+    "Calle 12, Quito, Peru",
+    "21/03/24 12:00hs",
+    "El mundo del papel",
+    "Furgón",
+    "Seca",
+    "$12.00"
+  ),
 ];
 
 export default function CompPending() {
   const [value, setValue] = React.useState(0);
 
+  const tabNameToIndex = {
+    Pendientes: 0,
+    Asignado: 1,
+    "En curso": 2,
+    Finalizados: 3,
+  };
+
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    const tabName = event.target.name;
+    if (tabName in tabNameToIndex) {
+      setValue(tabNameToIndex[tabName]);
+    } else {
+      setValue(newValue);
+    }
   };
 
   return (
-    <Box>
+    <Box
+      sx={{
+        minWidth: "100%",
+        height: "100vh",
+        backgroundColor: Colors.terciary.contrastText,
+      }}
+    >
       <Header />
-      <Box sx={{ width: "100%" }}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs value={value} onChange={handleChange}>
-            <Tab label="Pendientes" {...a11yProps(0)} />
-            <Tab label="Asignado" {...a11yProps(1)} />
-            <Tab label="En curso" {...a11yProps(2)} />
-            <Tab label="Finalizados" {...a11yProps(2)} />
+
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          padding: 5,
+          height: "20px",
+          backgroundColor: Colors.terciary.contrastText,
+        }}
+      >
+        <Box
+          className="slider"
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "100%",
+            alignItems: "center",
+            backgroundColor: Colors.terciary.contrastText,
+          }}
+        >
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            sx={{
+              display: "flex",
+              backgroundColor: Colors.terciary.contrastText,
+            }}
+          >
+            <Tab
+              sx={{ textTransform: "none" }}
+              name="Pendientes"
+              label="Pendientes"
+              icon={
+                value === 0 ? (
+                  <img src="/src/assets/imgShipments/PendingActive.svg" />
+                ) : (
+                  <img src="/src/assets/imgShipments/PendingInactive.svg" />
+                )
+              }
+              {...a11yProps(0)}
+            />
+            <Tab
+              sx={{ textTransform: "none" }}
+              name="Asignado"
+              label="Asignado"
+              icon={
+                value === 1 ? (
+                  <img src="/src/assets/imgShipments/AssignedActive.svg" />
+                ) : (
+                  <img src="/src/assets/imgShipments/AssignedInactive.svg" />
+                )
+              }
+              {...a11yProps(1)}
+            />
+            <Tab
+              sx={{ textTransform: "none" }}
+              name="En curso"
+              label="En curso"
+              icon={
+                value === 2 ? (
+                  <img src="/src/assets/imgShipments/InProgressActive.svg" />
+                ) : (
+                  <img src="/src/assets/imgShipments/InProgressInactive.svg" />
+                )
+              }
+              {...a11yProps(2)}
+            />
+            <Tab
+              sx={{ textTransform: "none" }}
+              name="Finalizados"
+              label="Finalizados"
+              icon={
+                value === 3 ? (
+                  <img src="/src/assets/imgShipments/DoneActive.svg" />
+                ) : (
+                  <img src="/src/assets/imgShipments/DoneInactive.svg" />
+                )
+              }
+              {...a11yProps(2)}
+            />
           </Tabs>
+          <Button style={{ margin: 15 }} variant="contained">
+            Crear envío
+          </Button>
         </Box>
-        <CustomTabPanel value={value} index={0}>
+        {/* //? --------------------------------------------- TABLE */}
+
+        <Box
+          style={{
+            display: "flex",
+            color: Colors.primary.main,
+            width: "100%",
+            alignItems: "center",
+            backgroundColor: Colors.terciary.contrastText,
+          }}
+        >
+          <TableContainer
+            component={Paper}
+            style={{
+              display: "flex",
+              color: Colors.primary.main,
+              padding: "10px",
+              width: "110%",
+              boxShadow: "none",
+              backgroundColor: Colors.terciary.contrastText,
+            }}
+          >
+            <Table sx={{ width: "110%" }} aria-label="simple table">
+              <Box>
+                <TableHead
+                  style={{
+                    border: "1px solid",
+                    borderColor: Colors.primary.main,
+                    backgroundColor: Colors.primary.main,
+                    marginBottom: 20,
+                    padding: 10,
+                  }}
+                >
+                  <TableRow
+                    style={{
+                      backgroundColor: Colors.primary.main,
+                      marginBottom: 20,
+                      padding: 10,
+                    }}
+                  >
+                    <TableCell
+                      style={{
+                        color: Colors.primary.contrastText,
+                        padding: 0,
+                        fontWeight: 600,
+                      }}
+                      align="center"
+                    >
+                      Producto
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        color: Colors.primary.contrastText,
+                        padding: 0,
+                        fontWeight: 600,
+                      }}
+                      align="center"
+                    >
+                      Retiro
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        color: Colors.primary.contrastText,
+                        padding: 0,
+                        fontWeight: 600,
+                      }}
+                      align="center"
+                    >
+                      Fecha y hora
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        color: Colors.primary.contrastText,
+                        padding: 0,
+                        fontWeight: 600,
+                      }}
+                      align="center"
+                    >
+                      Entrega
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        color: Colors.primary.contrastText,
+                        padding: 0,
+                        fontWeight: 600,
+                      }}
+                      align="center"
+                    >
+                      Fecha y hora
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        color: Colors.primary.contrastText,
+                        padding: 0,
+                        fontWeight: 600,
+                      }}
+                      align="center"
+                    >
+                      Destinatario
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        color: Colors.primary.contrastText,
+                        padding: 0,
+                        fontWeight: 600,
+                      }}
+                      align="center"
+                    >
+                      Unidad
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        color: Colors.primary.contrastText,
+                        padding: 0,
+                        fontWeight: 600,
+                      }}
+                      align="center"
+                    >
+                      Tipo de carga
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        color: Colors.primary.contrastText,
+                        padding: 0,
+                        fontWeight: 600,
+                      }}
+                      align="center"
+                    >
+                      Valor ofertado
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        color: Colors.primary.contrastText,
+                        padding: 10,
+                        fontWeight: 600,
+                      }}
+                      align="center"
+                    >
+                      Conductor
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+
+                <TableBody style={{ padding: "10px" }}>
+                  {rows.map((row) => (
+                    <TableRow
+                      key={row.product}
+                      sx={{
+                        // display: "flex",
+                        padding: 0,
+                        border: "1px solid",
+                        borderColor: Colors.terciary.main,
+                      }}
+                    >
+                      {/* product, retire, date, delivery, secondDate,receiver, unity, load, value */}
+                      <TableCell align="center">{row.product}</TableCell>
+                      <TableCell
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          flexDirection: "row",
+                          border: "none",
+                        }}
+                      >
+                        <Box className="flexTable">
+                          <Box className="flexTable">
+                            <img src="/src/assets/imgShipments/Product.svg" />
+                            {row.retire}{" "}
+                          </Box>
+                          <Box className="flexTable">
+                            <img src="/src/assets/imgShipments/Location.svg" />{" "}
+                            {row.date}
+                          </Box>
+                        </Box>
+                      </TableCell>
+                      <TableCell align="center">
+                        {" "}
+                        <Box className="flexTable">
+                          <img src="/src/assets/imgShipments/Date.svg" />{" "}
+                          {row.delivery}
+                        </Box>
+                      </TableCell>
+                      <TableCell align="center">
+                        <Box className="flexTable">
+                          <img src="/src/assets/imgShipments/Location.svg" />{" "}
+                          {row.secondDate}
+                        </Box>
+                      </TableCell>
+                      <TableCell
+                        align="center"
+                        style={{ display: "flex", alignItems: "center" }}
+                      >
+                        {" "}
+                        <Box className="flexTable">
+                          <img src="/src/assets/imgShipments/Date.svg" />{" "}
+                          {row.receiver}
+                        </Box>
+                      </TableCell>
+                      <TableCell
+                        align="center"
+                        // style={{margin: }}
+                      >
+                        {" "}
+                        <Box className="flexTable">
+                          <img src="/src/assets/imgShipments/Receiver.svg" />
+                          {row.unity}
+                        </Box>
+                      </TableCell>
+                      <TableCell
+                        align="center"
+                        style={{ display: "flex", alignItems: "center" }}
+                      >
+                        <Box className="flexTable">
+                          <img src="/src/assets/imgShipments/Truck.svg" />
+                          {row.load}
+                        </Box>
+                      </TableCell>
+                      <TableCell align="center">
+                        <Box className="flexTable">
+                          <img src="/src/assets/imgShipments/Load.svg" />{" "}
+                          {row.seca}
+                        </Box>
+                      </TableCell>
+
+                      <TableCell align="center">
+                        <Box className="flexTable">{row.value}</Box>
+                      </TableCell>
+
+                      <Box className="flexTable">
+                        <Button variant="outlined" style={{}}>
+                          Ver
+                        </Button>
+                      </Box>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Box>
+            </Table>
+          </TableContainer>
+        </Box>
+        {/* <CustomTabPanel value={value} index={0}>
           Item One
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
@@ -86,105 +478,7 @@ export default function CompPending() {
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
           Item Three
-        </CustomTabPanel>
-        <Button variant="contained">Crear envío</Button>
-      </Box>
-      <Box style={{ display: "flex", color: Colors.primary.main, gap: "10px" }}>
-        <TableContainer
-          component={Paper}
-          style={{
-            display: "flex",
-            color: Colors.primary.main,
-            margin: "20px",
-          }}
-        >
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead
-              style={{
-                backgroundColor: Colors.primary.main,
-              }}
-            >
-              <TableRow>
-                <TableCell
-                  style={{ color: Colors.primary.contrastText, padding: 0 }}
-                  align="center"
-                >
-                  Producto
-                </TableCell>
-                <TableCell
-                  style={{ color: Colors.primary.contrastText, padding: 0 }}
-                  align="center"
-                >
-                  Retiro
-                </TableCell>
-                <TableCell
-                  style={{ color: Colors.primary.contrastText, padding: 0 }}
-                  align="center"
-                >
-                  Fecha y hora
-                </TableCell>
-                <TableCell
-                  style={{ color: Colors.primary.contrastText, padding: 0 }}
-                  align="center"
-                >
-                  Entrega
-                </TableCell>
-                <TableCell
-                  style={{ color: Colors.primary.contrastText, padding: 0 }}
-                  align="center"
-                >
-                  Fecha y hora
-                </TableCell>
-                <TableCell
-                  style={{ color: Colors.primary.contrastText, padding: 0 }}
-                  align="center"
-                >
-                  Destinatario
-                </TableCell>
-                <TableCell
-                  style={{ color: Colors.primary.contrastText, padding: 0 }}
-                  align="center"
-                >
-                  Unidad
-                </TableCell>
-                <TableCell
-                  style={{ color: Colors.primary.contrastText, padding: 0 }}
-                  align="center"
-                >
-                  Tipo de carga
-                </TableCell>
-                <TableCell
-                  style={{ color: Colors.primary.contrastText, padding: 0 }}
-                  align="center"
-                >
-                  Valor ofertado
-                </TableCell>
-                <TableCell
-                  style={{ color: Colors.primary.contrastText, padding: 5 }}
-                  align="center"
-                >
-                  Conductor
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow
-                  key={row.name}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="center">{row.calories}</TableCell>
-                  <TableCell align="center">{row.fat}</TableCell>
-                  <TableCell align="center">{row.carbs}</TableCell>
-                  <TableCell align="center">{row.protein}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        </CustomTabPanel> */}
       </Box>
     </Box>
   );

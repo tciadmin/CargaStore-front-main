@@ -8,8 +8,8 @@ export const Colors = {
     contrastText: "#667185",
   },
   terciary: {
-    main: "#B90715",
-    contrastText: "#fff",
+    main: "#E4E7EC",
+    contrastText: "#F6F6F6",
   },
   cuaternary: {
     main: "#5D5D5D",

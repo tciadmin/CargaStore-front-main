@@ -5,6 +5,8 @@
 }
 
 html {
+  min-width: 100%;
+  min-height: 100%;
   font-family: "Montserrat", sans-serif !important;
 }
 
@@ -19,4 +21,3 @@ Button {
 body {
   margin: 0;
 }
-
