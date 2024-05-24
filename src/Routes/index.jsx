@@ -16,6 +16,7 @@ import CompRegUser from "../Components/RegisterUser/CompRegUser";
 import CompCompanyInfo from "../Components/CompanyInfo/CompCompanyInfo";
 import CompPending from "../Components/Shipments/Pending/CompPending";
 import LayoutShipments from "../Layouts/LayoutShipments";
+import CompAssigned from "../Components/Shipments/Assigned/CompAssigned";
 
 export const router = createBrowserRouter([
   {
@@ -46,7 +47,8 @@ export const router = createBrowserRouter([
   },
   {
     path: "/shipments",
-    element: <CompPending />,
+    element: <LayoutShipments />,
+    children: [{ index: true, element: <CompAssigned /> }],
   },
   {
     path: "/",

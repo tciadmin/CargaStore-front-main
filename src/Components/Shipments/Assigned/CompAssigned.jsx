@@ -11,9 +11,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Modal from "@mui/material/Modal";
+import Rating from "@mui/material/Rating";
 //? --------------------------------------------- STYLES
 import { Colors } from "../../../Utils/Colors";
-import "./styles.css";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -130,7 +131,22 @@ const rows = [
   ),
 ];
 
-export default function CompPending() {
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 500,
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 2,
+};
+
+export default function CompAssigned() {
+  const [open, setOpen] = React.useState(false);
+  const [value, setValue] = React.useState(5);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
     <Box
       sx={{
@@ -380,13 +396,9 @@ export default function CompPending() {
 
                       <Box className="flexTable">
                         <Button
+                          onClick={handleOpen}
                           variant="outlined"
-                          style={{
-                            cursor: "not allowed",
-                            pointerEvents: "none",
-                            color: Colors.terciary.main,
-                            borderColor: Colors.terciary.main,
-                          }}
+                          style={{}}
                         >
                           Ver
                         </Button>
@@ -398,6 +410,119 @@ export default function CompPending() {
             </Table>
           </TableContainer>
         </Box>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box
+            sx={style}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              flexDirection: "column",
+              gap: "10px",
+            }}
+          >
+            <Box
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "right",
+                alignItems: "right",
+                cursor: "pointer",
+              }}
+            >
+              <img
+                onClick={handleClose}
+                style={{
+                  display: "flex",
+                  justifyContent: "right",
+                  alignContent: "right",
+                }}
+                src="/src/assets/imgShipments/CloseButton.svg"
+              />
+            </Box>
+
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Detalles del conductor
+            </Typography>
+            <Box
+              style={{
+                display: "flex",
+                border: "1px solid",
+                borderColor: Colors.primary.main,
+                borderRadius: "8px",
+                padding: "20px",
+                gap: "10px",
+                justifyContent: "center",
+                width: "90%",
+              }}
+            >
+              <Box
+                style={{
+                  display: "flex",
+                  width: "30%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <img src="/src/assets/imgShipments/DriverDetails.jpg" />
+              </Box>
+
+              <Box
+                style={{
+                  display: "flex",
+                  width: "70%",
+                  flexDirection: "column",
+                  gap: "5px",
+                }}
+              >
+                <h3 style={{ textAlign: "center" }}>José Luis</h3>
+
+                <Rating
+                  style={{ marginLeft: "55px" }}
+                  name="read-only"
+                  value={value}
+                  readOnly
+                />
+
+                <span style={{ display: "flex", gap: "5px", fontWeight: 500 }}>
+                  Documento: <p style={{ fontWeight: 400 }}>123456</p>{" "}
+                </span>
+                <span style={{ display: "flex", gap: "5px", fontWeight: 500 }}>
+                  Licencia: <p style={{ fontWeight: 400 }}>123456</p>
+                </span>
+                <span
+                  style={{
+                    display: "flex",
+                    fontWeight: 500,
+                    gap: "5px",
+                  }}
+                >
+                  Matrícula:<p style={{ fontWeight: 400 }}>123456</p>
+                </span>
+                <span
+                  style={{
+                    display: "flex",
+                    gap: "5px",
+                    fontWeight: 500,
+                  }}
+                >
+                  Capacidad de carga:<p> 123456</p>
+                </span>
+              </Box>
+            </Box>
+
+            <Typography
+              id="modal-modal-description"
+              style={{ marginBottom: "20px" }}
+            >
+              Día de entrega 21/03/24
+            </Typography>
+          </Box>
+        </Modal>
       </Box>
     </Box>
   );
