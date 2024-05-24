@@ -1,9 +1,8 @@
 import * as React from "react";
 //? --------------------------------------------- MUI
-import PropTypes from "prop-types";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { Button } from "@mui/material";
+import { Button, StepButton, StepConnector } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -13,8 +12,12 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Modal from "@mui/material/Modal";
 import Rating from "@mui/material/Rating";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
 //? --------------------------------------------- STYLES
 import { Colors } from "../../../Utils/Colors";
+import "./styles.css";
 
 function createData(
   index,
@@ -104,13 +107,20 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 500,
+  width: 600,
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 2,
 };
 
-export default function CompAssigned() {
+const steps = [
+  { label: "En preparación", date: "09/03/24" },
+  { label: "Preparado", date: "10/03/24" },
+  { label: "Retirado", date: "10/03/24" },
+  { label: "En camino", date: "10/03/24" },
+];
+
+export default function CompInProgress() {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState(5);
   const handleOpen = () => setOpen(true);
@@ -389,106 +399,155 @@ export default function CompAssigned() {
             style={{
               display: "flex",
               alignItems: "center",
-              flexDirection: "column",
               gap: "10px",
             }}
           >
             <Box
-              style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "right",
-                alignItems: "right",
-                cursor: "pointer",
+              sx={{
+                width: "35%",
               }}
             >
-              <img
-                onClick={handleClose}
-                style={{
+              <Stepper
+                sx={{
+                  width: "100%",
                   display: "flex",
-                  justifyContent: "right",
-                  alignContent: "right",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  color: Colors.primary.main,
+                  fontWeight: 600,
                 }}
-                src="/src/assets/imgShipments/CloseButton.svg"
-              />
+                activeStep={1}
+                alternativeLabel
+                orientation="vertical"
+              >
+                {steps.map((label) => (
+                  <StepButton
+                    icon={
+                      <img src="/src/assets/imgShipments/StepperIcon.svg" />
+                    }
+                    key={label.label}
+                  >
+                    <StepLabel
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "left",
+                        alignItems: "left",
+                        gap: "10px",
+                      }}
+                    >
+                      {label.label}
+                      <p style={{ color: "black", fontWeight: 500 }}>
+                        {label.date}
+                      </p>
+                    </StepLabel>
+                  </StepButton>
+                ))}
+              </Stepper>
             </Box>
-
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Detalles del conductor
-            </Typography>
             <Box
               style={{
                 display: "flex",
-                border: "1px solid",
-                borderColor: Colors.primary.main,
-                borderRadius: "8px",
-                padding: "20px",
+                alignItems: "center",
+                flexDirection: "column",
                 gap: "10px",
-                justifyContent: "center",
-                width: "90%",
               }}
             >
               <Box
                 style={{
+                  width: "100%",
                   display: "flex",
-                  width: "30%",
-                  justifyContent: "center",
-                  alignItems: "center",
+                  justifyContent: "right",
+                  alignItems: "right",
+                  cursor: "pointer",
                 }}
               >
-                <img src="/src/assets/imgShipments/DriverDetails.jpg" />
+                <img
+                  onClick={handleClose}
+                  style={{
+                    display: "flex",
+                    justifyContent: "right",
+                    alignContent: "right",
+                  }}
+                  src="/src/assets/imgShipments/CloseButton.svg"
+                />
               </Box>
 
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                Detalles del conductor
+              </Typography>
               <Box
                 style={{
                   display: "flex",
-                  width: "70%",
-                  flexDirection: "column",
-                  gap: "5px",
+                  border: "1px solid",
+                  borderColor: Colors.primary.main,
+                  borderRadius: "8px",
+                  padding: "20px",
+                  gap: "10px",
+                  justifyContent: "center",
+                  width: "100%",
                 }}
               >
-                <h3 style={{ textAlign: "center" }}>José Luis</h3>
-
-                <Rating
-                  style={{ marginLeft: "55px" }}
-                  name="read-only"
-                  value={value}
-                  readOnly
-                />
-
-                <span style={{ display: "flex", gap: "5px", fontWeight: 500 }}>
-                  Documento: <p style={{ fontWeight: 400 }}>123456</p>{" "}
-                </span>
-                <span style={{ display: "flex", gap: "5px", fontWeight: 500 }}>
-                  Licencia: <p style={{ fontWeight: 400 }}>123456</p>
-                </span>
-                <span
+                <Box
                   style={{
                     display: "flex",
-                    fontWeight: 500,
+                    width: "100%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <img src="/src/assets/imgShipments/DriverDetails.jpg" />
+                </Box>
+
+                <Box
+                  style={{
+                    display: "flex",
+                    width: "100%",
+                    flexDirection: "column",
                     gap: "5px",
                   }}
                 >
-                  Matrícula:<p style={{ fontWeight: 400 }}>123456</p>
-                </span>
-                <span
-                  style={{
-                    display: "flex",
-                    gap: "5px",
-                    fontWeight: 500,
-                  }}
-                >
-                  Capacidad de carga:<p> 123456</p>
-                </span>
+                  <h3 style={{ textAlign: "center" }}>José Luis</h3>
+
+                  <span
+                    style={{ display: "flex", gap: "5px", fontWeight: 500 }}
+                  >
+                    Documento: <p style={{ fontWeight: 400 }}>123456</p>{" "}
+                  </span>
+                  <span
+                    style={{ display: "flex", gap: "5px", fontWeight: 500 }}
+                  >
+                    Licencia: <p style={{ fontWeight: 400 }}>123456</p>
+                  </span>
+                  <span
+                    style={{
+                      display: "flex",
+                      fontWeight: 500,
+                      gap: "5px",
+                    }}
+                  >
+                    Matrícula:<p style={{ fontWeight: 400 }}>123456</p>
+                  </span>
+                  <span
+                    style={{
+                      display: "flex",
+                      gap: "5px",
+                      fontWeight: 500,
+                    }}
+                  >
+                    Capacidad de carga:<p> 123456</p>
+                  </span>
+                  <Rating name="read-only" value={value} readOnly />
+                </Box>
               </Box>
-            </Box>
 
-            <Typography
-              id="modal-modal-description"
-              style={{ marginBottom: "20px" }}
-            >
-              Día de entrega 21/03/24
-            </Typography>
+              <Typography
+                id="modal-modal-description"
+                style={{ marginBottom: "20px" }}
+              >
+                Día de entrega 21/03/24
+              </Typography>
+            </Box>
           </Box>
         </Modal>
       </Box>

@@ -302,6 +302,7 @@ export default function CompPending() {
                         padding: 0,
                         border: "1px solid",
                         borderColor: Colors.terciary.main,
+                        margin: "30px 0",
                       }}
                     >
                       {/* product, retire, date, delivery, secondDate,receiver, unity, load, value */}
