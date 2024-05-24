@@ -20,6 +20,7 @@ import PageHome from "../Pages/PageHome";
 import PageCrearEnvios from "../Pages/PageCrearEnvios";
 import PageMarketplace from "../Pages/PageMarketplace";
 import PagePerfil from "../Pages/PagePerfil";
+import PageAdminPanel from "../Pages/PageAdminPanel";
 
 export const router = createBrowserRouter([
   {
@@ -56,6 +57,8 @@ export const router = createBrowserRouter([
     element: <LayoutHome/>,   
     children: [
       { index: true, element: <PageHome /> },
+      { path: "administrador/panel", element: <PageAdminPanel /> },
+
       { path: "crearEnvios", element: <PageCrearEnvios /> },
       { path: "Marketplace", element: <PageMarketplace /> },
 
