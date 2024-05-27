@@ -49,7 +49,7 @@ export const router = createBrowserRouter([
   {
     path: "/shipments",
     element: <LayoutShipments />,
-    children: [{ index: true, element: <CompInProgress /> }],
+    children: [{ index: true, element: <CompAssigned /> }],
   },
   {
     path: "/",

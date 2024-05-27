@@ -1,9 +1,8 @@
 import * as React from "react";
 //? --------------------------------------------- MUI
-import PropTypes from "prop-types";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { Button } from "@mui/material";
+import { Button, StepButton, StepConnector } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -11,42 +10,35 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Modal from "@mui/material/Modal";
+import Rating from "@mui/material/Rating";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+import { Grid } from "@mui/material";
+
 //? --------------------------------------------- STYLES
 import { Colors } from "../../../Utils/Colors";
 import "./styles.css";
 
-function CustomTabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-CustomTabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 600,
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 2,
 };
 
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
+const steps = [
+  { label: "En preparación", date: "09/03/24" },
+  { label: "Preparado", date: "10/03/24" },
+  { label: "Retirado", date: "10/03/24" },
+  { label: "En camino", date: "10/03/24" },
+];
+
 function createData(
   index,
   product,
@@ -161,243 +153,475 @@ export default function CompPending() {
             backgroundColor: Colors.terciary.contrastText,
           }}
         >
-          <TableContainer
-            component={Paper}
-            style={{
-              display: "flex",
-              color: Colors.primary.main,
-              padding: "10px",
-              width: "110%",
-              boxShadow: "none",
-              backgroundColor: Colors.terciary.contrastText,
-            }}
-          >
-            <Table sx={{ width: "110%" }} aria-label="simple table">
-              <Box>
-                <TableHead
+          <Box>
+            <Grid
+              // container
+              justifyContent={"center"}
+              alignItems={"center"}
+              style={{
+                display: "flex",
+                height: "100%",
+                marginBottom: 20,
+                padding: 10,
+                border: "1px solid",
+                borderColor: Colors.primary.main,
+                backgroundColor: Colors.primary.main,
+                color: Colors.primary.contrastText,
+                marginBottom: 20,
+                fontWeight: 600,
+              }}
+              spacing={0.5}
+            >
+              <Grid
+                // item
+                container
+                // width={"11.1%"}
+
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <p
                   style={{
-                    border: "1px solid",
-                    borderColor: Colors.primary.main,
-                    backgroundColor: Colors.primary.main,
-                    marginBottom: 20,
-                    padding: 10,
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    marginLeft: "3px",
                   }}
                 >
-                  <TableRow
-                    style={{
-                      backgroundColor: Colors.primary.main,
-                      marginBottom: 20,
-                      padding: 10,
-                    }}
-                  >
-                    <TableCell
-                      style={{
-                        color: Colors.primary.contrastText,
-                        padding: 5,
-                        fontWeight: 600,
-                      }}
-                      align="center"
-                    >
-                      Producto
-                    </TableCell>
-                    <TableCell
-                      style={{
-                        color: Colors.primary.contrastText,
-                        padding: 5,
-                        fontWeight: 600,
-                      }}
-                      align="center"
-                    >
-                      Retiro
-                    </TableCell>
-                    <TableCell
-                      style={{
-                        color: Colors.primary.contrastText,
-                        padding: 5,
-                        fontWeight: 600,
-                      }}
-                      align="center"
-                    >
-                      Fecha y hora
-                    </TableCell>
-                    <TableCell
-                      style={{
-                        color: Colors.primary.contrastText,
-                        padding: 5,
-                        fontWeight: 600,
-                      }}
-                      align="center"
-                    >
-                      Entrega
-                    </TableCell>
-                    <TableCell
-                      style={{
-                        color: Colors.primary.contrastText,
-                        padding: 5,
-                        fontWeight: 600,
-                      }}
-                      align="center"
-                    >
-                      Fecha y hora
-                    </TableCell>
-                    <TableCell
-                      style={{
-                        color: Colors.primary.contrastText,
-                        padding: 5,
-                        fontWeight: 600,
-                      }}
-                      align="center"
-                    >
-                      Destinatario
-                    </TableCell>
-                    <TableCell
-                      style={{
-                        color: Colors.primary.contrastText,
-                        padding: 5,
-                        fontWeight: 600,
-                      }}
-                      align="center"
-                    >
-                      Unidad
-                    </TableCell>
-                    <TableCell
-                      style={{
-                        color: Colors.primary.contrastText,
-                        padding: 5,
-                        fontWeight: 600,
-                      }}
-                      align="center"
-                    >
-                      Tipo de carga
-                    </TableCell>
-                    <TableCell
-                      style={{
-                        color: Colors.primary.contrastText,
-                        padding: 5,
-                        fontWeight: 600,
-                      }}
-                      align="center"
-                    >
-                      Valor ofertado
-                    </TableCell>
-                    <TableCell
-                      style={{
-                        color: Colors.primary.contrastText,
-                        padding: 5,
-                        fontWeight: 600,
-                      }}
-                      align="center"
-                    >
-                      Conductor
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
+                  Producto
+                </p>
+              </Grid>
+              <Grid
+                item
+                container
+                // width={"11.1%"}
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <p
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    marginLeft: "3px",
+                  }}
+                >
+                  Retiro
+                </p>
+              </Grid>
+              <Grid
+                item
+                container
+                // width={"11.1%"}
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <p
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    marginLeft: "3px",
+                  }}
+                >
+                  Fecha y hora
+                </p>
+              </Grid>
 
-                <TableBody style={{ padding: "10px" }}>
-                  {rows.map((row) => (
-                    <TableRow
-                      key={row.product}
-                      sx={{
-                        // display: "flex",
-                        padding: 0,
-                        border: "1px solid",
-                        borderColor: Colors.terciary.main,
-                        margin: "30px 0",
-                      }}
+              <Grid
+                item
+                container
+                // width={"11.1%"}
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <p
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    marginLeft: "3px",
+                  }}
+                >
+                  Entrega
+                </p>
+              </Grid>
+              <Grid
+                item
+                container
+                // width={"11.1%"}
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <p
+                  style={{
+                    width: "80px",
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    marginLeft: "3px",
+                  }}
+                >
+                  Fecha y hora
+                </p>
+              </Grid>
+              <Grid
+                item
+                container
+                // width={"11.1%"}
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <p
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    marginLeft: "3px",
+                  }}
+                >
+                  Destinatario
+                </p>
+              </Grid>
+              <Grid
+                item
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <p
+                  style={{
+                    width: "80px",
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    marginLeft: "3px",
+                  }}
+                >
+                  Unidad
+                </p>
+              </Grid>
+              <Grid
+                item
+                container
+                // width={"11.1%"}
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <p
+                  style={{
+                    width: "80px",
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    marginLeft: "3px",
+                  }}
+                >
+                  Tipo de carga
+                </p>
+              </Grid>
+              <Grid
+                item
+                container
+                // width={"11.1%"}
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <p
+                  style={{
+                    width: "80px",
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    marginLeft: "3px",
+                  }}
+                >
+                  Valor ofertado
+                </p>
+              </Grid>
+              <Grid
+                item
+                container
+                // width={"11.1%"}
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <p
+                  style={{
+                    width: "80px",
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    marginLeft: "3px",
+                  }}
+                >
+                  Conductor
+                </p>
+              </Grid>
+            </Grid>
+
+            <Box
+              style={{ display: "flex", flexDirection: "column", gap: "20px" }}
+            >
+              {rows.map((row) => (
+                <Box
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    background: "white",
+                  }}
+                >
+                  <Grid
+                    container
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      width: "100%",
+                      height: "75px",
+                      background: "white",
+                    }}
+                    spacing={0.5}
+                  >
+                    <Grid
+                      item
+                      container
+                      width={"9%"}
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="center"
                     >
-                      {/* product, retire, date, delivery, secondDate,receiver, unity, load, value */}
-                      <TableCell align="center">{row.product}</TableCell>
-                      <TableCell
+                      <p
                         style={{
-                          display: "flex",
-                          alignItems: "center",
-                          flexDirection: "row",
-                          border: "none",
+                          fontSize: "12px",
+                          fontWeight: 500,
+                          marginLeft: "3px",
                         }}
                       >
-                        <Box className="flexTable">
-                          <Box className="flexTable">
-                            <img src="/src/assets/imgShipments/Product.svg" />
-                            {row.retire}{" "}
-                          </Box>
-                          <Box className="flexTable">
-                            <img src="/src/assets/imgShipments/Location.svg" />{" "}
-                            {row.date}
-                          </Box>
-                        </Box>
-                      </TableCell>
-                      <TableCell align="center">
-                        {" "}
-                        <Box className="flexTable">
-                          <img src="/src/assets/imgShipments/Date.svg" />{" "}
+                        {row.product}
+                      </p>
+                    </Grid>
+                    <Grid
+                      item
+                      container
+                      width={"9%"}
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Box style={{ display: "flex", gap: "5px" }}>
+                        <img src="/src/assets/imgShipments/Product.svg" />
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            fontWeight: 500,
+                            marginLeft: "3px",
+                          }}
+                        >
+                          {row.retire}
+                        </p>
+                      </Box>
+                    </Grid>
+                    <Grid
+                      item
+                      container
+                      style={{ display: "flex" }}
+                      width={"9%"}
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Box style={{ display: "flex", gap: "5px" }}>
+                        <img
+                          style={{ display: "flex" }}
+                          src="/src/assets/imgShipments/Location.svg"
+                        />
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            fontWeight: 500,
+                            marginLeft: "3px",
+                          }}
+                        >
+                          {row.date}
+                        </p>
+                      </Box>
+                    </Grid>
+
+                    <Grid
+                      item
+                      container
+                      width={"9%"}
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Box style={{ display: "flex", gap: "5px" }}>
+                        <img src="/src/assets/imgShipments/Date.svg" />
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            fontWeight: 500,
+                            marginLeft: "3px",
+                          }}
+                        >
                           {row.delivery}
-                        </Box>
-                      </TableCell>
-                      <TableCell align="center">
-                        <Box className="flexTable">
-                          <img src="/src/assets/imgShipments/Location.svg" />{" "}
+                        </p>
+                      </Box>
+                    </Grid>
+                    <Grid
+                      item
+                      container
+                      width={"9%"}
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Box style={{ display: "flex", gap: "5px" }}>
+                        <img src="/src/assets/imgShipments/Location.svg" />
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            fontWeight: 500,
+                            marginLeft: "3px",
+                          }}
+                        >
                           {row.secondDate}
-                        </Box>
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        style={{ display: "flex", alignItems: "center" }}
-                      >
-                        {" "}
-                        <Box className="flexTable">
-                          <img src="/src/assets/imgShipments/Date.svg" />{" "}
+                        </p>
+                      </Box>
+                    </Grid>
+                    <Grid
+                      item
+                      container
+                      width={"9%"}
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Box style={{ display: "flex", gap: "5px" }}>
+                        <img src="/src/assets/imgShipments/Date.svg" />
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            fontWeight: 500,
+                            marginLeft: "3px",
+                          }}
+                        >
                           {row.receiver}
-                        </Box>
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        // style={{margin: }}
-                      >
-                        {" "}
-                        <Box className="flexTable">
-                          <img src="/src/assets/imgShipments/Receiver.svg" />
+                        </p>
+                      </Box>
+                    </Grid>
+                    <Grid
+                      item
+                      container
+                      width={"9%"}
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Box style={{ display: "flex", gap: "5px" }}>
+                        <img src="/src/assets/imgShipments/Receiver.svg" />
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            fontWeight: 500,
+                            marginLeft: "3px",
+                          }}
+                        >
                           {row.unity}
-                        </Box>
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        style={{ display: "flex", alignItems: "center" }}
-                      >
-                        <Box className="flexTable">
-                          <img src="/src/assets/imgShipments/Truck.svg" />
+                        </p>
+                      </Box>
+                    </Grid>
+                    <Grid
+                      item
+                      container
+                      width={"9%"}
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Box style={{ display: "flex", gap: "5px" }}>
+                        <img src="/src/assets/imgShipments/Truck.svg" />
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            fontWeight: 500,
+                            marginLeft: "3px",
+                          }}
+                        >
                           {row.load}
-                        </Box>
-                      </TableCell>
-                      <TableCell align="center">
-                        <Box className="flexTable">
-                          <img src="/src/assets/imgShipments/Load.svg" />{" "}
+                        </p>
+                      </Box>
+                    </Grid>
+                    <Grid
+                      item
+                      container
+                      width={"9%"}
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Box style={{ display: "flex", gap: "5px" }}>
+                        <img src="/src/assets/imgShipments/Load.svg" />
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            fontWeight: 500,
+                            marginLeft: "3px",
+                          }}
+                        >
                           {row.seca}
-                        </Box>
-                      </TableCell>
-
-                      <TableCell align="center">
-                        <Box className="flexTable">{row.value}</Box>
-                      </TableCell>
-
+                        </p>
+                      </Box>
+                    </Grid>
+                    <Grid
+                      item
+                      container
+                      width={"9%"}
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <p
+                        style={{
+                          width: "80px",
+                          fontSize: "12px",
+                          fontWeight: 500,
+                          marginLeft: "3px",
+                        }}
+                      >
+                        {row.value}
+                      </p>
+                    </Grid>
+                    <Grid
+                      item
+                      container
+                      width={"9%"}
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
                       <Box className="flexTable">
                         <Button
                           variant="outlined"
                           style={{
                             cursor: "not allowed",
                             pointerEvents: "none",
-                            color: Colors.terciary.main,
-                            borderColor: Colors.terciary.main,
+                            color: Colors.secondary.contrastText,
+                            borderColor: Colors.secondary.contrastText,
                           }}
                         >
                           Ver
                         </Button>
                       </Box>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Box>
-            </Table>
-          </TableContainer>
+                    </Grid>
+                  </Grid>
+                </Box>
+              ))}
+            </Box>
+          </Box>
         </Box>
       </Box>
     </Box>
