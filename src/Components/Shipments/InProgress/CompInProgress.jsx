@@ -645,28 +645,52 @@ export default function CompInProgress() {
                 alternativeLabel
                 orientation="vertical"
               >
-                {steps.map((label) => (
-                  <StepButton
-                    icon={
-                      <img src="/src/assets/imgShipments/StepperIcon.svg" />
-                    }
-                    key={label.label}
+                {steps.map(({ label, date }) => (
+                  <Box
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      color: Colors.primary.main,
+                      fontWeight: 600,
+                    }}
                   >
-                    <StepLabel
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "left",
-                        alignItems: "left",
-                        gap: "10px",
-                      }}
+                    <StepButton
+                      icon={
+                        <img src="/src/assets/imgShipments/StepperIcon.svg" />
+                      }
+                      key={label}
                     >
-                      {label.label}
-                      <p style={{ color: "black", fontWeight: 500 }}>
-                        {label.date}
-                      </p>
-                    </StepLabel>
-                  </StepButton>
+                      <StepLabel
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          justifyContent: "left",
+                          alignItems: "left",
+                          gap: "10px",
+                        }}
+                      >
+                        {label}
+                        <p style={{ color: "black", fontWeight: 500 }}>
+                          {date}
+                        </p>
+                      </StepLabel>
+                    </StepButton>
+                    {label !== "En camino" ? (
+                      <Box
+                        style={{
+                          width: "100%",
+                          height: "10px",
+                        }}
+                      >
+                        <img src="/src/assets/imgShipments/StepConnector.svg" />
+                      </Box>
+                    ) : (
+                      ""
+                    )}
+                  </Box>
                 ))}
               </Stepper>
             </Box>
@@ -676,6 +700,7 @@ export default function CompInProgress() {
                 alignItems: "center",
                 flexDirection: "column",
                 gap: "10px",
+                haight: "100%",
               }}
             >
               <Box
@@ -716,7 +741,7 @@ export default function CompInProgress() {
                 <Box
                   style={{
                     display: "flex",
-                    width: "100%",
+                    width: "30%",
                     justifyContent: "center",
                     alignItems: "center",
                   }}
@@ -762,7 +787,12 @@ export default function CompInProgress() {
                   >
                     Capacidad de carga:<p> 123456</p>
                   </span>
-                  <Rating name="read-only" value={value} readOnly />
+                  <Rating
+                    style={{ marginLeft: "50px" }}
+                    name="read-only"
+                    value={value}
+                    readOnly
+                  />
                 </Box>
               </Box>
 

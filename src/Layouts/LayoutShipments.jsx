@@ -183,15 +183,6 @@ const LayoutShipments = () => {
         </Box>
       </Box>
       <Outlet />
-      {/* <CustomTabPanel value={value} index={0}>
-          Item One
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
-          Item Two
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={2}>
-          Item Three
-        </CustomTabPanel> */}
     </div>
   );
 };
