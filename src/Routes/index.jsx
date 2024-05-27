@@ -20,6 +20,11 @@ import PageHome from "../Pages/PageHome";
 import PageCrearEnvios from "../Pages/PageCrearEnvios";
 import PageMarketplace from "../Pages/PageMarketplace";
 import PagePerfil from "../Pages/PagePerfil";
+import CompPending from "../Components/Shipments/Pending/CompPending";
+import LayoutShipments from "../Layouts/LayoutShipments";
+import CompAssigned from "../Components/Shipments/Assigned/CompAssigned";
+import CompInProgress from "../Components/Shipments/InProgress/CompInProgress";
+import CompSent from "../Components/Shipments/Sent/CompSent";
 
 export const router = createBrowserRouter([
   {
@@ -39,7 +44,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/perfil",
-    element: <PagePerfil/>
+    element: <PagePerfil />,
   },
   {
     path: "/register",
@@ -50,23 +55,26 @@ export const router = createBrowserRouter([
       { path: "driver/vehicle-info", element: <CompVehicleInfo /> },
       { path: "user", element: <CompRegUser /> },
       { path: "user/company-info", element: <CompCompanyInfo /> },
-    ]},{
-    
+    ],
+  },
+  {
     path: "/home",
-    element: <LayoutHome/>,   
+    element: <LayoutHome />,
     children: [
       { index: true, element: <PageHome /> },
       { path: "crearEnvios", element: <PageCrearEnvios /> },
       { path: "Marketplace", element: <PageMarketplace /> },
-
     ],
-    
   },
   {
-    path: "/homeTeacher",
-    element: <LayoutPublic />,
-    errorElement: <NotFound />,
-    children: [],
+    path: "/shipments",
+    element: <LayoutShipments />,
+    children: [
+      { index: true, element: <CompPending /> },
+      { path: "assigned", element: <CompAssigned /> },
+      { path: "in-progress", element: <CompInProgress /> },
+      { path: "finished", element: <CompSent /> },
+    ],
   },
   {
     path: "/",

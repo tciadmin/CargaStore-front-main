@@ -1,0 +1,32 @@
+.css-1grq3yu-MuiButtonBase-root-MuiTab-root {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.MuiButtonBase-root.MuiTab-root.MuiTab-labelIcon.MuiTab-textColorPrimary.css-1grq3yu-MuiButtonBase-root-MuiTab-root {
+  display: flex;
+  flex-direction: row;
+  margin-right: 20px;
+  padding: 0;
+}
+
+.MuiTableCell-root.MuiTableCell-body.MuiTableCell-alignCenter.MuiTableCell-sizeMedium.css-1yhpg23-MuiTableCell-root {
+  border-bottom: #667185;
+  align-items: center;
+}
+
+.MuiTableRow-root.css-1nz4j8y-MuiTableRow-root {
+  padding: 0;
+}
+
+/* .MuiTableCell-root {
+  display: flex !important;
+} */
+
+.flexTable {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+  gap: 5px;
+}
