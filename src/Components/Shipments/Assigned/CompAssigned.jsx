@@ -86,19 +86,6 @@ const rows = [
     "Peligrosa",
     "$12.00"
   ),
-  createData(
-    "3",
-    "#2092",
-    "Gas metano",
-    "Calle 12, Quito, Peru",
-    "12/03/24 12:00hs",
-    "Calle 12, Quito, Peru",
-    "21/03/24 12:00hs",
-    "El mundo del papel",
-    "Furgón",
-    "Peligrosa",
-    "$12.00"
-  ),
 ];
 
 const style = {

@@ -81,45 +81,6 @@ const rows = [
     "Seca",
     "$12.00"
   ),
-  createData(
-    "1",
-    "#1205",
-    "Bobinas de papel",
-    "Calle 12, Quito, Peru",
-    "12/03/24 12:00hs",
-    "Calle 12, Quito, Peru",
-    "21/03/24 12:00hs",
-    "El mundo del papel",
-    "Furgón",
-    "Seca",
-    "$12.00"
-  ),
-  createData(
-    "2",
-    "#1903",
-    "Cañas de azúcar",
-    "Calle 12, Quito, Peru",
-    "12/03/24 12:00hs",
-    "Calle 12, Quito, Peru",
-    "21/03/24 12:00hs",
-    "El mundo del papel",
-    "Furgón",
-    "Peligrosa",
-    "$12.00"
-  ),
-  createData(
-    "3",
-    "#2092",
-    "Gas metano",
-    "Calle 12, Quito, Peru",
-    "12/03/24 12:00hs",
-    "Calle 12, Quito, Peru",
-    "21/03/24 12:00hs",
-    "El mundo del papel",
-    "Furgón",
-    "Peligrosa",
-    "$12.00"
-  ),
 ];
 
 export default function CompPending() {
