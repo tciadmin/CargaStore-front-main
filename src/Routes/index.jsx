@@ -14,6 +14,12 @@ import CompRegDriver from "../Components/RegisterDriver/CompRegDriver";
 import CompVehicleInfo from "../Components/VehicleInfo/CompVehicleInfo";
 import CompRegUser from "../Components/RegisterUser/CompRegUser";
 import CompCompanyInfo from "../Components/CompanyInfo/CompCompanyInfo";
+import LayoutConfi from "../Layouts/LayoutConfi";
+import LayoutHome from "../Layouts/LayoutHome";
+import PageHome from "../Pages/PageHome";
+import PageCrearEnvios from "../Pages/PageCrearEnvios";
+import PageMarketplace from "../Pages/PageMarketplace";
+import PagePerfil from "../Pages/PagePerfil";
 import CompPending from "../Components/Shipments/Pending/CompPending";
 import LayoutShipments from "../Layouts/LayoutShipments";
 import CompAssigned from "../Components/Shipments/Assigned/CompAssigned";
@@ -37,6 +43,10 @@ export const router = createBrowserRouter([
     ],
   },
   {
+    path: "/perfil",
+    element: <PagePerfil />,
+  },
+  {
     path: "/register",
     element: <LayoutRegister />,
     children: [
@@ -45,6 +55,15 @@ export const router = createBrowserRouter([
       { path: "driver/vehicle-info", element: <CompVehicleInfo /> },
       { path: "user", element: <CompRegUser /> },
       { path: "user/company-info", element: <CompCompanyInfo /> },
+    ],
+  },
+  {
+    path: "/home",
+    element: <LayoutHome />,
+    children: [
+      { index: true, element: <PageHome /> },
+      { path: "crearEnvios", element: <PageCrearEnvios /> },
+      { path: "Marketplace", element: <PageMarketplace /> },
     ],
   },
   {
@@ -60,5 +79,10 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <PageRedirect />,
+  },
+  {
+    path: "/config",
+    element: <LayoutConfi />,
+    children: [{ path: "prueba", element: <CompVerificationCode /> }],
   },
 ]);
