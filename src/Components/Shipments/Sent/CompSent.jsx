@@ -19,25 +19,17 @@ import { Grid } from "@mui/material";
 
 //? --------------------------------------------- STYLES
 import { Colors } from "../../../Utils/Colors";
-import "./styles.css";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 600,
+  width: 500,
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 2,
 };
-
-const steps = [
-  { label: "En preparación", date: "09/03/24" },
-  { label: "Preparado", date: "10/03/24" },
-  { label: "Retirado", date: "10/03/24" },
-  { label: "En camino", date: "10/03/24" },
-];
 
 function createData(
   index,
@@ -130,14 +122,14 @@ export default function CompSent() {
   return (
     <Box
       sx={{
-        minWidth: "100%",
+        width: "100%",
         height: "100vh",
         backgroundColor: Colors.terciary.contrastText,
       }}
     >
       <Box
         sx={{
-          width: "100%",
+          minWidth: "100%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -146,41 +138,37 @@ export default function CompSent() {
           backgroundColor: Colors.terciary.contrastText,
         }}
       >
-        {/* //? --------------------------------------------- TABLE */}
+        {/* //? --------------------------------------------- HEAD */}
 
         <Box
           style={{
             display: "flex",
             color: Colors.primary.main,
-            width: "100%",
+            minWdth: "100%",
             alignItems: "center",
             backgroundColor: Colors.terciary.contrastText,
           }}
         >
           <Box>
             <Grid
-              // container
               justifyContent={"center"}
               alignItems={"center"}
               style={{
                 display: "flex",
                 height: "100%",
                 marginBottom: 20,
-                padding: 10,
+                padding: 5,
                 border: "1px solid",
                 borderColor: Colors.primary.main,
                 backgroundColor: Colors.primary.main,
                 color: Colors.primary.contrastText,
-                marginBottom: 20,
                 fontWeight: 600,
+                textAlign: "center",
               }}
               spacing={0.5}
             >
               <Grid
-                // item
                 container
-                // width={"11.1%"}
-
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
@@ -198,7 +186,6 @@ export default function CompSent() {
               <Grid
                 item
                 container
-                // width={"11.1%"}
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
@@ -216,7 +203,6 @@ export default function CompSent() {
               <Grid
                 item
                 container
-                // width={"11.1%"}
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
@@ -235,7 +221,6 @@ export default function CompSent() {
               <Grid
                 item
                 container
-                // width={"11.1%"}
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
@@ -253,7 +238,6 @@ export default function CompSent() {
               <Grid
                 item
                 container
-                // width={"11.1%"}
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
@@ -272,7 +256,6 @@ export default function CompSent() {
               <Grid
                 item
                 container
-                // width={"11.1%"}
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
@@ -308,7 +291,6 @@ export default function CompSent() {
               <Grid
                 item
                 container
-                // width={"11.1%"}
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
@@ -327,7 +309,6 @@ export default function CompSent() {
               <Grid
                 item
                 container
-                // width={"11.1%"}
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
@@ -346,7 +327,6 @@ export default function CompSent() {
               <Grid
                 item
                 container
-                // width={"11.1%"}
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
@@ -363,6 +343,7 @@ export default function CompSent() {
                 </p>
               </Grid>
             </Grid>
+            {/* //? --------------------------------------------- BODY */}
 
             <Box
               style={{ display: "flex", flexDirection: "column", gap: "20px" }}
@@ -374,6 +355,7 @@ export default function CompSent() {
                     flexDirection: "row",
                     width: "100%",
                     background: "white",
+                    color: "black",
                   }}
                 >
                   <Grid
@@ -638,54 +620,12 @@ export default function CompSent() {
             }}
           >
             <Box
-              sx={{
-                width: "35%",
-              }}
-            >
-              <Stepper
-                sx={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  color: Colors.primary.main,
-                  fontWeight: 600,
-                }}
-                activeStep={1}
-                alternativeLabel
-                orientation="vertical"
-              >
-                {steps.map((label) => (
-                  <StepButton
-                    icon={
-                      <img src="/src/assets/imgShipments/StepperIcon.svg" />
-                    }
-                    key={label.label}
-                  >
-                    <StepLabel
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "left",
-                        alignItems: "left",
-                        gap: "10px",
-                      }}
-                    >
-                      {label.label}
-                      <p style={{ color: "black", fontWeight: 500 }}>
-                        {label.date}
-                      </p>
-                    </StepLabel>
-                  </StepButton>
-                ))}
-              </Stepper>
-            </Box>
-            <Box
               style={{
                 display: "flex",
                 alignItems: "center",
                 flexDirection: "column",
                 gap: "10px",
+                width: "100%",
               }}
             >
               <Box
@@ -708,18 +648,25 @@ export default function CompSent() {
                 />
               </Box>
 
-              <img />
+              <img src="/src/assets/imgShipments/Success.jpg" />
 
               <Typography id="modal-modal-title" variant="h6" component="h2">
                 ¡Tu envío ha sido entregado con éxito!
               </Typography>
 
-              <Typography
-                id="modal-modal-description"
-                style={{ marginBottom: "20px" }}
-              >
+              <Typography id="modal-modal-description">
                 Califica a José Luis
               </Typography>
+              <Button
+                variant="contained"
+                style={{
+                  borderRadius: "15px",
+                  marginBottom: "20px",
+                  fontWeight: 600,
+                }}
+              >
+                Calificar
+              </Button>
             </Box>
           </Box>
         </Modal>

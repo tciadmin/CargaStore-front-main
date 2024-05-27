@@ -1,5 +1,6 @@
-import { Outlet } from "react-router-dom";
 import * as React from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import Header from "../Components/Shipments/Header";
 //? --------------------------------------------- MUI
 import PropTypes from "prop-types";
@@ -50,91 +51,10 @@ function a11yProps(index) {
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
-function createData(
-  index,
-  product,
-  retire,
-  date,
-  delivery,
-  secondDate,
-  receiver,
-  unity,
-  load,
-  seca,
-  value
-) {
-  return {
-    index,
-    product,
-    retire,
-    date,
-    delivery,
-    secondDate,
-    receiver,
-    unity,
-    load,
-    seca,
-    value,
-  };
-}
-
-const rows = [
-  createData(
-    "0",
-    "#1205",
-    "Bobinas de papel",
-    "Calle 12, Quito, Peru",
-    "12/03/24 12:00hs",
-    "Calle 12, Quito, Peru",
-    "21/03/24 12:00hs",
-    "El mundo del papel",
-    "Furgón",
-    "Seca",
-    "$12.00"
-  ),
-  createData(
-    "1",
-    "#1205",
-    "Bobinas de papel",
-    "Calle 12, Quito, Peru",
-    "12/03/24 12:00hs",
-    "Calle 12, Quito, Peru",
-    "21/03/24 12:00hs",
-    "El mundo del papel",
-    "Furgón",
-    "Seca",
-    "$12.00"
-  ),
-  createData(
-    "2",
-    "#1903",
-    "Cañas de azúcar",
-    "Calle 12, Quito, Peru",
-    "12/03/24 12:00hs",
-    "Calle 12, Quito, Peru",
-    "21/03/24 12:00hs",
-    "El mundo del papel",
-    "Furgón",
-    "Peligrosa",
-    "$12.00"
-  ),
-  createData(
-    "3",
-    "#2092",
-    "Gas metano",
-    "Calle 12, Quito, Peru",
-    "12/03/24 12:00hs",
-    "Calle 12, Quito, Peru",
-    "21/03/24 12:00hs",
-    "El mundo del papel",
-    "Furgón",
-    "Peligrosa",
-    "$12.00"
-  ),
-];
 
 const LayoutShipments = () => {
   const [value, setValue] = React.useState(0);
+  const navigate = useNavigate();
 
   const tabNameToIndex = {
     Pendientes: 0,
@@ -151,6 +71,18 @@ const LayoutShipments = () => {
       setValue(newValue);
     }
   };
+
+  useEffect(() => {
+    if (value === 0) {
+      navigate("/shipments");
+    } else if (value === 1) {
+      navigate("/shipments/assigned");
+    } else if (value === 2) {
+      navigate("/shipments/in-progress");
+    } else {
+      navigate("/shipments/finished");
+    }
+  }, [value]);
   return (
     <div>
       <Box
@@ -178,7 +110,7 @@ const LayoutShipments = () => {
             sx={{
               display: "flex",
               justifyContent: "space-between",
-              width: "100%",
+              width: "96%",
               alignItems: "center",
               backgroundColor: Colors.terciary.contrastText,
             }}
@@ -244,7 +176,7 @@ const LayoutShipments = () => {
                 {...a11yProps(2)}
               />
             </Tabs>
-            <Button style={{ margin: 15 }} variant="contained">
+            <Button style={{ margin: 0 }} variant="contained">
               Crear envío
             </Button>
           </Box>

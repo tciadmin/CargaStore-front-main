@@ -136,41 +136,37 @@ export default function CompAssigned() {
           backgroundColor: Colors.terciary.contrastText,
         }}
       >
-        {/* //? --------------------------------------------- TABLE */}
+        {/* //? ----------------------------------------------------------- HEAD */}
 
         <Box
           style={{
             display: "flex",
             color: Colors.primary.main,
-            width: "100%",
+            minWdth: "100%",
             alignItems: "center",
             backgroundColor: Colors.terciary.contrastText,
           }}
         >
           <Box>
             <Grid
-              // container
               justifyContent={"center"}
               alignItems={"center"}
               style={{
                 display: "flex",
                 height: "100%",
                 marginBottom: 20,
-                padding: 10,
+                padding: 5,
                 border: "1px solid",
                 borderColor: Colors.primary.main,
                 backgroundColor: Colors.primary.main,
                 color: Colors.primary.contrastText,
-                marginBottom: 20,
                 fontWeight: 600,
+                textAlign: "center",
               }}
               spacing={0.5}
             >
               <Grid
-                // item
                 container
-                // width={"11.1%"}
-
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
@@ -188,7 +184,6 @@ export default function CompAssigned() {
               <Grid
                 item
                 container
-                // width={"11.1%"}
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
@@ -206,7 +201,6 @@ export default function CompAssigned() {
               <Grid
                 item
                 container
-                // width={"11.1%"}
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
@@ -225,7 +219,6 @@ export default function CompAssigned() {
               <Grid
                 item
                 container
-                // width={"11.1%"}
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
@@ -243,7 +236,6 @@ export default function CompAssigned() {
               <Grid
                 item
                 container
-                // width={"11.1%"}
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
@@ -262,7 +254,6 @@ export default function CompAssigned() {
               <Grid
                 item
                 container
-                // width={"11.1%"}
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
@@ -298,7 +289,6 @@ export default function CompAssigned() {
               <Grid
                 item
                 container
-                // width={"11.1%"}
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
@@ -317,7 +307,6 @@ export default function CompAssigned() {
               <Grid
                 item
                 container
-                // width={"11.1%"}
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
@@ -336,7 +325,6 @@ export default function CompAssigned() {
               <Grid
                 item
                 container
-                // width={"11.1%"}
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
@@ -353,7 +341,7 @@ export default function CompAssigned() {
                 </p>
               </Grid>
             </Grid>
-
+            {/* //? ----------------------------------------------------------- BODY */}
             <Box
               style={{ display: "flex", flexDirection: "column", gap: "20px" }}
             >
@@ -364,6 +352,7 @@ export default function CompAssigned() {
                     flexDirection: "row",
                     width: "100%",
                     background: "white",
+                    color: "black",
                   }}
                 >
                   <Grid
