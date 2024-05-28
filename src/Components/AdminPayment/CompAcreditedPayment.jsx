@@ -68,7 +68,7 @@ const rows = [
   ),
 ];
 
-export default function CompPendingPayment() {
+export default function CompAcreditedPayment() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -274,7 +274,25 @@ export default function CompPendingPayment() {
                     marginLeft: "3px",
                   }}
                 >
-                  Detalle
+                  Ver
+                </p>
+              </Grid>
+              <Grid
+                item
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <p
+                  style={{
+                    width: "80px",
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    marginLeft: "3px",
+                  }}
+                >
+                  Factura
                 </p>
               </Grid>
             </Grid>
@@ -307,7 +325,7 @@ export default function CompPendingPayment() {
                     <Grid
                       item
                       container
-                      width={"11.1%"}
+                      width={"10%"}
                       direction="row"
                       justifyContent="center"
                       alignItems="center"
@@ -325,7 +343,7 @@ export default function CompPendingPayment() {
                     <Grid
                       item
                       container
-                      width={"11.1%"}
+                      width={"10%"}
                       direction="row"
                       justifyContent="center"
                       alignItems="center"
@@ -352,7 +370,7 @@ export default function CompPendingPayment() {
                     <Grid
                       item
                       container
-                      width={"11.1%"}
+                      width={"10%"}
                       direction="row"
                       justifyContent="center"
                       alignItems="center"
@@ -382,7 +400,7 @@ export default function CompPendingPayment() {
                     <Grid
                       item
                       container
-                      width={"11.1%"}
+                      width={"10%"}
                       direction="row"
                       justifyContent="center"
                       alignItems="center"
@@ -409,7 +427,7 @@ export default function CompPendingPayment() {
                     <Grid
                       item
                       container
-                      width={"11.1%"}
+                      width={"10%"}
                       direction="row"
                       justifyContent="center"
                       alignItems="center"
@@ -436,7 +454,7 @@ export default function CompPendingPayment() {
                     <Grid
                       item
                       container
-                      width={"11.1%"}
+                      width={"10%"}
                       direction="row"
                       justifyContent="center"
                       alignItems="center"
@@ -463,7 +481,7 @@ export default function CompPendingPayment() {
                     <Grid
                       item
                       container
-                      width={"11.1%"}
+                      width={"10%"}
                       direction="row"
                       justifyContent="center"
                       alignItems="center"
@@ -490,7 +508,7 @@ export default function CompPendingPayment() {
                     <Grid
                       item
                       container
-                      width={"11.1%"}
+                      width={"10%"}
                       direction="row"
                       justifyContent="center"
                       alignItems="center"
@@ -508,7 +526,7 @@ export default function CompPendingPayment() {
                     <Grid
                       item
                       container
-                      width={"11.1%"}
+                      width={"10%"}
                       direction="row"
                       justifyContent="center"
                       alignItems="center"
@@ -518,6 +536,21 @@ export default function CompPendingPayment() {
                         onClick={handleOpen}
                         style={{ cursor: "pointer" }}
                         src="/src/assets/imgAdminPayment/EyeIcon.svg"
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      container
+                      width={"10%"}
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      {" "}
+                      <img
+                        onClick={handleOpen}
+                        style={{ cursor: "pointer" }}
+                        src="/src/assets/imgAdminPayment/DownloadIcon.svg"
                       />
                     </Grid>
                   </Grid>
@@ -748,14 +781,10 @@ export default function CompPendingPayment() {
 
               <Typography
                 id="modal-modal-description"
-                style={{ color: Colors.cuaternary.main }}
+                style={{ color: Colors.cuaternary.main, marginBottom: "10px" }}
               >
                 Ver factura
               </Typography>
-
-              <Button variant="contained" style={{ marginBottom: "10px" }}>
-                Efectuar pago al conductor
-              </Button>
             </Box>
           </Modal>
         </Box>

@@ -1,0 +1,99 @@
+import * as React from "react";
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import { Colors } from "../Utils/Colors";
+import { Outlet } from "react-router-dom";
+
+const drawerWidth = 240;
+
+function CustomTabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+CustomTabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
+
+export default function LayoutAdminPayment() {
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  return (
+    <Box sx={{ minWidth: "100%", height: "100vh", display: "flex" }}>
+      <Drawer
+        variant="permanent"
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          [`& .MuiDrawer-paper`]: {
+            width: drawerWidth,
+            boxSizing: "border-box",
+          },
+        }}
+      >
+        <span
+          style={{
+            color: Colors.primary.main,
+            fontWeight: 600,
+            padding: "20px",
+          }}
+        >
+          Pagos
+        </span>
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Tabs
+            orientation="vertical"
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+          >
+            <Tab
+              sx={{ textTransform: "none", display: "flex", width: "239px" }}
+              label="Pendientes"
+              {...a11yProps(0)}
+            />
+            <Tab
+              sx={{ textTransform: "none" }}
+              label="Acreditados"
+              {...a11yProps(1)}
+            />
+          </Tabs>
+        </Box>
+      </Drawer>
+
+      <Outlet />
+    </Box>
+  );
+}

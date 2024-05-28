@@ -27,7 +27,8 @@ import CompInProgress from "../Components/Shipments/InProgress/CompInProgress";
 import CompSent from "../Components/Shipments/Sent/CompSent";
 import PageShipments from "../Pages/PageShipments";
 import CompPendingPayment from "../Components/AdminPayment/CompPendingPayment";
-import PageAdminPayment from "../Pages/PageAdminPayment";
+import LayoutAdminPayment from "../Layouts/LayoutAdminPayment";
+import CompAcreditedPayment from "../Components/AdminPayment/CompAcreditedPayment";
 
 export const router = createBrowserRouter([
   {
@@ -79,7 +80,14 @@ export const router = createBrowserRouter([
       { path: "finished", element: <CompSent /> },
     ],
   },
-  { path: "/payment", element: <PageAdminPayment /> },
+  {
+    path: "/payment",
+    element: <LayoutAdminPayment />,
+    children: [
+      { index: true, element: <CompPendingPayment /> },
+      { path: "acredited", element: <CompAcreditedPayment /> },
+    ],
+  },
   {
     path: "/",
     element: <PageRedirect />,
