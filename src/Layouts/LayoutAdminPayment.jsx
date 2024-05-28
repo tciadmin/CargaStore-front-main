@@ -1,4 +1,6 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -46,10 +48,29 @@ function a11yProps(index) {
 export default function LayoutAdminPayment() {
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const navigate = useNavigate();
+
+  const tabNameToIndex = {
+    Pendientes: 0,
+    Acreditados: 1,
   };
 
+  const handleChange = (event, newValue) => {
+    const tabName = event.target.name;
+    if (tabName in tabNameToIndex) {
+      setValue(tabNameToIndex[tabName]);
+    } else {
+      setValue(newValue);
+    }
+  };
+
+  useEffect(() => {
+    if (value === 0) {
+      navigate("/payment");
+    } else {
+      navigate("/payment/acredited");
+    }
+  }, [value]);
   return (
     <Box sx={{ minWidth: "100%", height: "100vh", display: "flex" }}>
       <Drawer
@@ -82,11 +103,13 @@ export default function LayoutAdminPayment() {
             <Tab
               sx={{ textTransform: "none", display: "flex", width: "239px" }}
               label="Pendientes"
+              name="Pendientes"
               {...a11yProps(0)}
             />
             <Tab
               sx={{ textTransform: "none" }}
               label="Acreditados"
+              name="Acreditados"
               {...a11yProps(1)}
             />
           </Tabs>
