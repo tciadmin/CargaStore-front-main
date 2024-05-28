@@ -1,55 +1,44 @@
 import * as React from "react";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
-import { Button, StepButton, StepConnector } from "@mui/material";
+import { Button } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
-
+import Modal from "@mui/material/Modal";
 //? --------------------------------------------- STYLES
-import { Colors } from "../../../Utils/Colors";
-import "./styles.css";
+import { Colors } from "../../Utils/Colors";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 600,
+  width: 500,
   bgcolor: "background.paper",
   boxShadow: 24,
-  p: 2,
+  p: 0,
 };
-
-const steps = [
-  { label: "En preparación", date: "09/03/24" },
-  { label: "Preparado", date: "10/03/24" },
-  { label: "Retirado", date: "10/03/24" },
-  { label: "En camino", date: "10/03/24" },
-];
 
 function createData(
   index,
+  code,
   product,
-  retire,
-  date,
+  weight,
+  country,
   delivery,
-  secondDate,
-  receiver,
-  unity,
   load,
-  seca,
+  client,
   value
 ) {
   return {
     index,
+    code,
     product,
-    retire,
-    date,
+    weight,
+    country,
     delivery,
-    secondDate,
-    receiver,
-    unity,
     load,
-    seca,
+    client,
     value,
   };
 }
@@ -58,19 +47,31 @@ const rows = [
   createData(
     "0",
     "#1205",
-    "Bobinas de papel",
-    "Calle 12, Quito, Peru",
-    "12/03/24 12:00hs",
-    "Calle 12, Quito, Peru",
-    "21/03/24 12:00hs",
-    "El mundo del papel",
-    "Furgón",
+    "Bobinas",
+    "1 tonelada",
+    "Colombia",
+    "12/03/24 - 21/03/24",
     "Seca",
+    "María Paz",
+    "$12.00"
+  ),
+  createData(
+    "1",
+    "#1205",
+    "Bobinas",
+    "1 tonelada",
+    "Colombia",
+    "12/03/24 - 21/03/24",
+    "Seca",
+    "María Paz",
     "$12.00"
   ),
 ];
 
-export default function CompPending() {
+export default function CompPendingPayment() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
     <Box
       sx={{
@@ -132,6 +133,23 @@ export default function CompPending() {
                     marginLeft: "3px",
                   }}
                 >
+                  Código
+                </p>
+              </Grid>
+              <Grid
+                item
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <p
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    marginLeft: "3px",
+                  }}
+                >
                   Producto
                 </p>
               </Grid>
@@ -149,24 +167,7 @@ export default function CompPending() {
                     marginLeft: "3px",
                   }}
                 >
-                  Retiro
-                </p>
-              </Grid>
-              <Grid
-                item
-                container
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-              >
-                <p
-                  style={{
-                    fontSize: "12px",
-                    fontWeight: 600,
-                    marginLeft: "3px",
-                  }}
-                >
-                  Fecha y hora
+                  Peso
                 </p>
               </Grid>
 
@@ -184,6 +185,24 @@ export default function CompPending() {
                     marginLeft: "3px",
                   }}
                 >
+                  País
+                </p>
+              </Grid>
+              <Grid
+                item
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <p
+                  style={{
+                    width: "80px",
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    marginLeft: "3px",
+                  }}
+                >
                   Entrega
                 </p>
               </Grid>
@@ -196,30 +215,12 @@ export default function CompPending() {
               >
                 <p
                   style={{
-                    width: "80px",
                     fontSize: "12px",
                     fontWeight: 600,
                     marginLeft: "3px",
                   }}
                 >
-                  Fecha y hora
-                </p>
-              </Grid>
-              <Grid
-                item
-                container
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-              >
-                <p
-                  style={{
-                    fontSize: "12px",
-                    fontWeight: 600,
-                    marginLeft: "3px",
-                  }}
-                >
-                  Destinatario
+                  Carga
                 </p>
               </Grid>
               <Grid
@@ -237,7 +238,7 @@ export default function CompPending() {
                     marginLeft: "3px",
                   }}
                 >
-                  Unidad
+                  Cliente
                 </p>
               </Grid>
               <Grid
@@ -255,7 +256,7 @@ export default function CompPending() {
                     marginLeft: "3px",
                   }}
                 >
-                  Tipo de carga
+                  Valor
                 </p>
               </Grid>
               <Grid
@@ -273,25 +274,7 @@ export default function CompPending() {
                     marginLeft: "3px",
                   }}
                 >
-                  Valor ofertado
-                </p>
-              </Grid>
-              <Grid
-                item
-                container
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-              >
-                <p
-                  style={{
-                    width: "80px",
-                    fontSize: "12px",
-                    fontWeight: 600,
-                    marginLeft: "3px",
-                  }}
-                >
-                  Conductor
+                  Detalle
                 </p>
               </Grid>
             </Grid>
@@ -315,9 +298,7 @@ export default function CompPending() {
                     justifyContent={"center"}
                     alignItems={"center"}
                     style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      width: "100%",
+                      minWidth: "1000px",
                       height: "75px",
                       background: "white",
                     }}
@@ -326,7 +307,7 @@ export default function CompPending() {
                     <Grid
                       item
                       container
-                      width={"9%"}
+                      width={"11.1%"}
                       direction="row"
                       justifyContent="center"
                       alignItems="center"
@@ -338,18 +319,24 @@ export default function CompPending() {
                           marginLeft: "3px",
                         }}
                       >
-                        {row.product}
+                        {row.code}
                       </p>
                     </Grid>
                     <Grid
                       item
                       container
-                      width={"9%"}
+                      width={"11.1%"}
                       direction="row"
                       justifyContent="center"
                       alignItems="center"
                     >
-                      <Box style={{ display: "flex", gap: "5px" }}>
+                      <Box
+                        style={{
+                          display: "flex",
+                          gap: "5px",
+                          alignItems: "center",
+                        }}
+                      >
                         <img src="/src/assets/imgShipments/Product.svg" />
                         <p
                           style={{
@@ -358,23 +345,28 @@ export default function CompPending() {
                             marginLeft: "3px",
                           }}
                         >
-                          {row.retire}
+                          {row.product}
                         </p>
                       </Box>
                     </Grid>
                     <Grid
                       item
                       container
-                      style={{ display: "flex" }}
-                      width={"9%"}
+                      width={"11.1%"}
                       direction="row"
                       justifyContent="center"
                       alignItems="center"
                     >
-                      <Box style={{ display: "flex", gap: "5px" }}>
+                      <Box
+                        style={{
+                          display: "flex",
+                          gap: "5px",
+                          alignItems: "center",
+                        }}
+                      >
                         <img
                           style={{ display: "flex" }}
-                          src="/src/assets/imgShipments/Location.svg"
+                          src="/src/assets/imgShipments/Load.svg"
                         />
                         <p
                           style={{
@@ -383,20 +375,52 @@ export default function CompPending() {
                             marginLeft: "3px",
                           }}
                         >
-                          {row.date}
+                          {row.weight}
                         </p>
                       </Box>
                     </Grid>
-
                     <Grid
                       item
                       container
-                      width={"9%"}
+                      width={"11.1%"}
                       direction="row"
                       justifyContent="center"
                       alignItems="center"
                     >
-                      <Box style={{ display: "flex", gap: "5px" }}>
+                      <Box
+                        style={{
+                          display: "flex",
+                          gap: "5px",
+                          alignItems: "center",
+                        }}
+                      >
+                        <img src="/src/assets/imgShipments/Location.svg" />
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            fontWeight: 500,
+                            marginLeft: "3px",
+                          }}
+                        >
+                          {row.country}
+                        </p>
+                      </Box>
+                    </Grid>
+                    <Grid
+                      item
+                      container
+                      width={"11.1%"}
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Box
+                        style={{
+                          display: "flex",
+                          gap: "5px",
+                          alignItems: "center",
+                        }}
+                      >
                         <img src="/src/assets/imgShipments/Date.svg" />
                         <p
                           style={{
@@ -412,76 +436,19 @@ export default function CompPending() {
                     <Grid
                       item
                       container
-                      width={"9%"}
+                      width={"11.1%"}
                       direction="row"
                       justifyContent="center"
                       alignItems="center"
                     >
-                      <Box style={{ display: "flex", gap: "5px" }}>
-                        <img src="/src/assets/imgShipments/Location.svg" />
-                        <p
-                          style={{
-                            fontSize: "12px",
-                            fontWeight: 500,
-                            marginLeft: "3px",
-                          }}
-                        >
-                          {row.secondDate}
-                        </p>
-                      </Box>
-                    </Grid>
-                    <Grid
-                      item
-                      container
-                      width={"9%"}
-                      direction="row"
-                      justifyContent="center"
-                      alignItems="center"
-                    >
-                      <Box style={{ display: "flex", gap: "5px" }}>
-                        <img src="/src/assets/imgShipments/Date.svg" />
-                        <p
-                          style={{
-                            fontSize: "12px",
-                            fontWeight: 500,
-                            marginLeft: "3px",
-                          }}
-                        >
-                          {row.receiver}
-                        </p>
-                      </Box>
-                    </Grid>
-                    <Grid
-                      item
-                      container
-                      width={"9%"}
-                      direction="row"
-                      justifyContent="center"
-                      alignItems="center"
-                    >
-                      <Box style={{ display: "flex", gap: "5px" }}>
-                        <img src="/src/assets/imgShipments/Receiver.svg" />
-                        <p
-                          style={{
-                            fontSize: "12px",
-                            fontWeight: 500,
-                            marginLeft: "3px",
-                          }}
-                        >
-                          {row.unity}
-                        </p>
-                      </Box>
-                    </Grid>
-                    <Grid
-                      item
-                      container
-                      width={"9%"}
-                      direction="row"
-                      justifyContent="center"
-                      alignItems="center"
-                    >
-                      <Box style={{ display: "flex", gap: "5px" }}>
-                        <img src="/src/assets/imgShipments/Truck.svg" />
+                      <Box
+                        style={{
+                          display: "flex",
+                          gap: "5px",
+                          alignItems: "center",
+                        }}
+                      >
+                        <img src="/src/assets/imgShipments/Load.svg" />
                         <p
                           style={{
                             fontSize: "12px",
@@ -496,13 +463,19 @@ export default function CompPending() {
                     <Grid
                       item
                       container
-                      width={"9%"}
+                      width={"11.1%"}
                       direction="row"
                       justifyContent="center"
                       alignItems="center"
                     >
-                      <Box style={{ display: "flex", gap: "5px" }}>
-                        <img src="/src/assets/imgShipments/Load.svg" />
+                      <Box
+                        style={{
+                          display: "flex",
+                          gap: "5px",
+                          alignItems: "center",
+                        }}
+                      >
+                        <img src="/src/assets/imgShipments/Receiver.svg" />
                         <p
                           style={{
                             fontSize: "12px",
@@ -510,21 +483,20 @@ export default function CompPending() {
                             marginLeft: "3px",
                           }}
                         >
-                          {row.seca}
+                          {row.client}
                         </p>
                       </Box>
                     </Grid>
                     <Grid
                       item
                       container
-                      width={"9%"}
+                      width={"11.1%"}
                       direction="row"
                       justifyContent="center"
                       alignItems="center"
                     >
                       <p
                         style={{
-                          width: "80px",
                           fontSize: "12px",
                           fontWeight: 500,
                           marginLeft: "3px",
@@ -536,30 +508,256 @@ export default function CompPending() {
                     <Grid
                       item
                       container
-                      width={"9%"}
+                      width={"11.1%"}
                       direction="row"
                       justifyContent="center"
                       alignItems="center"
                     >
-                      <Box className="flexTable">
-                        <Button
-                          variant="outlined"
-                          style={{
-                            cursor: "not allowed",
-                            pointerEvents: "none",
-                            color: Colors.secondary.contrastText,
-                            borderColor: Colors.secondary.contrastText,
-                          }}
-                        >
-                          Ver
-                        </Button>
-                      </Box>
+                      {" "}
+                      <img
+                        onClick={handleOpen}
+                        style={{ cursor: "pointer" }}
+                        src="/src/assets/imgAdminPayment/EyeIcon.svg"
+                      />
                     </Grid>
                   </Grid>
                 </Box>
               ))}
             </Box>
           </Box>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box
+              sx={style}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
+                gap: "10px",
+              }}
+            >
+              <Box
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "right",
+                  alignItems: "right",
+                  cursor: "pointer",
+                  padding: "5px",
+                }}
+              >
+                <img
+                  onClick={handleClose}
+                  style={{
+                    display: "flex",
+                    justifyContent: "right",
+                    alignContent: "right",
+                  }}
+                  src="/src/assets/imgShipments/CloseButton.svg"
+                />
+              </Box>
+
+              <Box
+                style={{
+                  display: "flex",
+                  border: "1px solid",
+                  borderColor: Colors.terciary.main,
+                  borderRadius: "8px",
+                  padding: "20px",
+                  gap: "15px",
+                  justifyContent: "center",
+                  width: "90%",
+                }}
+              >
+                <Box
+                  style={{
+                    display: "flex",
+                    width: "100%",
+                    flexDirection: "column",
+                    gap: "10px",
+                    // padding: "20px",
+                  }}
+                >
+                  <h3 style={{ textAlign: "center" }}>Bobinas de papel</h3>
+
+                  <span
+                    style={{ display: "flex", gap: "5px", fontWeight: 500 }}
+                  >
+                    Cliente: <p style={{ fontWeight: 400 }}>María paz</p>{" "}
+                  </span>
+                  <span
+                    style={{ display: "flex", gap: "5px", fontWeight: 500 }}
+                  >
+                    Unidades: <p style={{ fontWeight: 400 }}>385</p>
+                  </span>
+                  <span
+                    style={{
+                      display: "flex",
+                      fontWeight: 500,
+                      gap: "5px",
+                    }}
+                  >
+                    Dirección de retiro:
+                    <p style={{ fontWeight: 400 }}>Calle 1, La paz, Bolivia</p>
+                  </span>
+                  <span
+                    style={{
+                      display: "flex",
+                      gap: "5px",
+                      fontWeight: 500,
+                    }}
+                  >
+                    Dirección de entrega:
+                    <p
+                      style={{
+                        fontWeight: 400,
+                      }}
+                    >
+                      {" "}
+                      Calle 365, La paz, Bolivia
+                    </p>
+                  </span>
+                  <span
+                    style={{
+                      display: "flex",
+                      gap: "5px",
+                      fontWeight: 500,
+                    }}
+                  >
+                    Fecha de entrega y retiro:
+                    <p
+                      style={{
+                        fontWeight: 400,
+                      }}
+                    >
+                      {" "}
+                      23/02/2023 - 25/02/23
+                    </p>
+                  </span>
+                  <span
+                    style={{
+                      display: "flex",
+                      gap: "5px",
+                      fontWeight: 500,
+                    }}
+                  >
+                    Fecha de pago:
+                    <p
+                      style={{
+                        fontWeight: 400,
+                      }}
+                    >
+                      {" "}
+                      23/02/2023
+                    </p>
+                  </span>
+                  <span
+                    style={{
+                      display: "flex",
+                      gap: "5px",
+                      fontWeight: 500,
+                    }}
+                  >
+                    Conductor:
+                    <p
+                      style={{
+                        fontWeight: 400,
+                      }}
+                    >
+                      {" "}
+                      Luis Alvarez
+                    </p>
+                  </span>
+                  <span
+                    style={{
+                      display: "flex",
+                      gap: "5px",
+                      fontWeight: 500,
+                    }}
+                  >
+                    Calificación del cliente:
+                    <p
+                      style={{
+                        fontWeight: 400,
+                      }}
+                    >
+                      {" "}
+                      5 estrellas
+                    </p>
+                  </span>
+                  <span
+                    style={{
+                      display: "flex",
+                      gap: "5px",
+                      fontWeight: 500,
+                    }}
+                  >
+                    Reseña:
+                    <p
+                      style={{
+                        fontWeight: 400,
+                      }}
+                    >
+                      "Luis cuidó la mercadería, ha sido muy cordial y la
+                      entrega fue muy rápida"
+                    </p>
+                  </span>
+                  <Box
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "right",
+                      marginLeft: "150px",
+                    }}
+                  >
+                    <span
+                      style={{
+                        display: "flex",
+                        gap: "5px",
+                        fontWeight: 500,
+                      }}
+                    >
+                      Valor del envío: $12.000
+                    </span>
+                    <span
+                      style={{
+                        display: "flex",
+                        gap: "5px",
+                        fontWeight: 400,
+                      }}
+                    >
+                      Decuento 20% por comisión: -$2.400
+                    </span>
+                    <span
+                      style={{
+                        display: "flex",
+                        gap: "5px",
+                        fontWeight: 500,
+                        color: Colors.primary.main,
+                      }}
+                    >
+                      Valor final: 9.600
+                    </span>
+                  </Box>
+                </Box>
+              </Box>
+
+              <Typography
+                id="modal-modal-description"
+                style={{ color: Colors.cuaternary.main }}
+              >
+                Ver factura
+              </Typography>
+
+              <Button variant="contained" style={{ marginBottom: "10px" }}>
+                Efectuar pago al conductor
+              </Button>
+            </Box>
+          </Modal>
         </Box>
       </Box>
     </Box>

@@ -25,6 +25,9 @@ import LayoutShipments from "../Layouts/LayoutShipments";
 import CompAssigned from "../Components/Shipments/Assigned/CompAssigned";
 import CompInProgress from "../Components/Shipments/InProgress/CompInProgress";
 import CompSent from "../Components/Shipments/Sent/CompSent";
+import PageShipments from "../Pages/PageShipments";
+import CompPendingPayment from "../Components/AdminPayment/CompPendingPayment";
+import PageAdminPayment from "../Pages/PageAdminPayment";
 
 export const router = createBrowserRouter([
   {
@@ -68,7 +71,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/shipments",
-    element: <LayoutShipments />,
+    element: <PageShipments />,
     children: [
       { index: true, element: <CompPending /> },
       { path: "assigned", element: <CompAssigned /> },
@@ -76,6 +79,7 @@ export const router = createBrowserRouter([
       { path: "finished", element: <CompSent /> },
     ],
   },
+  { path: "/payment", element: <PageAdminPayment /> },
   {
     path: "/",
     element: <PageRedirect />,
