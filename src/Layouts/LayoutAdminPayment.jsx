@@ -9,6 +9,7 @@ import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import { Colors } from "../Utils/Colors";
 import { Outlet } from "react-router-dom";
+import Header from "../Components/Shipments/Header";
 
 const drawerWidth = 240;
 
@@ -72,51 +73,56 @@ export default function LayoutAdminPayment() {
     }
   }, [value]);
   return (
-    <Box sx={{ minWidth: "100%", height: "100vh", display: "flex" }}>
-      <Drawer
-        variant="permanent"
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: {
+    <Box>
+      <Header></Header>
+
+      <Box sx={{ minWidth: "100%", display: "flex" }}>
+        <Drawer
+          variant="permanent"
+          sx={{
             width: drawerWidth,
-            boxSizing: "border-box",
-          },
-        }}
-      >
-        <span
-          style={{
-            color: Colors.primary.main,
-            fontWeight: 600,
-            padding: "20px",
+            flexShrink: 0,
+            [`& .MuiDrawer-paper`]: {
+              width: drawerWidth,
+              boxSizing: "border-box",
+              marginTop: "64px",
+            },
           }}
         >
-          Pagos
-        </span>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs
-            orientation="vertical"
-            value={value}
-            onChange={handleChange}
-            aria-label="basic tabs example"
+          <span
+            style={{
+              color: Colors.primary.main,
+              fontWeight: 600,
+              padding: "20px",
+            }}
           >
-            <Tab
-              sx={{ textTransform: "none", display: "flex", width: "239px" }}
-              label="Pendientes"
-              name="Pendientes"
-              {...a11yProps(0)}
-            />
-            <Tab
-              sx={{ textTransform: "none" }}
-              label="Acreditados"
-              name="Acreditados"
-              {...a11yProps(1)}
-            />
-          </Tabs>
-        </Box>
-      </Drawer>
+            Pagos
+          </span>
+          <Box sx={{ border: "none" }}>
+            <Tabs
+              orientation="vertical"
+              value={value}
+              onChange={handleChange}
+              aria-label="basic tabs example"
+            >
+              <Tab
+                sx={{ textTransform: "none", display: "flex", width: "239px" }}
+                label="Pendientes"
+                name="Pendientes"
+                {...a11yProps(0)}
+              />
+              <Tab
+                sx={{ textTransform: "none" }}
+                label="Acreditados"
+                name="Acreditados"
+                {...a11yProps(1)}
+              />
+            </Tabs>
+          </Box>
+        </Drawer>
 
-      <Outlet />
+        <Outlet />
+      </Box>
     </Box>
   );
 }
