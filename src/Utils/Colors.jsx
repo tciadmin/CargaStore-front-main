@@ -15,4 +15,4 @@ export const Colors = {
     main: "#5D5D5D",
     contrastText: "#fff",
   },
-};
+}
