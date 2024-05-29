@@ -29,6 +29,7 @@ import PageShipments from "../Pages/PageShipments";
 import CompPendingPayment from "../Components/AdminPayment/CompPendingPayment";
 import LayoutAdminPayment from "../Layouts/LayoutAdminPayment";
 import CompAcreditedPayment from "../Components/AdminPayment/CompAcreditedPayment";
+import { CompMarketplacePostular } from "../Components/MarketPlacePostular/CompMarketplacePostular";
 
 export const router = createBrowserRouter([
   {
@@ -68,6 +69,10 @@ export const router = createBrowserRouter([
       { index: true, element: <PageHome /> },
       { path: "crearEnvios", element: <PageCrearEnvios /> },
       { path: "Marketplace", element: <PageMarketplace /> },
+      {
+        path: "marketplace/postular",
+        element: <CompMarketplacePostular />,
+      },
     ],
   },
   {
@@ -88,6 +93,7 @@ export const router = createBrowserRouter([
       { path: "acredited", element: <CompAcreditedPayment /> },
     ],
   },
+
   {
     path: "/",
     element: <PageRedirect />,
