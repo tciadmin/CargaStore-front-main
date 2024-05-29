@@ -33,7 +33,7 @@ export const CompMarketplacePostular = () => {
       style={{
         display: "flex",
         padding: 30,
-        gap: "40px",
+        gap: "30px",
         width: "100%",
         height: "100%",
         justifyContent: "center",
@@ -73,18 +73,33 @@ export const CompMarketplacePostular = () => {
         </Box>
 
         <Box style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-          <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
-            Producto: <p style={{ fontWeight: 400 }}>Bobinas de papel</p>
-          </span>
-          <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
-            Cantidad de unidades: <p style={{ fontWeight: 400 }}>147</p>
-          </span>
-          <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
-            Volumen: <p style={{ fontWeight: 400 }}>1 tonelada</p>
-          </span>
-          <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
-            Tipo de carga: <p style={{ fontWeight: 400 }}>Seca</p>
-          </span>
+          <Box style={{ display: "flex", gap: "5px" }}>
+            <img src="/src/assets/imgMarketplace/List.svg" />
+            <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
+              Producto: <p style={{ fontWeight: 400 }}>Bobinas de papel</p>
+            </span>
+          </Box>
+
+          <Box style={{ display: "flex", gap: "5px" }}>
+            <img src="/src/assets/imgMarketplace/List.svg" />
+            <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
+              Cantidad de unidades: <p style={{ fontWeight: 400 }}>147</p>
+            </span>
+          </Box>
+
+          <Box style={{ display: "flex", gap: "5px" }}>
+            <img src="/src/assets/imgMarketplace/List.svg" />
+            <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
+              Volumen: <p style={{ fontWeight: 400 }}>1 tonelada</p>
+            </span>
+          </Box>
+
+          <Box style={{ display: "flex", gap: "5px" }}>
+            <img src="/src/assets/imgMarketplace/List.svg" />
+            <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
+              Tipo de carga: <p style={{ fontWeight: 400 }}>Seca</p>
+            </span>
+          </Box>
         </Box>
         <Box style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
           <h3>Información adicional</h3>
@@ -135,42 +150,75 @@ export const CompMarketplacePostular = () => {
           </Box>
           <Box style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
             <h3>Información del envío</h3>
-            <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
-              Fecha de retiro: <p style={{ fontWeight: 400 }}>12/03/24</p>
-            </span>
-            <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
-              Hora de retiro: <p style={{ fontWeight: 400 }}>12:00hs</p>
-            </span>
-            <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
-              Dirección de retiro:{" "}
-              <p style={{ fontWeight: 400 }}>Calle 12, Quito, Perú</p>
-            </span>
-            <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
-              Teléfono: <p style={{ fontWeight: 400 }}>123456</p>
-            </span>
+            <Box style={{ display: "flex", gap: "5px" }}>
+              <img src="/src/assets/imgMarketplace/List.svg" />
+              <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
+                Fecha de retiro: <p style={{ fontWeight: 400 }}>12/03/24</p>
+              </span>
+            </Box>
+
+            <Box style={{ display: "flex", gap: "5px" }}>
+              <img src="/src/assets/imgMarketplace/List.svg" />
+              <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
+                Hora de retiro: <p style={{ fontWeight: 400 }}>12:00hs</p>
+              </span>
+            </Box>
+
+            <Box style={{ display: "flex", gap: "5px" }}>
+              <img src="/src/assets/imgMarketplace/List.svg" />
+              <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
+                Dirección de retiro:{" "}
+                <p style={{ fontWeight: 400 }}>Calle 12, Quito, Perú</p>
+              </span>
+            </Box>
+
+            <Box style={{ display: "flex", gap: "5px" }}>
+              <img src="/src/assets/imgMarketplace/List.svg" />
+              <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
+                Teléfono: <p style={{ fontWeight: 400 }}>123456</p>
+              </span>
+            </Box>
 
             <img
               style={{ width: "300px" }}
               src="/src/assets/imgRegister/RegDivider.svg"
             />
+            <Box style={{ display: "flex", gap: "5px" }}>
+              <img src="/src/assets/imgMarketplace/List.svg" />
+              <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
+                Fecha de retiro: <p style={{ fontWeight: 400 }}>21/03/24</p>
+              </span>
+            </Box>
 
-            <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
-              Fecha de retiro: <p style={{ fontWeight: 400 }}>21/03/24</p>
-            </span>
-            <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
-              Hora de retiro: <p style={{ fontWeight: 400 }}>12:00hs</p>
-            </span>
-            <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
-              Dirección de retiro:{" "}
-              <p style={{ fontWeight: 400 }}>Calle 21, Colombia</p>
-            </span>
-            <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
-              Teléfono: <p style={{ fontWeight: 400 }}>123456</p>
-            </span>
-            <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
-              Destinatario:{" "}
-              <p style={{ fontWeight: 400 }}>El mundo del papel</p>
-            </span>
+            <Box style={{ display: "flex", gap: "5px" }}>
+              <img src="/src/assets/imgMarketplace/List.svg" />
+              <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
+                Hora de retiro: <p style={{ fontWeight: 400 }}>12:00hs</p>
+              </span>
+            </Box>
+
+            <Box style={{ display: "flex", gap: "5px" }}>
+              <img src="/src/assets/imgMarketplace/List.svg" />
+              <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
+                Dirección de retiro:{" "}
+                <p style={{ fontWeight: 400 }}>Calle 21, Colombia</p>
+              </span>
+            </Box>
+
+            <Box style={{ display: "flex", gap: "5px" }}>
+              <img src="/src/assets/imgMarketplace/List.svg" />
+              <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
+                Teléfono: <p style={{ fontWeight: 400 }}>123456</p>
+              </span>
+            </Box>
+
+            <Box style={{ display: "flex", gap: "5px" }}>
+              <img src="/src/assets/imgMarketplace/List.svg" />
+              <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
+                Destinatario:{" "}
+                <p style={{ fontWeight: 400 }}>El mundo del papel</p>
+              </span>
+            </Box>
           </Box>
         </Box>
         <Button onClick={handleOpen}>Postularse</Button>
