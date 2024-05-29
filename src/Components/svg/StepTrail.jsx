@@ -1,8 +1,8 @@
 import React from 'react'
 
-const StepTrail = ({active = false}) => {
+const StepTrail = ({active = false, vertical = false}) => {
   return (
-<svg width="99" height="32" viewBox="0 0 99 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg style={{rotate: vertical ? "90deg" : "0deg"}} width="99" height="32" viewBox="0 0 99 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 <circle cx="1.5" cy="16" r="1.5" fill={active ? "#007C52":"#8C94A6"}/>
 <circle cx="7.5" cy="16" r="1.5" fill={active ? "#007C52":"#8C94A6"}/>
 <circle cx="13.5" cy="16" r="1.5" fill={active ? "#007C52":"#8C94A6"}/>
