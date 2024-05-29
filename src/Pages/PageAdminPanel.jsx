@@ -74,62 +74,60 @@ export default function PageAdminPanel() {
     <Box
       sx={{ flexGrow: 1, bgcolor: '#e6e6e6', display: 'flex', width: "100%", height: "100%" }}
     >
- <List
-            sx={{ width: '100%', paddingTop: 0, marginRight: "5px", maxWidth: 360, fontWeight: 400, minHeight: "100vh", bgcolor: 'transparent', borderRight: "1px solid lightgrey" }}
-            component="nav"
-            aria-labelledby="nested-list-subheader"
+      <List
+        sx={{ width: '100%', paddingTop: 0, marginRight: "5px", maxWidth: 360, fontWeight: 400, minHeight: "100vh", bgcolor: 'transparent', borderRight: "1px solid lightgrey" }}
+        component="nav"
+        aria-labelledby="nested-list-subheader"
 
-        >
+      >
+        <ListItemButton onClick={() => handleClick(0)} sx={{ marginTop: 0, background: value === 0 ? "#fff" : "transparent", color: value === 0 ? "#007C52" : "#000", fontWeight: 200, borderRight: value === 0 ? "2px solid #007C52" : "2px solid transparent" }}>
 
+          <ListItemText primaryTypographyProps={{ fontWeight: value === 0 ? 600 : 400 }} primary="Solicitudes de carga" />
+          {open ? <ExpandLess /> : <ExpandMore />}
+        </ListItemButton>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItemButton sx={{ pl: 4 }} onClick={() => filtrarViajes(0)}>
 
-            <ListItemButton onClick={() => handleClick(0)} sx={{ marginTop: 0,background:value === 0 ?"#fff": "transparent"  ,color: value === 0 ? "#007C52" : "#000", fontWeight: 200, borderRight: value === 0 ? "2px solid #007C52" : "2px solid transparent" }}>
-
-                <ListItemText primaryTypographyProps={{ fontWeight: value === 0 ? 600 : 400 }} primary="Solicitudes de carga" />
-                {open ? <ExpandLess /> : <ExpandMore />}
+              <ListItemText primaryTypographyProps={{ fontWeight: 400, color: viajes == 0 ? "primary" : "#000" }} primary="Viajes sin asignar" />
             </ListItemButton>
-            <Collapse in={open} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }} onClick={() => filtrarViajes(0)}>
+            <ListItemButton sx={{ pl: 4 }} onClick={() => filtrarViajes(1)}>
 
-                        <ListItemText primaryTypographyProps={{ fontWeight: 400, color: viajes == 0 ? "primary" : "#000" }}  primary="Viajes sin asignar" />
-                    </ListItemButton>
-                    <ListItemButton sx={{ pl: 4 }} onClick={() => filtrarViajes(1)}>
-
-                        <ListItemText primaryTypographyProps={{ fontWeight: 400, color: viajes == 1 ? "primary" : "#000" }} primary="Viajes activos" />
-                    </ListItemButton>
-                    <ListItemButton sx={{ pl: 4 }} onClick={() => filtrarViajes(2)}>
-
-                        <ListItemText primaryTypographyProps={{ fontWeight: 400, color: viajes == 2 ? "primary" : "#000" }} primary="Viajes finalizados" />
-                    </ListItemButton>
-
-                </List>
-            </Collapse>
-            <ListItemButton sx={{ color: value === 1 ? "#007C52" : "#000",background:value === 1 ?"#fff": "transparent" , borderRight: value === 1 ? "2px solid #007C52" : "2px solid transparent" }}>
-
-                <ListItemText primaryTypographyProps={{ fontWeight: value === 1 ? 600 : 400 }} primary="Socios Activos" onClick={() => handleClick(1)} />
+              <ListItemText primaryTypographyProps={{ fontWeight: 400, color: viajes == 1 ? "primary" : "#000" }} primary="Viajes activos" />
             </ListItemButton>
-        </List>
-        
-        
-        
-        
-        
-        
-              <Container>
-                {value == 0 && 
-                <Grid container flexDirection="column" gap="40px" marginTop={5} >
-                {fakeData.map((item) => {
-                  return <ChargeItemCard style={{ marginTop: "10px" }} id={item.id} title={item.title} typeCharge={item.typeCharge}
-                    country={item.country} dates={item.dates}
-                    weight={item.weight} driver={item.driver} requests={item.requests} />
-      
-                })}
-      
-      
-              </Grid>
-                
-                }
-        
+            <ListItemButton sx={{ pl: 4 }} onClick={() => filtrarViajes(2)}>
+
+              <ListItemText primaryTypographyProps={{ fontWeight: 400, color: viajes == 2 ? "primary" : "#000" }} primary="Viajes finalizados" />
+            </ListItemButton>
+
+          </List>
+        </Collapse>
+        <ListItemButton sx={{ color: value === 1 ? "#007C52" : "#000", background: value === 1 ? "#fff" : "transparent", borderRight: value === 1 ? "2px solid #007C52" : "2px solid transparent" }}>
+
+          <ListItemText primaryTypographyProps={{ fontWeight: value === 1 ? 600 : 400 }} primary="Socios Activos" onClick={() => handleClick(1)} />
+        </ListItemButton>
+      </List>
+
+
+
+
+
+
+      <Container>
+        {value == 0 &&
+          <Grid container flexDirection="column" gap="40px" marginTop={5} >
+            {fakeData.map((item) => {
+              return <ChargeItemCard style={{ marginTop: "10px" }} id={item.id} title={item.title} typeCharge={item.typeCharge}
+                country={item.country} dates={item.dates}
+                weight={item.weight} driver={item.driver} requests={item.requests} />
+
+            })}
+
+
+          </Grid>
+
+        }
+
 
       </Container>
 
