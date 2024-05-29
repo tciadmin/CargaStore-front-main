@@ -1,13 +1,13 @@
 import React from "react";
 import { Stack } from "@mui/material";
-import CompPending from "../Components/Shipments/Pending/CompPending";
+import LayoutShipments from "../Layouts/LayoutShipments";
 
-const PageLogin = () => {
+const PageShipments = () => {
   return (
     <Stack>
-      <CompPending />
+      <LayoutShipments />
     </Stack>
   );
 };
 
-export default PageLogin;
+export default PageShipments;

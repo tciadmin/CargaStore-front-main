@@ -25,6 +25,11 @@ import LayoutShipments from "../Layouts/LayoutShipments";
 import CompAssigned from "../Components/Shipments/Assigned/CompAssigned";
 import CompInProgress from "../Components/Shipments/InProgress/CompInProgress";
 import CompSent from "../Components/Shipments/Sent/CompSent";
+import PageShipments from "../Pages/PageShipments";
+import CompPendingPayment from "../Components/AdminPayment/CompPendingPayment";
+import LayoutAdminPayment from "../Layouts/LayoutAdminPayment";
+import CompAcreditedPayment from "../Components/AdminPayment/CompAcreditedPayment";
+import { CompMarketplacePostular } from "../Components/MarketPlacePostular/CompMarketplacePostular";
 
 export const router = createBrowserRouter([
   {
@@ -64,11 +69,15 @@ export const router = createBrowserRouter([
       { index: true, element: <PageHome /> },
       { path: "crearEnvios", element: <PageCrearEnvios /> },
       { path: "Marketplace", element: <PageMarketplace /> },
+      {
+        path: "marketplace/postular",
+        element: <CompMarketplacePostular />,
+      },
     ],
   },
   {
     path: "/shipments",
-    element: <LayoutShipments />,
+    element: <PageShipments />,
     children: [
       { index: true, element: <CompPending /> },
       { path: "assigned", element: <CompAssigned /> },
@@ -76,6 +85,15 @@ export const router = createBrowserRouter([
       { path: "finished", element: <CompSent /> },
     ],
   },
+  {
+    path: "/payment",
+    element: <LayoutAdminPayment />,
+    children: [
+      { index: true, element: <CompPendingPayment /> },
+      { path: "acredited", element: <CompAcreditedPayment /> },
+    ],
+  },
+
   {
     path: "/",
     element: <PageRedirect />,

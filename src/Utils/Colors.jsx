@@ -12,7 +12,7 @@ export const Colors = {
     contrastText: "#F6F6F6",
   },
   cuaternary: {
-    main: "#5D5D5D",
+    main: "#3F8DB9",
     contrastText: "#fff",
   },
 };
