@@ -8,6 +8,12 @@ import CompForgotPassword from "../Components/ForgotPassword/CompForgotPassword"
 import CompVerificationCode from "../Components/VerificationCode/CompVerificationCode"
 import CompNewPassword from "../Components/NewPassword/CompNewPassword"
 import PageLanding from "../Pages/PageLanding"
+import PageRegister from "../Pages/PageRegister";
+import LayoutRegister from "../Layouts/LayoutRegister";
+import CompRegDriver from "../Components/RegisterDriver/CompRegDriver";
+import CompVehicleInfo from "../Components/VehicleInfo/CompVehicleInfo";
+import CompRegUser from "../Components/RegisterUser/CompRegUser";
+import CompCompanyInfo from "../Components/CompanyInfo/CompCompanyInfo";
 import LayoutConfi from "../Layouts/LayoutConfi"
 import { CompEdit } from "../Components/CompEdit/CompEdit"
 import CompEditTwo from "../Components/CompEditTwo/CompEditTwo"
@@ -18,6 +24,24 @@ import { CompPartners } from "../Components/Partners/CompPartners"
 import { CompCard } from "../Components/cards/CompCard"
 import { CompRequests } from "../Components/Requests/CompRequests"
 import { CompProfile } from "../Components/Profile/CompProfile"
+import LayoutHome from "../Layouts/LayoutHome";
+import PageHome from "../Pages/PageHome";
+import PageCrearEnvios from "../Pages/PageCrearEnvios";
+import PageMarketplace from "../Pages/PageMarketplace";
+import PagePerfil from "../Pages/PagePerfil";
+import PageAdminPanel from "../Pages/PageAdminPanel";
+import CargaPage from "../Pages/CargaPage";
+import PageAdminPerfil from "../Pages/PageAdminPerfil";
+import CompPending from "../Components/Shipments/Pending/CompPending";
+import LayoutShipments from "../Layouts/LayoutShipments";
+import CompAssigned from "../Components/Shipments/Assigned/CompAssigned";
+import CompInProgress from "../Components/Shipments/InProgress/CompInProgress";
+import CompSent from "../Components/Shipments/Sent/CompSent";
+import PageShipments from "../Pages/PageShipments";
+import CompPendingPayment from "../Components/AdminPayment/CompPendingPayment";
+import LayoutAdminPayment from "../Layouts/LayoutAdminPayment";
+import CompAcreditedPayment from "../Components/AdminPayment/CompAcreditedPayment";
+import { CompMarketplacePostular } from "../Components/MarketPlacePostular/CompMarketplacePostular";
 
 export const router = createBrowserRouter([
   {
@@ -35,13 +59,58 @@ export const router = createBrowserRouter([
       { path: "new-password", element: <CompNewPassword /> },
     ],
   },
-
   {
-    path: "/homeTeacher",
-    element: <LayoutPublic />,
-    errorElement: <NotFound />,
-    children: [],
+    path: "/perfil",
+    element: <PagePerfil />,
   },
+  {
+    path: "/register",
+    element: <LayoutRegister />,
+    children: [
+      { index: true, element: <PageRegister /> },
+      { path: "driver", element: <CompRegDriver /> },
+      { path: "driver/vehicle-info", element: <CompVehicleInfo /> },
+      { path: "user", element: <CompRegUser /> },
+      { path: "user/company-info", element: <CompCompanyInfo /> },
+    ],
+  },
+  {
+    path: "/home",
+    element: <LayoutHome />,
+    children: [
+      { index: true, element: <PageHome /> },
+      { path: "administrador/panel", element: <PageAdminPanel /> },
+      { path: "administrador/carga", element: <CargaPage /> },
+      //en administrador carga, cuando tengamos datos se toma la carga por id de url url/administrador/carga:idCarga
+      { path: "administrador/perfil", element: <PageAdminPerfil /> },
+
+      { path: "crearEnvios", element: <PageCrearEnvios /> },
+      { path: "Marketplace", element: <PageMarketplace /> },
+      {
+        path: "marketplace/postular",
+        element: <CompMarketplacePostular />,
+      },
+    ],
+  },
+  {
+    path: "/shipments",
+    element: <PageShipments />,
+    children: [
+      { index: true, element: <CompPending /> },
+      { path: "assigned", element: <CompAssigned /> },
+      { path: "in-progress", element: <CompInProgress /> },
+      { path: "finished", element: <CompSent /> },
+    ],
+  },
+  {
+    path: "/payment",
+    element: <LayoutAdminPayment />,
+    children: [
+      { index: true, element: <CompPendingPayment /> },
+      { path: "acredited", element: <CompAcreditedPayment /> },
+    ],
+  },
+
   {
     path: "/",
     element: <PageRedirect />,

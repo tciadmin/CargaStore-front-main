@@ -31,20 +31,7 @@ const LayoutLogin = () => {
         }}
       >
         {mobile ? (
-          <img
-            onClick={goBack}
-            src="/src/assets/imgLogin/GoBackArrow.svg"
-            style={{
-              display: location.pathname !== "/login" ? "" : "none",
-              maxHeight: "20px",
-              maxWidth: "20px",
-              marginLeft: "10px",
-              marginTop: "10px",
-              cursor: "pointer",
-              top: "0",
-              right: 0,
-            }}
-          />
+          ""
         ) : (
           <Box className="imgContainer">
             <img src="/src/assets/imgLogin/LoginCamion.jpg" />
@@ -54,6 +41,7 @@ const LayoutLogin = () => {
         <Box
           style={{
             width: "100%",
+            heigth: "100%",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -68,6 +56,29 @@ const LayoutLogin = () => {
               padding: mobile ? "" : "30px 50px",
             }}
           >
+            <Box
+              className="arrow"
+              style={{
+                width: "100%",
+                display: "flex",
+                alignItems: "left",
+              }}
+            >
+              {mobile ? (
+                <img
+                  onClick={goBack}
+                  src="/src/assets/imgLogin/GoBackArrow.svg"
+                  style={{
+                    display: location.pathname !== "/login" ? "flex" : "none",
+                    cursor: "pointer",
+                    alignItems: "left",
+                  }}
+                />
+              ) : (
+                ""
+              )}
+            </Box>
+
             <Box className="headerContainer">
               {mobile ? (
                 location.pathname.includes("/forgot-password") ? (
