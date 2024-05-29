@@ -21,6 +21,8 @@ import PageCrearEnvios from "../Pages/PageCrearEnvios";
 import PageMarketplace from "../Pages/PageMarketplace";
 import PagePerfil from "../Pages/PagePerfil";
 import PageAdminPanel from "../Pages/PageAdminPanel";
+import CargaPage from "../Pages/CargaPage";
+import PageAdminPerfil from "../Pages/PageAdminPerfil";
 
 export const router = createBrowserRouter([
   {
@@ -58,6 +60,9 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <PageHome /> },
       { path: "administrador/panel", element: <PageAdminPanel /> },
+      { path: "administrador/carga", element: <CargaPage /> },
+      //en administrador carga, cuando tengamos datos se toma la carga por id de url url/administrador/carga:idCarga
+      { path: "administrador/perfil", element: <PageAdminPerfil /> },
 
       { path: "crearEnvios", element: <PageCrearEnvios /> },
       { path: "Marketplace", element: <PageMarketplace /> },

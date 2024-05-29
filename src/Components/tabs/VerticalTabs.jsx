@@ -71,7 +71,7 @@ export default function VerticalTabs() {
       </Tabs>
       <TabPanel value={value} style={{ width: value == 0 ? "100%" : "0", display: "flex", justifyContent: "center" }} index={0}>
 
-        <Stack display="flex" width={"100%"} flexDirection={"column"} justifyContent={"center"} alignContent={"center"}>
+        <Stack display="flex" width={"50vw"} flexDirection={"column"} justifyContent={"center"} alignContent={"center"}>
           {value == 0 && <>  <Avatar
             alt="Admin"
             src="imagen"
@@ -114,7 +114,7 @@ export default function VerticalTabs() {
       </TabPanel>
       <TabPanel value={value} style={{ width: value == 1 ? "100%" : "0", display: "flex", justifyContent: "center" }} index={1}>
 
-        <Stack display="flex" width={"100%"} flexDirection={"column"} justifyContent={"center"} alignContent={"center"}>
+        <Stack display="flex" width={"50vw"} flexDirection={"column"} justifyContent={"center"} alignContent={"center"}>
           <Avatar
             alt="Admin"
             src="imagen"
@@ -143,7 +143,7 @@ export default function VerticalTabs() {
       </TabPanel>
       <TabPanel value={value} style={{ width: value == 2 ? "100%" : "0", display: "flex", justifyContent: "center" }} index={2}>
 
-        <Stack display="flex" width={"100%"} flexDirection={"column"} justifyContent={"center"} alignContent={"center"}>
+        <Stack display="flex" width={"50vw"} flexDirection={"column"} justifyContent={"center"} alignContent={"center"}>
           <Avatar
             alt="Admin"
             src="imagen"
@@ -259,7 +259,7 @@ export default function VerticalTabs() {
       </TabPanel>
       <TabPanel value={value} style={{ width: value == 3 ? "100%" : "0", display: "flex", justifyContent: "center" }} index={3}>
 
-        <Stack display="flex" width={"100%"} flexDirection={"column"} justifyContent={"center"} alignContent={"center"}>
+        <Stack display="flex" width={"50vw"} flexDirection={"column"} justifyContent={"center"} alignContent={"center"}>
           <Box
 
 

@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material'
 import React from 'react'
 
-const ChargeItemCard = ({id, title, weight, conuntry, dates, typeCharge, driver, requests}) => {
+const ChargeItemCard = ({id, title, weight, country, dates, typeCharge, driver, requests = ""}) => {
     return (
         <Grid container justifyContent={"center"} alignItems={"center"} style={{ minWidth: "1000px", height: "75px", background: "white" }} spacing={.5}>
             <Grid item container width={"11.1%"} direction="row" justifyContent="center"
@@ -103,7 +103,8 @@ const ChargeItemCard = ({id, title, weight, conuntry, dates, typeCharge, driver,
             </Grid>
             <Grid item container width={"11.1%"} direction="row" justifyContent="center"
                 alignItems="center" >
-                <svg width="20" height="20" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    {requests != "" && 
+                                    <svg width="20" height="20" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_226_5711)">
                         <path d="M2.53516 11.5C2.53516 14.2848 3.64141 16.9555 5.61054 18.9246C7.57967 20.8938 10.2504 22 13.0352 22C15.82 22 18.4907 20.8938 20.4598 18.9246C22.429 16.9555 23.5352 14.2848 23.5352 11.5C23.5352 8.71523 22.429 6.04451 20.4598 4.07538C18.4907 2.10625 15.82 1 13.0352 1C10.2504 1 7.57967 2.10625 5.61054 4.07538C3.64141 6.04451 2.53516 8.71523 2.53516 11.5Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                         <path d="M13.0352 11.5V7.75" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -115,6 +116,8 @@ const ChargeItemCard = ({id, title, weight, conuntry, dates, typeCharge, driver,
                         </clipPath>
                     </defs>
                 </svg>
+                    }
+
                 <p style={{ width: "80px", fontSize: "12px", fontWeight: 500, marginLeft: "3px" }}>{requests}</p>
             </Grid>
             <Grid item container width={"11.1%"} direction="row" justifyContent="center"
