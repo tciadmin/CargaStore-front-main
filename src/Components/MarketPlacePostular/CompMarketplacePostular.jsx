@@ -10,11 +10,10 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 500,
   bgcolor: "background.paper",
-  border: "2px solid #000",
   boxShadow: 24,
-  p: 4,
+  p: 2,
 };
 
 export const CompMarketplacePostular = () => {
@@ -230,13 +229,56 @@ export const CompMarketplacePostular = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+        <Box
+          sx={style}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+          }}
+        >
+          <Box
+            style={{
+              display: "flex",
+              alignItems: "center",
+              flexDirection: "column",
+              gap: "10px",
+              width: "100%",
+            }}
+          >
+            <Box
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "right",
+                alignItems: "right",
+                cursor: "pointer",
+              }}
+            >
+              <img
+                onClick={handleClose}
+                style={{
+                  display: "flex",
+                  justifyContent: "right",
+                  alignContent: "right",
+                }}
+                src="/src/assets/imgShipments/CloseButton.svg"
+              />
+            </Box>
+
+            <img src="/src/assets/imgMarketplace/PostulationSent.jpg" />
+
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Postulación enviada
+            </Typography>
+
+            <Typography
+              id="modal-modal-description"
+              style={{ marginBottom: "30px" }}
+            >
+              Si te asignan el envío recibirás una notificación
+            </Typography>
+          </Box>
         </Box>
       </Modal>
     </Box>
