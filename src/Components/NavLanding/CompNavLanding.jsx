@@ -11,7 +11,7 @@ import Stack from "@mui/material/Stack";
 import useMediaQuery from "@mui/material/useMediaQuery";
 //? --------------------------------------------- STYLES
 import { Colors } from "../../Utils/Colors";
-import { Drawer, Grid, List, ListItem, ListItemButton, ListItemText } from "@mui/material";
+import { Drawer, Grid, List, ListItem, ListItemButton } from "@mui/material";
 
 export default function CompNavLanding() {
   const mobile = useMediaQuery("(max-width:720px)");
@@ -26,6 +26,10 @@ export default function CompNavLanding() {
   const onClickRegister = () => {
     navigate("/register");
   };
+  if(  location.pathname == '/home/crearEnvios' && mobile
+){
+  return ""
+}else{
   return (
     <Box sx={{ display: "flex" }}>
       <AppBar
@@ -153,4 +157,5 @@ export default function CompNavLanding() {
       </AppBar>
     </Box>
   );
+}
 }
