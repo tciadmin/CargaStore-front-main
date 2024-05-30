@@ -4,8 +4,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { useState } from 'react';
-import { Button, Grid } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import {  Grid } from '@mui/material';
 import MarketplaceCard from '../Components/cards/MarketplaceCard';
 
 function CustomTabPanel(props) {
