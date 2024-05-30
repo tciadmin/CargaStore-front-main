@@ -6,13 +6,21 @@ import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
-import Button from "@mui/material/Button";
+import {
+  Button,
+  LinearProgress,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 //? --------------------------------------------- STYLES
 import { Colors } from "../../Utils/Colors";
 
 export default function CompRegUser() {
   const navigate = useNavigate();
+  const mobile = useMediaQuery("(max-width:720px)");
 
+  const [activeStepMobile, setActiveStepMobile] = React.useState(0);
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
 
@@ -45,7 +53,7 @@ export default function CompRegUser() {
             flexDirection: "column",
             alignItems: "center",
             padding: "20px",
-            border: "1px solid rgb(102, 113, 133, 0.3)",
+            border: mobile ? "none" : "1px solid rgb(102, 113, 133, 0.3)",
             borderRadius: "8px",
             gap: 10,
             justifyContent: "center",
@@ -73,7 +81,7 @@ export default function CompRegUser() {
           >
             {/* //? --------------------------------------------- NAME */}
             <span style={{ display: "flex", width: "100%" }}>
-              Nombre<p style={{ color: Colors.terciary.main }}>*</p>
+              Nombre<p style={{ color: "red" }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
@@ -87,7 +95,7 @@ export default function CompRegUser() {
             </FormControl>
             {/* //? --------------------------------------------- LAST NAME */}
             <span style={{ display: "flex", width: "100%" }}>
-              Apellido<p style={{ color: Colors.terciary.main }}>*</p>
+              Apellido<p style={{ color: "red" }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
@@ -97,7 +105,7 @@ export default function CompRegUser() {
             </FormControl>
             {/* //? --------------------------------------------- EMAIL */}
             <span style={{ display: "flex", width: "100%" }}>
-              Correo electrónico<p style={{ color: Colors.terciary.main }}>*</p>
+              Correo electrónico<p style={{ color: "red" }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
@@ -107,8 +115,7 @@ export default function CompRegUser() {
             </FormControl>
             {/* //? --------------------------------------------- PASSWORD */}
             <span style={{ display: "flex", width: "100%" }}>
-              Crea una contraseña{" "}
-              <p style={{ color: Colors.terciary.main }}>*</p>
+              Crea una contraseña <p style={{ color: "red" }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
@@ -139,8 +146,7 @@ export default function CompRegUser() {
             </FormControl>
             {/* //? --------------------------------------------- CONFIRM PASSWORD */}
             <span style={{ display: "flex", width: "100%" }}>
-              Confirma contraseña{" "}
-              <p style={{ color: Colors.terciary.main }}>*</p>
+              Confirma contraseña <p style={{ color: "red" }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
