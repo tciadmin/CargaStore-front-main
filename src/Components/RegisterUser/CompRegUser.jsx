@@ -6,8 +6,13 @@ import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
-import Button from "@mui/material/Button";
-import { useMediaQuery } from "@mui/material";
+import {
+  Button,
+  LinearProgress,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 //? --------------------------------------------- STYLES
 import { Colors } from "../../Utils/Colors";
 
@@ -15,6 +20,7 @@ export default function CompRegUser() {
   const navigate = useNavigate();
   const mobile = useMediaQuery("(max-width:720px)");
 
+  const [activeStepMobile, setActiveStepMobile] = React.useState(0);
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
 

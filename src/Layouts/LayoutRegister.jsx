@@ -1,25 +1,26 @@
 import * as React from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import { StepButton, StepConnector } from "@mui/material";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { useMediaQuery } from "@mui/material";
+import {
+  Button,
+  Container,
+  Grid,
+  LinearProgress,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import MobileStepper from "@mui/material/MobileStepper";
-import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
-import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+
 //? --------------------------------------------- STYLES
 import "../Components/Register/styles.css";
 import { Colors } from "../Utils/Colors";
+import LinealHorizontalProgress from "../Components/progress/LinealHorizontalProgress";
 
 const steps = [
   {
@@ -45,18 +46,27 @@ const steps = [
 
 const LayoutRegister = () => {
   const [activeStep, setActiveStep] = useState(0);
+  const navigate = useNavigate();
   const location = useLocation();
   const mobile = useMediaQuery("(max-width:720px)");
+
+  const step = ["Paso 1", "Paso 2"];
 
   const theme = useTheme();
   const [activeStepMobile, setActiveStepMobile] = React.useState(0);
 
-  const handleNext = () => {
-    setActiveStepMobile((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStepMobile((prevActiveStep) => prevActiveStep - 1);
+  const onClick = () => {
+    setActiveStepMobile(activeStepMobile - 1);
+    if (
+      location.pathname === "/register/user" ||
+      location.pathname === "/register/driver"
+    ) {
+      navigate("/register");
+    } else if (activeStepMobile === 1) {
+      location.pathname === "/register/user/company-info"
+        ? navigate("/register/user")
+        : navigate("/register/driver");
+    }
   };
 
   useEffect(() => {
@@ -64,14 +74,27 @@ const LayoutRegister = () => {
       location.pathname === "/register/driver" ||
       location.pathname === "/register/user"
     ) {
-      setActiveStep(1) && setActiveStep(0);
+      setActiveStep(1);
     } else if (
       location.pathname === "/register/driver/vehicle-info" ||
       location.pathname === "/register/user/company-info"
     ) {
-      setActiveStep(2) && setActiveStep(1);
+      setActiveStep(2);
     } else {
       setActiveStep(0);
+    }
+    if (
+      location.pathname === "/register/driver" ||
+      location.pathname === "/register/user"
+    ) {
+      setActiveStepMobile(0);
+    } else if (
+      location.pathname === "/register/driver/vehicle-info" ||
+      location.pathname === "/register/user/company-info"
+    ) {
+      setActiveStepMobile(1);
+    } else {
+      navigate("/register");
     }
 
     if (
@@ -97,7 +120,10 @@ const LayoutRegister = () => {
   return (
     <Box
       className="registerContainer"
-      style={{ overflow: mobile ? "" : "hidden" }}
+      style={{
+        overflow: mobile ? "" : "hidden",
+        flexDirection: mobile ? "column" : "",
+      }}
     >
       {mobile ? (
         ""
@@ -107,63 +133,66 @@ const LayoutRegister = () => {
           <img src="/src/assets/imgRegister/registerSideImg.jpg" />{" "}
         </Box>
       )}
+
       {mobile ? (
-        ""
+        location.pathname !== "/register" ? (
+          <Box>
+            <svg
+              width="24"
+              style={{ marginLeft: "15px", cursor: "pointer" }}
+              onClick={onClick}
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g clip-path="url(#clip0_343_8051)">
+                <path
+                  d="M23.25 12H0.75"
+                  stroke="black"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M11.25 1.5L0.75 12L11.25 22.5"
+                  stroke="black"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_343_8051">
+                  <rect
+                    width="24"
+                    height="24"
+                    fill="white"
+                    transform="matrix(-1 0 0 -1 24 24)"
+                  />
+                </clipPath>
+              </defs>
+            </svg>
+            <Stack direction="row" justifyContent={"center"}>
+              <Typography
+                color="secondary"
+                mb={1}
+                fontWeight={600}
+                fontSize={"14px"}
+              >
+                Paso {activeStepMobile + 1}
+              </Typography>
+            </Stack>
+            <LinearProgress
+              style={{ width: "100%" }}
+              variant="determinate"
+              value={(activeStepMobile + 1) * 40}
+            />
+          </Box>
+        ) : (
+          ""
+        )
       ) : (
-        // location.pathname !== "/register" ? (
-        //   <Box sx={{ flexGrow: 1 }}>
-        //     <AppBar>
-        //       <Toolbar variant="dense">
-        //         <IconButton
-        //           edge="start"
-        //           color="inherit"
-        //           aria-label="menu"
-        //           sx={{ mr: 2 }}
-        //         >
-        //           <MenuIcon />
-        //         </IconButton>
-        //         {activeStepMobile === 0 ? <p>Paso 1</p> : <p>Paso 2</p>}
-        //         <MobileStepper
-        //           variant="progress"
-        //           steps={2}
-        //           position="top"
-        //           activeStep={activeStepMobile}
-        //           sx={{ width: "760px", flexGrow: 1, diplay: "flex",  }}
-        //           // nextButton={
-        //           //   <Button
-        //           //     size="small"
-        //           //     onClick={handleNext}
-        //           //     disabled={activeStepMobile === 1}
-        //           //   >
-        //           //     Next
-        //           //     {theme.direction === "rtl" ? (
-        //           //       <KeyboardArrowLeft />
-        //           //     ) : (
-        //           //       <KeyboardArrowRight />
-        //           //     )}
-        //           //   </Button>
-        //           // }
-        //           // backButton={
-        //           //   <Button
-        //           //     size="small"
-        //           //     onClick={handleBack}
-        //           //     disabled={activeStepMobile === 0}
-        //           //   >
-        //           //     {theme.direction === "rtl" ? (
-        //           //       <KeyboardArrowRight />
-        //           //     ) : (
-        //           //       <KeyboardArrowLeft />
-        //           //     )}
-        //           //     Back
-        //           //   </Button>
-        //           // }
-        //         />
-        //       </Toolbar>
-        //     </AppBar>
-        //   </Box>
-        // ) : (
-        //   ""
-        // )
         <Box
           sx={{ maxWidth: 350 }}
           style={{
