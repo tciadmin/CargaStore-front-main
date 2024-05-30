@@ -16,14 +16,9 @@ const CargaPage = () => {
     //adaptarlo para que una vez que esten los datos se pueda obtener id de carga por url params y de ahi hacer llamado a la api
     return (
         <>
-
             <Typography mb={3} ml={5} fontSize="16px" color={"secondary"} fontWeight={600} >
                 #343535
             </Typography >
-
-
-
-
             <Grid container alignItems="flex-start" justifyContent={"center"} mt={2} gap={3}>
                 <Grid item container style={{ height: "450px", maxWidth: "450px" }} xs={5}>
                     <Grid item container gap={1} pt={"6px"} alignContent={"center"} xs={4}>
@@ -100,7 +95,7 @@ const CargaPage = () => {
                             <GreenCircle ></GreenCircle>
                             Teléfono: <span style={{ fontWeight: "400" }}>11939393</span>
                         </Typography >
-                        <Divider/>
+                        <Divider />
                         <Typography fontSize="16px" fontWeight={600} >
                             <GreenCircle ></GreenCircle>
                             Fecha de entrega: <span style={{ fontWeight: "400" }}>20/01/2025</span>
@@ -148,18 +143,18 @@ const CargaPage = () => {
                 <Grid container my={5}>
                     <Grid item xs={6}>
 
-                    <Box width="100%" >
-                    <ConductorAsignadoCard nombre="juan perezozo" estrellas={4.5} marca="ford" modelo={"taunus"} capacidad="1 tonelada" carga="seca"></ConductorAsignadoCard>
+                        <Box width="100%" >
+                            <ConductorAsignadoCard nombre="juan perezozo" estrellas={4.5} marca="ford" modelo={"taunus"} capacidad="1 tonelada" carga="seca"></ConductorAsignadoCard>
 
 
-                </Box>
+                        </Box>
                     </Grid>
                     <Grid item xs={6}>
-                    <VerticalGreenStepper steps={["En preparacion", "Preparado", "En camino", "Retirado"]}></VerticalGreenStepper>
+                        <VerticalGreenStepper steps={["En preparacion", "Preparado", "En camino", "Retirado"]}></VerticalGreenStepper>
 
                     </Grid>
                 </Grid>
-                
+
             </Container>
         </>
     )
