@@ -2,12 +2,15 @@ import * as React from "react";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import { useMediaQuery } from "@mui/material";
 //? --------------------------------------------- STYLES
 import "./styles.css";
 import { Colors } from "../../Utils/Colors";
 import { useNavigate } from "react-router-dom";
 
 export default function CompRegister() {
+  const mobile = useMediaQuery("(max-width:720px)");
+
   const navigate = useNavigate();
 
   const nextDriver = () => {
@@ -26,7 +29,17 @@ export default function CompRegister() {
   };
 
   return (
-    <Box className="registerContainer">
+    <Box
+      className="registerContainer"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        width: mobile ? "100vh" : "100%",
+        height: "100vh",
+        justifyContent: "center",
+      }}
+    >
       <Box
         style={{
           display: "flex",
@@ -43,14 +56,19 @@ export default function CompRegister() {
             flexDirection: "column",
             alignItems: "center",
             padding: "20px",
-            border: "1px solid rgb(102, 113, 133, 0.3)",
+            border: mobile ? "none" : "1px solid rgb(102, 113, 133, 0.3)",
             borderRadius: "8px",
             gap: 10,
             width: "80%",
             justifyContent: "center",
           }}
         >
-          <img src="/src/assets/imgLanding/LogoCargaStore.svg" />
+          {mobile ? (
+            <img src="/src/assets/imgRegister/LogoMobile.jpg" />
+          ) : (
+            <img src="/src/assets/imgLanding/LogoCargaStore.svg" />
+          )}
+
           <h1 style={{ fontWeight: 600, fontSize: "1.5rem" }}>
             Bienvenido a Carga Store
           </h1>
@@ -61,10 +79,15 @@ export default function CompRegister() {
           >
             Elige tu perfil
           </p>
-          <img
-            style={{ width: "100%" }}
-            src="/src/assets/imgRegister/RegDivider.svg"
-          />
+          {mobile ? (
+            ""
+          ) : (
+            <img
+              style={{ width: "100%" }}
+              src="/src/assets/imgRegister/RegDivider.svg"
+            />
+          )}
+
           <Box
             style={{
               display: "flex",
