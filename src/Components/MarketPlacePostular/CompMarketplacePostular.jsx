@@ -149,6 +149,7 @@ export const CompMarketplacePostular = () => {
           </Box>
           <Box style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
             <h3>Información del envío</h3>
+
             <Box style={{ display: "flex", gap: "5px" }}>
               <img src="/src/assets/imgMarketplace/List.svg" />
               <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>

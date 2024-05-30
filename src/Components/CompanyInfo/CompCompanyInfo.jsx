@@ -4,10 +4,14 @@ import Box from "@mui/material/Box";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
+import { useMediaQuery } from "@mui/material";
+
 //? --------------------------------------------- STYLES
 import { Colors } from "../../Utils/Colors";
 
 export default function CompCompanyInfo() {
+  const mobile = useMediaQuery("(max-width:720px)");
+
   return (
     <Box className="registerContainer">
       <Box
@@ -26,7 +30,7 @@ export default function CompCompanyInfo() {
             flexDirection: "column",
             alignItems: "center",
             padding: "20px",
-            border: "1px solid rgb(102, 113, 133, 0.3)",
+            border: mobile ? "none" : "1px solid rgb(102, 113, 133, 0.3)",
             borderRadius: "8px",
             gap: 10,
             justifyContent: "center",
@@ -44,7 +48,7 @@ export default function CompCompanyInfo() {
             {/* //? --------------------------------------------- COMPANY NAME */}
             <span style={{ display: "flex", width: "100%" }}>
               Nombre de la empresa
-              <p style={{ color: Colors.terciary.main }}>*</p>
+              <p style={{ color: "red" }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
@@ -58,7 +62,7 @@ export default function CompCompanyInfo() {
             </FormControl>
             {/* //? --------------------------------------------- ADDRESS */}
             <span style={{ display: "flex", width: "100%" }}>
-              Dirección<p style={{ color: Colors.terciary.main }}>*</p>
+              Dirección<p style={{ color: "red" }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
@@ -68,7 +72,7 @@ export default function CompCompanyInfo() {
             </FormControl>
             {/* //? --------------------------------------------- CITY */}
             <span style={{ display: "flex", width: "100%" }}>
-              Ciudad<p style={{ color: Colors.terciary.main }}>*</p>
+              Ciudad<p style={{ color: "red" }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
@@ -79,7 +83,7 @@ export default function CompCompanyInfo() {
             {/* //? --------------------------------------------- CONTACT PHONE */}
             <span style={{ display: "flex", width: "100%" }}>
               Teléfono de contacto
-              <p style={{ color: Colors.terciary.main }}>*</p>
+              <p style={{ color: "red" }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
