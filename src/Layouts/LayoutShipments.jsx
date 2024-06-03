@@ -57,15 +57,6 @@ const LayoutShipments = () => {
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
-    // if (event.target.name === "Pendientes") {
-    //   navigate("/shipments");
-    // } else if (event.target.name === "Asignado") {
-    //   navigate("/shipments/assigned");
-    // } else if (event.target.name === "En curso") {
-    //   navigate("/shipments/in-progress");
-    // } else if (event.target.name === "Finalizados") {
-    //   navigate("/shipments/finished");
-    // }
   };
   const tabNameToIndex = {
     Pendientes: 0,
@@ -74,15 +65,29 @@ const LayoutShipments = () => {
     Finalizados: 3,
   };
 
-  const handleClose = (event, newValue) => {
+  const handleClose = () => {
     setAnchorEl(null);
-    const tabName = event.target.name;
+  };
 
-    if (tabName in tabNameToIndex) {
-      setValue(tabNameToIndex[tabName]);
-    } else {
-      setValue(newValue);
-    }
+  const clickPending = () => {
+    setAnchorEl(null);
+
+    navigate("/shipments");
+  };
+  const clickAssigned = () => {
+    setAnchorEl(null);
+
+    navigate("/shipments/assigned");
+  };
+  const clickProgress = () => {
+    setAnchorEl(null);
+
+    navigate("/shipments/in-progress");
+  };
+  const clickDone = () => {
+    setAnchorEl(null);
+
+    navigate("/shipments/finished");
   };
 
   const handleChange = (event, newValue) => {
@@ -141,7 +146,7 @@ const LayoutShipments = () => {
               <MenuItem
                 name="Pendientes"
                 value="0"
-                onClick={handleClose}
+                onClick={clickPending}
                 style={{
                   fontWeight: 500,
                   color:
@@ -155,7 +160,7 @@ const LayoutShipments = () => {
               <MenuItem
                 name="Asignado"
                 value="1"
-                onClick={handleClose}
+                onClick={clickAssigned}
                 style={{
                   fontWeight: 500,
                   color:
@@ -169,7 +174,7 @@ const LayoutShipments = () => {
               <MenuItem
                 name="En curso"
                 value="2"
-                onClick={handleClose}
+                onClick={clickProgress}
                 style={{
                   fontWeight: 500,
                   color:
@@ -183,7 +188,7 @@ const LayoutShipments = () => {
               <MenuItem
                 name="Finalizados"
                 value="3"
-                onClick={handleClose}
+                onClick={clickDone}
                 style={{
                   fontWeight: 500,
                   color:
