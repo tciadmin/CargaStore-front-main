@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import Header from "../Components/Shipments/Header";
+import CompNavLanding from "../Components/NavLanding/CompNavLanding";
 //? --------------------------------------------- MUI
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
@@ -114,7 +114,7 @@ const LayoutShipments = () => {
 
   return (
     <div>
-      <Header />
+      <CompNavLanding />
       {mobile ? (
         <>
           <Box
