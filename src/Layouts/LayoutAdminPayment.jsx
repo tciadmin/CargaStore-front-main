@@ -1,15 +1,20 @@
 import * as React from "react";
+import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import CompNavLanding from "../Components/NavLanding/CompNavLanding";
+//? --------------------------------------------- MUI
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
+import { useMediaQuery } from "@mui/material";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+//? --------------------------------------------- STYLES
 import { Colors } from "../Utils/Colors";
-import { Outlet } from "react-router-dom";
-import Header from "../Components/Shipments/Header";
 
 const drawerWidth = 240;
 
@@ -48,8 +53,28 @@ function a11yProps(index) {
 
 export default function LayoutAdminPayment() {
   const [value, setValue] = React.useState(0);
-
+  const mobile = useMediaQuery("(max-width:720px)");
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
+
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const clickPending = () => {
+    setAnchorEl(null);
+    navigate("/payment");
+  };
+  const clickAccredited = () => {
+    setAnchorEl(null);
+    navigate("/payment/acredited");
+  };
 
   const tabNameToIndex = {
     Pendientes: 0,
@@ -74,55 +99,131 @@ export default function LayoutAdminPayment() {
   }, [value]);
   return (
     <Box>
-      <Header></Header>
-
-      <Box sx={{ minWidth: "100%", display: "flex" }}>
-        <Drawer
-          variant="permanent"
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            [`& .MuiDrawer-paper`]: {
-              width: drawerWidth,
-              boxSizing: "border-box",
-              marginTop: "64px",
-            },
-          }}
-        >
-          <span
+      <CompNavLanding />
+      {mobile ? (
+        <>
+          <Box
             style={{
-              color: Colors.primary.main,
-              fontWeight: 600,
-              padding: "20px",
+              display: "flex",
+              alignItems: "right",
+              justifyContent: "right",
+              padding: "10px",
             }}
           >
-            Pagos
-          </span>
-          <Box sx={{ border: "none" }}>
-            <Tabs
-              orientation="vertical"
+            <img
+              onClick={handleClick}
+              style={{
+                backgroundColor: Colors.primary.constrastText,
+                cursor: "pointer",
+              }}
+              src="/src/assets/imgShipments/ArrowDashboard.svg"
+            />
+            <Menu
               value={value}
-              onChange={handleChange}
-              aria-label="basic tabs example"
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
             >
-              <Tab
-                sx={{ textTransform: "none", display: "flex", width: "239px" }}
-                label="Pendientes"
+              <MenuItem
                 name="Pendientes"
-                {...a11yProps(0)}
-              />
-              <Tab
-                sx={{ textTransform: "none" }}
-                label="Acreditados"
-                name="Acreditados"
-                {...a11yProps(1)}
-              />
-            </Tabs>
+                value="0"
+                onClick={clickPending}
+                style={{
+                  fontWeight: 500,
+                  color:
+                    location.pathname === "/payment" ? Colors.primary.main : "",
+                }}
+              >
+                Pendientes
+              </MenuItem>
+              <MenuItem
+                name="Asignado"
+                value="1"
+                onClick={clickAccredited}
+                style={{
+                  fontWeight: 500,
+                  color:
+                    location.pathname === "/shipments/acredited"
+                      ? Colors.primary.main
+                      : "",
+                }}
+              >
+                Acreditados
+              </MenuItem>
+            </Menu>
           </Box>
-        </Drawer>
-
-        <Outlet />
-      </Box>
+        </>
+      ) : (
+        <Box sx={{ minWidth: "100%", display: "flex" }}>
+          <Drawer
+            variant="permanent"
+            sx={{
+              width: drawerWidth,
+              flexShrink: 0,
+              [`& .MuiDrawer-paper`]: {
+                width: drawerWidth,
+                boxSizing: "border-box",
+                marginTop: "64px",
+              },
+            }}
+          >
+            <span
+              style={{
+                color: Colors.primary.main,
+                fontWeight: 600,
+                padding: "20px",
+              }}
+            >
+              Pagos
+            </span>
+            <Box sx={{ border: "none" }}>
+              <Tabs
+                orientation="vertical"
+                value={value}
+                onChange={handleChange}
+                aria-label="basic tabs example"
+              >
+                <Tab
+                  sx={{
+                    textTransform: "none",
+                    display: "flex",
+                    width: "239px",
+                  }}
+                  label="Pendientes"
+                  name="Pendientes"
+                  {...a11yProps(0)}
+                />
+                <Tab
+                  sx={{ textTransform: "none" }}
+                  label="Acreditados"
+                  name="Acreditados"
+                  {...a11yProps(1)}
+                />
+              </Tabs>
+            </Box>
+          </Drawer>{" "}
+        </Box>
+      )}
+      <Outlet />
+      {mobile ? (
+        <Box
+          style={{
+            display: "flex",
+            alignItems: "right",
+            justifyContent: "right",
+            padding: "10px",
+            cursor: "pointer",
+          }}
+        >
+          <img src="/src/assets/imgAdminPayment/ChatIcon.svg" />
+        </Box>
+      ) : (
+        ""
+      )}
     </Box>
   );
 }
