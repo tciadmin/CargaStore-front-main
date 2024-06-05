@@ -205,11 +205,15 @@ export default function PageMarketplace() {
           <Box
             style={{
               display: "flex",
-              alignItems: "right",
-              justifyContent: "right",
-              padding: "10px",
+              justifyContent: "space-between",
+              padding: "20px",
             }}
           >
+            {national !== null ? (
+              <h2>Envíos nacionales</h2>
+            ) : (
+              <h2>Envíos internacionales</h2>
+            )}
             <img
               onClick={handleClick}
               style={{
@@ -218,6 +222,7 @@ export default function PageMarketplace() {
               }}
               src="/src/assets/imgShipments/ArrowDashboard.svg"
             />
+
             <Menu
               value={value}
               id="basic-menu"
