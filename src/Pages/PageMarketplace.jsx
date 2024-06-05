@@ -161,6 +161,10 @@ export default function PageMarketplace() {
   const [value, setValue] = useState(0);
   const mobile = useMediaQuery("(max-width:720px)");
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [national, setNational] = useState(
+    enviosFake.filter((item) => item.international == false)
+  );
+  const [international, setInternational] = useState(null);
 
   const open = Boolean(anchorEl);
 
@@ -174,9 +178,13 @@ export default function PageMarketplace() {
 
   const clickPending = () => {
     setAnchorEl(null);
+    setNational(enviosFake.filter((item) => item.international == false));
+    setInternational(null);
   };
   const clickAccredited = () => {
     setAnchorEl(null);
+    setNational(null);
+    setInternational(enviosFake.filter((item) => item.international == true));
   };
 
   const enviosNacionales = enviosFake.filter(
@@ -226,7 +234,7 @@ export default function PageMarketplace() {
                 onClick={clickPending}
                 style={{
                   fontWeight: 500,
-                  color: enviosNacionales ? Colors.primary.main : "",
+                  color: national !== null ? Colors.primary.main : "",
                 }}
               >
                 Envíos nacionales
@@ -237,40 +245,66 @@ export default function PageMarketplace() {
                 onClick={clickAccredited}
                 style={{
                   fontWeight: 500,
-                  color: enviosInternacionales ? Colors.primary.main : "",
+                  color: international !== null ? Colors.primary.main : "",
                 }}
               >
                 Envíos internacionales
               </MenuItem>
             </Menu>
           </Box>
-          <Grid container spacing={3}>
-            {enviosNacionales.map((item) => (
-              <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                <MarketplaceCard
-                  image={item.image}
-                  title={item.title}
-                  weight={item.weight}
-                  price={item.price}
-                  typeCharge={item.typeCharge}
-                ></MarketplaceCard>
-              </Grid>
-            ))}
-          </Grid>
-
-          <Grid container spacing={3}>
-            {enviosInternacionales.map((item) => (
-              <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                <MarketplaceCard
-                  image={item.image}
-                  title={item.title}
-                  weight={item.weight}
-                  price={item.price}
-                  typeCharge={item.typeCharge}
-                ></MarketplaceCard>
-              </Grid>
-            ))}
-          </Grid>
+          {national !== null ? (
+            <Box
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, 1fr)",
+                padding: "20px",
+              }}
+            >
+              {enviosNacionales.map((item) => (
+                <Box
+                  style={{
+                    padding: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justyfyContent: "center",
+                    gap: "5px",
+                  }}
+                >
+                  <img style={{ height: 200, width: 200 }} src={item.image} />
+                  <p> {item.title}</p>
+                  <p> {item.weight}</p>
+                  <p> {item.price}</p>
+                  <p>{item.typeCharge}</p>
+                </Box>
+              ))}
+            </Box>
+          ) : (
+            <Box
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, 1fr)",
+                padding: "20px",
+              }}
+            >
+              {enviosInternacionales.map((item) => (
+                <Box
+                  style={{
+                    padding: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justyfyContent: "center",
+                    gap: "5px",
+                  }}
+                >
+                  <img style={{ height: 200, width: 200 }} src={item.image} />
+                  <p> {item.title}</p>
+                  <p> {item.weight}</p>
+                  <p> {item.price}</p>
+                  <p>{item.typeCharge}</p>
+                </Box>
+              ))}
+            </Box>
+          )}
         </>
       ) : (
         <Box sx={{ width: "90%", margin: "30px auto" }}>
