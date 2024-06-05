@@ -41,10 +41,10 @@ export const CompCard = () => {
     <Box
       sx={{
         border: "1px solid #D0D5DD",
-        width: "100%",
-        //height: "560px",
+        width: "600px",
+        //  height: "560px",
         marginTop: "10px",
-        marginLeft: "220px",
+        marginLeft: "290px",
         borderRadius: "8px",
         display: "flex",
         backgroundColor: "#F6F6F6",
@@ -70,6 +70,7 @@ export const CompCard = () => {
               </Box>
               <Box>
                 <img
+                  style={{ width: "140px", height: "135px" }}
                   src={Mica.Imagen}
                   alt="Paper"
                 />

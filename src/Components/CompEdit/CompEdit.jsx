@@ -10,7 +10,7 @@ export const CompEdit = () => {
           top: "30px", // Ajusta este valor para mover la imagen hacia arriba o hacia abajo
           left: "44%",
           transform: "translateX(-50%)",
-          height: "100px",
+          //height: "100px",
           width: "100px",
         }}
         src={Avatar}
@@ -24,12 +24,14 @@ export const CompEdit = () => {
           gap: 1,
           marginTop: "180px",
           marginLeft: "-160px",
+          //border: "1px solid",
         }}
       >
         <Stack
           sx={{
             width: "400px",
             gap: 1.7,
+            //  border: " 1px solid",
           }}
         >
           <Typography

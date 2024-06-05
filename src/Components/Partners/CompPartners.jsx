@@ -32,7 +32,7 @@ export const CompPartners = () => {
             width: "40px",
             height: "40px",
             marginLeft: "2px",
-            marginTop: "-28px",
+            marginTop: "-33px",
           }}
           src={Avatar1}
         />
@@ -61,7 +61,7 @@ export const CompPartners = () => {
                 width: "40px",
                 height: "40px",
                 marginLeft: "2px",
-                marginTop: "-30px",
+                marginTop: "-33px",
               }}
               src={Avatar2}
             />

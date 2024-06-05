@@ -64,6 +64,7 @@ export default function CompNav() {
               alt="IconMessagge"
             />
           </Stack>
+
           <Stack>
             <img
               style={{
@@ -74,6 +75,11 @@ export default function CompNav() {
               src={IconAvatar}
               alt="IconMessagge"
             />
+          </Stack>
+          <Stack>
+            <Typography sx={{ marginLeft: "-1000px", color: "#007C52" }}>
+              Mis envíos
+            </Typography>
           </Stack>
         </Toolbar>
       </AppBar>

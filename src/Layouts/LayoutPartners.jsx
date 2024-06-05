@@ -20,7 +20,13 @@ const LayoutConfi = () => {
     <>
       <CompNav />
 
-      <Stack sx={{ display: "flex", flexDirection: "row" }}>
+      <Stack
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          backgroundColor: "#F6F6F6",
+        }}
+      >
         {/* Para la barra lateral */}
         <Stack
           sx={{

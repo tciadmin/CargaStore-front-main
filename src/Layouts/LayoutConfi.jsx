@@ -32,7 +32,7 @@ const LayoutConfi = () => {
             width: "472px",
             border: "1px solid",
             color: "#F6F6F6",
-            //height: "100vh",
+            height: "100vh",
           }}
         >
           {list.map((Element, index) => (
