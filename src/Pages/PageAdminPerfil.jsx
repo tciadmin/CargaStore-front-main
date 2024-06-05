@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
-import { Avatar, Button, Stack } from '@mui/material'
+import { Avatar, Button, Stack, useMediaQuery } from '@mui/material'
 import InputForm from '../Components/inputs/InputForm';
 
 const PageAdminPerfil = () => {
+  const mobile = useMediaQuery("(max-width: 750px)");
   const [editar, setEditar] = useState(false);
   return (
     <>
       <Stack direction="row" justifyContent={"center"}>
-        <Stack display="flex" width="100%" maxWidth={"650px"} flexDirection={"column"} justifyContent={"center"} alignContent={"center"}>
+        <Stack display="flex" width={mobile? "90%":"100%"} maxWidth={"650px"} flexDirection={"column"} justifyContent={"center"} alignContent={"center"}>
           <Avatar
             alt="Admin"
             src="imagen"
