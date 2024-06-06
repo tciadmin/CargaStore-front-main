@@ -22,9 +22,9 @@ export const CompMarketplacePostular = () => {
   const handleClose = () => setOpen(false);
 
   const images = [
-    { src: "/src/assets/imgMarketplace/FirstImgBobina.jpg" },
-    { src: "/src/assets/imgMarketplace/SecondImgBobina.jpg" },
-    { src: "/src/assets/imgMarketplace/ThirdImgBobina.jpg" },
+    { src: "/public/imgMarketplace/FirstImgBobina.jpg" },
+    { src: "/public/imgMarketplace/SecondImgBobina.jpg" },
+    { src: "/public/imgMarketplace/ThirdImgBobina.jpg" },
   ];
 
   return (
@@ -49,7 +49,7 @@ export const CompMarketplacePostular = () => {
         <Box>
           <img
             style={{ height: "450px" }}
-            src="/src/assets/imgMarketplace/BigImgBobina.jpg"
+            src="/public/imgMarketplace/BigImgBobina.jpg"
           />
         </Box>
       </Box>
@@ -73,28 +73,28 @@ export const CompMarketplacePostular = () => {
 
         <Box style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
           <Box style={{ display: "flex", gap: "5px" }}>
-            <img src="/src/assets/imgMarketplace/List.svg" />
+            <img src="/public/imgMarketplace/List.svg" />
             <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
               Producto: <p style={{ fontWeight: 400 }}>Bobinas de papel</p>
             </span>
           </Box>
 
           <Box style={{ display: "flex", gap: "5px" }}>
-            <img src="/src/assets/imgMarketplace/List.svg" />
+            <img src="/public/imgMarketplace/List.svg" />
             <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
               Cantidad de unidades: <p style={{ fontWeight: 400 }}>147</p>
             </span>
           </Box>
 
           <Box style={{ display: "flex", gap: "5px" }}>
-            <img src="/src/assets/imgMarketplace/List.svg" />
+            <img src="/public/imgMarketplace/List.svg" />
             <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
               Volumen: <p style={{ fontWeight: 400 }}>1 tonelada</p>
             </span>
           </Box>
 
           <Box style={{ display: "flex", gap: "5px" }}>
-            <img src="/src/assets/imgMarketplace/List.svg" />
+            <img src="/public/imgMarketplace/List.svg" />
             <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
               Tipo de carga: <p style={{ fontWeight: 400 }}>Seca</p>
             </span>
@@ -151,21 +151,21 @@ export const CompMarketplacePostular = () => {
             <h3>Información del envío</h3>
 
             <Box style={{ display: "flex", gap: "5px" }}>
-              <img src="/src/assets/imgMarketplace/List.svg" />
+              <img src="/public/imgMarketplace/List.svg" />
               <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
                 Fecha de retiro: <p style={{ fontWeight: 400 }}>12/03/24</p>
               </span>
             </Box>
 
             <Box style={{ display: "flex", gap: "5px" }}>
-              <img src="/src/assets/imgMarketplace/List.svg" />
+              <img src="/public/imgMarketplace/List.svg" />
               <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
                 Hora de retiro: <p style={{ fontWeight: 400 }}>12:00hs</p>
               </span>
             </Box>
 
             <Box style={{ display: "flex", gap: "5px" }}>
-              <img src="/src/assets/imgMarketplace/List.svg" />
+              <img src="/public/imgMarketplace/List.svg" />
               <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
                 Dirección de retiro:{" "}
                 <p style={{ fontWeight: 400 }}>Calle 12, Quito, Perú</p>
@@ -173,7 +173,7 @@ export const CompMarketplacePostular = () => {
             </Box>
 
             <Box style={{ display: "flex", gap: "5px" }}>
-              <img src="/src/assets/imgMarketplace/List.svg" />
+              <img src="/public/imgMarketplace/List.svg" />
               <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
                 Teléfono: <p style={{ fontWeight: 400 }}>123456</p>
               </span>
@@ -181,24 +181,24 @@ export const CompMarketplacePostular = () => {
 
             <img
               style={{ width: "300px" }}
-              src="/src/assets/imgRegister/RegDivider.svg"
+              src="/public/imgRegister/RegDivider.svg"
             />
             <Box style={{ display: "flex", gap: "5px" }}>
-              <img src="/src/assets/imgMarketplace/List.svg" />
+              <img src="/public/imgMarketplace/List.svg" />
               <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
                 Fecha de retiro: <p style={{ fontWeight: 400 }}>21/03/24</p>
               </span>
             </Box>
 
             <Box style={{ display: "flex", gap: "5px" }}>
-              <img src="/src/assets/imgMarketplace/List.svg" />
+              <img src="/public/imgMarketplace/List.svg" />
               <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
                 Hora de retiro: <p style={{ fontWeight: 400 }}>12:00hs</p>
               </span>
             </Box>
 
             <Box style={{ display: "flex", gap: "5px" }}>
-              <img src="/src/assets/imgMarketplace/List.svg" />
+              <img src="/public/imgMarketplace/List.svg" />
               <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
                 Dirección de retiro:{" "}
                 <p style={{ fontWeight: 400 }}>Calle 21, Colombia</p>
@@ -206,14 +206,14 @@ export const CompMarketplacePostular = () => {
             </Box>
 
             <Box style={{ display: "flex", gap: "5px" }}>
-              <img src="/src/assets/imgMarketplace/List.svg" />
+              <img src="/public/imgMarketplace/List.svg" />
               <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
                 Teléfono: <p style={{ fontWeight: 400 }}>123456</p>
               </span>
             </Box>
 
             <Box style={{ display: "flex", gap: "5px" }}>
-              <img src="/src/assets/imgMarketplace/List.svg" />
+              <img src="/public/imgMarketplace/List.svg" />
               <span style={{ display: "flex", gap: "5px", fontWeight: 600 }}>
                 Destinatario:{" "}
                 <p style={{ fontWeight: 400 }}>El mundo del papel</p>
@@ -263,11 +263,11 @@ export const CompMarketplacePostular = () => {
                   justifyContent: "right",
                   alignContent: "right",
                 }}
-                src="/src/assets/imgShipments/CloseButton.svg"
+                src="/public/imgShipments/CloseButton.svg"
               />
             </Box>
 
-            <img src="/src/assets/imgMarketplace/PostulationSent.jpg" />
+            <img src="/public/imgMarketplace/PostulationSent.jpg" />
 
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Postulación enviada
