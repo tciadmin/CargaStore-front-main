@@ -27,6 +27,14 @@ export default function CompLogin() {
     navigate("/login/forgot-password");
   };
 
+  const onClickLogin = () => {
+    navigate("/home");
+  };
+
+  const onClickRegister = () => {
+    navigate("/register");
+  };
+
   return (
     <Box
       sx={{ display: "flex" }}
@@ -114,6 +122,7 @@ export default function CompLogin() {
               backgroundColor: Colors.primary.main,
               borderRadius: "8px",
             }}
+            onClick={onClickLogin}
           >
             Ingresar
           </Button>
@@ -122,9 +131,11 @@ export default function CompLogin() {
         <p style={{ fontWeight: 400 }}>
           ¿No tienes una cuenta?{" "}
           <span
+            onClick={onClickRegister}
             style={{
               fontWeight: 500,
               color: Colors.primary.main,
+              cursor: "pointer",
             }}
           >
             Regístrate
