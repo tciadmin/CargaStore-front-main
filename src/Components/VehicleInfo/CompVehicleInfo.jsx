@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -10,6 +11,11 @@ import { Colors } from "../../Utils/Colors";
 
 export default function CompVehicleInfo() {
   const mobile = useMediaQuery("(max-width:720px)");
+  const navigate = useNavigate();
+
+  const onClickRegister = () => {
+    navigate("/login");
+  };
 
   return (
     <Box className="registerContainer">
@@ -112,6 +118,7 @@ export default function CompVehicleInfo() {
                 backgroundColor: Colors.primary.main,
                 borderRadius: "8px",
               }}
+              onClick={onClickRegister}
             >
               Registrarse
             </Button>
