@@ -140,7 +140,7 @@ export default function CompNavLanding() {
                 }}
                 onClick={()=>{
                   const paginasnologueadas = ["/landing","/login" ,"/register"]
-                  if(location.pathname.includes(paginasnologueadas)){
+                  if(paginasnologueadas.includes(location.pathname)){
                     navigate("/landing")
                   }else{
                     navigate("/home")

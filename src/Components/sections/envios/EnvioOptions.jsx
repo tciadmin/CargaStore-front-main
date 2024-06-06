@@ -10,8 +10,6 @@ import ResponsiveImageBox from '../../imageComponents/ResponsiveImageBox';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
-
-
   return (
     <div
       role="tabpanel"
@@ -126,8 +124,8 @@ export default function EnvioOptions() {
       <CustomTabPanel value={value} index={0}>
         {
           mobile &&
-          <Stack direction="column" alignItems={"center"} style={{border: "none"}} spacing={3} >
-            <Grid item container xs={12} height="100%" width="100%" p={1} style={{borderRadius: "5px", border: "1px solid lightgrey" }} spacing={2}>
+          <Stack direction="column" alignItems={"center"} style={{ border: "none" }} spacing={3} >
+            <Grid item container xs={12} height="100%" width="100%" p={1} style={{ borderRadius: "5px", border: "1px solid lightgrey" }} spacing={2}>
               <Grid item container direction="row" justifyContent={"flex-end"} xs={6}>
                 <ResponsiveImageBox w='100px' h="100px" url={"/marketplace/7.png"} />
               </Grid>
@@ -138,7 +136,7 @@ export default function EnvioOptions() {
                 <Typography fontSize="12px" color="primary">$2000</Typography>
               </Grid>
             </Grid>
-            <Grid item container xs={12} height="100%" width="100%" p={1} style={{borderRadius: "5px", border: "1px solid lightgrey" }} spacing={2}>
+            <Grid item container xs={12} height="100%" width="100%" p={1} style={{ borderRadius: "5px", border: "1px solid lightgrey" }} spacing={2}>
               <Grid item container direction="row" justifyContent={"flex-end"} xs={6}>
                 <ResponsiveImageBox w='100px' h="100px" url={"/marketplace/7.png"} />
               </Grid>
@@ -149,7 +147,7 @@ export default function EnvioOptions() {
                 <Typography fontSize="12px" color="primary">$2000</Typography>
               </Grid>
             </Grid>
-            <Grid item container xs={12} height="100%" width="100%" p={1} style={{borderRadius: "5px", border: "1px solid lightgrey" }} spacing={2}>
+            <Grid item container xs={12} height="100%" width="100%" p={1} style={{ borderRadius: "5px", border: "1px solid lightgrey" }} spacing={2}>
               <Grid item container direction="row" justifyContent={"flex-end"} xs={6}>
                 <ResponsiveImageBox w='100px' h="100px" url={"/marketplace/7.png"} />
               </Grid>
@@ -165,7 +163,7 @@ export default function EnvioOptions() {
 
 
         <Box display="flex" flexDirection={"column"} alignItems={"center"} height="80vh" justifyContent={"center"}>
-          <img src='/src/assets/envios/sinenvios.png' width={"200px "}></img>
+          <img src='/home/sinenvios.png' width={"200px "}></img>
           <Typography variant='h4' fontSize={mobile ? "16px" : "24px"}> Aun no tienes envíos generados</Typography>
           {!mobile &&
             <Typography variant='p'> Para crear un nuevo envio haz clic en el boton de “Crear envío”</Typography>
