@@ -1,6 +1,5 @@
 import { Stack, Typography } from "@mui/material"
 import LogoLandingPage from "../assets/Img-Landing/LogoLanding.png"
-import CompCarousel from "../Components/Carousel/CompCarousel"
 import Punto from "../assets/Icons/punto.svg"
 
 const Lista = [
@@ -15,7 +14,7 @@ const Lista = [
 const PageLandingHome = () => {
   return (
     <>
-      {/* <Stack
+    <Stack
         sx={{
           width: { md: "1142px", xs: "100px" },
           height: { md: "500px", xs: "600px" },
@@ -81,7 +80,7 @@ const PageLandingHome = () => {
             </Stack>
           ))}
         </Stack>
-      </Stack> */}
+      </Stack> 
       <CompCarousel />
     </>
   )
