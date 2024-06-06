@@ -1,4 +1,4 @@
-import { Box, Container, Divider, Grid, Stack, Typography } from '@mui/material'
+import { Box, Container, Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/material'
 import React from 'react'
 import ResponsiveImageBox from '../Components/imageComponents/ResponsiveImageBox'
 import ChargeRequestCard from '../Components/cards/ChargeRequestCard'
@@ -13,18 +13,15 @@ const GreenCircle = () => {
 }
 
 const CargaPage = () => {
+    const mobile = useMediaQuery("(max-width:750px)");
     //adaptarlo para que una vez que esten los datos se pueda obtener id de carga por url params y de ahi hacer llamado a la api
     return (
         <>
-
             <Typography mb={3} ml={5} fontSize="16px" color={"secondary"} fontWeight={600} >
                 #343535
             </Typography >
-
-
-
-
-            <Grid container alignItems="flex-start" justifyContent={"center"} mt={2} gap={3}>
+            <Grid container direction={mobile ? "column" : "row"} alignItems={mobile ?"center":"flex-start"} justifyContent={"center"} mt={2} gap={3}>
+                {!mobile &&
                 <Grid item container style={{ height: "450px", maxWidth: "450px" }} xs={5}>
                     <Grid item container gap={1} pt={"6px"} alignContent={"center"} xs={4}>
                         <ResponsiveImageBox w="140px" h="140px" url={"/marketplace/8.png"} />
@@ -36,6 +33,8 @@ const CargaPage = () => {
                         <ResponsiveImageBox url={"/marketplace/9.png"} />
                     </Grid>
                 </Grid>
+                }
+                
                 <Grid item maxWidth="100%" justifyContent={"center"} xs={4} >
                     <Grid container flexDirection={"column"} p={3} >
                         <Typography fontSize="16px" fontWeight={600}  >
@@ -66,8 +65,29 @@ const CargaPage = () => {
                         <Typography fontSize="16px" fontWeight={400} >
                             Es un envío nacional de bolsas de azúcar que despacha El mundo mágico para Ledesma. La carga no posee contenido peligroso pero es necesario protegerlas con bolsas más resistentes para poder preservar el contenido de manera intacta,                    </Typography >
                     </Grid>
+                    <Grid item container maxWidth="100%" style={{overflowX: "auto",overflowY:"hidden"}}>
+                    
+                    </Grid>
+                    {mobile &&
+                    <div  style={{display: "flex", alignSelf:"flex-end",overflowX: "scroll",overflowY:"hidden", position: "relative", maxWidth:"100vw"}}>
+                        <img src="/marketplace/8.png" width="130px" style={{flex: "0 0 auto", marginRight: "5px", marginLeft: "5px"}}/>
+
+                        <img src="/marketplace/8.png" width="130px" style={{flex: "0 0 auto", marginRight: "5px"}}/>
+                        <img src="/marketplace/8.png" width="130px" style={{flex: "0 0 auto", marginRight: "5px"}}/>
+                        <img src="/marketplace/8.png" width="130px" style={{flex: "0 0 auto", marginRight: "5px"}}/>
+                        <img src="/marketplace/8.png" width="130px" style={{flex: "0 0 auto", marginRight: "5px"}}/>
+                        <img src="/marketplace/8.png" width="130px" style={{flex: "0 0 auto", marginRight: "5px"}}/>
+                        <img src="/marketplace/8.png" width="130px" style={{flex: "0 0 auto", marginRight: "5px"}}/>
+                        <img src="/marketplace/8.png" width="130px" style={{flex: "0 0 auto", marginRight: "5px"}}/>
+ 
+                        </div>
+
+                    }
+                    
+                   
 
                 </Grid>
+
                 <Grid item maxWidth="100%" justifyContent={"center"} border="1px solid lightgrey" borderRadius={"5px"} p={3} xs={3} >
                     <Grid container flexDirection={"column"}>
                         <Typography mb={3} fontSize="20px" fontWeight={600} >
@@ -100,7 +120,7 @@ const CargaPage = () => {
                             <GreenCircle ></GreenCircle>
                             Teléfono: <span style={{ fontWeight: "400" }}>11939393</span>
                         </Typography >
-                        <Divider/>
+                        <Divider />
                         <Typography fontSize="16px" fontWeight={600} >
                             <GreenCircle ></GreenCircle>
                             Fecha de entrega: <span style={{ fontWeight: "400" }}>20/01/2025</span>
@@ -128,10 +148,13 @@ const CargaPage = () => {
 
             </Grid>
             <Container>
+                {!mobile &&
+                
+                <>
                 <Typography fontSize="16px" fontWeight={600}  >
                     Solicitudes de conductores
                 </Typography >
-                <Stack direction="column" justifyContent={"center"} alignItems={"center"} spacing={3}>
+                <Stack direction={"column"} justifyContent={"center"} alignItems={"center"} spacing={3}>
                     <ChargeRequestCard nombre={"Juan perez"} marca={"ford"} modelo={"taunus"} capacidad={"2 toneladas"}
                         carga="seca" estrellas={2.5}
                     ></ChargeRequestCard>
@@ -145,21 +168,23 @@ const CargaPage = () => {
                         carga="seca" estrellas={.5}
                     ></ChargeRequestCard>
                 </Stack>
-                <Grid container my={5}>
+                </>}
+                
+                <Grid container direction={mobile ? "column": "row"} my={5}>
                     <Grid item xs={6}>
 
-                    <Box width="100%" >
-                    <ConductorAsignadoCard nombre="juan perezozo" estrellas={4.5} marca="ford" modelo={"taunus"} capacidad="1 tonelada" carga="seca"></ConductorAsignadoCard>
+                        <Box width="100%" >
+                            <ConductorAsignadoCard nombre="juan perezozo" estrellas={4.5} marca="ford" modelo={"taunus"} capacidad="1 tonelada" carga="seca"></ConductorAsignadoCard>
 
 
-                </Box>
+                        </Box>
                     </Grid>
                     <Grid item xs={6}>
-                    <VerticalGreenStepper steps={["En preparacion", "Preparado", "En camino", "Retirado"]}></VerticalGreenStepper>
+                        <VerticalGreenStepper steps={["En preparacion", "Preparado", "En camino", "Retirado"]}></VerticalGreenStepper>
 
                     </Grid>
                 </Grid>
-                
+
             </Container>
         </>
     )

@@ -1,5 +1,5 @@
-import createTheme from "@mui/material/styles/createTheme";
-import { Colors } from "./src/Utils/Colors.jsx";
+import createTheme from "@mui/material/styles/createTheme"
+import { Colors } from "./src/Utils/Colors.jsx"
 
 const theme = createTheme({
   palette: {
@@ -21,6 +21,9 @@ const theme = createTheme({
     },
     badgeColor: {
       main: "#FF0000",
+    },
+    textDisable: {
+      main: "#32415B",
     },
   },
   components: {
@@ -98,6 +101,6 @@ const theme = createTheme({
       },
     },
   },
-});
+})
 
-export default theme;
+export default theme

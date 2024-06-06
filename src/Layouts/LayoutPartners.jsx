@@ -1,4 +1,4 @@
-import { Button, Box, Stack, Typography } from "@mui/material"
+import { Button, Stack, Typography } from "@mui/material"
 import { Outlet, useNavigate } from "react-router-dom"
 //import { Colors } from "../Utils/Colors"
 import { useState } from "react"
@@ -6,14 +6,9 @@ import CompNav from "../Components/Nav/CompNav"
 
 const LayoutConfi = () => {
   const navigate = useNavigate()
-  const [activo, setActivo] = useState("Datos personales")
+  const [activo, setActivo] = useState("Solicitudes de carga")
 
-  const list = [
-    "Datos personales",
-    "Configuración de cuenta",
-    "Configuración de pagos",
-    "Historial de pagos",
-  ]
+  const list = ["Solicitudes de carga", "Socios activos"]
 
   const Redirect = (Element) => {
     setActivo(Element)
@@ -22,17 +17,24 @@ const LayoutConfi = () => {
   }
 
   return (
-    <Box sx={{ backgroundColor: "#F6F6F6" }}>
+    <>
       <CompNav />
 
-      <Stack sx={{ display: "flex", flexDirection: "row" }}>
+      <Stack
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          backgroundColor: "#F6F6F6",
+        }}
+      >
         {/* Para la barra lateral */}
         <Stack
           sx={{
             width: "472px",
             border: "1px solid",
-            color: "#F6F6F6",
+            color: "#D0D5DD",
             height: "100vh",
+            backgroundColor: "#F6F6F6",
           }}
         >
           {list.map((Element, index) => (
@@ -54,12 +56,19 @@ const LayoutConfi = () => {
         </Stack>
 
         {/* para las subRutas */}
-        <Stack sx={{ width: "100%", border: "1px solid #D0D5DD" }}>
+        <Stack
+          sx={{
+            width: "100%",
+            border: "1px solid #D0D5DD",
+            height: "100vh",
+            backgroundColor: "D0D5DD",
+          }}
+        >
           {/* Outlet muestra las subRutas */}
           <Outlet />
         </Stack>
       </Stack>
-    </Box>
+    </>
   )
 }
 

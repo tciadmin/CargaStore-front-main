@@ -1,14 +1,9 @@
-import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useState } from "react";
-import { Button, useMediaQuery } from "@mui/material";
+import { Button, Grid, Stack, useMediaQuery } from "@mui/material";
+import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import CompAssigned from "../../Shipments/Assigned/CompAssigned";
-import CompInProgress from "../../Shipments/InProgress/CompInProgress";
-import CompSent from "../../Shipments/Sent/CompSent";
 import LayoutShipments from "../../../Layouts/LayoutShipments";
 
 function CustomTabPanel(props) {
@@ -56,7 +51,7 @@ export default function EnvioOptions() {
   return (
     <Box>
       <LayoutShipments />
-      <Box sx={{ width: "90%", margin: "30px auto" }}>
+      {/* <Box sx={{ width: "90%", margin: "30px auto" }}>
         {!mobile && (
           <Box display={"flex"} justifyContent={"space-between"}>
             <Tabs
@@ -311,37 +306,64 @@ export default function EnvioOptions() {
           </Box>
         )}
 
-        <CustomTabPanel value={value} index={0}>
-          <Box
-            display="flex"
-            flexDirection={"column"}
-            alignItems={"center"}
-            height="80vh"
-            justifyContent={"center"}
-          >
-            <img src="/src/assets/envios/sinenvios.png" width={"200px "}></img>
-            <Typography variant="h4" fontSize={mobile ? "16px" : "24px"}>
-              {" "}
-              Aun no tienes envíos generados
-            </Typography>
-            {!mobile && (
-              <Typography variant="p">
-                {" "}
-                Para crear un nuevo envio haz clic en el boton de “Crear envío”
-              </Typography>
-            )}
-          </Box>
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
-          <CompAssigned />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={2}>
-          <CompInProgress />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={3}>
-          <CompSent />
-        </CustomTabPanel>
-      </Box>
+      <CustomTabPanel value={value} index={0}>
+        {
+          mobile &&
+          <Stack direction="column" alignItems={"center"} style={{border: "none"}} spacing={3} >
+            <Grid item container xs={12} height="100%" width="100%" p={1} style={{borderRadius: "5px", border: "1px solid lightgrey" }} spacing={2}>
+              <Grid item container direction="row" justifyContent={"flex-end"} xs={6}>
+                <ResponsiveImageBox w='100px' h="100px" url={"/marketplace/7.png"} />
+              </Grid>
+              <Grid item xs={6} >
+                <Typography fontSize="14px">Bobinas de papel</Typography>
+                <Typography fontSize="12px" color="secondary">20/5/1990 - 20/5/2024</Typography>
+                <Typography fontSize="12px">Juan Perez</Typography>
+                <Typography fontSize="12px" color="primary">$2000</Typography>
+              </Grid>
+            </Grid>
+            <Grid item container xs={12} height="100%" width="100%" p={1} style={{borderRadius: "5px", border: "1px solid lightgrey" }} spacing={2}>
+              <Grid item container direction="row" justifyContent={"flex-end"} xs={6}>
+                <ResponsiveImageBox w='100px' h="100px" url={"/marketplace/7.png"} />
+              </Grid>
+              <Grid item xs={6} >
+                <Typography fontSize="14px">Bobinas de papel</Typography>
+                <Typography fontSize="12px" color="secondary">20/5/1990 - 20/5/2024</Typography>
+                <Typography fontSize="12px">Juan Perez</Typography>
+                <Typography fontSize="12px" color="primary">$2000</Typography>
+              </Grid>
+            </Grid>
+            <Grid item container xs={12} height="100%" width="100%" p={1} style={{borderRadius: "5px", border: "1px solid lightgrey" }} spacing={2}>
+              <Grid item container direction="row" justifyContent={"flex-end"} xs={6}>
+                <ResponsiveImageBox w='100px' h="100px" url={"/marketplace/7.png"} />
+              </Grid>
+              <Grid item xs={6} >
+                <Typography fontSize="14px">Bobinas de papel</Typography>
+                <Typography fontSize="12px" color="secondary">20/5/1990 - 20/5/2024</Typography>
+                <Typography fontSize="12px">Juan Perez</Typography>
+                <Typography fontSize="12px" color="primary">$2000</Typography>
+              </Grid>
+            </Grid>
+          </Stack>
+        }
+
+
+        <Box display="flex" flexDirection={"column"} alignItems={"center"} height="80vh" justifyContent={"center"}>
+          <img src='/src/assets/envios/sinenvios.png' width={"200px "}></img>
+          <Typography variant='h4' fontSize={mobile ? "16px" : "24px"}> Aun no tienes envíos generados</Typography>
+          {!mobile &&
+            <Typography variant='p'> Para crear un nuevo envio haz clic en el boton de “Crear envío”</Typography>
+          }
+        </Box>
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={1}>
+        componente de asignados
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={2}>
+        Componente  de en Curso
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={3}>
+        Componente de Finalizados
+      </CustomTabPanel> */}
     </Box>
   );
 }
