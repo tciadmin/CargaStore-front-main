@@ -74,7 +74,7 @@ export default function CompNavLanding() {
               <Box sx={{ width: 250 }} role="presentation" >
                 <Grid container px={2} spacing={2}>
                   <Grid xs={6} mt={2} item>
-                    <img src="/src/assets/imgLanding/LogoCargaStore.svg" width={"100px"} />
+                    <img src="/imgLanding/LogoCargaStore.svg" width={"100px"} />
                   </Grid>
                   <Grid xs={6} mt={1} sx={{ cursor: "pointer" }} onClick={() => setOpen(false)} textAlign={"end"} item>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
