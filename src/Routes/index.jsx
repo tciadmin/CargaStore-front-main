@@ -45,6 +45,7 @@ import { CompMarketplacePostular } from "../Components/MarketPlacePostular/CompM
 import PageEditarEnvio from "../Pages/PageEditarEnvio"
 import { CompPublication } from "../Components/Publication/CompPublication"
 import { CompDashboard } from "../Components/Dashboard/CompDashboard"
+import { CompCompletedTrips } from "../Components/CompletedTrips/CompCompletedTrips"
 
 export const router = createBrowserRouter([
   {
@@ -146,7 +147,11 @@ export const router = createBrowserRouter([
     element: <CompPublication />,
   },
   {
-    path: "dashboard",
+    path: "/dashboard",
     element: <CompDashboard />,
+  },
+  {
+    path: "completedtrips",
+    element: <CompCompletedTrips />,
   },
 ])

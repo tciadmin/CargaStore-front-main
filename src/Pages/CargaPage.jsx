@@ -11,7 +11,6 @@ const GreenCircle = () => {
         </svg>
     )
 }
-
 const CargaPage = () => {
     const mobile = useMediaQuery("(max-width:750px)");
     //adaptarlo para que una vez que esten los datos se pueda obtener id de carga por url params y de ahi hacer llamado a la api
@@ -20,21 +19,19 @@ const CargaPage = () => {
             <Typography mb={3} ml={5} fontSize="16px" color={"secondary"} fontWeight={600} >
                 #343535
             </Typography >
-            <Grid container direction={mobile ? "column" : "row"} alignItems={mobile ?"center":"flex-start"} justifyContent={"center"} mt={2} gap={3}>
+            <Grid container direction={mobile ? "column" : "row"} alignItems={mobile ? "center" : "flex-start"} justifyContent={"center"} mt={2} gap={3}>
                 {!mobile &&
-                <Grid item container style={{ height: "450px", maxWidth: "450px" }} xs={5}>
-                    <Grid item container gap={1} pt={"6px"} alignContent={"center"} xs={4}>
-                        <ResponsiveImageBox w="140px" h="140px" url={"/marketplace/8.png"} />
-                        <ResponsiveImageBox w="140px" h="140px" url={"/marketplace/7.png"} />
-                        <ResponsiveImageBox w="140px" h="140px" url={"/marketplace/10.png"} />
-
+                    <Grid item container style={{ height: "450px", maxWidth: "450px" }} xs={5}>
+                        <Grid item container gap={1} pt={"6px"} alignContent={"center"} xs={4}>
+                            <ResponsiveImageBox w="140px" h="140px" url={"/marketplace/8.png"} />
+                            <ResponsiveImageBox w="140px" h="140px" url={"/marketplace/7.png"} />
+                            <ResponsiveImageBox w="140px" h="140px" url={"/marketplace/10.png"} />
+                        </Grid>
+                        <Grid item direction={"row"} alignItems={"flex-start"} xs={8}>
+                            <ResponsiveImageBox url={"/marketplace/9.png"} />
+                        </Grid>
                     </Grid>
-                    <Grid item direction={"row"} alignItems={"flex-start"} xs={8}>
-                        <ResponsiveImageBox url={"/marketplace/9.png"} />
-                    </Grid>
-                </Grid>
                 }
-                
                 <Grid item maxWidth="100%" justifyContent={"center"} xs={4} >
                     <Grid container flexDirection={"column"} p={3} >
                         <Typography fontSize="16px" fontWeight={600}  >
@@ -65,29 +62,21 @@ const CargaPage = () => {
                         <Typography fontSize="16px" fontWeight={400} >
                             Es un envío nacional de bolsas de azúcar que despacha El mundo mágico para Ledesma. La carga no posee contenido peligroso pero es necesario protegerlas con bolsas más resistentes para poder preservar el contenido de manera intacta,                    </Typography >
                     </Grid>
-                    <Grid item container maxWidth="100%" style={{overflowX: "auto",overflowY:"hidden"}}>
-                    
+                    <Grid item container maxWidth="100%" style={{ overflowX: "auto", overflowY: "hidden" }}>
                     </Grid>
                     {mobile &&
-                    <div  style={{display: "flex", alignSelf:"flex-end",overflowX: "scroll",overflowY:"hidden", position: "relative", maxWidth:"100vw"}}>
-                        <img src="/marketplace/8.png" width="130px" style={{flex: "0 0 auto", marginRight: "5px", marginLeft: "5px"}}/>
-
-                        <img src="/marketplace/8.png" width="130px" style={{flex: "0 0 auto", marginRight: "5px"}}/>
-                        <img src="/marketplace/8.png" width="130px" style={{flex: "0 0 auto", marginRight: "5px"}}/>
-                        <img src="/marketplace/8.png" width="130px" style={{flex: "0 0 auto", marginRight: "5px"}}/>
-                        <img src="/marketplace/8.png" width="130px" style={{flex: "0 0 auto", marginRight: "5px"}}/>
-                        <img src="/marketplace/8.png" width="130px" style={{flex: "0 0 auto", marginRight: "5px"}}/>
-                        <img src="/marketplace/8.png" width="130px" style={{flex: "0 0 auto", marginRight: "5px"}}/>
-                        <img src="/marketplace/8.png" width="130px" style={{flex: "0 0 auto", marginRight: "5px"}}/>
- 
+                        <div style={{ display: "flex", alignSelf: "flex-end", overflowX: "scroll", overflowY: "hidden", position: "relative", maxWidth: "100vw" }}>
+                            <img src="/marketplace/8.png" width="130px" style={{ flex: "0 0 auto", marginRight: "5px", marginLeft: "5px" }} />
+                            <img src="/marketplace/8.png" width="130px" style={{ flex: "0 0 auto", marginRight: "5px" }} />
+                            <img src="/marketplace/8.png" width="130px" style={{ flex: "0 0 auto", marginRight: "5px" }} />
+                            <img src="/marketplace/8.png" width="130px" style={{ flex: "0 0 auto", marginRight: "5px" }} />
+                            <img src="/marketplace/8.png" width="130px" style={{ flex: "0 0 auto", marginRight: "5px" }} />
+                            <img src="/marketplace/8.png" width="130px" style={{ flex: "0 0 auto", marginRight: "5px" }} />
+                            <img src="/marketplace/8.png" width="130px" style={{ flex: "0 0 auto", marginRight: "5px" }} />
+                            <img src="/marketplace/8.png" width="130px" style={{ flex: "0 0 auto", marginRight: "5px" }} />
                         </div>
-
                     }
-                    
-                   
-
                 </Grid>
-
                 <Grid item maxWidth="100%" justifyContent={"center"} border="1px solid lightgrey" borderRadius={"5px"} p={3} xs={3} >
                     <Grid container flexDirection={"column"}>
                         <Typography mb={3} fontSize="20px" fontWeight={600} >
@@ -142,35 +131,32 @@ const CargaPage = () => {
                             Destinatario: <span style={{ fontWeight: "400" }}>Ledesma S.A.</span>
                         </Typography >
                     </Grid>
-
                 </Grid>
-
-
             </Grid>
             <Container>
                 {!mobile &&
-                
-                <>
-                <Typography fontSize="16px" fontWeight={600}  >
-                    Solicitudes de conductores
-                </Typography >
-                <Stack direction={"column"} justifyContent={"center"} alignItems={"center"} spacing={3}>
-                    <ChargeRequestCard nombre={"Juan perez"} marca={"ford"} modelo={"taunus"} capacidad={"2 toneladas"}
-                        carga="seca" estrellas={2.5}
-                    ></ChargeRequestCard>
-                    <ChargeRequestCard nombre={"Juan perez"} marca={"ford"} modelo={"taunus"} capacidad={"2 toneladas"}
-                        carga="seca" estrellas={4.5}
-                    ></ChargeRequestCard>
-                    <ChargeRequestCard nombre={"Juan perez"} marca={"ford"} modelo={"taunus"} capacidad={"2 toneladas"}
-                        carga="seca" estrellas={5}
-                    ></ChargeRequestCard>
-                    <ChargeRequestCard nombre={"Juan perez"} marca={"ford"} modelo={"taunus"} capacidad={"2 toneladas"}
-                        carga="seca" estrellas={.5}
-                    ></ChargeRequestCard>
-                </Stack>
-                </>}
-                
-                <Grid container direction={mobile ? "column": "row"} my={5}>
+
+                    <>
+                        <Typography fontSize="16px" fontWeight={600}  >
+                            Solicitudes de conductores
+                        </Typography >
+                        <Stack direction={"column"} justifyContent={"center"} alignItems={"center"} spacing={3}>
+                            <ChargeRequestCard nombre={"Juan perez"} marca={"ford"} modelo={"taunus"} capacidad={"2 toneladas"}
+                                carga="seca" estrellas={2.5}
+                            ></ChargeRequestCard>
+                            <ChargeRequestCard nombre={"Juan perez"} marca={"ford"} modelo={"taunus"} capacidad={"2 toneladas"}
+                                carga="seca" estrellas={4.5}
+                            ></ChargeRequestCard>
+                            <ChargeRequestCard nombre={"Juan perez"} marca={"ford"} modelo={"taunus"} capacidad={"2 toneladas"}
+                                carga="seca" estrellas={5}
+                            ></ChargeRequestCard>
+                            <ChargeRequestCard nombre={"Juan perez"} marca={"ford"} modelo={"taunus"} capacidad={"2 toneladas"}
+                                carga="seca" estrellas={.5}
+                            ></ChargeRequestCard>
+                        </Stack>
+                    </>}
+
+                <Grid container direction={mobile ? "column" : "row"} my={5}>
                     <Grid item xs={6}>
 
                         <Box width="100%" >

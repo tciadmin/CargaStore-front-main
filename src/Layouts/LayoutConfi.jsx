@@ -30,8 +30,8 @@ const LayoutConfi = () => {
         <Stack
           sx={{
             width: "472px",
-            border: "1px solid",
-            color: "#F6F6F6",
+            border: "1px solid #D0D5DD",
+
             height: "100vh",
           }}
         >
