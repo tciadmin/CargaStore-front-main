@@ -58,7 +58,7 @@ const rows = [
     "$12.00",
     "Luis Alvarez",
     "Colombia",
-    "/src/assets/imgShipments/Bobinas.jpg"
+    "/public/imgShipments/Bobinas.jpg"
   ),
   createData(
     "1",
@@ -74,7 +74,7 @@ const rows = [
     "$12.00",
     "Luis Alvarez",
     "Colombia",
-    "/src/assets/imgShipments/Bobinas.jpg"
+    "/public/imgShipments/Bobinas.jpg"
   ),
   createData(
     "2",
@@ -90,7 +90,7 @@ const rows = [
     "$12.00",
     "Luis Alvarez",
     "Colombia",
-    "/src/assets/imgShipments/Bobinas.jpg"
+    "/public/imgShipments/Bobinas.jpg"
   ),
 ];
 
@@ -438,7 +438,7 @@ export default function CompAssigned() {
                           alignItems="center"
                         >
                           <Box style={{ display: "flex", gap: "5px" }}>
-                            <img src="/src/assets/imgShipments/Product.svg" />
+                            <img src="/public/imgShipments/Product.svg" />
                             <p
                               style={{
                                 fontSize: "12px",
@@ -462,7 +462,7 @@ export default function CompAssigned() {
                           <Box style={{ display: "flex", gap: "5px" }}>
                             <img
                               style={{ display: "flex" }}
-                              src="/src/assets/imgShipments/Location.svg"
+                              src="/public/imgShipments/Location.svg"
                             />
                             <p
                               style={{
@@ -485,7 +485,7 @@ export default function CompAssigned() {
                           alignItems="center"
                         >
                           <Box style={{ display: "flex", gap: "5px" }}>
-                            <img src="/src/assets/imgShipments/Date.svg" />
+                            <img src="/public/imgShipments/Date.svg" />
                             <p
                               style={{
                                 fontSize: "12px",
@@ -506,7 +506,7 @@ export default function CompAssigned() {
                           alignItems="center"
                         >
                           <Box style={{ display: "flex", gap: "5px" }}>
-                            <img src="/src/assets/imgShipments/Location.svg" />
+                            <img src="/public/imgShipments/Location.svg" />
                             <p
                               style={{
                                 fontSize: "12px",
@@ -527,7 +527,7 @@ export default function CompAssigned() {
                           alignItems="center"
                         >
                           <Box style={{ display: "flex", gap: "5px" }}>
-                            <img src="/src/assets/imgShipments/Date.svg" />
+                            <img src="/public/imgShipments/Date.svg" />
                             <p
                               style={{
                                 fontSize: "12px",
@@ -548,7 +548,7 @@ export default function CompAssigned() {
                           alignItems="center"
                         >
                           <Box style={{ display: "flex", gap: "5px" }}>
-                            <img src="/src/assets/imgShipments/Receiver.svg" />
+                            <img src="/public/imgShipments/Receiver.svg" />
                             <p
                               style={{
                                 fontSize: "12px",
@@ -569,7 +569,7 @@ export default function CompAssigned() {
                           alignItems="center"
                         >
                           <Box style={{ display: "flex", gap: "5px" }}>
-                            <img src="/src/assets/imgShipments/Truck.svg" />
+                            <img src="/public/imgShipments/Truck.svg" />
                             <p
                               style={{
                                 fontSize: "12px",
@@ -590,7 +590,7 @@ export default function CompAssigned() {
                           alignItems="center"
                         >
                           <Box style={{ display: "flex", gap: "5px" }}>
-                            <img src="/src/assets/imgShipments/Load.svg" />
+                            <img src="/public/imgShipments/Load.svg" />
                             <p
                               style={{
                                 fontSize: "12px",
@@ -676,7 +676,7 @@ export default function CompAssigned() {
                       justifyContent: "right",
                       alignContent: "right",
                     }}
-                    src="/src/assets/imgShipments/CloseButton.svg"
+                    src="/public/imgShipments/CloseButton.svg"
                   />
                 </Box>
 
@@ -703,7 +703,7 @@ export default function CompAssigned() {
                       alignItems: "center",
                     }}
                   >
-                    <img src="/src/assets/imgShipments/DriverDetails.jpg" />
+                    <img src="/public/imgShipments/DriverDetails.jpg" />
                   </Box>
 
                   <Box

@@ -64,9 +64,9 @@ export default function CompRegister() {
           }}
         >
           {mobile ? (
-            <img src="/src/assets/imgRegister/LogoMobile.jpg" />
+            <img src="/public/imgRegister/LogoMobile.jpg" />
           ) : (
-            <img src="/src/assets/imgLanding/LogoCargaStore.svg" />
+            <img src="/public/imgLanding/LogoCargaStore.svg" />
           )}
 
           <h1 style={{ fontWeight: 600, fontSize: "1.5rem" }}>
@@ -84,7 +84,7 @@ export default function CompRegister() {
           ) : (
             <img
               style={{ width: "100%" }}
-              src="/src/assets/imgRegister/RegDivider.svg"
+              src="/public/imgRegister/RegDivider.svg"
             />
           )}
 
@@ -96,7 +96,7 @@ export default function CompRegister() {
               gap: "10px",
             }}
           >
-            <img src="/src/assets/imgRegister/LoadImg.jpg" />
+            <img src="/public/imgRegister/LoadImg.jpg" />
             <Button
               onClick={nextUser}
               name="user"
@@ -105,7 +105,7 @@ export default function CompRegister() {
             >
               Quiero generar una carga
             </Button>
-            <img src="/src/assets/imgRegister/AssociateImg.jpg" />
+            <img src="/public/imgRegister/AssociateImg.jpg" />
             <Button
               onClick={nextDriver}
               name="driver"
