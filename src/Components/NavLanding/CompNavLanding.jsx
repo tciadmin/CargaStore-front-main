@@ -89,10 +89,7 @@ export default function CompNavLanding() {
               <Box sx={{ width: 250 }} role="presentation">
                 <Grid container px={2} spacing={2}>
                   <Grid xs={6} mt={2} item>
-                    <img
-                      src="/public/imgLanding/LogoCargaStore.svg"
-                      width={"100px"}
-                    />
+                    <img src="/imgLanding/LogoCargaStore.svg" width={"100px"} />
                   </Grid>
                   <Grid
                     xs={6}
@@ -217,7 +214,7 @@ export default function CompNavLanding() {
                   display: { xs: "none", sm: "block" },
                 }}
               >
-                <img src="/public/imgLanding/LogoCargaStore.svg" />
+                <img src="/imgLanding/LogoCargaStore.svg" />
               </Typography>
             )}
             {!mobile && (

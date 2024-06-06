@@ -34,7 +34,7 @@ const LayoutLogin = () => {
           ""
         ) : (
           <Box className="imgContainer">
-            <img src="/public/imgLogin/LoginCamion.jpg" />
+            <img src="/imgLogin/LoginCamion.jpg" />
           </Box>
         )}
 
@@ -67,7 +67,7 @@ const LayoutLogin = () => {
               {mobile ? (
                 <img
                   onClick={goBack}
-                  src="/public/imgLogin/GoBackArrow.svg"
+                  src="/imgLogin/GoBackArrow.svg"
                   style={{
                     display: location.pathname !== "/login" ? "flex" : "none",
                     cursor: "pointer",
@@ -82,16 +82,16 @@ const LayoutLogin = () => {
             <Box className="headerContainer">
               {mobile ? (
                 location.pathname.includes("/forgot-password") ? (
-                  <img src="/public/imgLogin/ForgotPassword.jpg" />
+                  <img src="/imgLogin/ForgotPassword.jpg" />
                 ) : location.pathname === "/login/verification-code" ? (
-                  <img src="/public/imgLogin/VerificationCodeImage.jpg" />
+                  <img src="/imgLogin/VerificationCodeImage.jpg" />
                 ) : location.pathname === "/login/new-password" ? (
-                  <img src="/public/imgLogin/NewPasswordImage.jpg" />
+                  <img src="/imgLogin/NewPasswordImage.jpg" />
                 ) : (
-                  <img src="/public/imgLanding/LogoCargaStore.svg" />
+                  <img src="/imgLanding/LogoCargaStore.svg" />
                 )
               ) : (
-                <img src="/public/imgLanding/LogoCargaStore.svg" />
+                <img src="/imgLanding/LogoCargaStore.svg" />
               )}
             </Box>
             <Outlet />

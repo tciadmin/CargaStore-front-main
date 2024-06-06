@@ -67,9 +67,9 @@ export default function CompNewPassword() {
                     edge="end"
                   >
                     {showPassword ? (
-                      <img src="/public/imgLogin/OpenEyeIcon.svg" />
+                      <img src="/imgLogin/OpenEyeIcon.svg" />
                     ) : (
-                      <img src="/public/imgLogin/EyeIcon.svg" />
+                      <img src="/imgLogin/EyeIcon.svg" />
                     )}
                   </IconButton>
                 </InputAdornment>
@@ -92,9 +92,9 @@ export default function CompNewPassword() {
                     edge="end"
                   >
                     {showConfirmPassword ? (
-                      <img src="/public/imgLogin/OpenEyeIcon.svg" />
+                      <img src="/imgLogin/OpenEyeIcon.svg" />
                     ) : (
-                      <img src="/public/imgLogin/EyeIcon.svg" />
+                      <img src="/imgLogin/EyeIcon.svg" />
                     )}
                   </IconButton>
                 </InputAdornment>
