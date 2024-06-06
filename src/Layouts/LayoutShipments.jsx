@@ -292,7 +292,11 @@ const LayoutShipments = () => {
                   {...a11yProps(2)}
                 />
               </Tabs>
-              <Button style={{ margin: 0 }} variant="contained">
+              <Button
+                style={{ margin: 0 }}
+                variant="contained"
+                onClick={() => navigate("/home/crearEnvios")}
+              >
                 Crear envío
               </Button>
             </Box>
