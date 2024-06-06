@@ -1,5 +1,5 @@
-import Paper from "../../assets/Paper/Paper.png"
-import { Box, Stack, Typography } from "@mui/material" // Import the necessary components
+//import Paper from "../../assets/Paper/Paper.png"
+import { Box, Stack } from "@mui/material" // Import the necessary components
 
 export const CompCard = () => {
   const Card = [
@@ -16,7 +16,7 @@ export const CompCard = () => {
       País: "Perú-Bolivia",
       Carga: "Carga seca",
       Fecha: "07/02/2323",
-      Precio: "Total: $11.800",
+      Precio: "Total: $11.800", 
       Imagen: "/src/assets/Paper/Paper.png",
     },
     {
@@ -54,31 +54,31 @@ export const CompCard = () => {
         sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
         direction="column" // Change direction to column
       >
-        {Card.map((Mica, key) => (
+        {Card.map((Card, key) => (
           <Box key={key}>
             <Box sx={{ display: "flex", gap: "320px", padding: "20px" }}>
               <Box
                 sx={{ display: "flex", flexDirection: "column", gap: "8px" }}
               >
                 <p style={{ fontWeight: 500, fontSize: "20px" }}>
-                  {Mica.Titulo}
+                  {Card.Titulo}
                 </p>
-                <p>{Mica.Pais}</p>
-                <p>{Mica.Carga}</p>
-                <p>{Mica.Fecha}</p>
-                <p style={{ color: "#007C52" }}>{Mica.Precio}</p>
-              </Box>
+                <p>{Card.Pais}</p>
+                <p>{Card.Carga}</p>
+                <p>{Card.Fecha}</p>
+                <p style={{ color: "#007C52" }}>{Card.Precio}</p>
+              </Box>                  
               <Box>
                 <img
                   style={{ width: "140px", height: "135px" }}
-                  src={Mica.Imagen}
+                  src={Card.Imagen}
                   alt="Paper"
                 />
               </Box>
             </Box>
             <Box sx={{ display: "flex", width: "100%", marginLeft: "100px" }}>
               <img
-                style={{}}
+                style={{ marginTop: "1px", marginBottom: "20px" }}
                 src="/src/assets/Avatar/Divider.png"
               />
             </Box>
