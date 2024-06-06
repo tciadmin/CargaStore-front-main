@@ -135,9 +135,9 @@ export default function CompRegUser() {
                       edge="end"
                     >
                       {showPassword ? (
-                        <img src="/src/assets/imgLogin/OpenEyeIcon.svg" />
+                        <img src="/public/imgLogin/OpenEyeIcon.svg" />
                       ) : (
-                        <img src="/src/assets/imgLogin/EyeIcon.svg" />
+                        <img src="/public/imgLogin/EyeIcon.svg" />
                       )}
                     </IconButton>
                   </InputAdornment>
@@ -162,9 +162,9 @@ export default function CompRegUser() {
                       edge="end"
                     >
                       {showConfirmPassword ? (
-                        <img src="/src/assets/imgLogin/OpenEyeIcon.svg" />
+                        <img src="/public/imgLogin/OpenEyeIcon.svg" />
                       ) : (
-                        <img src="/src/assets/imgLogin/EyeIcon.svg" />
+                        <img src="/public/imgLogin/EyeIcon.svg" />
                       )}
                     </IconButton>
                   </InputAdornment>

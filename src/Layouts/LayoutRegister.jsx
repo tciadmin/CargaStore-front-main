@@ -26,21 +26,21 @@ const steps = [
   {
     label: "Elige tu perfil",
     description: `Selecciona si serás un generador de carga o socio conductor`,
-    active: "/src/assets/imgRegister/1Active.svg",
-    done: "/src/assets/imgRegister/1Done.svg",
+    active: "/public/imgRegister/1Active.svg",
+    done: "/public/imgRegister/1Done.svg",
   },
   {
     label: "Datos personales",
     description: "Carga tus datos personales para continuar",
-    inactive: "/src/assets/imgRegister/2Inactive.svg",
-    active: "/src/assets/imgRegister/2Active.svg",
-    done: "/src/assets/imgRegister/2Done.svg",
+    inactive: "/public/imgRegister/2Inactive.svg",
+    active: "/public/imgRegister/2Active.svg",
+    done: "/public/imgRegister/2Done.svg",
   },
   {
     label: "Datos del vehículo",
     description: `Ingresa los datos de vehículo para más seguridad`,
-    inactive: "/src/assets/imgRegister/3Inactive.svg",
-    active: "/src/assets/imgRegister/3Active.svg",
+    inactive: "/public/imgRegister/3Inactive.svg",
+    active: "/public/imgRegister/3Active.svg",
   },
 ];
 
@@ -104,15 +104,15 @@ const LayoutRegister = () => {
       steps[2] = {
         label: "Información de la empresa",
         description: "Ingresa la información de tu empresa o negocio",
-        inactive: "/src/assets/imgRegister/3Inactive.svg",
-        active: "/src/assets/imgRegister/3Active.svg",
+        inactive: "/public/imgRegister/3Inactive.svg",
+        active: "/public/imgRegister/3Active.svg",
       };
     } else {
       steps[2] = {
         label: "Datos del vehículo",
         description: `Ingresa los datos de vehículo para más seguridad`,
-        inactive: "/src/assets/imgRegister/3Inactive.svg",
-        active: "/src/assets/imgRegister/3Active.svg",
+        inactive: "/public/imgRegister/3Inactive.svg",
+        active: "/public/imgRegister/3Active.svg",
       };
     }
   }, [location.pathname]);
@@ -130,7 +130,7 @@ const LayoutRegister = () => {
       ) : (
         <Box className="imgContainer">
           {" "}
-          <img src="/src/assets/imgRegister/registerSideImg.jpg" />{" "}
+          <img src="/public/imgRegister/registerSideImg.jpg" />{" "}
         </Box>
       )}
 

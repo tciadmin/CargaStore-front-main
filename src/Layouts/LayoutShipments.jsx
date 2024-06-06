@@ -131,7 +131,7 @@ const LayoutShipments = () => {
                 backgroundColor: Colors.primary.constrastText,
                 cursor: "pointer",
               }}
-              src="/src/assets/imgShipments/ArrowDashboard.svg"
+              src="/public/imgShipments/ArrowDashboard.svg"
             />
             <Menu
               value={value}
@@ -207,7 +207,7 @@ const LayoutShipments = () => {
           sx={{
             minWidth: "100%",
             height: "100%",
-            backgroundColor: Colors.terciary.contrastText,
+            // backgroundColor: Colors.terciary.contrastText,
           }}
         >
           <Box
@@ -218,7 +218,7 @@ const LayoutShipments = () => {
               alignItems: "center",
               padding: 5,
               height: "20px",
-              backgroundColor: Colors.terciary.contrastText,
+              // backgroundColor: Colors.terciary.contrastText,
             }}
           >
             <Box
@@ -228,7 +228,7 @@ const LayoutShipments = () => {
                 justifyContent: "space-between",
                 width: "96%",
                 alignItems: "center",
-                backgroundColor: Colors.terciary.contrastText,
+                // backgroundColor: Colors.terciary.contrastText,
               }}
             >
               <Tabs
@@ -236,7 +236,7 @@ const LayoutShipments = () => {
                 onChange={handleChange}
                 sx={{
                   display: "flex",
-                  backgroundColor: Colors.terciary.contrastText,
+                  // backgroundColor: Colors.terciary.contrastText,
                 }}
               >
                 <Tab
@@ -245,9 +245,9 @@ const LayoutShipments = () => {
                   label="Pendientes"
                   icon={
                     value === 0 ? (
-                      <img src="/src/assets/imgShipments/PendingActive.svg" />
+                      <img src="/public/imgShipments/PendingActive.svg" />
                     ) : (
-                      <img src="/src/assets/imgShipments/PendingInactive.svg" />
+                      <img src="/public/imgShipments/PendingInactive.svg" />
                     )
                   }
                   {...a11yProps(0)}
@@ -258,9 +258,9 @@ const LayoutShipments = () => {
                   label="Asignado"
                   icon={
                     value === 1 ? (
-                      <img src="/src/assets/imgShipments/AssignedActive.svg" />
+                      <img src="/public/imgShipments/AssignedActive.svg" />
                     ) : (
-                      <img src="/src/assets/imgShipments/AssignedInactive.svg" />
+                      <img src="/public/imgShipments/AssignedInactive.svg" />
                     )
                   }
                   {...a11yProps(1)}
@@ -271,9 +271,9 @@ const LayoutShipments = () => {
                   label="En curso"
                   icon={
                     value === 2 ? (
-                      <img src="/src/assets/imgShipments/InProgressActive.svg" />
+                      <img src="/public/imgShipments/InProgressActive.svg" />
                     ) : (
-                      <img src="/src/assets/imgShipments/InProgressInactive.svg" />
+                      <img src="/public/imgShipments/InProgressInactive.svg" />
                     )
                   }
                   {...a11yProps(2)}
@@ -284,15 +284,19 @@ const LayoutShipments = () => {
                   label="Finalizados"
                   icon={
                     value === 3 ? (
-                      <img src="/src/assets/imgShipments/DoneActive.svg" />
+                      <img src="/public/imgShipments/DoneActive.svg" />
                     ) : (
-                      <img src="/src/assets/imgShipments/DoneInactive.svg" />
+                      <img src="/public/imgShipments/DoneInactive.svg" />
                     )
                   }
                   {...a11yProps(2)}
                 />
               </Tabs>
-              <Button style={{ margin: 0 }} variant="contained">
+              <Button
+                style={{ margin: 0 }}
+                variant="contained"
+                onClick={() => navigate("/home/crearEnvios")}
+              >
                 Crear envío
               </Button>
             </Box>
@@ -310,7 +314,7 @@ const LayoutShipments = () => {
             cursor: "pointer",
           }}
         >
-          <img src="/src/assets/imgShipments/QuestionIcon.svg" />
+          <img src="/public/imgShipments/QuestionIcon.svg" />
         </Box>
       ) : (
         ""

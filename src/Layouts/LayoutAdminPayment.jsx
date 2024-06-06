@@ -116,7 +116,7 @@ export default function LayoutAdminPayment() {
                 backgroundColor: Colors.primary.constrastText,
                 cursor: "pointer",
               }}
-              src="/src/assets/imgShipments/ArrowDashboard.svg"
+              src="/public/imgShipments/ArrowDashboard.svg"
             />
             <Menu
               value={value}
@@ -219,7 +219,7 @@ export default function LayoutAdminPayment() {
             cursor: "pointer",
           }}
         >
-          <img src="/src/assets/imgAdminPayment/ChatIcon.svg" />
+          <img src="/public/imgAdminPayment/ChatIcon.svg" />
         </Box>
       ) : (
         ""

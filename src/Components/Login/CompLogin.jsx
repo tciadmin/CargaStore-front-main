@@ -27,6 +27,14 @@ export default function CompLogin() {
     navigate("/login/forgot-password");
   };
 
+  const onClickLogin = () => {
+    navigate("/home");
+  };
+
+  const onClickRegister = () => {
+    navigate("/register");
+  };
+
   return (
     <Box
       sx={{ display: "flex" }}
@@ -58,7 +66,7 @@ export default function CompLogin() {
               style={{ height: mobile ? "40px" : "50px", borderRadius: "8px" }}
               endAdornment={
                 <InputAdornment position="end">
-                  <img src="/src/assets/imgLogin/EmailIcon.svg" />
+                  <img src="/public/imgLogin/EmailIcon.svg" />
                 </InputAdornment>
               }
             />
@@ -82,9 +90,9 @@ export default function CompLogin() {
                     edge="end"
                   >
                     {showPassword ? (
-                      <img src="/src/assets/imgLogin/OpenEyeIcon.svg" />
+                      <img src="/public/imgLogin/OpenEyeIcon.svg" />
                     ) : (
-                      <img src="/src/assets/imgLogin/EyeIcon.svg" />
+                      <img src="/public/imgLogin/EyeIcon.svg" />
                     )}
                   </IconButton>
                 </InputAdornment>
@@ -114,20 +122,20 @@ export default function CompLogin() {
               backgroundColor: Colors.primary.main,
               borderRadius: "8px",
             }}
+            onClick={onClickLogin}
           >
             Ingresar
           </Button>
         </Box>
-        <img
-          style={{ width: "350px" }}
-          src="/src/assets/imgLogin/Dividers.jpg"
-        />
+        <img style={{ width: "350px" }} src="/public/imgLogin/Dividers.jpg" />
         <p style={{ fontWeight: 400 }}>
           ¿No tienes una cuenta?{" "}
           <span
+            onClick={onClickRegister}
             style={{
               fontWeight: 500,
               color: Colors.primary.main,
+              cursor: "pointer",
             }}
           >
             Regístrate
