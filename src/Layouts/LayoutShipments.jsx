@@ -207,7 +207,7 @@ const LayoutShipments = () => {
           sx={{
             minWidth: "100%",
             height: "100%",
-            backgroundColor: Colors.terciary.contrastText,
+            // backgroundColor: Colors.terciary.contrastText,
           }}
         >
           <Box
@@ -218,7 +218,7 @@ const LayoutShipments = () => {
               alignItems: "center",
               padding: 5,
               height: "20px",
-              backgroundColor: Colors.terciary.contrastText,
+              // backgroundColor: Colors.terciary.contrastText,
             }}
           >
             <Box
@@ -228,7 +228,7 @@ const LayoutShipments = () => {
                 justifyContent: "space-between",
                 width: "96%",
                 alignItems: "center",
-                backgroundColor: Colors.terciary.contrastText,
+                // backgroundColor: Colors.terciary.contrastText,
               }}
             >
               <Tabs
@@ -236,7 +236,7 @@ const LayoutShipments = () => {
                 onChange={handleChange}
                 sx={{
                   display: "flex",
-                  backgroundColor: Colors.terciary.contrastText,
+                  // backgroundColor: Colors.terciary.contrastText,
                 }}
               >
                 <Tab

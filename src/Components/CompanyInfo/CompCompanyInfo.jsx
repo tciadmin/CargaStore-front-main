@@ -1,16 +1,21 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import { useMediaQuery } from "@mui/material";
-
 //? --------------------------------------------- STYLES
 import { Colors } from "../../Utils/Colors";
 
 export default function CompCompanyInfo() {
   const mobile = useMediaQuery("(max-width:720px)");
+  const navigate = useNavigate();
+
+  const onClickRegister = () => {
+    navigate("/login");
+  };
 
   return (
     <Box className="registerContainer">
@@ -103,6 +108,7 @@ export default function CompCompanyInfo() {
                 backgroundColor: Colors.primary.main,
                 borderRadius: "8px",
               }}
+              onClick={onClickRegister}
             >
               Registrarse
             </Button>

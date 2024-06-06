@@ -113,6 +113,7 @@ export default function CompNewPassword() {
               backgroundColor: Colors.primary.main,
               borderRadius: "8px",
             }}
+            onClick={goBack}
           >
             Cambiar contraseña
           </Button>
