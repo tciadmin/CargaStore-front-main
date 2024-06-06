@@ -119,7 +119,7 @@ export default function EnvioOptions() {
               {...a11yProps(3)}
               color="secondary" />
           </Tabs>
-          <Button variant="contained" color='primary' onClick={() => navigate("/home/crearEnvios")} sx={{ fontWeight: 500 }}>Crear envío</Button>
+          <Button variant="contained" color='primary' onClick={() => navigate("/home/crearEnvios")} sx={{ fontWeight: 500, height: "40px" }}>Crear envío</Button>
         </Box>
       }
 
