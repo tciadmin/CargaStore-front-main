@@ -149,7 +149,7 @@ export default function CompNavLanding() {
 
               >
                 <img
-                  src="/src/assets/imgLanding/LogoCargaStore.svg"
+                  src="/imgLanding/LogoCargaStore.svg"
 
                 />
               </Typography>
