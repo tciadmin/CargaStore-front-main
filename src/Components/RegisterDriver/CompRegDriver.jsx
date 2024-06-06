@@ -129,9 +129,9 @@ export default function CompRegDriver() {
                       edge="end"
                     >
                       {showPassword ? (
-                        <img src="/public/imgLogin/OpenEyeIcon.svg" />
+                        <img src="/imgLogin/OpenEyeIcon.svg" />
                       ) : (
-                        <img src="/public/imgLogin/EyeIcon.svg" />
+                        <img src="/imgLogin/EyeIcon.svg" />
                       )}
                     </IconButton>
                   </InputAdornment>
@@ -156,9 +156,9 @@ export default function CompRegDriver() {
                       edge="end"
                     >
                       {showConfirmPassword ? (
-                        <img src="/public/imgLogin/OpenEyeIcon.svg" />
+                        <img src="/imgLogin/OpenEyeIcon.svg" />
                       ) : (
-                        <img src="/public/imgLogin/EyeIcon.svg" />
+                        <img src="/imgLogin/EyeIcon.svg" />
                       )}
                     </IconButton>
                   </InputAdornment>

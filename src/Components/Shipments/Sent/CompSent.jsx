@@ -69,7 +69,7 @@ const rows = [
     "$12.00",
     "Luis Alvarez",
     "Colombia",
-    "/public/imgShipments/Bobinas.jpg"
+    "/imgShipments/Bobinas.jpg"
   ),
   createData(
     "1",
@@ -85,7 +85,7 @@ const rows = [
     "$12.00",
     "Luis Alvarez",
     "Colombia",
-    "/public/imgShipments/Bobinas.jpg"
+    "/imgShipments/Bobinas.jpg"
   ),
   createData(
     "2",
@@ -101,7 +101,7 @@ const rows = [
     "$12.00",
     "Luis Alvarez",
     "Colombia",
-    "/public/imgShipments/Bobinas.jpg"
+    "/imgShipments/Bobinas.jpg"
   ),
 ];
 
@@ -439,7 +439,7 @@ export default function CompSent() {
                           alignItems="center"
                         >
                           <Box style={{ display: "flex", gap: "5px" }}>
-                            <img src="/public/imgShipments/Product.svg" />
+                            <img src="/imgShipments/Product.svg" />
                             <p
                               style={{
                                 fontSize: "12px",
@@ -463,7 +463,7 @@ export default function CompSent() {
                           <Box style={{ display: "flex", gap: "5px" }}>
                             <img
                               style={{ display: "flex" }}
-                              src="/public/imgShipments/Location.svg"
+                              src="/imgShipments/Location.svg"
                             />
                             <p
                               style={{
@@ -486,7 +486,7 @@ export default function CompSent() {
                           alignItems="center"
                         >
                           <Box style={{ display: "flex", gap: "5px" }}>
-                            <img src="/public/imgShipments/Date.svg" />
+                            <img src="/imgShipments/Date.svg" />
                             <p
                               style={{
                                 fontSize: "12px",
@@ -507,7 +507,7 @@ export default function CompSent() {
                           alignItems="center"
                         >
                           <Box style={{ display: "flex", gap: "5px" }}>
-                            <img src="/public/imgShipments/Location.svg" />
+                            <img src="/imgShipments/Location.svg" />
                             <p
                               style={{
                                 fontSize: "12px",
@@ -528,7 +528,7 @@ export default function CompSent() {
                           alignItems="center"
                         >
                           <Box style={{ display: "flex", gap: "5px" }}>
-                            <img src="/public/imgShipments/Date.svg" />
+                            <img src="/imgShipments/Date.svg" />
                             <p
                               style={{
                                 fontSize: "12px",
@@ -549,7 +549,7 @@ export default function CompSent() {
                           alignItems="center"
                         >
                           <Box style={{ display: "flex", gap: "5px" }}>
-                            <img src="/public/imgShipments/Receiver.svg" />
+                            <img src="/imgShipments/Receiver.svg" />
                             <p
                               style={{
                                 fontSize: "12px",
@@ -570,7 +570,7 @@ export default function CompSent() {
                           alignItems="center"
                         >
                           <Box style={{ display: "flex", gap: "5px" }}>
-                            <img src="/public/imgShipments/Truck.svg" />
+                            <img src="/imgShipments/Truck.svg" />
                             <p
                               style={{
                                 fontSize: "12px",
@@ -591,7 +591,7 @@ export default function CompSent() {
                           alignItems="center"
                         >
                           <Box style={{ display: "flex", gap: "5px" }}>
-                            <img src="/public/imgShipments/Load.svg" />
+                            <img src="/imgShipments/Load.svg" />
                             <p
                               style={{
                                 fontSize: "12px",
@@ -685,11 +685,11 @@ export default function CompSent() {
                         justifyContent: "right",
                         alignContent: "right",
                       }}
-                      src="/public/imgShipments/CloseButton.svg"
+                      src="/imgShipments/CloseButton.svg"
                     />
                   </Box>
 
-                  <img src="/public/imgShipments/Success.jpg" />
+                  <img src="/imgShipments/Success.jpg" />
 
                   <Typography
                     id="modal-modal-title"

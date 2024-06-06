@@ -148,15 +148,16 @@ export default function CompNavLanding() {
                 }}
 
               >
-                <img
-                  src="/imgLanding/LogoCargaStore.svg"
 
-                />
+                <img src="/imgLanding/LogoCargaStore.svg" />
+
+          
               </Typography>
               {!mobile && location.pathname != "/landing" && 
               <>
               <Typography fontSize={"16px"} sx={{cursor: "pointer"}} onClick={()=>navigate("/home/marketplace")} marginRight={2} cursor="pointer" color={location.pathname == "/home/marketplace" ?"primary":"secondary"} >
                 Marketplace
+
               </Typography>
               <Typography fontSize={"16px"} sx={{cursor: "pointer"}} onClick={()=>navigate("/shipments")} color={location.pathname.startsWith("/shipments") ?"primary": "secondary"}>
                 Mis envios
