@@ -1,51 +1,55 @@
-import { createBrowserRouter } from "react-router-dom"
-import LayoutPublic from "../Layouts/LayoutPublic"
-import NotFound from "../Pages/PageNotFound"
-import PageLogin from "../Pages/PageLogin"
-import PageRedirect from "../Pages/PageRedirect"
-import LayoutLogin from "../Layouts/LayoutLogin"
-import CompForgotPassword from "../Components/ForgotPassword/CompForgotPassword"
-import CompVerificationCode from "../Components/VerificationCode/CompVerificationCode"
-import CompNewPassword from "../Components/NewPassword/CompNewPassword"
-import PageLanding from "../Pages/PageLanding"
-import PageRegister from "../Pages/PageRegister"
-import LayoutRegister from "../Layouts/LayoutRegister"
-import CompRegDriver from "../Components/RegisterDriver/CompRegDriver"
-import CompVehicleInfo from "../Components/VehicleInfo/CompVehicleInfo"
-import CompRegUser from "../Components/RegisterUser/CompRegUser"
-import CompCompanyInfo from "../Components/CompanyInfo/CompCompanyInfo"
-import LayoutConfi from "../Layouts/LayoutConfi"
-import { CompEdit } from "../Components/CompEdit/CompEdit"
-import CompEditTwo from "../Components/CompEditTwo/CompEditTwo"
-import { CompEditThree } from "../Components/CompEditThree/CompEditThree"
-
-import LayoutPartners from "../Layouts/LayoutPartners"
-import { CompPartners } from "../Components/Partners/CompPartners"
-import { CompCard } from "../Components/cards/CompCard"
-import { CompRequests } from "../Components/Requests/CompRequests"
-import { CompProfile } from "../Components/Profile/CompProfile"
-import LayoutHome from "../Layouts/LayoutHome"
-import PageHome from "../Pages/PageHome"
-import PageCrearEnvios from "../Pages/PageCrearEnvios"
-import PageMarketplace from "../Pages/PageMarketplace"
-import PagePerfil from "../Pages/PagePerfil"
-import PageAdminPanel from "../Pages/PageAdminPanel"
-import CargaPage from "../Pages/CargaPage"
-import PageAdminPerfil from "../Pages/PageAdminPerfil"
-import CompPending from "../Components/Shipments/Pending/CompPending"
-import LayoutShipments from "../Layouts/LayoutShipments"
-import CompAssigned from "../Components/Shipments/Assigned/CompAssigned"
-import CompInProgress from "../Components/Shipments/InProgress/CompInProgress"
-import CompSent from "../Components/Shipments/Sent/CompSent"
-import PageShipments from "../Pages/PageShipments"
-import CompPendingPayment from "../Components/AdminPayment/CompPendingPayment"
-import LayoutAdminPayment from "../Layouts/LayoutAdminPayment"
-import CompAcreditedPayment from "../Components/AdminPayment/CompAcreditedPayment"
-import { CompMarketplacePostular } from "../Components/MarketPlacePostular/CompMarketplacePostular"
-import PageEditarEnvio from "../Pages/PageEditarEnvio"
-import { CompPublication } from "../Components/Publication/CompPublication"
-import { CompDashboard } from "../Components/Dashboard/CompDashboard"
-import { CompCompletedTrips } from "../Components/CompletedTrips/CompCompletedTrips"
+import { createBrowserRouter } from "react-router-dom";
+import LayoutPublic from "../Layouts/LayoutPublic";
+import NotFound from "../Pages/PageNotFound";
+import PageLogin from "../Pages/PageLogin";
+import PageRedirect from "../Pages/PageRedirect";
+import LayoutLogin from "../Layouts/LayoutLogin";
+import CompForgotPassword from "../Components/ForgotPassword/CompForgotPassword";
+import CompVerificationCode from "../Components/VerificationCode/CompVerificationCode";
+import CompNewPassword from "../Components/NewPassword/CompNewPassword";
+import PageLanding from "../Pages/PageLanding";
+import PageRegister from "../Pages/PageRegister";
+import LayoutRegister from "../Layouts/LayoutRegister";
+import CompRegDriver from "../Components/RegisterDriver/CompRegDriver";
+import CompVehicleInfo from "../Components/VehicleInfo/CompVehicleInfo";
+import CompRegUser from "../Components/RegisterUser/CompRegUser";
+import CompCompanyInfo from "../Components/CompanyInfo/CompCompanyInfo";
+import LayoutConfi from "../Layouts/LayoutConfi";
+import { CompEdit } from "../Components/CompEdit/CompEdit";
+import CompEditTwo from "../Components/CompEditTwo/CompEditTwo";
+import { CompEditThree } from "../Components/CompEditThree/CompEditThree";
+import LayoutPartners from "../Layouts/LayoutPartners";
+import { CompPartners } from "../Components/Partners/CompPartners";
+import { CompCard } from "../Components/cards/CompCard";
+import { CompRequests } from "../Components/Requests/CompRequests";
+import { CompProfile } from "../Components/Profile/CompProfile";
+import LayoutHome from "../Layouts/LayoutHome";
+import PageCrearEnvios from "../Pages/PageCrearEnvios";
+import PageMarketplace from "../Pages/PageMarketplace";
+import PagePerfil from "../Pages/PagePerfil";
+import PageAdminPanel from "../Pages/PageAdminPanel";
+import CargaPage from "../Pages/CargaPage";
+import PageAdminPerfil from "../Pages/PageAdminPerfil";
+import CompPending from "../Components/Shipments/Pending/CompPending";
+import CompPendingPayment from "../Components/AdminPayment/CompPendingPayment";
+import LayoutAdminPayment from "../Layouts/LayoutAdminPayment";
+import CompAcreditedPayment from "../Components/AdminPayment/CompAcreditedPayment";
+import { CompMarketplacePostular } from "../Components/MarketPlacePostular/CompMarketplacePostular";
+import { CompCompletedTrips } from "../Components/CompletedTrips/CompCompletedTrips";
+import LayoutHome from "../Layouts/LayoutHome";
+import PageHome from "../Pages/PageHome";
+import PageMarketplace from "../Pages/PageMarketplace";
+import PagePerfil from "../Pages/PagePerfil";
+import PageAdminPanel from "../Pages/PageAdminPanel";
+import CargaPage from "../Pages/CargaPage";
+import LayoutShipments from "../Layouts/LayoutShipments";
+import CompAssigned from "../Components/Shipments/Assigned/CompAssigned";
+import CompInProgress from "../Components/Shipments/InProgress/CompInProgress";
+import CompSent from "../Components/Shipments/Sent/CompSent";
+import PageShipments from "../Pages/PageShipments";
+import PageEditarEnvio from "../Pages/PageEditarEnvio";
+import { CompPublication } from "../Components/Publication/CompPublication";
+import { CompDashboard } from "../Components/Dashboard/CompDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -154,4 +158,4 @@ export const router = createBrowserRouter([
     path: "completedtrips",
     element: <CompCompletedTrips />,
   },
-])
+]);
