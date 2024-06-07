@@ -76,23 +76,22 @@ export const router = createBrowserRouter([
       { path: "user/company-info", element: <CompCompanyInfo /> },
     ],
   },
+  { path: "/carga", element: <CargaPage /> },
+  { path: "/crearEnvios", element: <PageCrearEnvios /> },
+  { path: "/marketplace", element: <PageMarketplace /> },
+  { path: "/editarEnvio", element: <PageEditarEnvio /> },
   {
-    path: "/home",
+    path: "/postular",
+    element: <CompMarketplacePostular />,
+  },
+  {
+    path: "/administrador",
     element: <LayoutHome />,
     children: [
-      { index: true, element: <PageHome /> },
-      { path: "administrador/panel", element: <PageAdminPanel /> },
-      { path: "administrador/carga", element: <CargaPage /> },
-      //en administrador carga, cuando tengamos datos se toma la carga por id de url url/administrador/carga:idCarga
-      { path: "administrador/perfil", element: <PageAdminPerfil /> },
-
-      { path: "crearEnvios", element: <PageCrearEnvios /> },
-      { path: "editarEnvio", element: <PageEditarEnvio /> },
-      { path: "Marketplace", element: <PageMarketplace /> },
-      {
-        path: "marketplace/postular",
-        element: <CompMarketplacePostular />,
-      },
+      { path: "panel", element: <PageAdminPanel /> },
+      { path: "perfil", element: <PageAdminPerfil /> },
+ 
+     
     ],
   },
   {

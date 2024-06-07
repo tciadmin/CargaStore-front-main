@@ -1,7 +1,7 @@
 import * as React from "react";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
-import { Button } from "@mui/material";
+import html2pdf from "html2pdf.js";
 import Typography from "@mui/material/Typography";
 import { Grid, useMediaQuery } from "@mui/material";
 import Modal from "@mui/material/Modal";
@@ -58,7 +58,7 @@ const rows = [
     "Seca",
     "María Paz",
     "$12.00",
-    "/src/assets/imgShipments/Bobinas.jpg",
+    "/imgShipments/Bobinas.jpg",
     "Luis Alvarez"
   ),
   createData(
@@ -71,7 +71,7 @@ const rows = [
     "Seca",
     "María Paz",
     "$12.00",
-    "/src/assets/imgShipments/Bobinas.jpg",
+    "/imgShipments/Bobinas.jpg",
     "Luis Alvarez"
   ),
 ];
@@ -81,7 +81,21 @@ export default function CompAcreditedPayment() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const mobile = useMediaQuery("(max-width:720px)");
+  const componentRef = React.useRef();
+  //Generar pdf
+  const generatePdf = () => {
+   
+   
+    const opt = {
+      margin: 1,
+      filename:   "Factura_:" + Date.now() + ".pdf",
+      image: { type: "png", quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+    };
 
+    html2pdf().set(opt).from(componentRef.current).save();
+  };
   return (
     <Box>
       {mobile ? (
@@ -417,7 +431,7 @@ export default function CompAcreditedPayment() {
                               alignItems: "center",
                             }}
                           >
-                            <img src="/src/assets/imgShipments/Product.svg" />
+                            <img src="/imgShipments/Product.svg" />
                             <p
                               style={{
                                 fontSize: "12px",
@@ -446,7 +460,7 @@ export default function CompAcreditedPayment() {
                           >
                             <img
                               style={{ display: "flex" }}
-                              src="/src/assets/imgShipments/Load.svg"
+                              src="/imgShipments/Load.svg"
                             />
                             <p
                               style={{
@@ -474,7 +488,7 @@ export default function CompAcreditedPayment() {
                               alignItems: "center",
                             }}
                           >
-                            <img src="/src/assets/imgShipments/Location.svg" />
+                            <img src="/imgShipments/Location.svg" />
                             <p
                               style={{
                                 fontSize: "12px",
@@ -501,7 +515,7 @@ export default function CompAcreditedPayment() {
                               alignItems: "center",
                             }}
                           >
-                            <img src="/src/assets/imgShipments/Date.svg" />
+                            <img src="/imgShipments/Date.svg" />
                             <p
                               style={{
                                 fontSize: "12px",
@@ -528,7 +542,7 @@ export default function CompAcreditedPayment() {
                               alignItems: "center",
                             }}
                           >
-                            <img src="/src/assets/imgShipments/Load.svg" />
+                            <img src="/imgShipments/Load.svg" />
                             <p
                               style={{
                                 fontSize: "12px",
@@ -555,7 +569,7 @@ export default function CompAcreditedPayment() {
                               alignItems: "center",
                             }}
                           >
-                            <img src="/src/assets/imgShipments/Receiver.svg" />
+                            <img src="/imgShipments/Receiver.svg" />
                             <p
                               style={{
                                 fontSize: "12px",
@@ -597,7 +611,7 @@ export default function CompAcreditedPayment() {
                           <img
                             onClick={handleOpen}
                             style={{ cursor: "pointer" }}
-                            src="/src/assets/imgAdminPayment/EyeIcon.svg"
+                            src="/imgAdminPayment/EyeIcon.svg"
                           />
                         </Grid>
                         <Grid
@@ -612,7 +626,7 @@ export default function CompAcreditedPayment() {
                           <img
                             onClick={handleOpen}
                             style={{ cursor: "pointer" }}
-                            src="/src/assets/imgAdminPayment/DownloadIcon.svg"
+                            src="/imgAdminPayment/DownloadIcon.svg"
                           />
                         </Grid>
                       </Grid>
@@ -656,7 +670,7 @@ export default function CompAcreditedPayment() {
                 justifyContent: "right",
                 alignContent: "right",
               }}
-              src="/src/assets/imgShipments/CloseButton.svg"
+              src="/imgShipments/CloseButton.svg"
             />
           </Box>
 
@@ -679,6 +693,7 @@ export default function CompAcreditedPayment() {
                 flexDirection: "column",
                 gap: "10px",
               }}
+              ref={componentRef}
             >
               <h3 style={{ textAlign: "center" }}>Bobinas de papel</h3>
 
@@ -842,10 +857,8 @@ export default function CompAcreditedPayment() {
 
           <Typography
             id="modal-modal-description"
-            style={{
-              color: Colors.cuaternary.main,
-              marginBottom: "10px",
-            }}
+            style={{ color: Colors.cuaternary.main, cursor: "pointer" }}
+            onClick={()=>generatePdf()}
           >
             Ver factura
           </Typography>

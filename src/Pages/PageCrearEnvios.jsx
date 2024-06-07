@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import GreenStepper from '../Components/steppers/GreenStepper'
 import InputForm from '../Components/inputs/InputForm';
 import { useNavigate } from 'react-router-dom';
+import CompNavLanding from '../Components/NavLanding/CompNavLanding';
 
 const PageCrearEnvios = () => {
   const [stepIndex, setStepIndex] = useState(0);
@@ -25,6 +26,8 @@ const PageCrearEnvios = () => {
   ]
   const navigate = useNavigate();
   return (
+    <>
+    <CompNavLanding></CompNavLanding>
     <section style={{ background: "#F6F6F6", height: "100%" }} id="arriba">
       <Container maxWidth={"md"} sx={{ padding: "20px 0" }}>
         {!mobile ? <>
@@ -132,7 +135,9 @@ const PageCrearEnvios = () => {
         </Stack>
       </Container>
 
-    </section>)
+    </section>
+    </>
+  )
 }
 
 export default PageCrearEnvios

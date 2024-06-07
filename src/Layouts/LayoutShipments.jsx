@@ -227,6 +227,7 @@ const LayoutShipments = () => {
                 display: "flex",
                 justifyContent: "space-between",
                 width: "96%",
+                height:"60px",
                 alignItems: "center",
                 // backgroundColor: Colors.terciary.contrastText,
               }}
@@ -236,6 +237,7 @@ const LayoutShipments = () => {
                 onChange={handleChange}
                 sx={{
                   display: "flex",
+                  height: "60px"
                   // backgroundColor: Colors.terciary.contrastText,
                 }}
               >
@@ -245,9 +247,9 @@ const LayoutShipments = () => {
                   label="Pendientes"
                   icon={
                     value === 0 ? (
-                      <img src="/imgShipments/PendingActive.svg" />
+                      <img src="/imgShipments/PendingActive.svg" style={{marginRight: "5px"}} />
                     ) : (
-                      <img src="/imgShipments/PendingInactive.svg" />
+                      <img src="/imgShipments/PendingInactive.svg" style={{marginRight: "5px"}} />
                     )
                   }
                   {...a11yProps(0)}
@@ -258,9 +260,9 @@ const LayoutShipments = () => {
                   label="Asignado"
                   icon={
                     value === 1 ? (
-                      <img src="/imgShipments/AssignedActive.svg" />
+                      <img src="/imgShipments/AssignedActive.svg" style={{marginRight: "5px"}} />
                     ) : (
-                      <img src="/imgShipments/AssignedInactive.svg" />
+                      <img src="/imgShipments/AssignedInactive.svg" style={{marginRight: "5px"}} />
                     )
                   }
                   {...a11yProps(1)}
@@ -271,9 +273,9 @@ const LayoutShipments = () => {
                   label="En curso"
                   icon={
                     value === 2 ? (
-                      <img src="/imgShipments/InProgressActive.svg" />
+                      <img src="/imgShipments/InProgressActive.svg" style={{marginRight: "5px"}} />
                     ) : (
-                      <img src="/imgShipments/InProgressInactive.svg" />
+                      <img src="/imgShipments/InProgressInactive.svg" style={{marginRight: "5px"}} />
                     )
                   }
                   {...a11yProps(2)}
@@ -284,9 +286,9 @@ const LayoutShipments = () => {
                   label="Finalizados"
                   icon={
                     value === 3 ? (
-                      <img src="/imgShipments/DoneActive.svg" />
+                      <img src="/imgShipments/DoneActive.svg"  style={{marginRight: "5px"}}/>
                     ) : (
-                      <img src="/imgShipments/DoneInactive.svg" />
+                      <img src="/imgShipments/DoneInactive.svg" style={{marginRight: "5px"}} />
                     )
                   }
                   {...a11yProps(2)}
@@ -295,7 +297,7 @@ const LayoutShipments = () => {
               <Button
                 style={{ margin: 0 }}
                 variant="contained"
-                onClick={() => navigate("/home/crearEnvios")}
+                onClick={() => navigate("/crearEnvios")}
               >
                 Crear envío
               </Button>
