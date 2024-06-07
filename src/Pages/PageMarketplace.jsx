@@ -8,6 +8,7 @@ import { useState } from "react";
 import { Grid, useMediaQuery, Menu, MenuItem } from "@mui/material";
 import MarketplaceCard from "../Components/cards/MarketplaceCard";
 import { Colors } from "../Utils/Colors";
+import CompNavLanding from "../Components/NavLanding/CompNavLanding";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -199,223 +200,226 @@ export default function PageMarketplace() {
   };
 
   return (
-    <Box>
-      {mobile ? (
-        <>
+    <>
+    <CompNavLanding></CompNavLanding>
+      <Box>
+        {mobile ? (
+          <>
+            <Box
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                padding: "20px",
+              }}
+            >
+              {national !== null ? (
+                <h2>Envíos nacionales</h2>
+              ) : (
+                <h2>Envíos internacionales</h2>
+              )}
+              <img
+                onClick={handleClick}
+                style={{
+                  backgroundColor: Colors.primary.constrastText,
+                  cursor: "pointer",
+                }}
+                src="/src/assets/imgShipments/ArrowDashboard.svg"
+              />
+
+              <Menu
+                value={value}
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
+              >
+                <MenuItem
+                  name="Pendientes"
+                  value="0"
+                  onClick={clickPending}
+                  style={{
+                    fontWeight: 500,
+                    color: national !== null ? Colors.primary.main : "",
+                  }}
+                >
+                  Envíos nacionales
+                </MenuItem>
+                <MenuItem
+                  name="Asignado"
+                  value="1"
+                  onClick={clickAccredited}
+                  style={{
+                    fontWeight: 500,
+                    color: international !== null ? Colors.primary.main : "",
+                  }}
+                >
+                  Envíos internacionales
+                </MenuItem>
+              </Menu>
+            </Box>
+            {national !== null ? (
+              <Box
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(2, 1fr)",
+                  padding: "20px",
+                }}
+              >
+                {enviosNacionales.map((item) => (
+                  <Box
+                    style={{
+                      padding: "10px",
+                      display: "flex",
+                      flexDirection: "column",
+                      justyfyContent: "center",
+                      gap: "5px",
+                    }}
+                  >
+                    <img style={{ height: 200, width: 200 }} src={item.image} />
+                    <span style={{ fontWeight: 600 }}>
+                      {" "}
+                      Valor ofertado:{" "}
+                      <p style={{ fontWeight: 400 }}> {item.price}</p>
+                    </span>
+                    <p> {item.title}</p>
+                    <p> {item.weight}</p>
+                    <p>{item.typeCharge}</p>
+                  </Box>
+                ))}
+              </Box>
+            ) : (
+              <Box
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(2, 1fr)",
+                  padding: "20px",
+                }}
+              >
+                {enviosInternacionales.map((item) => (
+                  <Box
+                    style={{
+                      padding: "10px",
+                      display: "flex",
+                      flexDirection: "column",
+                      justyfyContent: "center",
+                      gap: "5px",
+                    }}
+                  >
+                    <img style={{ height: 200, width: 200 }} src={item.image} />
+                    <span style={{ fontWeight: 600 }}>
+                      {" "}
+                      Valor ofertado:{" "}
+                      <p style={{ fontWeight: 400 }}> {item.price}</p>
+                    </span>
+                    <p> {item.title}</p>
+                    <p> {item.weight}</p>
+                    <p>{item.typeCharge}</p>
+                  </Box>
+                ))}
+              </Box>
+            )}
+          </>
+        ) : (
+          <Box sx={{ width: "90%", margin: "30px auto" }}>
+            <Box display={"flex"} justifyContent={"space-between"}>
+              <Tabs
+                variant="secondary"
+                value={value}
+                onChange={handleChange}
+                aria-label="envios tabs"
+              >
+                <Tab
+                  label={
+                    <Box
+                      display={"flex"}
+                      justifyContent={"space-around"}
+                      alignItems="center"
+                    >
+                      <Typography
+                        variant="p"
+                        marginLeft={1}
+                        textTransform={"none"}
+                      >
+                        Envios nacionales
+                      </Typography>
+                    </Box>
+                  }
+                  {...a11yProps(0)}
+                  color="secondary"
+                />
+
+                <Tab
+                  label={
+                    <Box
+                      display={"flex"}
+                      justifyContent={"space-around"}
+                      alignItems="center"
+                    >
+                      <Typography
+                        variant="p"
+                        marginLeft={1}
+                        textTransform={"none"}
+                      >
+                        Envios internacionales
+                      </Typography>
+                    </Box>
+                  }
+                  {...a11yProps(1)}
+                  color="secondary"
+                />
+              </Tabs>
+            </Box>
+            <CustomTabPanel value={value} index={0}>
+              <Grid container spacing={3}>
+                {enviosNacionales.map((item) => (
+                  <Grid item xs={6} sm={4} md={3} lg={2.4}>
+                    <MarketplaceCard
+                      image={item.image}
+                      title={item.title}
+                      weight={item.weight}
+                      price={item.price}
+                      typeCharge={item.typeCharge}
+                    ></MarketplaceCard>
+                  </Grid>
+                ))}
+              </Grid>
+            </CustomTabPanel>
+            <CustomTabPanel value={value} index={1}>
+              <Grid container spacing={3}>
+                {enviosInternacionales.map((item) => (
+                  <Grid item xs={6} sm={4} md={3} lg={2.4}>
+                    <MarketplaceCard
+                      image={item.image}
+                      title={item.title}
+                      weight={item.weight}
+                      price={item.price}
+                      typeCharge={item.typeCharge}
+                    ></MarketplaceCard>
+                  </Grid>
+                ))}
+              </Grid>
+            </CustomTabPanel>
+          </Box>
+        )}
+        {mobile ? (
           <Box
             style={{
               display: "flex",
-              justifyContent: "space-between",
-              padding: "20px",
+              alignItems: "right",
+              justifyContent: "right",
+              padding: "10px",
+              cursor: "pointer",
             }}
           >
-            {national !== null ? (
-              <h2>Envíos nacionales</h2>
-            ) : (
-              <h2>Envíos internacionales</h2>
-            )}
-            <img
-              onClick={handleClick}
-              style={{
-                backgroundColor: Colors.primary.constrastText,
-                cursor: "pointer",
-              }}
-              src="/src/assets/imgShipments/ArrowDashboard.svg"
-            />
-
-            <Menu
-              value={value}
-              id="basic-menu"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              MenuListProps={{
-                "aria-labelledby": "basic-button",
-              }}
-            >
-              <MenuItem
-                name="Pendientes"
-                value="0"
-                onClick={clickPending}
-                style={{
-                  fontWeight: 500,
-                  color: national !== null ? Colors.primary.main : "",
-                }}
-              >
-                Envíos nacionales
-              </MenuItem>
-              <MenuItem
-                name="Asignado"
-                value="1"
-                onClick={clickAccredited}
-                style={{
-                  fontWeight: 500,
-                  color: international !== null ? Colors.primary.main : "",
-                }}
-              >
-                Envíos internacionales
-              </MenuItem>
-            </Menu>
+            <img src="/imgShipments/QuestionIcon.svg" />
           </Box>
-          {national !== null ? (
-            <Box
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(2, 1fr)",
-                padding: "20px",
-              }}
-            >
-              {enviosNacionales.map((item) => (
-                <Box
-                  style={{
-                    padding: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                    justyfyContent: "center",
-                    gap: "5px",
-                  }}
-                >
-                  <img style={{ height: 200, width: 200 }} src={item.image} />
-                  <span style={{ fontWeight: 600 }}>
-                    {" "}
-                    Valor ofertado:{" "}
-                    <p style={{ fontWeight: 400 }}> {item.price}</p>
-                  </span>
-                  <p> {item.title}</p>
-                  <p> {item.weight}</p>
-                  <p>{item.typeCharge}</p>
-                </Box>
-              ))}
-            </Box>
-          ) : (
-            <Box
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(2, 1fr)",
-                padding: "20px",
-              }}
-            >
-              {enviosInternacionales.map((item) => (
-                <Box
-                  style={{
-                    padding: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                    justyfyContent: "center",
-                    gap: "5px",
-                  }}
-                >
-                  <img style={{ height: 200, width: 200 }} src={item.image} />
-                  <span style={{ fontWeight: 600 }}>
-                    {" "}
-                    Valor ofertado:{" "}
-                    <p style={{ fontWeight: 400 }}> {item.price}</p>
-                  </span>
-                  <p> {item.title}</p>
-                  <p> {item.weight}</p>
-                  <p>{item.typeCharge}</p>
-                </Box>
-              ))}
-            </Box>
-          )}
-        </>
-      ) : (
-        <Box sx={{ width: "90%", margin: "30px auto" }}>
-          <Box display={"flex"} justifyContent={"space-between"}>
-            <Tabs
-              variant="secondary"
-              value={value}
-              onChange={handleChange}
-              aria-label="envios tabs"
-            >
-              <Tab
-                label={
-                  <Box
-                    display={"flex"}
-                    justifyContent={"space-around"}
-                    alignItems="center"
-                  >
-                    <Typography
-                      variant="p"
-                      marginLeft={1}
-                      textTransform={"none"}
-                    >
-                      Envios nacionales
-                    </Typography>
-                  </Box>
-                }
-                {...a11yProps(0)}
-                color="secondary"
-              />
-
-              <Tab
-                label={
-                  <Box
-                    display={"flex"}
-                    justifyContent={"space-around"}
-                    alignItems="center"
-                  >
-                    <Typography
-                      variant="p"
-                      marginLeft={1}
-                      textTransform={"none"}
-                    >
-                      Envios internacionales
-                    </Typography>
-                  </Box>
-                }
-                {...a11yProps(1)}
-                color="secondary"
-              />
-            </Tabs>
-          </Box>
-          <CustomTabPanel value={value} index={0}>
-            <Grid container spacing={3}>
-              {enviosNacionales.map((item) => (
-                <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                  <MarketplaceCard
-                    image={item.image}
-                    title={item.title}
-                    weight={item.weight}
-                    price={item.price}
-                    typeCharge={item.typeCharge}
-                  ></MarketplaceCard>
-                </Grid>
-              ))}
-            </Grid>
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={1}>
-            <Grid container spacing={3}>
-              {enviosInternacionales.map((item) => (
-                <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                  <MarketplaceCard
-                    image={item.image}
-                    title={item.title}
-                    weight={item.weight}
-                    price={item.price}
-                    typeCharge={item.typeCharge}
-                  ></MarketplaceCard>
-                </Grid>
-              ))}
-            </Grid>
-          </CustomTabPanel>
-        </Box>
-      )}
-      {mobile ? (
-        <Box
-          style={{
-            display: "flex",
-            alignItems: "right",
-            justifyContent: "right",
-            padding: "10px",
-            cursor: "pointer",
-          }}
-        >
-          <img src="/imgShipments/QuestionIcon.svg" />
-        </Box>
-      ) : (
-        ""
-      )}
-    </Box>
+        ) : (
+          ""
+        )}
+      </Box>
+    </>
   );
 }
