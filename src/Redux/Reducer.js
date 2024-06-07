@@ -1,6 +1,7 @@
 const initialState = {
   allUsers: [],
-  user: [],
+  driver: [],
+  customer: [],
   allShipments: [],
   shipments: [],
   products: [],
