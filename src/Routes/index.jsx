@@ -18,14 +18,12 @@ import LayoutConfi from "../Layouts/LayoutConfi";
 import { CompEdit } from "../Components/CompEdit/CompEdit";
 import CompEditTwo from "../Components/CompEditTwo/CompEditTwo";
 import { CompEditThree } from "../Components/CompEditThree/CompEditThree";
-
 import LayoutPartners from "../Layouts/LayoutPartners";
 import { CompPartners } from "../Components/Partners/CompPartners";
 import { CompCard } from "../Components/cards/CompCard";
 import { CompRequests } from "../Components/Requests/CompRequests";
 import { CompProfile } from "../Components/Profile/CompProfile";
 import LayoutHome from "../Layouts/LayoutHome";
-import PageHome from "../Pages/PageHome";
 import PageCrearEnvios from "../Pages/PageCrearEnvios";
 import PageMarketplace from "../Pages/PageMarketplace";
 import PagePerfil from "../Pages/PagePerfil";
@@ -33,15 +31,22 @@ import PageAdminPanel from "../Pages/PageAdminPanel";
 import CargaPage from "../Pages/CargaPage";
 import PageAdminPerfil from "../Pages/PageAdminPerfil";
 import CompPending from "../Components/Shipments/Pending/CompPending";
+import CompPendingPayment from "../Components/AdminPayment/CompPendingPayment";
+import LayoutAdminPayment from "../Layouts/LayoutAdminPayment";
+import CompAcreditedPayment from "../Components/AdminPayment/CompAcreditedPayment";
+import { CompMarketplacePostular } from "../Components/MarketPlacePostular/CompMarketplacePostular";
+import { CompCompletedTrips } from "../Components/CompletedTrips/CompCompletedTrips";
+import LayoutHome from "../Layouts/LayoutHome";
+import PageHome from "../Pages/PageHome";
+import PageMarketplace from "../Pages/PageMarketplace";
+import PagePerfil from "../Pages/PagePerfil";
+import PageAdminPanel from "../Pages/PageAdminPanel";
+import CargaPage from "../Pages/CargaPage";
 import LayoutShipments from "../Layouts/LayoutShipments";
 import CompAssigned from "../Components/Shipments/Assigned/CompAssigned";
 import CompInProgress from "../Components/Shipments/InProgress/CompInProgress";
 import CompSent from "../Components/Shipments/Sent/CompSent";
 import PageShipments from "../Pages/PageShipments";
-import CompPendingPayment from "../Components/AdminPayment/CompPendingPayment";
-import LayoutAdminPayment from "../Layouts/LayoutAdminPayment";
-import CompAcreditedPayment from "../Components/AdminPayment/CompAcreditedPayment";
-import { CompMarketplacePostular } from "../Components/MarketPlacePostular/CompMarketplacePostular";
 import PageEditarEnvio from "../Pages/PageEditarEnvio";
 import { CompPublication } from "../Components/Publication/CompPublication";
 import { CompDashboard } from "../Components/Dashboard/CompDashboard";
@@ -146,7 +151,11 @@ export const router = createBrowserRouter([
     element: <CompPublication />,
   },
   {
-    path: "dashboard",
+    path: "/dashboard",
     element: <CompDashboard />,
+  },
+  {
+    path: "completedtrips",
+    element: <CompCompletedTrips />,
   },
 ]);
