@@ -266,6 +266,7 @@ export default function PageMarketplace() {
                   display: "grid",
                   gridTemplateColumns: "repeat(2, 1fr)",
                   padding: "20px",
+                  
                 }}
               >
                 {enviosNacionales.map((item) => (

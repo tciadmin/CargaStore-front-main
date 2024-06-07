@@ -162,13 +162,13 @@ const CargaPage = () => {
                     <Grid item xs={6}>
 
                         <Box width="100%" >
-                            <ConductorAsignadoCard nombre="juan perezozo" estrellas={4.5} marca="ford" modelo={"taunus"} capacidad="1 tonelada" carga="seca"></ConductorAsignadoCard>
+                            <ConductorAsignadoCard nombre="juan Perez" estrellas={4.5} marca="ford" modelo={"taunus"} capacidad="1 tonelada" carga="seca"></ConductorAsignadoCard>
 
 
                         </Box>
                     </Grid>
                     <Grid item xs={6}>
-                        <VerticalGreenStepper steps={["En preparacion", "Preparado", "En camino", "Retirado"]}></VerticalGreenStepper>
+                        <VerticalGreenStepper steps={["En preparación", "Preparado", "En camino", "Retirado"]}></VerticalGreenStepper>
 
                     </Grid>
                 </Grid>

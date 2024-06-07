@@ -21,7 +21,7 @@ const VerticalStepItem = ({ active = false, description, ultimo = false }) => {
         <Stack direction="column" justifyContent={"flex-start"} alignItems={"flex-start"} >
           <Typography variant="p"  fontSize={"16px"} fontWeight={600} my={1} sx={{ color: active ? "#007C52" : "#8C94A6" }}> {description}</Typography>
           <Typography variant="p" fontSize={"16px"} fontWeight={600} my={1} sx={{ color: active ? "#000" : "#8C94A6" }}> {"20/12/2025"}</Typography>
-          <Typography variant="p" fontSize={"16px"} fontWeight={600} my={1} sx={{ color: active ? "#000" : "#8C94A6" }}> {"Luis retiro el paquetón"}</Typography>
+          <Typography variant="p" fontSize={"16px"} fontWeight={600} my={1} sx={{ color: active ? "#000" : "#8C94A6" }}> {"Luis retiro el paquete"}</Typography>
         </Stack>
 
       </Stack>
