@@ -276,9 +276,13 @@ export default function PageMarketplace() {
                   }}
                 >
                   <img style={{ height: 200, width: 200 }} src={item.image} />
+                  <span style={{ fontWeight: 600 }}>
+                    {" "}
+                    Valor ofertado:{" "}
+                    <p style={{ fontWeight: 400 }}> {item.price}</p>
+                  </span>
                   <p> {item.title}</p>
                   <p> {item.weight}</p>
-                  <p> {item.price}</p>
                   <p>{item.typeCharge}</p>
                 </Box>
               ))}
@@ -302,9 +306,13 @@ export default function PageMarketplace() {
                   }}
                 >
                   <img style={{ height: 200, width: 200 }} src={item.image} />
+                  <span style={{ fontWeight: 600 }}>
+                    {" "}
+                    Valor ofertado:{" "}
+                    <p style={{ fontWeight: 400 }}> {item.price}</p>
+                  </span>
                   <p> {item.title}</p>
                   <p> {item.weight}</p>
-                  <p> {item.price}</p>
                   <p>{item.typeCharge}</p>
                 </Box>
               ))}
@@ -403,7 +411,7 @@ export default function PageMarketplace() {
             cursor: "pointer",
           }}
         >
-          <img src="/src/assets/imgShipments/QuestionIcon.svg" />
+          <img src="/imgShipments/QuestionIcon.svg" />
         </Box>
       ) : (
         ""
