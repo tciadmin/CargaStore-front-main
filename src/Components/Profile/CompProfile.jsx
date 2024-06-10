@@ -10,6 +10,27 @@ export const CompProfile = () => {
 
   const [value2, setValue2] = useState(5);
 
+  const comments = [
+    {
+      comment:
+        "Hola, soy José Luis. Llevo un año siendo parte de esta increíble empresa de envíos. Desde que me uní, me he comprometido al máximo con mi rol de socio y responsable. Mi trabajo consiste en asegurarme de que cada paquete llegue a su destino de manera segura y puntual. Me apasiona trabajar en equipo y encontrar soluciones eficientes para cualquier desafío que se presente en el camino",
+      date: "hace 10 días",
+      value: 4,
+    },
+    {
+      comment:
+        "Hola, soy José Luis. Llevo un año siendo parte de esta increíble empresa de envíos. Desde que me uní, me he comprometido al máximo con mi rol de socio y responsable. Mi trabajo consiste en asegurarme de que cada paquete llegue a su destino de manera segura y puntual. Me apasiona trabajar en equipo y encontrar soluciones eficientes para cualquier desafío que se presente en el camino",
+      date: "hace 15 días",
+      value: 5,
+    },
+    {
+      comment:
+        "Hola, soy José Luis. Llevo un año siendo parte de esta increíble empresa de envíos. Desde que me uní, me he comprometido al máximo con mi rol de socio y responsable. Mi trabajo consiste en asegurarme de que cada paquete llegue a su destino de manera segura y puntual. Me apasiona trabajar en equipo y encontrar soluciones eficientes para cualquier desafío que se presente en el camino",
+      date: "hace 15 días",
+      value: 5,
+    },
+  ];
+
   return (
     <Stack
       sx={{
@@ -39,7 +60,9 @@ export const CompProfile = () => {
             <img src="/imgShipments/DriverDetails.jpg" />
           </Box>
           <p>José Luis Alvarez</p>
-          <p style={{ color: Colors.secondary.main }}>Socio desde 01/10/2022</p>
+          <p style={{ color: Colors.secondary.contrastText }}>
+            Socio desde 01/10/2022
+          </p>
           <Box sx={{ width: "50%", padding: "20px" }}>
             <p>
               Hola, soy José Luis. Llevo un año siendo parte de esta increíble
@@ -122,8 +145,7 @@ export const CompProfile = () => {
             style={{
               width: "50%",
               display: "flex",
-              fontweight: 600,
-              color: " black",
+              fontWeight: 600,
             }}
           >
             Deja tu reseña
@@ -166,6 +188,51 @@ export const CompProfile = () => {
             </Typography>
           </Box>
         </Stack>
+        <Box
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Box
+            style={{
+              width: "50%",
+            }}
+          >
+            <p
+              style={{
+                fontWeight: 600,
+              }}
+            >
+              Otras opiniones
+            </p>
+            {comments.map((elem) => (
+              <Stack>
+                <p>{elem.comment}</p>
+                <Box
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    gap: 400,
+                    padding: 10,
+                  }}
+                >
+                  <Rating readOnly value={elem.value} />
+                  <p
+                    style={{
+                      color: Colors.secondary.contrastText,
+                      fontWeight: 500,
+                    }}
+                  >
+                    {elem.date}
+                  </p>
+                </Box>
+              </Stack>
+            ))}
+          </Box>
+        </Box>
       </Stack>
     </Stack>
   );
