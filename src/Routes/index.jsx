@@ -90,8 +90,6 @@ export const router = createBrowserRouter([
     children: [
       { path: "panel", element: <PageAdminPanel /> },
       { path: "perfil", element: <PageAdminPerfil /> },
- 
-     
     ],
   },
   {
@@ -131,12 +129,12 @@ export const router = createBrowserRouter([
     path: "/partners",
     element: <LayoutPartners />,
     children: [
-      { path: "Solicitudes de carga", element: <CompRequests /> },
-      { path: "Socios activos", element: <CompPartners /> },
+      { index: true, element: <CompRequests /> },
+      { path: "active-members", element: <CompPartners /> },
     ],
   },
   {
-    path: "/profile",
+    path: "/calificar-conductor",
     element: <CompProfile />,
   },
   {
