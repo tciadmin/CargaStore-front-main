@@ -7,8 +7,16 @@ import { Colors } from "../../Utils/Colors";
 
 export const CompProfile = () => {
   const [value, setValue] = useState(2);
-
+  const [showMore, setShowMore] = useState(false);
   const [value2, setValue2] = useState(5);
+  const [visibleComments, setVisibleComments] = useState(2);
+
+  const handleClick = () => {
+    setShowMore(!showMore);
+  };
+  const handleShowMore = () => {
+    setVisibleComments((prevVisibleComments) => prevVisibleComments + 2);
+  };
 
   const comments = [
     {
@@ -28,6 +36,42 @@ export const CompProfile = () => {
         "Hola, soy José Luis. Llevo un año siendo parte de esta increíble empresa de envíos. Desde que me uní, me he comprometido al máximo con mi rol de socio y responsable. Mi trabajo consiste en asegurarme de que cada paquete llegue a su destino de manera segura y puntual. Me apasiona trabajar en equipo y encontrar soluciones eficientes para cualquier desafío que se presente en el camino",
       date: "hace 15 días",
       value: 5,
+    },
+    {
+      comment:
+        "Hola, soy José Luis. Llevo un año siendo parte de esta increíble empresa de envíos. Desde que me uní, me he comprometido al máximo con mi rol de socio y responsable. Mi trabajo consiste en asegurarme de que cada paquete llegue a su destino de manera segura y puntual. Me apasiona trabajar en equipo y encontrar soluciones eficientes para cualquier desafío que se presente en el camino",
+      date: "hace 10 días",
+      value: 4,
+    },
+    {
+      comment:
+        "Hola, soy José Luis. Llevo un año siendo parte de esta increíble empresa de envíos. Desde que me uní, me he comprometido al máximo con mi rol de socio y responsable. Mi trabajo consiste en asegurarme de que cada paquete llegue a su destino de manera segura y puntual. Me apasiona trabajar en equipo y encontrar soluciones eficientes para cualquier desafío que se presente en el camino",
+      date: "hace 10 días",
+      value: 4,
+    },
+    {
+      comment:
+        "Hola, soy José Luis. Llevo un año siendo parte de esta increíble empresa de envíos. Desde que me uní, me he comprometido al máximo con mi rol de socio y responsable. Mi trabajo consiste en asegurarme de que cada paquete llegue a su destino de manera segura y puntual. Me apasiona trabajar en equipo y encontrar soluciones eficientes para cualquier desafío que se presente en el camino",
+      date: "hace 10 días",
+      value: 4,
+    },
+    {
+      comment:
+        "Hola, soy José Luis. Llevo un año siendo parte de esta increíble empresa de envíos. Desde que me uní, me he comprometido al máximo con mi rol de socio y responsable. Mi trabajo consiste en asegurarme de que cada paquete llegue a su destino de manera segura y puntual. Me apasiona trabajar en equipo y encontrar soluciones eficientes para cualquier desafío que se presente en el camino",
+      date: "hace 10 días",
+      value: 4,
+    },
+    {
+      comment:
+        "Hola, soy José Luis. Llevo un año siendo parte de esta increíble empresa de envíos. Desde que me uní, me he comprometido al máximo con mi rol de socio y responsable. Mi trabajo consiste en asegurarme de que cada paquete llegue a su destino de manera segura y puntual. Me apasiona trabajar en equipo y encontrar soluciones eficientes para cualquier desafío que se presente en el camino",
+      date: "hace 10 días",
+      value: 4,
+    },
+    {
+      comment:
+        "Hola, soy José Luis. Llevo un año siendo parte de esta increíble empresa de envíos. Desde que me uní, me he comprometido al máximo con mi rol de socio y responsable. Mi trabajo consiste en asegurarme de que cada paquete llegue a su destino de manera segura y puntual. Me apasiona trabajar en equipo y encontrar soluciones eficientes para cualquier desafío que se presente en el camino",
+      date: "hace 10 días",
+      value: 4,
     },
   ];
 
@@ -96,6 +140,7 @@ export const CompProfile = () => {
               borderColor: Colors.terciary.main,
               height: "107px",
               width: "184px",
+              fontWeight: 600,
             }}
           >
             <p>+500</p>
@@ -111,6 +156,7 @@ export const CompProfile = () => {
               borderRadius: "8px",
               border: "2px solid",
               borderColor: Colors.terciary.main,
+              fontWeight: 600,
             }}
           >
             <p>4,3</p>
@@ -128,6 +174,7 @@ export const CompProfile = () => {
               borderColor: Colors.terciary.main,
               height: "107px",
               width: "184px",
+              fontWeight: 600,
             }}
           >
             <p>398 </p>
@@ -208,7 +255,7 @@ export const CompProfile = () => {
             >
               Otras opiniones
             </p>
-            {comments.map((elem) => (
+            {comments.slice(0, visibleComments).map((elem) => (
               <Stack>
                 <p>{elem.comment}</p>
                 <Box
@@ -231,6 +278,18 @@ export const CompProfile = () => {
                 </Box>
               </Stack>
             ))}
+            {visibleComments < comments.length && (
+              <p
+                style={{
+                  color: Colors.secondary.contrastText,
+                  fontWeight: 500,
+                  cursor: "pointer",
+                }}
+                onClick={handleShowMore}
+              >
+                Mostrar más opiniones
+              </p>
+            )}
           </Box>
         </Box>
       </Stack>
