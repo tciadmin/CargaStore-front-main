@@ -4,6 +4,7 @@ import ResponsiveImageBox from '../Components/imageComponents/ResponsiveImageBox
 import ChargeRequestCard from '../Components/cards/ChargeRequestCard'
 import ConductorAsignadoCard from '../Components/cards/ConductorAsignadoCard'
 import VerticalGreenStepper from '../Components/steppers/VerticalGreenStepper'
+import CompNavLanding from '../Components/NavLanding/CompNavLanding'
 const GreenCircle = () => {
     return (
         <svg width="9" height="9" style={{ verticalAlign: "center", padding: "auto 0px", marginRight: "5px", }} viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -16,6 +17,7 @@ const CargaPage = () => {
     //adaptarlo para que una vez que esten los datos se pueda obtener id de carga por url params y de ahi hacer llamado a la api
     return (
         <>
+        <CompNavLanding></CompNavLanding>
             <Typography mb={3} ml={5} fontSize="16px" color={"secondary"} fontWeight={600} >
                 #343535
             </Typography >
@@ -160,13 +162,13 @@ const CargaPage = () => {
                     <Grid item xs={6}>
 
                         <Box width="100%" >
-                            <ConductorAsignadoCard nombre="juan perezozo" estrellas={4.5} marca="ford" modelo={"taunus"} capacidad="1 tonelada" carga="seca"></ConductorAsignadoCard>
+                            <ConductorAsignadoCard nombre="juan Perez" estrellas={4.5} marca="ford" modelo={"taunus"} capacidad="1 tonelada" carga="seca"></ConductorAsignadoCard>
 
 
                         </Box>
                     </Grid>
                     <Grid item xs={6}>
-                        <VerticalGreenStepper steps={["En preparacion", "Preparado", "En camino", "Retirado"]}></VerticalGreenStepper>
+                        <VerticalGreenStepper steps={["En preparación", "Preparado", "En camino", "Retirado"]}></VerticalGreenStepper>
 
                     </Grid>
                 </Grid>

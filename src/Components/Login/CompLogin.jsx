@@ -28,7 +28,7 @@ export default function CompLogin() {
   };
 
   const onClickLogin = () => {
-    navigate("/home");
+    navigate("/shipments");
   };
 
   const onClickRegister = () => {

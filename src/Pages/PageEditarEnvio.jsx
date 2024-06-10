@@ -2,6 +2,7 @@ import { Button, Container, Grid, Stack, Typography } from "@mui/material"
 import React, { useState } from "react"
 import GreenStepper from "../Components/steppers/GreenStepper"
 import InputForm from "../Components/inputs/InputForm"
+import CompNavLanding from "../Components/NavLanding/CompNavLanding"
 
 const PageEditarEnvio = () => {
   const [stepIndex, setStepIndex] = useState(0)
@@ -13,6 +14,8 @@ const PageEditarEnvio = () => {
   ]
   const select = ["Seca", "Peligrosa", "Refrigerada"]
   return (
+    <>
+    <CompNavLanding></CompNavLanding>
     <section
       style={{ background: "#F6F6F6", height: "100%" }}
       id="arriba"
@@ -184,6 +187,7 @@ const PageEditarEnvio = () => {
         </Button>
       </Container>
     </section>
+    </>
   )
 }
 

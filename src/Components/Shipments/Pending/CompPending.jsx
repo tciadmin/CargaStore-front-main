@@ -123,7 +123,7 @@ export default function CompPending() {
           height="80vh"
           justifyContent={"center"}
         >
-          <img src="/src/assets/envios/sinenvios.png" width={"200px "}></img>
+          <img src="/home/sinenvios.png" width={"200px "}></img>
           <Typography variant="h4" fontSize={mobile ? "16px" : "24px"}>
             {" "}
             Aun no tienes envíos generados
