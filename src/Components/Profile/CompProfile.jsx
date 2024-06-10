@@ -1,14 +1,24 @@
 import { useState } from "react";
-import { Stack, Button, Typography, Box, Rating, Card } from "@mui/material";
-import Profile from "../../assets/Profile/Profile.png";
-import Profile4 from "../../assets/Profile/Profile4.png";
+import {
+  Stack,
+  Button,
+  Typography,
+  Box,
+  Rating,
+  useMediaQuery,
+} from "@mui/material";
 import CompNavLanding from "../NavLanding/CompNavLanding";
 import { Colors } from "../../Utils/Colors";
 
 export const CompProfile = () => {
   const [value, setValue] = useState(2);
-
   const [value2, setValue2] = useState(5);
+  const [visibleComments, setVisibleComments] = useState(2);
+  const mobile = useMediaQuery("(max-width:720px)");
+
+  const handleShowMore = () => {
+    setVisibleComments((prevVisibleComments) => prevVisibleComments + 2);
+  };
 
   const comments = [
     {
@@ -28,6 +38,42 @@ export const CompProfile = () => {
         "Hola, soy José Luis. Llevo un año siendo parte de esta increíble empresa de envíos. Desde que me uní, me he comprometido al máximo con mi rol de socio y responsable. Mi trabajo consiste en asegurarme de que cada paquete llegue a su destino de manera segura y puntual. Me apasiona trabajar en equipo y encontrar soluciones eficientes para cualquier desafío que se presente en el camino",
       date: "hace 15 días",
       value: 5,
+    },
+    {
+      comment:
+        "Hola, soy José Luis. Llevo un año siendo parte de esta increíble empresa de envíos. Desde que me uní, me he comprometido al máximo con mi rol de socio y responsable. Mi trabajo consiste en asegurarme de que cada paquete llegue a su destino de manera segura y puntual. Me apasiona trabajar en equipo y encontrar soluciones eficientes para cualquier desafío que se presente en el camino",
+      date: "hace 10 días",
+      value: 4,
+    },
+    {
+      comment:
+        "Hola, soy José Luis. Llevo un año siendo parte de esta increíble empresa de envíos. Desde que me uní, me he comprometido al máximo con mi rol de socio y responsable. Mi trabajo consiste en asegurarme de que cada paquete llegue a su destino de manera segura y puntual. Me apasiona trabajar en equipo y encontrar soluciones eficientes para cualquier desafío que se presente en el camino",
+      date: "hace 10 días",
+      value: 4,
+    },
+    {
+      comment:
+        "Hola, soy José Luis. Llevo un año siendo parte de esta increíble empresa de envíos. Desde que me uní, me he comprometido al máximo con mi rol de socio y responsable. Mi trabajo consiste en asegurarme de que cada paquete llegue a su destino de manera segura y puntual. Me apasiona trabajar en equipo y encontrar soluciones eficientes para cualquier desafío que se presente en el camino",
+      date: "hace 10 días",
+      value: 4,
+    },
+    {
+      comment:
+        "Hola, soy José Luis. Llevo un año siendo parte de esta increíble empresa de envíos. Desde que me uní, me he comprometido al máximo con mi rol de socio y responsable. Mi trabajo consiste en asegurarme de que cada paquete llegue a su destino de manera segura y puntual. Me apasiona trabajar en equipo y encontrar soluciones eficientes para cualquier desafío que se presente en el camino",
+      date: "hace 10 días",
+      value: 4,
+    },
+    {
+      comment:
+        "Hola, soy José Luis. Llevo un año siendo parte de esta increíble empresa de envíos. Desde que me uní, me he comprometido al máximo con mi rol de socio y responsable. Mi trabajo consiste en asegurarme de que cada paquete llegue a su destino de manera segura y puntual. Me apasiona trabajar en equipo y encontrar soluciones eficientes para cualquier desafío que se presente en el camino",
+      date: "hace 10 días",
+      value: 4,
+    },
+    {
+      comment:
+        "Hola, soy José Luis. Llevo un año siendo parte de esta increíble empresa de envíos. Desde que me uní, me he comprometido al máximo con mi rol de socio y responsable. Mi trabajo consiste en asegurarme de que cada paquete llegue a su destino de manera segura y puntual. Me apasiona trabajar en equipo y encontrar soluciones eficientes para cualquier desafío que se presente en el camino",
+      date: "hace 10 días",
+      value: 4,
     },
   ];
 
@@ -63,7 +109,7 @@ export const CompProfile = () => {
           <p style={{ color: Colors.secondary.contrastText }}>
             Socio desde 01/10/2022
           </p>
-          <Box sx={{ width: "50%", padding: "20px" }}>
+          <Box sx={{ width: mobile ? "100%" : "50%", padding: "20px" }}>
             <p>
               Hola, soy José Luis. Llevo un año siendo parte de esta increíble
               empresa de envíos. Desde que me uní, me he comprometido al máximo
@@ -96,6 +142,7 @@ export const CompProfile = () => {
               borderColor: Colors.terciary.main,
               height: "107px",
               width: "184px",
+              fontWeight: 600,
             }}
           >
             <p>+500</p>
@@ -111,6 +158,7 @@ export const CompProfile = () => {
               borderRadius: "8px",
               border: "2px solid",
               borderColor: Colors.terciary.main,
+              fontWeight: 600,
             }}
           >
             <p>4,3</p>
@@ -128,6 +176,7 @@ export const CompProfile = () => {
               borderColor: Colors.terciary.main,
               height: "107px",
               width: "184px",
+              fontWeight: 600,
             }}
           >
             <p>398 </p>
@@ -143,7 +192,7 @@ export const CompProfile = () => {
         >
           <p
             style={{
-              width: "50%",
+              width: mobile ? "100%" : "50%",
               display: "flex",
               fontWeight: 600,
             }}
@@ -152,7 +201,7 @@ export const CompProfile = () => {
           </p>
           <input
             style={{
-              width: "50%",
+              width: mobile ? "100%" : "50%",
               height: "134px",
               borderRadius: "8px",
               border: "2px solid",
@@ -163,7 +212,7 @@ export const CompProfile = () => {
             style={{
               display: "flex",
               flexDirection: "row",
-              gap: 400,
+              gap: mobile ? 300 : 400,
               padding: 10,
             }}
           >
@@ -198,7 +247,7 @@ export const CompProfile = () => {
         >
           <Box
             style={{
-              width: "50%",
+              width: mobile ? "100%" : "50%",
             }}
           >
             <p
@@ -208,14 +257,14 @@ export const CompProfile = () => {
             >
               Otras opiniones
             </p>
-            {comments.map((elem) => (
+            {comments.slice(0, visibleComments).map((elem) => (
               <Stack>
                 <p>{elem.comment}</p>
                 <Box
                   style={{
                     display: "flex",
                     flexDirection: "row",
-                    gap: 400,
+                    gap: mobile ? 300 : 400,
                     padding: 10,
                   }}
                 >
@@ -231,6 +280,18 @@ export const CompProfile = () => {
                 </Box>
               </Stack>
             ))}
+            {visibleComments < comments.length && (
+              <p
+                style={{
+                  color: Colors.secondary.contrastText,
+                  fontWeight: 500,
+                  cursor: "pointer",
+                }}
+                onClick={handleShowMore}
+              >
+                Mostrar más opiniones
+              </p>
+            )}
           </Box>
         </Box>
       </Stack>
