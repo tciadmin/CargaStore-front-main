@@ -1,11 +1,11 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 //? --------------------------------------------- MUI
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { Button, useMediaQuery } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import { Grid } from "@mui/material";
-
 //? --------------------------------------------- STYLES
 import { Colors } from "../../../Utils/Colors";
 
@@ -110,6 +110,7 @@ export default function CompSent() {
   const [value, setValue] = React.useState(5);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const navigate = useNavigate();
   const mobile = useMediaQuery("(max-width:720px)");
 
   return (
@@ -708,6 +709,9 @@ export default function CompSent() {
                       borderRadius: "15px",
                       marginBottom: "20px",
                       fontWeight: 600,
+                    }}
+                    onClick={() => {
+                      navigate("/calificar-conductor");
                     }}
                   >
                     Calificar
