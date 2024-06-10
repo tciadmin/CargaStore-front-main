@@ -41,8 +41,40 @@ export default function CompNavLanding() {
   const onClickRegister = () => {
     navigate("/register");
   };
-  if (location.pathname == "/home/crearEnvios" && mobile) {
-    return "";
+  if (location.pathname == '/home/crearEnvios' && mobile
+  ) {
+    return <></>
+  } else if (location.pathname == "/landing" && mobile) {
+    return <Stack direction="row" justifyContent={"space-around"} pt={2} width="100vw" position={"absolute"}>
+      <img src="/imgLanding/LogoCargaStoreBlanco.png" width={"80px"} height={"40px"} alt="" />
+
+      <Stack spacing={.5} direction="row" >
+        <Button
+          onClick={onClickLogin}
+          variant="terciary"
+          style={{
+            color: Colors.primary.contrastText
+            ,
+            borderColor: "inherit",
+            fontWeight: 600
+          }}
+        >
+          Inicia sesión
+        </Button>
+        <Button
+          variant="contained"
+          style={{
+            color: Colors.primary.contrastText,
+            backgroundColor: Colors.primary.main,
+            fontWeight: 600
+          }}
+          onClick={() => navigate("/register")}
+        >
+          Regístrate
+        </Button>
+      </Stack>
+
+    </Stack>
   } else {
     return (
       <AppBar
