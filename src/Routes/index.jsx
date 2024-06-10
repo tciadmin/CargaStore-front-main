@@ -137,7 +137,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "/profile",
+    path: "/calificar-conductor",
     element: <CompProfile />,
   },
   {
