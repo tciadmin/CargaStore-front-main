@@ -26,7 +26,7 @@ export default function CompNavLanding() {
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
-
+  const rol = "admin"
   const pages = ["Marketplace", "Mis envíos"];
 
   const handleCloseUserMenu = () => {
@@ -262,20 +262,23 @@ export default function CompNavLanding() {
               </Typography>
               {!mobile && location.pathname != "/landing" && (
                 <>
-                  <Typography
-                    fontSize={"16px"}
-                    sx={{ cursor: "pointer" }}
-                    onClick={() => navigate("/home/marketplace")}
-                    marginRight={2}
-                    cursor="pointer"
-                    color={
-                      location.pathname == "/home/marketplace"
-                        ? "primary"
-                        : "secondary"
-                    }
-                  >
-                    Marketplace
-                  </Typography>
+                  {rol != "user"
+                    &&
+                    <Typography
+                      fontSize={"16px"}
+                      sx={{ cursor: "pointer" }}
+                      onClick={() => navigate("/marketplace")}
+                      marginRight={2}
+                      cursor="pointer"
+                      color={
+                        location.pathname == "/marketplace"
+                          ? "primary"
+                          : "secondary"
+                      }
+                    >
+                      {location.pathname.startsWith("/panel") ? "Panel de control" : "Marketplace"}
+                    </Typography>
+                  }
                   <Typography
                     fontSize={"16px"}
                     sx={{ cursor: "pointer" }}
@@ -286,7 +289,7 @@ export default function CompNavLanding() {
                         : "secondary"
                     }
                   >
-                    Mis envios
+                    {location.pathname.startsWith("/payment") ? "Pagos" : "Mis envios"}
                   </Typography>
                 </>
               )}

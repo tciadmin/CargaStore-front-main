@@ -27,11 +27,11 @@ const PageLanding = () => {
       <ImagenYCapacitacion></ImagenYCapacitacion>
       <Stack
         sx={{
-          width: { md: "1142px", xs: "100px" },
+          width:  "100%",
           height: { md: "500px", xs: "600px" },
           marginTop: "58px",
-          marginLeft: { md: "230px", xs: "50px" },
           display: "flex",
+          justifyContent: "center",
           flexDirection: "row",
         }}
       >
