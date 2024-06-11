@@ -26,21 +26,21 @@ const steps = [
   {
     label: "Elige tu perfil",
     description: `Selecciona si serás un generador de carga o socio conductor`,
-    active: "/public/imgRegister/1Active.svg",
-    done: "/public/imgRegister/1Done.svg",
+    active: "/imgRegister/1Active.svg",
+    done: "/imgRegister/1Done.svg",
   },
   {
     label: "Datos personales",
     description: "Carga tus datos personales para continuar",
-    inactive: "/public/imgRegister/2Inactive.svg",
-    active: "/public/imgRegister/2Active.svg",
-    done: "/public/imgRegister/2Done.svg",
+    inactive: "/imgRegister/2Inactive.svg",
+    active: "/imgRegister/2Active.svg",
+    done: "/imgRegister/2Done.svg",
   },
   {
     label: "Datos del vehículo",
     description: `Ingresa los datos de vehículo para más seguridad`,
-    inactive: "/public/imgRegister/3Inactive.svg",
-    active: "/public/imgRegister/3Active.svg",
+    inactive: "/imgRegister/3Inactive.svg",
+    active: "/imgRegister/3Active.svg",
   },
 ];
 
@@ -104,15 +104,15 @@ const LayoutRegister = () => {
       steps[2] = {
         label: "Información de la empresa",
         description: "Ingresa la información de tu empresa o negocio",
-        inactive: "/public/imgRegister/3Inactive.svg",
-        active: "/public/imgRegister/3Active.svg",
+        inactive: "/imgRegister/3Inactive.svg",
+        active: "/imgRegister/3Active.svg",
       };
     } else {
       steps[2] = {
         label: "Datos del vehículo",
         description: `Ingresa los datos de vehículo para más seguridad`,
-        inactive: "/public/imgRegister/3Inactive.svg",
-        active: "/public/imgRegister/3Active.svg",
+        inactive: "/imgRegister/3Inactive.svg",
+        active: "/imgRegister/3Active.svg",
       };
     }
   }, [location.pathname]);
@@ -130,7 +130,7 @@ const LayoutRegister = () => {
       ) : (
         <Box className="imgContainer">
           {" "}
-          <img src="/public/imgRegister/registerSideImg.jpg" />{" "}
+          <img src="/imgRegister/registerSideImg.jpg" />{" "}
         </Box>
       )}
 
