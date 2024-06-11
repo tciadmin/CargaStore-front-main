@@ -48,14 +48,14 @@ export default function CompCarousel() {
                 style={{
                   margin: "10px auto",
                   gap: md ? "35px" : "15px",
-                  width: md ? "100%" : "430px",
-                  height: md ? "100%" : "228px",
+                  width: "100%" ,
+                  height: md ? "100%": "200px",
                 }}
               />
             </Stack>
           ))}
         </Slider>
-        <Stack sx={{ position: "absolute", top: "100px", left: "40px" }}>
+        <Stack sx={{ position: "absolute", top: "20%", left: "40px" }}>
           <Typography
             sx={{
               color: "white",
@@ -67,15 +67,6 @@ export default function CompCarousel() {
             Envía tus productos con <br />
             nosotros
           </Typography>
-        </Stack>
-        <Stack
-          sx={{
-            marginY: "40px",
-            position: "absolute",
-            bottom: "20%",
-            left: "40px",
-          }}
-        >
           <Typography
             sx={{
               color: "white",
@@ -89,6 +80,7 @@ export default function CompCarousel() {
             oportuna hasta el lugar de destino
           </Typography>
         </Stack>
+       
       </Stack>
     </Box>
   )

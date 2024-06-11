@@ -1,7 +1,8 @@
 import React from 'react'
-import { Container, Grid, Typography } from '@mui/material'
+import { Container, Grid, Typography, useMediaQuery } from '@mui/material'
 import AvatarDescriptionCard from '../../cards/AvatarDescriptionCard'
 const NuestroServicioSection = () => {
+    const mobile = useMediaQuery("(max-width: 750px)");
     const servicios = [{
         titulo: "icono pc",
         imagen: "/icons/Icon.pc.svg",
@@ -24,7 +25,7 @@ const NuestroServicioSection = () => {
     }]
     return (
         <Container>
-            <Typography color={"primary"} fontWeight={"bold"} textAlign={"center"} variant="h3" mb={5}columns={16}>Nuestro servicio</Typography>
+            <Typography color={"primary"} fontSize={mobile ? "20px" : "48px" } fontWeight={"bold"} textAlign={"center"} variant="h3" mb={5}columns={16}>Nuestro servicio</Typography>
             <Grid
                 container
                 justifyContent="space-around"
