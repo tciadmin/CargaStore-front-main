@@ -1,21 +1,17 @@
-import { axiosInstance } from "../axiosInstance";
-
+import { axiosInstance } from "../../axiosInstance";
 //?------------------------------------------USER
 export const GET_ALL_USERS = "GET_ALL_USERS";
+export const GET_USER = "GET_USER";
 export const POST_USER = "POST_USER";
 export const AUTH_USER = "AUTH_USER";
-export const GET_USER = "GET_USER";
-export const PATCH_USER = "PATCH_USER";
+export const PUT_CUSTOMER = "PUT_CUSTOMER";
+export const PATCH_TRUCK = "PATCH_TRUCK";
+export const PATCH_DRIVER = "PATCH_DRIVER";
 export const PASSWORD_RECOVERY_REQUEST = "PASSWORD_RECOVERY_REQUEST";
 export const PASSWORD_CODE_AUTH = "PASSWORD_CODE_AUTH";
 export const CHANGE_PASSWORD = "PASSWORD_CODE_AUTH";
 export const POST_FEEDBACK = "POST_FEEDBACK";
-//?------------------------------------------SHIPMENT
-export const GET_ALL_SHIPMENTS = "GET_ALL_SHIPMENTS";
-export const POST_SHIPMENT = "POST_SHIPMENT";
-export const GET_SHIPMENT = "GET_SHIPMENT";
-//?------------------------------------------PRODUCTS
-export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
+export const GET_FEEDBACK = "GET_FEEDBACK";
 
 export const getAllUsers = () => {
   return async (dispatch) => {
@@ -31,22 +27,36 @@ export const getAllUsers = () => {
   };
 };
 
-export const postUser = (user) => {
+export const getUser = (id) => {
+  return async (dispatch) => {
+    try {
+      const user = await axiosInstance(`/single_user/${id}`);
+      return dispatch({
+        type: GET_USER,
+        payload: user,
+      });
+    } catch (error) {
+      console.log("Se produjo un error al buscar usuario");
+    }
+  };
+};
+
+export const postUser = (id, user) => {
   return async (dispatch) => {
     try {
       let newUser = await axiosInstance.post("/auth/signup", user);
       const { role } = newUser;
       if (role === "driver") {
-        let driver = await axiosInstance.post("/driver/create/5124", user);
+        let driver = await axiosInstance.post(`/driver/create/${id}`, user);
         return dispatch({
           type: POST_USER,
-          payload: [...newUser, driver],
+          payload: { ...newUser, driver },
         });
       } else {
-        let customer = await axiosInstance.post("/customer/create/7865", user);
+        let customer = await axiosInstance.post(`/customer/create/${id}`, user);
         return dispatch({
           type: POST_USER,
-          payload: [...newUser, customer],
+          payload: { ...newUser, customer },
         });
       }
     } catch (error) {
@@ -65,6 +75,48 @@ export const authUser = (user) => {
       });
     } catch (error) {
       console.log("Se produjo un error al iniciar sesión");
+    }
+  };
+};
+
+export const patchCustomer = (id, customer) => {
+  return async (dispatch) => {
+    try {
+      const user = await axiosInstance.put(`/customer/edit/${id}`, customer);
+      return dispatch({
+        type: PUT_CUSTOMER,
+        payload: user,
+      });
+    } catch (error) {
+      console.log("e produjo un error al modificar los datos del usuario");
+    }
+  };
+};
+
+export const patchDriver = (id, driver) => {
+  return async (dispatch) => {
+    try {
+      const user = await axiosInstance.patch(`/driver/patch/${id}`, driver);
+      return dispatch({
+        type: PATCH_DRIVER,
+        payload: user,
+      });
+    } catch (error) {
+      console.log("Se produjo un error al modificar los datos del usuario");
+    }
+  };
+};
+
+export const patchTruck = (id, truck) => {
+  return async (dispatch) => {
+    try {
+      const user = await axiosInstance.patch(`/truck/update/${id}`, truck);
+      return dispatch({
+        type: PATCH_TRUCK,
+        payload: user,
+      });
+    } catch (error) {
+      console.log("e produjo un error al modificar los datos del usuario");
     }
   };
 };
@@ -128,7 +180,21 @@ export const postFeedback = (feedback) => {
         payload: comment,
       });
     } catch (error) {
-      console.log("Se produjo un error al iniciar sesión");
+      console.log("Se produjo un error al publicar calificación");
+    }
+  };
+};
+
+export const getFeedback = (id) => {
+  return async (dispatch) => {
+    try {
+      const comment = await axiosInstance(`/feedback/get/${id}`);
+      return dispatch({
+        type: GET_FEEDBACK,
+        payload: comment,
+      });
+    } catch (error) {
+      console.log("Se produjo un error al buscar comentarios");
     }
   };
 };
