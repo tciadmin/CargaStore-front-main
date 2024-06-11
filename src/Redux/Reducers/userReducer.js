@@ -2,9 +2,8 @@ const initialState = {
   allUsers: [],
   driver: [],
   customer: [],
-  allShipments: [],
-  shipments: [],
-  products: [],
+  feedback: [],
+  allFeedback: [],
 };
 
 export const userReducer = (state = initialState, action) => {
