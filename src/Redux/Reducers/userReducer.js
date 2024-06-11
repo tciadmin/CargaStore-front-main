@@ -10,8 +10,6 @@ import {
 
 const initialState = {
   allUsers: [],
-  // driver: [],
-  // customer: [],
   user: [],
 };
 
