@@ -7,11 +7,6 @@ export const AUTH_USER = "AUTH_USER";
 export const PUT_CUSTOMER = "PUT_CUSTOMER";
 export const PATCH_TRUCK = "PATCH_TRUCK";
 export const PATCH_DRIVER = "PATCH_DRIVER";
-export const PASSWORD_RECOVERY_REQUEST = "PASSWORD_RECOVERY_REQUEST";
-export const PASSWORD_CODE_AUTH = "PASSWORD_CODE_AUTH";
-export const CHANGE_PASSWORD = "PASSWORD_CODE_AUTH";
-export const POST_FEEDBACK = "POST_FEEDBACK";
-export const GET_FEEDBACK = "GET_FEEDBACK";
 
 export const getAllUsers = () => {
   return async (dispatch) => {
@@ -117,84 +112,6 @@ export const patchTruck = (id, truck) => {
       });
     } catch (error) {
       console.log("e produjo un error al modificar los datos del usuario");
-    }
-  };
-};
-
-export const recoveryPassword = (email) => {
-  return async (dispatch) => {
-    try {
-      const request = await axiosInstance.post("/auth/signin", email);
-      return dispatch({
-        type: PASSWORD_RECOVERY_REQUEST,
-        payload: request,
-      });
-    } catch (error) {
-      console.log("Se produjo un error al recuperar contraseña");
-    }
-  };
-};
-
-export const verifyCode = (code) => {
-  return async (dispatch) => {
-    try {
-      const validate = axiosInstance.post("/auth/validate_code", code);
-      if (validate) {
-        console.log("codigo validado con éxito");
-        return dispatch({
-          type: PASSWORD_CODE_AUTH,
-          payload: validate,
-        });
-      } else {
-        alert("código inválido");
-      }
-    } catch (error) {
-      console.log("Se produjo un error al validar el código");
-    }
-  };
-};
-
-export const changePassword = (password) => {
-  return async (dispatch) => {
-    try {
-      const newPassword = await axiosInstance.put(
-        "/auth/change_password",
-        password
-      );
-      return dispatch({
-        type: CHANGE_PASSWORD,
-        payload: newPassword,
-      });
-    } catch (error) {
-      console.log("Se produjo un error al cambiar la contraseña");
-    }
-  };
-};
-
-export const postFeedback = (feedback) => {
-  return async (dispatch) => {
-    try {
-      const comment = await axiosInstance.post("/feedback/create", feedback);
-      return dispatch({
-        type: POST_FEEDBACK,
-        payload: comment,
-      });
-    } catch (error) {
-      console.log("Se produjo un error al publicar calificación");
-    }
-  };
-};
-
-export const getFeedback = (id) => {
-  return async (dispatch) => {
-    try {
-      const comment = await axiosInstance(`/feedback/get/${id}`);
-      return dispatch({
-        type: GET_FEEDBACK,
-        payload: comment,
-      });
-    } catch (error) {
-      console.log("Se produjo un error al buscar comentarios");
     }
   };
 };
