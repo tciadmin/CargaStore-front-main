@@ -2,10 +2,12 @@ import { useState } from "react";
 import {
   Stack,
   Button,
-  Typography,
   Box,
   Rating,
   useMediaQuery,
+  Container,
+  Avatar,
+  Typography,
 } from "@mui/material";
 import CompNavLanding from "../NavLanding/CompNavLanding";
 import { Colors } from "../../Utils/Colors";
@@ -85,216 +87,320 @@ export const CompProfile = () => {
       }}
     >
       <CompNavLanding />
-
-      <Stack
-        sx={{
-          padding: "20px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "5px",
-          }}
-        >
-          <Box>
-            <img src="/imgShipments/DriverDetails.jpg" />
-          </Box>
-          <p>José Luis Alvarez</p>
-          <p style={{ color: Colors.secondary.contrastText }}>
-            Socio desde 01/10/2022
-          </p>
-          <Box sx={{ width: mobile ? "100%" : "50%", padding: "20px" }}>
-            <p>
-              Hola, soy José Luis. Llevo un año siendo parte de esta increíble
-              empresa de envíos. Desde que me uní, me he comprometido al máximo
-              con mi rol de socio y responsable. Mi trabajo consiste en
-              asegurarme de que cada paquete llegue a su destino de manera
-              segura y puntual. Me apasiona trabajar en equipo y encontrar
-              soluciones eficientes para cualquier desafío que se presente en el
-              camino
-            </p>
-          </Box>
-        </Box>
+      <Container >
         <Stack
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 20,
-          }}
+          direction="row"
+          justifyContent={"space-between"}
+          alignItems="flex-start"
+          pt={5}
         >
-          <Box
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              textAlign: " center",
-              backgroundColor: Colors.primary.contrastText,
-              padding: 30,
-              borderRadius: "8px",
-              border: "2px solid",
-              borderColor: Colors.terciary.main,
-              height: "107px",
-              width: "184px",
-              fontWeight: 600,
-            }}
-          >
-            <p>+500</p>
-            <p>Viajes</p>
-          </Box>{" "}
-          <Box
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              textAlign: " center",
-              backgroundColor: Colors.primary.contrastText,
-              padding: 30,
-              borderRadius: "8px",
-              border: "2px solid",
-              borderColor: Colors.terciary.main,
-              fontWeight: 600,
-            }}
-          >
-            <p>4,3</p>
-            <Rating readOnly value={value2} />
-          </Box>
-          <Box
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              textAlign: " center",
-              backgroundColor: Colors.primary.contrastText,
-              padding: 30,
-              borderRadius: "8px",
-              border: "2px solid",
-              borderColor: Colors.terciary.main,
-              height: "107px",
-              width: "184px",
-              fontWeight: 600,
-            }}
-          >
-            <p>398 </p>
-            <p>Reseñas</p>
-          </Box>
-        </Stack>
+          <Stack
+            sx={{
 
-        <Stack
-          sx={{
-            alignItems: " center",
-            textAlign: "left",
-          }}
-        >
-          <p
-            style={{
-              width: mobile ? "100%" : "50%",
               display: "flex",
-              fontWeight: 600,
+              flexDirection: "column",
+              gap: "10px",
             }}
+            justifyContent={"center"}
+            alignItems="center"
           >
-            Deja tu reseña
-          </p>
-          <input
-            style={{
-              width: mobile ? "100%" : "50%",
-              height: "134px",
-              borderRadius: "8px",
-              border: "2px solid",
-              borderColor: Colors.terciary.main,
-            }}
-          ></input>
-          <Box
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              gap: mobile ? 300 : 400,
-              padding: 10,
-            }}
-          >
-            <Rating
-              name="simple-controlled"
-              value={value}
-              onChange={(event, newValue) => {
-                setValue(newValue);
-              }}
-            />
-            <Typography sx={{ color: "white" }}>
-              <Button
-                sx={{
-                  color: "white",
-                  backgroundColor: "#007C52",
-                  fontWeight: 600,
-                }}
-                variant="contained"
-              >
-                Publicar
-              </Button>
-            </Typography>
-          </Box>
-        </Stack>
-        <Box
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Box
-            style={{
-              width: mobile ? "100%" : "50%",
-            }}
-          >
-            <p
-              style={{
-                fontWeight: 600,
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "5px",
               }}
             >
-              Otras opiniones
-            </p>
-            {comments.slice(0, visibleComments).map((elem) => (
-              <Stack>
-                <p>{elem.comment}</p>
-                <Box
+              <Box>
+                <Avatar src="/imgShipments/DriverDetails.jpg" sx={{ width: "150px", height: "150px" }}></Avatar>
+              </Box>
+              <p style={{ fontWeight: "bold" }}>José Luis Alvarez</p>
+              <p style={{ color: Colors.secondary.contrastText }}>
+                Socio desde 01/10/2022
+              </p>
+              <Box sx={{ width: mobile ? "100%" : "50%", padding: "20px" }}>
+                <p>
+                  Hola, soy José Luis. Llevo un año siendo parte de esta increíble
+                  empresa de envíos. Desde que me uní, me he comprometido al máximo
+                  con mi rol de socio y responsable. Mi trabajo consiste en
+                  asegurarme de que cada paquete llegue a su destino de manera
+                  segura y puntual. Me apasiona trabajar en equipo y encontrar
+                  soluciones eficientes para cualquier desafío que se presente en el
+                  camino
+                </p>
+              </Box>
+            </Box>
+
+            <Stack
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-around",
+                maxWidth: "600px",
+                width: "100%",
+              }}
+            >
+              <Box
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  textAlign: " center",
+                  backgroundColor: Colors.primary.contrastText,
+                  padding: "5px",
+                  borderRadius: "8px",
+                  border: "2px solid",
+
+                  borderColor: Colors.terciary.main,
+                  height: "107px",
+                  width: "100%",
+                  maxWidth: "100px",
+                  fontWeight: 600,
+                }}
+              >
+                <p>+500</p>
+                <p>Viajes</p>
+              </Box>{" "}
+              <Box
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  textAlign: " center",
+                  height: "107px",
+                  backgroundColor: Colors.primary.contrastText,
+                  padding: "5px",
+                  borderRadius: "8px",
+                  border: "2px solid",
+                  borderColor: Colors.terciary.main,
+                  fontWeight: 600,
+                }}
+              >
+                <p>4,3</p>
+                <Rating readOnly value={value2} />
+              </Box>
+              <Box
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  textAlign: " center",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: Colors.primary.contrastText,
+                  padding: "5px",
+                  borderRadius: "8px",
+                  border: "2px solid",
+                  borderColor: Colors.terciary.main,
+                  height: "107px",
+                  width: "100%",
+                  maxWidth: "100px",
+                  fontWeight: 600,
+                }}
+              >
+                <p>398 </p>
+                <p>Reseñas</p>
+              </Box>
+            </Stack>
+            {mobile && 
+             <Stack direction="column" justifyContent={"flex-start"} alignItems="flex-start" width="100%"
+             maxWidth={"600px"}
+             style={{border: "1px solid lightgrey", padding:"20px", borderRadius:"10px"}}
+           >
+             <Typography fontSize="20px" fontWeight={600} mb={5}>Información personal</Typography>
+             <Typography fontSize="16px" fontWeight={600}>Nombre: <span style={{ fontWeight: 400 }}>José Luis Alvarez </span></Typography>
+             <Typography fontSize="16px" fontWeight={600}>Número de documento: <span style={{ fontWeight: 400 }}>conductor@gmail.com</span></Typography>
+             <Typography fontSize="16px" fontWeight={600}>Correo electrónico: <span style={{ fontWeight: 400 }}>40993893</span></Typography>
+             <Typography fontSize="16px" fontWeight={600} >Número de contacto: <span style={{ fontWeight: 400 }}>+54 35353535</span></Typography>
+ 
+             <Typography fontSize="20px" fontWeight={600} my={5}>Información del camión</Typography>
+             <Typography fontSize="16px" fontWeight={600}>Marca: <span style={{ fontWeight: 400 }}>Toyota </span></Typography>
+             <Typography fontSize="16px" fontWeight={600}>Modelo: <span style={{ fontWeight: 400 }}>Dyna 300</span></Typography>
+             <Typography fontSize="16px" fontWeight={600}>Año: <span style={{ fontWeight: 400 }}>2020</span></Typography>
+             <Typography fontSize="16px" fontWeight={600} >Matrícula: <span style={{ fontWeight: 400 }}>1245553</span></Typography>
+             <Typography fontSize="16px" fontWeight={600} >Capacidad de carga: <span style={{ fontWeight: 400 }}>1 tonelada</span></Typography>
+ 
+             <Typography fontSize="20px" fontWeight={600} my={5}>Información legal</Typography>
+             <Typography fontSize="16px" fontWeight={600}>Licencia de conducir: <span style={{ fontWeight: 400 }}>12345 </span></Typography>
+             <Typography fontSize="16px" fontWeight={600}>Afiliación IESS: <span style={{ fontWeight: 400 }}>si</span></Typography>
+             <Typography fontSize="16px" fontWeight={600}>Póliza de seguro: <span style={{ fontWeight: 400 }}>2344893</span></Typography>
+             <Typography fontSize="16px" fontWeight={600} >Permiso de puerto: <span style={{ fontWeight: 400 }}>no</span></Typography>
+ 
+             <Typography fontSize="20px" fontWeight={600} my={5}>Preferencias de viaje</Typography>
+             <Typography fontSize="16px" fontWeight={600} >Internacional: <span style={{ fontWeight: 400 }}>no</span></Typography>
+             <Typography fontSize="16px" fontWeight={600} >Carga: <span style={{ fontWeight: 400 }}>seca</span></Typography>
+             <Typography fontSize="16px" fontWeight={600} >Ciudad: <span style={{ fontWeight: 400 }}>Quito</span></Typography>
+             <Typography fontSize="16px" fontWeight={600} >Día en ruta: <span style={{ fontWeight: 400 }}>5</span></Typography>
+ 
+           </Stack>
+            
+            }
+            <Stack
+              sx={{
+                alignItems: " center",
+                textAlign: "left",
+              }}
+              direction="column"
+              justifyContent={"center"}
+              alignItems={"center"}
+              width="100%"
+              maxWidth={"600px"}
+            >
+              <p
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  fontWeight: 500,
+                  fontSize: "14px",
+                  textAlign: "left",
+                  marginBottom: 5
+                }}
+              >
+                Deja tu reseña
+              </p>
+
+              <input
+                style={{
+                  width: "100%",
+                  height: "134px",
+                  verticalAlign: "start",
+                  borderRadius: "8px",
+                  border: "2px solid " + Colors.primary.main,
+                  borderColor: Colors.terciary.main,
+                }}
+              ></input>
+              <Box
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  padding: 10,
+                  width: "100%",
+                  maxWidth: "600px"
+                }}
+              >
+                <Rating
+                  name="simple-controlled"
+                  value={value}
+                  onChange={(event, newValue) => {
+                    setValue(newValue);
+                  }}
+                />
+                <Button
+                  sx={{
+                    color: "white",
+                    backgroundColor: "#007C52",
+                    fontWeight: 600,
+                  }}
+                  variant="contained"
+                >
+                  Publicar
+                </Button>
+              </Box>
+            </Stack>
+            <Box
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Box
+                style={{
+                  width: "100%",
+                  maxWidth: "600px"
+                }}
+              >
+                <p
                   style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    gap: mobile ? 300 : 400,
-                    padding: 10,
+                    fontWeight: 600,
+                    marginBottom: "10px"
                   }}
                 >
-                  <Rating readOnly value={elem.value} />
+                  Otras opiniones
+                </p>
+                {comments.slice(0, visibleComments).map((elem) => (
+                  <Stack width={"100%"} mb={2}>
+                    <p>{elem.comment}</p>
+
+                    <Box
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+
+                        justifyContent: "space-between"
+                      }}
+                    >
+                      <Rating readOnly value={elem.value} />
+                      <p
+                        style={{
+                          color: Colors.secondary.contrastText,
+                          fontWeight: 500,
+
+                        }}
+                      >
+                        {elem.date}
+                      </p>
+                    </Box>
+                  </Stack>
+                ))}
+                {visibleComments < comments.length && (
                   <p
                     style={{
                       color: Colors.secondary.contrastText,
                       fontWeight: 500,
+                      cursor: "pointer",
+                      marginTop: "10px"
                     }}
+                    onClick={handleShowMore}
                   >
-                    {elem.date}
+                    Mostrar más opiniones
                   </p>
-                </Box>
-              </Stack>
-            ))}
-            {visibleComments < comments.length && (
-              <p
-                style={{
-                  color: Colors.secondary.contrastText,
-                  fontWeight: 500,
-                  cursor: "pointer",
-                }}
-                onClick={handleShowMore}
-              >
-                Mostrar más opiniones
-              </p>
-            )}
-          </Box>
-        </Box>
-      </Stack>
+                )}
+              </Box>
+            </Box>
+          </Stack>
+          {!mobile&&
+           <Stack direction="column" justifyContent={"flex-start"} alignItems="flex-start" width="100%"
+           maxWidth={"600px"}
+           style={{border: "1px solid lightgrey", padding:"20px", borderRadius:"10px"}}
+         >
+           <Typography fontSize="20px" fontWeight={600} mb={5}>Información personal</Typography>
+           <Typography fontSize="16px" fontWeight={600}>Nombre: <span style={{ fontWeight: 400 }}>José Luis Alvarez </span></Typography>
+           <Typography fontSize="16px" fontWeight={600}>Número de documento: <span style={{ fontWeight: 400 }}>conductor@gmail.com</span></Typography>
+           <Typography fontSize="16px" fontWeight={600}>Correo electrónico: <span style={{ fontWeight: 400 }}>40993893</span></Typography>
+           <Typography fontSize="16px" fontWeight={600} >Número de contacto: <span style={{ fontWeight: 400 }}>+54 35353535</span></Typography>
+
+           <Typography fontSize="20px" fontWeight={600} my={5}>Información del camión</Typography>
+           <Typography fontSize="16px" fontWeight={600}>Marca: <span style={{ fontWeight: 400 }}>Toyota </span></Typography>
+           <Typography fontSize="16px" fontWeight={600}>Modelo: <span style={{ fontWeight: 400 }}>Dyna 300</span></Typography>
+           <Typography fontSize="16px" fontWeight={600}>Año: <span style={{ fontWeight: 400 }}>2020</span></Typography>
+           <Typography fontSize="16px" fontWeight={600} >Matrícula: <span style={{ fontWeight: 400 }}>1245553</span></Typography>
+           <Typography fontSize="16px" fontWeight={600} >Capacidad de carga: <span style={{ fontWeight: 400 }}>1 tonelada</span></Typography>
+
+           <Typography fontSize="20px" fontWeight={600} my={5}>Información legal</Typography>
+           <Typography fontSize="16px" fontWeight={600}>Licencia de conducir: <span style={{ fontWeight: 400 }}>12345 </span></Typography>
+           <Typography fontSize="16px" fontWeight={600}>Afiliación IESS: <span style={{ fontWeight: 400 }}>si</span></Typography>
+           <Typography fontSize="16px" fontWeight={600}>Póliza de seguro: <span style={{ fontWeight: 400 }}>2344893</span></Typography>
+           <Typography fontSize="16px" fontWeight={600} >Permiso de puerto: <span style={{ fontWeight: 400 }}>no</span></Typography>
+
+           <Typography fontSize="20px" fontWeight={600} my={5}>Preferencias de viaje</Typography>
+           <Typography fontSize="16px" fontWeight={600} >Internacional: <span style={{ fontWeight: 400 }}>no</span></Typography>
+           <Typography fontSize="16px" fontWeight={600} >Carga: <span style={{ fontWeight: 400 }}>seca</span></Typography>
+           <Typography fontSize="16px" fontWeight={600} >Ciudad: <span style={{ fontWeight: 400 }}>Quito</span></Typography>
+           <Typography fontSize="16px" fontWeight={600} >Día en ruta: <span style={{ fontWeight: 400 }}>5</span></Typography>
+
+         </Stack>
+          }
+      
+        </Stack>
+
+      </Container>
+
     </Stack>
   );
 };
