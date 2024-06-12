@@ -10,7 +10,7 @@ const InputForm = ({label, type = "text", select = [], money=false, sizeH = "50p
    {
     type == "select" ?
     <Select
-          labelId="demo-simple-select-helper-label"
+          labelId={"select-label-"+label}
           id={"input-"+label}
           value={label}
           sx={{backgroundColor: "white"}}
