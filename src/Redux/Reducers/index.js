@@ -1,12 +1,16 @@
-import { combineReducers } from "redux";
-import { userReducer } from "./userReducer";
-import { orderReducer } from "./orderReducer";
-import { feedbackReducer } from "./feedbackReducer";
+import { combineReducers } from 'redux';
+import { userReducer } from './userReducer';
+import { orderReducer } from './orderReducer';
+import { feedbackReducer } from './feedbackReducer';
+import { truckReducer } from './truckReducer';
+import { applicationReducer } from './applicationReducer';
 
 const rootReducer = combineReducers({
   user: userReducer,
   orders: orderReducer,
   feedback: feedbackReducer,
+  truck: truckReducer,
+  application: applicationReducer,
 });
 
 export default rootReducer;
