@@ -16,6 +16,7 @@ import { Colors } from "../Utils/Colors";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
+  
 
   return (
     <div
@@ -48,6 +49,14 @@ function a11yProps(index) {
 }
 
 const LayoutShipments = () => {
+  const [userRol, setUserRol]= React.useState("cliente")
+  React.useEffect(()=>{
+    if(localStorage.getItem("userPrueba")){
+      setUserRol(localStorage.getItem("userPrueba"));
+    }else{
+      localStorage.setItem("userPrueba","cliente")
+    }
+  },[])
   const mobile = useMediaQuery("(max-width:720px)");
   const [value, setValue] = React.useState(0);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -294,6 +303,7 @@ const LayoutShipments = () => {
                   {...a11yProps(2)}
                 />
               </Tabs>
+              {userRol == "cliente" &&
               <Button
                 style={{ margin: 0 }}
                 variant="contained"
@@ -301,6 +311,8 @@ const LayoutShipments = () => {
               >
                 Crear envío
               </Button>
+              }
+              
             </Box>
           </Box>
         </Box>

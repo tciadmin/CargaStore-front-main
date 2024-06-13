@@ -18,7 +18,6 @@ const fakeData = [
     dates: "20/12/1990 - 12/12/2025",
     typeCharge: "Seca",
     driver: "Juan Baston",
-    requests: "6 solicitudes",
     image: "/marketplace/6.png",
     notAssigned: false,
     active: true,
@@ -46,7 +45,6 @@ const fakeData = [
     dates: "20/12/2020 - 12/12/2024",
     typeCharge: "Seca",
     driver: "Yerba Stone",
-    requests: "2 solicitudes",
     image: "/marketplace/6.png",
     notAssigned: false,
     active: false,
@@ -59,6 +57,7 @@ const fakeData = [
     country: "Colombia",
     dates: "20/12/2024 - 12/12/2025",
     typeCharge: "Helada",
+
     driver: "Ceferino Alfredo",
     image: "/marketplace/6.png",
     notAssigned: false,
@@ -67,17 +66,17 @@ const fakeData = [
   },
 ];
 
-export default function PageAdminPanel({seccion = 0}) {
+export default function PageAdminPanel({ seccion = 0 }) {
   const [open, setOpen] = React.useState(true);
   const [value, setValue] = React.useState(seccion);
-  const [viajes, setViajes] = React.useState(0);
   const mobile = useMediaQuery("(max-width:720px)");
   const navigate = useNavigate();
+  const secciones = [ "Viajes sin asignar", "Viajes Activos", "Viajes finalizados","Socios Activos"]
 
   const clickSocios = (value) => {
     setValue(value);
     setOpen(false);
-  
+
   };
 
   return (
@@ -93,7 +92,7 @@ export default function PageAdminPanel({seccion = 0}) {
       }}
     >
       {mobile ? (
-        <h2 style={{ padding: "20px" }}>Solicitudes de carga</h2>
+        <h2 style={{ padding: "20px" }}>{value > 0 && secciones[value-1]}</h2>
       ) : (
         <Box
           sx={{
@@ -118,19 +117,22 @@ export default function PageAdminPanel({seccion = 0}) {
             aria-labelledby="nested-list-subheader"
           >
             <ListItemButton
-              onClick={() => setOpen(!open)}
+              onClick={() => {
+                setOpen(!open);
+                setValue(0);
+              }}
               sx={{
                 marginTop: 0,
-                background: open? "#fff" : "transparent",
-                color: open? "#007C52" : "#000",
+                background: open ? "#fff" : "transparent",
+                color: open ? "#007C52" : "#000",
                 fontWeight: 200,
                 borderRight:
-                  open? "2px solid #007C52" : "2px solid transparent",
+                  open ? "2px solid #007C52" : "2px solid transparent",
                 width: "100%"
               }}
             >
               <ListItemText
-                primaryTypographyProps={{ fontWeight: open? 600 : 400 }}
+                primaryTypographyProps={{ fontWeight: open ? 600 : 400 }}
                 primary="Solicitudes de carga"
               />
               {open ? <ExpandLess /> : <ExpandMore />}
@@ -139,7 +141,8 @@ export default function PageAdminPanel({seccion = 0}) {
               <List component="div" disablePadding>
                 <ListItemButton
                   sx={{ pl: 4 }}
-                  onClick={() => filternotAssigned}
+                  onClick={() => setValue(1)}
+
                 >
                   <ListItemText
                     primaryTypographyProps={{
@@ -147,7 +150,6 @@ export default function PageAdminPanel({seccion = 0}) {
                       color: value == 1 ? "primary" : "#000",
                     }}
                     primary="Viajes sin asignar"
-                    onClick={()=>setValue(1)}
                   />
                 </ListItemButton>
                 <ListItemButton sx={{ pl: 4 }} onClick={() => setValue(2)}>
@@ -179,7 +181,7 @@ export default function PageAdminPanel({seccion = 0}) {
               }}
             >
               <ListItemText
-                primaryTypographyProps={{ fontWeight: value === 4 && !open? 600 : 400 }}
+                primaryTypographyProps={{ fontWeight: value === 4 && !open ? 600 : 400 }}
                 primary="Socios Activos"
                 onClick={() => clickSocios(4)}
               />
@@ -198,68 +200,206 @@ export default function PageAdminPanel({seccion = 0}) {
             width: "100vw"
           }}
         >
-          {fakeData.map((item) => (
-            <Box
-              style={{
-                padding: "10px",
-                display: "flex",
-                flexDirection: "column",
-                justyfyContent: "center",
-                gap: "5px",
-              }}
-            >
-              <img style={{ height: 200, width: "100%", maxWidth: 200 }} src={item.image} />
-              <p>{item.id}</p>
-              <p> {item.title}</p>
-              <p> {item.country}</p>
-              <p>{item.typeCharge}</p>
-              <p> {item.driver}</p>
-            </Box>
-          ))}
+          {fakeData.map((item) => {
+            if (item.notAssigned) {
+              return (
+                <Box
+                  style={{
+                    padding: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justyfyContent: "center",
+                    gap: "5px",
+                  }}
+                >
+                  <img style={{ height: 200, width: "100%", maxWidth: 200 }} src={item.image} />
+                  <p>{item.id}</p>
+                  <p> {item.title}</p>
+                  <p> {item.country}</p>
+                  <p>{item.typeCharge}</p>
+                  <p> {item.driver}</p>
+                </Box>
+              )
+            }
+          })}
         </Box>
       )}
       {!mobile && value == 1 && (
         <Container fluid>
           <Grid container flexDirection="column" gap="40px" marginTop={5}>
             {fakeData.map((item) => {
-              return (
-                <ChargeItemCard
-                  style={{ marginTop: "10px" }}
-                  id={item.id}
-                  title={item.title}
-                  typeCharge={item.typeCharge}
-                  country={item.country}
-                  dates={item.dates}
-                  weight={item.weight}
-                  driver={item.driver}
-                  requests={item.requests}
-                />
-              );
-            })}
+              if (item.notAssigned) {
+                return (
+                  <ChargeItemCard
+                    style={{ marginTop: "10px" }}
+                    id={item.id}
+                    title={item.title}
+                    typeCharge={item.typeCharge}
+                    country={item.country}
+                    dates={item.dates}
+                    weight={item.weight}
+                    driver={item.driver}
+                    requests={item.requests}
+                  />
+                )
+              }
+            }
+            )}
+
           </Grid>
         </Container>
       )}
-      {
-        value == 4  &&
+
+
+
+
+
+      {mobile && value == 2 && (
+        <Box
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            placeItems: "center",
+            gap: "5px",
+            width: "100vw"
+          }}
+        >
+          {fakeData.map((item) => {
+            if (item.active) {
+              return (
+                <Box
+                  style={{
+                    padding: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justyfyContent: "center",
+                    gap: "5px",
+                  }}
+                >
+                  <img style={{ height: 200, width: "100%", maxWidth: 200 }} src={item.image} />
+                  <p>{item.id}</p>
+                  <p> {item.title}</p>
+                  <p> {item.country}</p>
+                  <p>{item.typeCharge}</p>
+                  <p> {item.driver}</p>
+                </Box>
+              )
+            }
+          })}
+        </Box>
+      )}
+      {!mobile && value == 2 && (
         <Container fluid>
-          <Stack direction="column" justifyContent={"center"}spacing={2} width="100%" maxWidth={"1200px"} mt={5} >
+          <Grid container flexDirection="column" gap="40px" marginTop={5}>
+            {fakeData.map((item) => {
+              if (item.active) {
+                return (
+                  <ChargeItemCard
+                    style={{ marginTop: "10px" }}
+                    id={item.id}
+                    title={item.title}
+                    typeCharge={item.typeCharge}
+                    country={item.country}
+                    dates={item.dates}
+                    weight={item.weight}
+                    driver={item.driver}
+                    requests={item.requests}
+                  />
+                )
+              }
+            }
+            )}
+
+          </Grid>
+        </Container>
+      )}
+
+
+      {mobile && value == 3 && (
+        <Box
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            placeItems: "center",
+            gap: "5px",
+            width: "100vw"
+          }}
+        >
+          {fakeData.map((item) => {
+            if (item.done) {
+              return (
+                <Box
+                  style={{
+                    padding: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justyfyContent: "center",
+                    gap: "5px",
+                  }}
+                >
+                  <img style={{ height: 200, width: "100%", maxWidth: 200 }} src={item.image} />
+                  <p>{item.id}</p>
+                  <p> {item.title}</p>
+                  <p> {item.country}</p>
+                  <p>{item.typeCharge}</p>
+                  <p> {item.driver}</p>
+                </Box>
+              )
+            }
+          })}
+        </Box>
+      )}
+      {!mobile && value == 3 && (
+        <Container fluid>
+          <Grid container flexDirection="column" gap="40px" marginTop={5}>
+            {fakeData.map((item) => {
+              if (item.done) {
+                return (
+                  <ChargeItemCard
+                    style={{ marginTop: "10px" }}
+                    id={item.id}
+                    title={item.title}
+                    typeCharge={item.typeCharge}
+                    country={item.country}
+                    dates={item.dates}
+                    weight={item.weight}
+                    driver={item.driver}
+                    requests={item.requests}
+                  />
+                )
+              }
+            }
+            )}
+
+          </Grid>
+        </Container>
+      )}
+
+
+
+
+
+      {
+        value == 4 &&
+        <Container fluid>
+          <Stack direction="column" justifyContent={"center"} spacing={2} width="100%" maxWidth={"1200px"} mt={5} >
             <Stack direction="row" justifyContent={"space-between"} alignItems={"center"} p={2} width="100%" sx={{ background: "#fff", borderRadius: "5px" }}>
               <Stack direction={"row"} justifyContent={"flex-start"} spacing={2} alignItems={"center"}>
                 <Avatar mr={2}></Avatar>
                 <Typography fontSize="16px">Emanuel Ginobili</Typography>
               </Stack>
-              <svg style={{cursor: "pointer"}} onClick={() => navigate("/conductor")} width="21" height="14" viewBox="0 0 21 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg style={{ cursor: "pointer" }} onClick={() => navigate("/conductor")} width="21" height="14" viewBox="0 0 21 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M19.5733 7C19.5733 10.3133 15.3779 13 10.2027 13C5.0274 13 0.832031 10.3133 0.832031 7C0.832031 3.68667 5.0274 1 10.2027 1C15.3779 1 19.5733 3.68667 19.5733 7Z" stroke="#007C52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M12.546 7.00047C12.575 7.8529 12.1349 8.65321 11.3982 9.08797C10.6614 9.52272 9.74532 9.52272 9.00858 9.08797C8.27185 8.65321 7.83178 7.8529 7.86072 7.00047C7.83178 6.14804 8.27185 5.34773 9.00858 4.91298C9.74532 4.47823 10.6614 4.47823 11.3982 4.91298C12.1349 5.34773 12.575 6.14804 12.546 7.00047V7.00047Z" stroke="#007C52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </Stack>
 
-            <Stack direction="row" justifyContent={"space-between"} alignItems={"center"}  p={2} width="100%" sx={{ background: "#fff", borderRadius: "5px" }}>
+            <Stack direction="row" justifyContent={"space-between"} alignItems={"center"} p={2} width="100%" sx={{ background: "#fff", borderRadius: "5px" }}>
               <Stack direction={"row"} justifyContent={"flex-start"} spacing={2} alignItems={"center"}>
                 <Avatar mr={2}></Avatar>
                 <Typography fontSize="16px">Juan Perez</Typography>
               </Stack>
-              <svg style={{cursor: "pointer"}} onClick={() => navigate("/conductor")} width="21" height="14" viewBox="0 0 21 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg style={{ cursor: "pointer" }} onClick={() => navigate("/conductor")} width="21" height="14" viewBox="0 0 21 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M19.5733 7C19.5733 10.3133 15.3779 13 10.2027 13C5.0274 13 0.832031 10.3133 0.832031 7C0.832031 3.68667 5.0274 1 10.2027 1C15.3779 1 19.5733 3.68667 19.5733 7Z" stroke="#007C52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M12.546 7.00047C12.575 7.8529 12.1349 8.65321 11.3982 9.08797C10.6614 9.52272 9.74532 9.52272 9.00858 9.08797C8.27185 8.65321 7.83178 7.8529 7.86072 7.00047C7.83178 6.14804 8.27185 5.34773 9.00858 4.91298C9.74532 4.47823 10.6614 4.47823 11.3982 4.91298C12.1349 5.34773 12.575 6.14804 12.546 7.00047V7.00047Z" stroke="#007C52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
               </svg>

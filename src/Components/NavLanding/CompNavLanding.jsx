@@ -22,11 +22,18 @@ import { Drawer, Grid, List, ListItem, ListItemButton } from "@mui/material";
 export default function CompNavLanding() {
   const mobile = useMediaQuery("(max-width:720px)");
   const [open, setOpen] = useState(false);
+  const [userRol, setUserRol]= useState("cliente")
+  React.useEffect(()=>{
+    if(localStorage.getItem("userPrueba")){
+      setUserRol(localStorage.getItem("userPrueba"));
+    }else{
+      localStorage.setItem("userPrueba","cliente")
+    }
+  },[])
   const [anchorElUser, setAnchorElUser] = useState(null);
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
-  const rol = "admin"
   const pages = ["Marketplace", "Mis envíos"];
 
   const handleCloseUserMenu = () => {
@@ -145,12 +152,51 @@ export default function CompNavLanding() {
                 justifyContent={"space-between"}
               >
                 <List>
-                  {[
+                  {userRol == "cliente" &&
+                  [
                     "Inicio",
                     "Pendiente",
                     "En curso",
                     "Asignados",
                     "Finalizados",
+                  ].map((text, index) => (
+                    <ListItem key={text} disablePadding>
+                      <ListItemButton>
+                        <Typography
+                          variant={"primary"}
+                          sx={{ fontWeight: 400 }}
+                        >
+                          {text}
+                        </Typography>
+                      </ListItemButton>
+                    </ListItem>
+                  ))
+                  
+                  }
+                  {userRol == "conductor"&&[
+                    "Mis envíos",
+                    "Marketplace",
+                    
+                  ].map((text, index) => (
+                    <ListItem key={text} disablePadding>
+                      <ListItemButton>
+                        <Typography
+                          variant={"primary"}
+                          sx={{ fontWeight: 400 }}
+                        >
+                          {text}
+                        </Typography>
+                      </ListItemButton>
+                    </ListItem>
+                  ))}
+                  {userRol == "admin"&&[
+                    "Inicio",
+                    "Solicitudes de carga",
+                    "Viajes activos",
+                    "Viajes finalizados",
+                    "Socios Activos",
+                    "Pagos"
+                    
                   ].map((text, index) => (
                     <ListItem key={text} disablePadding>
                       <ListItemButton>
@@ -262,34 +308,36 @@ export default function CompNavLanding() {
               </Typography>
               {!mobile && location.pathname != "/landing" && (
                 <>
-                  {rol != "user"
+                  {userRol  !== "cliente"
                     &&
                     <Typography
                       fontSize={"16px"}
                       sx={{ cursor: "pointer" }}
-                      onClick={() => navigate("/marketplace")}
+                      onClick={() => navigate(userRol == "admin" ? "/administrador/panel":"/marketplace")}
                       marginRight={2}
                       cursor="pointer"
                       color={
-                        location.pathname == "/marketplace"
+                        (userRol == "admin" && location.pathname.startsWith("/administrador/panel") ) || 
+                        (userRol == "conductor" && location.pathname == "/marketplace" )
                           ? "primary"
                           : "secondary"
                       }
                     >
-                      {location.pathname.startsWith("/panel") ? "Panel de control" : "Marketplace"}
+                      {userRol == "admin" ? "Panel de control" : "Marketplace"}
                     </Typography>
                   }
                   <Typography
                     fontSize={"16px"}
                     sx={{ cursor: "pointer" }}
-                    onClick={() => navigate("/shipments")}
+                    onClick={() => navigate(userRol == "admin"? "/payment" :"/shipments")}
                     color={
-                      location.pathname.startsWith("/shipments")
+                      (userRol == "admin" && location.pathname.startsWith("/payment") ) || 
+                        ((userRol == "conductor" || userRol == "cliente") && location.pathname.startsWith("/shipments") )
                         ? "primary"
                         : "secondary"
                     }
                   >
-                    {location.pathname.startsWith("/payment") ? "Pagos" : "Mis envios"}
+                    {userRol == "admin" ? "Pagos" : "Mis envios"}
                   </Typography>
                 </>
               )}
