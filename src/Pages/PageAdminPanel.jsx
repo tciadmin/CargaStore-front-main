@@ -72,8 +72,10 @@ export default function PageAdminPanel({ seccion = 0 }) {
   const [value, setValue] = React.useState(seccion);
   const mobile = useMediaQuery("(max-width:720px)");
   const navigate = useNavigate();
-  const secciones = [ "Viajes sin asignar", "Viajes Activos", "Viajes finalizados","Socios Activos"]
-
+  const secciones = ["Viajes sin asignar", "Viajes Activos", "Viajes finalizados", "Socios Activos"]
+  React.useEffect(() => {
+    setValue(seccion);
+  }, [seccion])
   const clickSocios = (value) => {
     setValue(value);
     setOpen(false);
@@ -93,7 +95,7 @@ export default function PageAdminPanel({ seccion = 0 }) {
       }}
     >
       {mobile ? (
-        <h2 style={{ padding: "20px" }}>{value > 0 && secciones[value-1]}</h2>
+        <h2 style={{ padding: "20px" }}>{value > 0 && secciones[value - 1]}</h2>
       ) : (
         <Box
           sx={{
@@ -120,7 +122,7 @@ export default function PageAdminPanel({ seccion = 0 }) {
             <ListItemButton
               onClick={() => {
                 setOpen(!open);
-                setValue(0);
+                setValue(1);
               }}
               sx={{
                 marginTop: 0,
@@ -190,12 +192,12 @@ export default function PageAdminPanel({ seccion = 0 }) {
           </List>
         </Box>
       )}
-      {value == 0 && 
-      
-      
-<Stack direction="row" justifyContent={"flex-start"} maxWidth={"100%"}>
-      <CompRequests></CompRequests>
-      </Stack>
+      {value == 0 &&
+
+
+        <Stack direction="row" justifyContent={"flex-start"} maxWidth={"100%"}>
+          <CompRequests></CompRequests>
+        </Stack>
       }
 
       {mobile && value == 1 && (

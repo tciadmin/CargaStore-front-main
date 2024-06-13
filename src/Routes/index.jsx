@@ -89,6 +89,13 @@ export const router = createBrowserRouter([
     element: <LayoutHome />,
     children: [
       { path: "panel", element: <PageAdminPanel /> },
+      { path: "panel/solicitudes", element: <PageAdminPanel seccion={1}/> },
+      { path: "panel/viajes-activos", element: <PageAdminPanel seccion={2}/> },
+      { path: "panel/viajes-finalizados", element: <PageAdminPanel seccion={3}/> },
+      { path: "panel/socios", element: <PageAdminPanel seccion={4}/> },
+
+
+
       { path: "perfil", element: <PageAdminPerfil /> },
     ],
   },

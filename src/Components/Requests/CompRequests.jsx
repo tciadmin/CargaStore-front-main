@@ -1,5 +1,4 @@
-import { Stack, Box, useMediaQuery, Grid } from "@mui/material";
-import Frame from "../../assets/Icons/Frame.png";
+import {  Box, useMediaQuery, Grid } from "@mui/material";
 import { Colors } from "../../Utils/Colors";
 
 export const CompRequests = () => {

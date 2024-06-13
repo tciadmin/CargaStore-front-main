@@ -1,9 +1,10 @@
 import { Avatar, Button, Grid, Rating, Stack, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 
-const ChargeRequestCard = ({ nombre, marca, modelo, capacidad, carga, imagen = "", estrellas = 4.5 }) => {
+const ChargeRequestCard = ({ nombre, marca, modelo, capacidad, carga, imagen = "", estrellas = 4.5, asignar }) => {
+    const [ocultar, setOcultar] = useState(false);
     return (
-        <Grid container height="40px" spacing={.5}>
+        <Grid container  height={ocultar ? "0px": "40px"}  display={ocultar == true ? "none": "flex"}spacing={.5}>
             <Grid item container direction="row" justifyContent={"center"} alignItems={"center"} xs={2}>
                 <Grid item xs={4}>
                     <Avatar alt="Remy Sharp" src={imagen} />
@@ -35,10 +36,10 @@ const ChargeRequestCard = ({ nombre, marca, modelo, capacidad, carga, imagen = "
             </Grid>
             <Grid item direction="row" justifyContent={"center"} alignItems={"center"} xs={2}>
                 <Stack direction="row" justifyContent={"center"} alignItems={"center"}>
-                    <Button style={{ fontWeight: 600, marginRight: "4px" }} variant="outlined" >Asignar</Button>
+                    <Button style={{ fontWeight: 600, marginRight: "4px" }} variant="outlined" onClick={()=>asignar()}>Asignar</Button>
                     <Button  variant='sf'>
 
-                        <Typography fontSize={"16px"} fontWeight={600} color='secondary'> Ignorar</Typography>
+                        <Typography fontSize={"16px"} fontWeight={600} color='secondary' onClick={()=>setOcultar(true)}> Ignorar</Typography>
                     </Button>
 
                 </Stack>
