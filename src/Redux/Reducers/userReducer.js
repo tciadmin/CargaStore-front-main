@@ -1,4 +1,18 @@
 import {
+  CHANGE_PASSWORD_FAILURE,
+  CHANGE_PASSWORD_PENDING,
+  CHANGE_PASSWORD_SUCCESS,
+  PASSWORD_CODE_AUTH_FAILURE,
+  PASSWORD_CODE_AUTH_PENDING,
+  PASSWORD_CODE_AUTH_SUCCESS,
+  PASSWORD_RECOVERY_REQUEST_FAILURE,
+  PASSWORD_RECOVERY_REQUEST_PENDING,
+  PASSWORD_RECOVERY_REQUEST_SUCCESS,
+  SEND_EMAIL_FAILURE,
+  SEND_EMAIL_PENDING,
+  SEND_EMAIL_SUCCESS,
+} from "../Actions/PasswordActions/passwordActions";
+import {
   AUTH_USER_SUCCESS,
   AUTH_USER_FAILURE,
   AUTH_USER_PENDING,
@@ -25,7 +39,10 @@ import {
 const initialState = {
   allUsers: [],
   user: [],
+  request: [],
+  email: [],
   userLoading: false,
+  passwordLoading: false,
   error: null,
 };
 
@@ -167,6 +184,75 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+        userLoading: false,
+        error: null,
+      };
+
+    case PASSWORD_RECOVERY_REQUEST_PENDING:
+      return {
+        ...state,
+        passwordLoading: true,
+        error: null,
+      };
+    case PASSWORD_RECOVERY_REQUEST_FAILURE:
+      return {
+        ...state,
+        passwordLoading: false,
+        error: action.error,
+      };
+    case PASSWORD_RECOVERY_REQUEST_SUCCESS:
+      return {
+        ...state,
+        request: action.payload,
+        userLoading: false,
+        error: null,
+      };
+
+    case SEND_EMAIL_PENDING:
+      return { ...state, passwordLoading: true, error: null };
+    case SEND_EMAIL_FAILURE:
+      return {
+        ...state,
+        passwordLoading: false,
+        error: action.error,
+      };
+    case SEND_EMAIL_SUCCESS:
+      return {
+        ...state,
+        request: action.payload,
+        email: action.payload,
+        userLoading: false,
+        error: null,
+      };
+
+    case PASSWORD_CODE_AUTH_PENDING:
+      return { ...state, passwordLoading: true, error: null };
+    case PASSWORD_CODE_AUTH_FAILURE:
+      return {
+        ...state,
+        passwordLoading: false,
+        error: action.error,
+      };
+    case PASSWORD_CODE_AUTH_SUCCESS:
+      return {
+        ...state,
+        email: action.payload,
+        userLoading: false,
+        error: null,
+      };
+
+    case CHANGE_PASSWORD_PENDING:
+      return { ...state, passwordLoading: true, error: null };
+    case CHANGE_PASSWORD_FAILURE:
+      return {
+        ...state,
+        passwordLoading: false,
+        error: action.error,
+      };
+    case CHANGE_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        user: [state.user.password, action.payload],
         userLoading: false,
         error: null,
       };
