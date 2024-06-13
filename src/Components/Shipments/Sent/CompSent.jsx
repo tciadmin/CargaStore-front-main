@@ -711,7 +711,7 @@ export default function CompSent() {
                       fontWeight: 600,
                     }}
                     onClick={() => {
-                      navigate("/calificar-conductor");
+                      navigate("/conductor");
                     }}
                   >
                     Calificar

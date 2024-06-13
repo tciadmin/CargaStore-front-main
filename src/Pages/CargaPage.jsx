@@ -1,5 +1,5 @@
-import { Box, Container, Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/material'
-import React from 'react'
+import { Box, Button, Container, Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/material'
+import React, { useState } from 'react'
 import ResponsiveImageBox from '../Components/imageComponents/ResponsiveImageBox'
 import ChargeRequestCard from '../Components/cards/ChargeRequestCard'
 import ConductorAsignadoCard from '../Components/cards/ConductorAsignadoCard'
@@ -14,6 +14,9 @@ const GreenCircle = () => {
 }
 const CargaPage = () => {
     const mobile = useMediaQuery("(max-width:750px)");
+    const [asignado, setAsignado] = useState(false);
+    const userRol = localStorage.getItem("userPrueba");
+
     //adaptarlo para que una vez que esten los datos se pueda obtener id de carga por url params y de ahi hacer llamado a la api
     return (
         <>
@@ -132,33 +135,43 @@ const CargaPage = () => {
                             <GreenCircle ></GreenCircle>
                             Destinatario: <span style={{ fontWeight: "400" }}>Ledesma S.A.</span>
                         </Typography >
+                        {userRol == "conductor" && 
+                                                <Button sx={{marginTop: "20px"}}>Postularse</Button>
+
+                        }
                     </Grid>
                 </Grid>
             </Grid>
             <Container>
-                {!mobile &&
+                {!mobile && userRol == "admin" && !asignado &&
 
                     <>
+                    
                         <Typography fontSize="16px" fontWeight={600}  >
                             Solicitudes de conductores
                         </Typography >
                         <Stack direction={"column"} justifyContent={"center"} alignItems={"center"} spacing={3}>
                             <ChargeRequestCard nombre={"Juan perez"} marca={"ford"} modelo={"taunus"} capacidad={"2 toneladas"}
                                 carga="seca" estrellas={2.5}
+                                asignar={()=>setAsignado(true)}
+                                
                             ></ChargeRequestCard>
                             <ChargeRequestCard nombre={"Juan perez"} marca={"ford"} modelo={"taunus"} capacidad={"2 toneladas"}
                                 carga="seca" estrellas={4.5}
+                                asignar={()=>setAsignado(true)}
                             ></ChargeRequestCard>
                             <ChargeRequestCard nombre={"Juan perez"} marca={"ford"} modelo={"taunus"} capacidad={"2 toneladas"}
                                 carga="seca" estrellas={5}
+                                asignar={()=>setAsignado(true)}
                             ></ChargeRequestCard>
                             <ChargeRequestCard nombre={"Juan perez"} marca={"ford"} modelo={"taunus"} capacidad={"2 toneladas"}
                                 carga="seca" estrellas={.5}
+                                asignar={()=>setAsignado(true)}
                             ></ChargeRequestCard>
                         </Stack>
                     </>}
-
-                <Grid container direction={mobile ? "column" : "row"} my={5}>
+                    
+                <Grid container direction={mobile ? "column" : "row"} display={!asignado && userRol == "admin" ? "none":"grid"} my={5}>
                     <Grid item xs={6}>
 
                         <Box width="100%" >

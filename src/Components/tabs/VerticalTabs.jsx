@@ -43,15 +43,22 @@ function a11yProps(index) {
 }
 
 export default function VerticalTabs() {
-  const rol = "client";
+  const [rol, setRol] = React.useState("client")
+
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
+  React.useEffect(() => {
+    const user = localStorage.getItem("userPrueba");
+    if (user == "conductor") {
+      setRol("driver")
+    }
+  }, [])
 
   const [editar, setEditar] = React.useState(0);
   const mobile = useMediaQuery("(max-width: 750px)");
   const driverOptionsMobile = ["Datos Personales", "Datos del camión", "Documentos Legales", "Historial de cobros"]
   const containerBox = mobile ? { flexGrow: 1, bgcolor: '#e6e6e6', display: 'flex', flexDirection: "column", maxWidth: "100%", height: "100%" } : { flexGrow: 1, bgcolor: '#e6e6e6', display: 'flex', width: "100%", height: "100%" }
-  const clientOptionsMobile = ["Datos Personales", "Datos de empresa", "Configuración de pagos", "Historial de cobros"]
+  const clientOptionsMobile = ["Datos Personales", "Datos de la empresa", "Configuración de pagos", "Historial de cobros"]
 
 
   const handleChange = (event, newValue) => {
@@ -119,7 +126,7 @@ export default function VerticalTabs() {
           sx={{ borderRight: 1, borderColor: 'divider', width: "300px", height: "200vh" }}
         >
           <Tab label="Datos Personales" sx={{ textTransform: "none", background: value == 0 ? "white" : "transparent", width: "100%", alignItems: "flex-start", fontWeight: "bold" }} {...a11yProps(0)} />
-          <Tab label="Datos del empresa" sx={{ textTransform: "none", background: value == 1 ? "white" : "transparent", width: "100%", alignItems: "flex-start", fontWeight: "bold" }} {...a11yProps(1)} />
+          <Tab label="Datos de la empresa" sx={{ textTransform: "none", background: value == 1 ? "white" : "transparent", width: "100%", alignItems: "flex-start", fontWeight: "bold" }} {...a11yProps(1)} />
           <Tab label="Configuración de pagos" sx={{ textTransform: "none", background: value == 2 ? "white" : "transparent", width: "100%", alignItems: "flex-start", fontWeight: "bold" }} {...a11yProps(2)} />
           <Tab label="Historial de pagos" sx={{ textTransform: "none", background: value == 3 ? "white" : "transparent", width: "100%", alignItems: "flex-start", fontWeight: "bold" }} {...a11yProps(3)} />
 

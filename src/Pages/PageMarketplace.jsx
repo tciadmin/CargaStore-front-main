@@ -223,7 +223,7 @@ export default function PageMarketplace() {
                   backgroundColor: Colors.primary.constrastText,
                   cursor: "pointer",
                 }}
-                src="/src/assets/imgShipments/ArrowDashboard.svg"
+                src="/imgShipments/ArrowDashboard.svg"
               />
 
               <Menu

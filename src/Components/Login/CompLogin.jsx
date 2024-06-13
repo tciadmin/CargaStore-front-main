@@ -15,6 +15,7 @@ import "./styles.css";
 export default function CompLogin() {
   const mobile = useMediaQuery("(max-width:720px)");
   const navigate = useNavigate();
+  const [userPrueba, setUserPrueba] = React.useState("");
 
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -28,7 +29,18 @@ export default function CompLogin() {
   };
 
   const onClickLogin = () => {
-    navigate("/shipments");
+     if(userPrueba.includes("conductor")){
+      localStorage.setItem("userPrueba","conductor");
+      navigate("/marketplace");
+
+    }else if (userPrueba.includes("admin")){
+      localStorage.setItem("userPrueba","admin")
+      navigate("/administrador/panel");
+    }else{
+      localStorage.setItem("userPrueba", "cliente")
+      navigate("/shipments");
+    }
+    
   };
 
   const onClickRegister = () => {
@@ -64,6 +76,7 @@ export default function CompLogin() {
             <OutlinedInput
               placeholder="emailexample.com"
               style={{ height: mobile ? "40px" : "50px", borderRadius: "8px" }}
+              onChange={(e)=>setUserPrueba(e.target.value)}
               endAdornment={
                 <InputAdornment position="end">
                   <img src="/imgLogin/EmailIcon.svg" />
