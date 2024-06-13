@@ -7,7 +7,8 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Box from "@mui/material/Box";
 import ChargeItemCard from "../Components/cards/ChargeItemCard";
-import { Grid, Container, useMediaQuery } from "@mui/material";
+import { Grid, Container, useMediaQuery, Stack, Avatar, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 const fakeData = [
   {
     id: "#fe3f3",
@@ -66,31 +67,28 @@ const fakeData = [
   },
 ];
 
-export default function PageAdminPanel() {
+export default function PageAdminPanel({seccion = 0}) {
   const [open, setOpen] = React.useState(true);
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(seccion);
   const [viajes, setViajes] = React.useState(0);
   const mobile = useMediaQuery("(max-width:720px)");
+  const navigate = useNavigate();
 
-  const handleClick = (value) => {
+  const clickSocios = (value) => {
     setValue(value);
-    if (value == 0) {
-      setOpen(!open);
-    } else {
-      setOpen(false);
-    }
-    const filtrarViajes = (value) => {
-      setViajes(value);
-    };
+    setOpen(false);
+  
   };
 
   return (
     <Box
       sx={{
-        flexGrow: mobile ? "" : 1,
-        bgcolor: mobile ? "" : "#e6e6e6",
-        display: mobile ? "" : "flex",
-        width: "100%",
+        bgcolor: "#e6e6e6",
+        display: "flex",
+        flexDirection: mobile ? "column" : "row",
+        justifyContent: mobile ? "flex-start" : "space-between",
+        width: "100vw",
+        minHeight: "100vh",
         height: "100%",
       }}
     >
@@ -99,16 +97,15 @@ export default function PageAdminPanel() {
       ) : (
         <Box
           sx={{
-            flexGrow: 1,
+
             bgcolor: "#e6e6e6",
-            display: "flex",
-            width: "100%",
+            width: "250px",
             height: "100%",
           }}
         >
           <List
             sx={{
-              width: "100%",
+              width: "250px",
               paddingTop: 0,
               marginRight: "5px",
               maxWidth: 360,
@@ -121,18 +118,19 @@ export default function PageAdminPanel() {
             aria-labelledby="nested-list-subheader"
           >
             <ListItemButton
-              onClick={() => handleClick(0)}
+              onClick={() => setOpen(!open)}
               sx={{
                 marginTop: 0,
-                background: value === 0 ? "#fff" : "transparent",
-                color: value === 0 ? "#007C52" : "#000",
+                background: open? "#fff" : "transparent",
+                color: open? "#007C52" : "#000",
                 fontWeight: 200,
                 borderRight:
-                  value === 0 ? "2px solid #007C52" : "2px solid transparent",
+                  open? "2px solid #007C52" : "2px solid transparent",
+                width: "100%"
               }}
             >
               <ListItemText
-                primaryTypographyProps={{ fontWeight: value === 0 ? 600 : 400 }}
+                primaryTypographyProps={{ fontWeight: open? 600 : 400 }}
                 primary="Solicitudes de carga"
               />
               {open ? <ExpandLess /> : <ExpandMore />}
@@ -146,25 +144,26 @@ export default function PageAdminPanel() {
                   <ListItemText
                     primaryTypographyProps={{
                       fontWeight: 400,
-                      color: viajes == 0 ? "primary" : "#000",
+                      color: value == 1 ? "primary" : "#000",
                     }}
                     primary="Viajes sin asignar"
+                    onClick={()=>setValue(1)}
                   />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }} onClick={() => filtrarViajes(1)}>
+                <ListItemButton sx={{ pl: 4 }} onClick={() => setValue(2)}>
                   <ListItemText
                     primaryTypographyProps={{
                       fontWeight: 400,
-                      color: viajes == 1 ? "primary" : "#000",
+                      color: value == 2 ? "primary" : "#000",
                     }}
                     primary="Viajes activos"
                   />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }} onClick={() => filtrarViajes(2)}>
+                <ListItemButton sx={{ pl: 4 }} onClick={() => setValue(3)}>
                   <ListItemText
                     primaryTypographyProps={{
                       fontWeight: 400,
-                      color: viajes == 2 ? "primary" : "#000",
+                      color: value == 3 ? "primary" : "#000",
                     }}
                     primary="Viajes finalizados"
                   />
@@ -173,28 +172,30 @@ export default function PageAdminPanel() {
             </Collapse>
             <ListItemButton
               sx={{
-                color: value === 1 ? "#007C52" : "#000",
-                background: value === 1 ? "#fff" : "transparent",
+                color: value === 4 && !open ? "#007C52" : "#000",
+                background: value === 4 && !open ? "#fff" : "transparent",
                 borderRight:
-                  value === 1 ? "2px solid #007C52" : "2px solid transparent",
+                  value === 4 && !open ? "2px solid #007C52" : "2px solid transparent",
               }}
             >
               <ListItemText
-                primaryTypographyProps={{ fontWeight: value === 1 ? 600 : 400 }}
+                primaryTypographyProps={{ fontWeight: value === 4 && !open? 600 : 400 }}
                 primary="Socios Activos"
-                onClick={() => handleClick(1)}
+                onClick={() => clickSocios(4)}
               />
             </ListItemButton>
           </List>
         </Box>
       )}
 
-      {mobile ? (
+      {mobile && value == 1 && (
         <Box
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(2, 1fr)",
-            padding: "20px",
+            placeItems: "center",
+            gap: "5px",
+            width: "100vw"
           }}
         >
           {fakeData.map((item) => (
@@ -207,7 +208,7 @@ export default function PageAdminPanel() {
                 gap: "5px",
               }}
             >
-              <img style={{ height: 200, width: 200 }} src={item.image} />
+              <img style={{ height: 200, width: "100%", maxWidth: 200 }} src={item.image} />
               <p>{item.id}</p>
               <p> {item.title}</p>
               <p> {item.country}</p>
@@ -216,30 +217,58 @@ export default function PageAdminPanel() {
             </Box>
           ))}
         </Box>
-      ) : (
-        <Container>
-          {value == 0 && (
-            <Grid container flexDirection="column" gap="40px" marginTop={5}>
-              {fakeData.map((item) => {
-                return (
-                  <ChargeItemCard
-                    style={{ marginTop: "10px" }}
-                    id={item.id}
-                    title={item.title}
-                    typeCharge={item.typeCharge}
-                    country={item.country}
-                    dates={item.dates}
-                    weight={item.weight}
-                    driver={item.driver}
-                    requests={item.requests}
-                  />
-                );
-              })}
-            </Grid>
-          )}
+      )}
+      {!mobile && value == 1 && (
+        <Container fluid>
+          <Grid container flexDirection="column" gap="40px" marginTop={5}>
+            {fakeData.map((item) => {
+              return (
+                <ChargeItemCard
+                  style={{ marginTop: "10px" }}
+                  id={item.id}
+                  title={item.title}
+                  typeCharge={item.typeCharge}
+                  country={item.country}
+                  dates={item.dates}
+                  weight={item.weight}
+                  driver={item.driver}
+                  requests={item.requests}
+                />
+              );
+            })}
+          </Grid>
         </Container>
       )}
-      {mobile ? (
+      {
+        value == 4  &&
+        <Container fluid>
+          <Stack direction="column" justifyContent={"center"}spacing={2} width="100%" maxWidth={"1200px"} mt={5} >
+            <Stack direction="row" justifyContent={"space-between"} alignItems={"center"} p={2} width="100%" sx={{ background: "#fff", borderRadius: "5px" }}>
+              <Stack direction={"row"} justifyContent={"flex-start"} spacing={2} alignItems={"center"}>
+                <Avatar mr={2}></Avatar>
+                <Typography fontSize="16px">Emanuel Ginobili</Typography>
+              </Stack>
+              <svg style={{cursor: "pointer"}} onClick={() => navigate("/conductor")} width="21" height="14" viewBox="0 0 21 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M19.5733 7C19.5733 10.3133 15.3779 13 10.2027 13C5.0274 13 0.832031 10.3133 0.832031 7C0.832031 3.68667 5.0274 1 10.2027 1C15.3779 1 19.5733 3.68667 19.5733 7Z" stroke="#007C52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.546 7.00047C12.575 7.8529 12.1349 8.65321 11.3982 9.08797C10.6614 9.52272 9.74532 9.52272 9.00858 9.08797C8.27185 8.65321 7.83178 7.8529 7.86072 7.00047C7.83178 6.14804 8.27185 5.34773 9.00858 4.91298C9.74532 4.47823 10.6614 4.47823 11.3982 4.91298C12.1349 5.34773 12.575 6.14804 12.546 7.00047V7.00047Z" stroke="#007C52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </Stack>
+
+            <Stack direction="row" justifyContent={"space-between"} alignItems={"center"}  p={2} width="100%" sx={{ background: "#fff", borderRadius: "5px" }}>
+              <Stack direction={"row"} justifyContent={"flex-start"} spacing={2} alignItems={"center"}>
+                <Avatar mr={2}></Avatar>
+                <Typography fontSize="16px">Juan Perez</Typography>
+              </Stack>
+              <svg style={{cursor: "pointer"}} onClick={() => navigate("/conductor")} width="21" height="14" viewBox="0 0 21 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M19.5733 7C19.5733 10.3133 15.3779 13 10.2027 13C5.0274 13 0.832031 10.3133 0.832031 7C0.832031 3.68667 5.0274 1 10.2027 1C15.3779 1 19.5733 3.68667 19.5733 7Z" stroke="#007C52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.546 7.00047C12.575 7.8529 12.1349 8.65321 11.3982 9.08797C10.6614 9.52272 9.74532 9.52272 9.00858 9.08797C8.27185 8.65321 7.83178 7.8529 7.86072 7.00047C7.83178 6.14804 8.27185 5.34773 9.00858 4.91298C9.74532 4.47823 10.6614 4.47823 11.3982 4.91298C12.1349 5.34773 12.575 6.14804 12.546 7.00047V7.00047Z" stroke="#007C52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </Stack>
+
+          </Stack>
+        </Container>
+      }
+      {/* {mobile ? (
         <Box
           style={{
             display: "flex",
@@ -253,7 +282,7 @@ export default function PageAdminPanel() {
         </Box>
       ) : (
         ""
-      )}
+      )} */}
     </Box>
   );
 }

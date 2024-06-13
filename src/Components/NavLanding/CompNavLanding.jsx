@@ -83,7 +83,7 @@ export default function CompNavLanding() {
         position="sticky"
         sx={{ width: "100%" }}
         style={{
-          backgroundColor: mobile ? "transparent" : Colors.primary.contrastText,
+          backgroundColor: Colors.primary.contrastText,
 
           display: "flex",
 

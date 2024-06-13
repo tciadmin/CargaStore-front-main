@@ -1,9 +1,11 @@
 import { Grid } from '@mui/material'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const ChargeItemCard = ({id, title, weight, country, dates, typeCharge, driver, requests = ""}) => {
+    const navigate = useNavigate();
     return (
-        <Grid container justifyContent={"center"} alignItems={"center"} style={{ minWidth: "1000px", height: "75px", background: "white" }} spacing={.5}>
+        <Grid container justifyContent={"center"} alignItems={"center"} style={{ maxWidth: "1000px", height: "75px", background: "white" }} spacing={.5}>
             <Grid item container width={"11.1%"} direction="row" justifyContent="center"
                 alignItems="center" >
                 <p style={{ fontSize: "12px", fontWeight: 500, marginLeft: "3px" }}>{id}</p>
@@ -121,7 +123,7 @@ const ChargeItemCard = ({id, title, weight, country, dates, typeCharge, driver, 
                 <p style={{ width: "80px", fontSize: "12px", fontWeight: 500, marginLeft: "3px" }}>{requests}</p>
             </Grid>
             <Grid item container width={"11.1%"} direction="row" justifyContent="center"
-                alignItems="center" >
+                alignItems="center" onClick={()=>navigate("/carga")} sx={{cursor: "pointer"}}>
                 <svg width="21" height="14" viewBox="0 0 21 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M20.2018 7C20.2018 10.3133 16.0232 13 10.8685 13C5.71382 13 1.53516 10.3133 1.53516 7C1.53516 3.68667 5.71382 1 10.8685 1C16.0232 1 20.2018 3.68667 20.2018 7Z" stroke="#007C52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M13.2032 7.00047C13.232 7.8529 12.7937 8.65321 12.0599 9.08797C11.3261 9.52272 10.4136 9.52272 9.67979 9.08797C8.94599 8.65321 8.50767 7.8529 8.5365 7.00047C8.50767 6.14804 8.94599 5.34773 9.67979 4.91298C10.4136 4.47823 11.3261 4.47823 12.0599 4.91298C12.7937 5.34773 13.232 6.14804 13.2032 7.00047V7.00047Z" stroke="#007C52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
