@@ -9,6 +9,7 @@ import Box from "@mui/material/Box";
 import ChargeItemCard from "../Components/cards/ChargeItemCard";
 import { Grid, Container, useMediaQuery, Stack, Avatar, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { CompRequests } from "../Components/Requests/CompRequests";
 const fakeData = [
   {
     id: "#fe3f3",
@@ -189,6 +190,13 @@ export default function PageAdminPanel({ seccion = 0 }) {
           </List>
         </Box>
       )}
+      {value == 0 && 
+      
+      
+<Stack direction="row" justifyContent={"flex-start"} maxWidth={"100%"}>
+      <CompRequests></CompRequests>
+      </Stack>
+      }
 
       {mobile && value == 1 && (
         <Box
