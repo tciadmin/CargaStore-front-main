@@ -155,19 +155,21 @@ export default function CompNavLanding() {
                 <List>
                   {userRol == "cliente" &&
                   [
-                    "Inicio",
-                    "Pendiente",
-                    "En curso",
-                    "Asignados",
-                    "Finalizados",
-                  ].map((text, index) => (
-                    <ListItem key={text} disablePadding>
+                    {nombre: "Inicio", ruta: "/shipments"},
+                    {nombre: "Pendiente", ruta: "/shipments"},
+                    {nombre:"En curso", ruta: "/shipments/assigned"},
+                    {nombre:"Asignados", ruta: "/shipments/in-progress"},
+                    {nombre:"Finalizados", ruta: "/shipments/finished"},
+                  ].map((item, index) => (
+                    <ListItem key={item.nombre} onClick={()=>{
+                      setOpen(false)
+                      navigate(item.ruta)}}disablePadding>
                       <ListItemButton>
                         <Typography
                           variant={"primary"}
                           sx={{ fontWeight: 400 }}
                         >
-                          {text}
+                          {item.nombre}
                         </Typography>
                       </ListItemButton>
                     </ListItem>
