@@ -302,7 +302,7 @@ export default function CompNavLanding() {
                 onClick={() => {
                   
                   if (userRol == "admin") {
-                    navigate("/panel");
+                    navigate("/administrador/panel");
                   } else if(userRol == "conductor") {
                     navigate("/marketplace");
                   }else{
