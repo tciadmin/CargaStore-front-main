@@ -1,9 +1,18 @@
-.slick-slider-dots {
-  position: absolute;
-  bottom: -90px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  margin-top: -90px;
-  
+ul.slick-dots{
+  bottom: 25px
+}
+ul.slick-dots li{
+  margin: 0 1px;
+  width: 20px;
+  height: 20px;
+  opacity: none;
+}
+.slick-dots li.slick-active button:before{
+  color: #B90715!important;
+  opacity: 1;
+}
+.slick-dots li button:before{
+  font-size: 16px;
+  color: white;
+  opacity: 1;
 }

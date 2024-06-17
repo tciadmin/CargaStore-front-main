@@ -25,16 +25,16 @@ export default function CompCarousel() {
   }
 
   return (
-    <Box>
-      <Stack style={{ position: "relative", width: "100%", height: "100%" }}>
+    <Box width={"100%"} height={ md ? "460px" : "100%"}>
+      <Stack style={{ position: "relative", width: "100%", height: md ? "460px" : "100%", }}>
         <Slider
           {...settings}
           sx={{
-            margin: "50px auto",
-            maxWidth: md ? "1302px" : "100%",
-            width: "100%",
+            margin: "0px",
+            maxWidth:  "100%",
+            width: "100vw",
             xs: "430px",
-            height: md ? "460px" : "430px",
+            height: md ? "460px" : "550px",
             padding: "5px",
             justifyContent: "center",
             alignItems: "center",
@@ -46,10 +46,10 @@ export default function CompCarousel() {
                 src={img}
                 alt={img}
                 style={{
-                  margin: "10px auto",
-                  gap: md ? "35px" : "15px",
+                  margin: "0px",
+                  
                   width: "100%" ,
-                  height: md ? "100%": "200px",
+                  height:  "100%",
                 }}
               />
             </Stack>
@@ -82,6 +82,6 @@ export default function CompCarousel() {
         </Stack>
        
       </Stack>
-    </Box>
+      </Box>
   )
 }
