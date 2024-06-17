@@ -136,11 +136,34 @@ export default function VerticalTabs() {
       <TabPanel value={value} style={{ width: value == 0 ? "100%" : "0", display: "flex", justifyContent: "center" }} index={0}>
 
         <Stack display="flex" width={mobile ? "85vw" : "50vw"} flexDirection={"column"} justifyContent={"center"} alignContent={"center"}>
-          <Avatar
-            alt="Admin"
-            src="imagen"
-            sx={{ width: 100, height: 100, alignSelf: "center" }}
-          />
+          <div style={{ display: "flex", width: "100%", justifyContent: "center" }}>
+            
+            {editar ?
+              <input
+                accept="image/*"
+                style={{ display: 'none' }}
+                id="avatar"
+
+                type="file"
+
+              />:""
+            }
+            <label htmlFor="avatar">
+              <Avatar
+                alt="Profile"
+                src="imagen"
+                sx={{
+                  width: 100,
+                  height: 100,
+                  alignSelf: "center",
+                  cursor: editar ? "cell" : "default"
+                }}
+              />
+
+            </label>
+
+
+          </div>
           {value == 0 && rol === "driver" && <>
 
             <InputForm label="Nombre" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
@@ -175,11 +198,34 @@ export default function VerticalTabs() {
       <TabPanel value={value} style={{ width: value == 1 ? "100%" : "0", display: "flex", justifyContent: "center" }} index={1}>
 
         <Stack display="flex" width={mobile ? "85vw" : "50vw"} flexDirection={"column"} justifyContent={"center"} alignContent={"center"}>
-          <Avatar
-            alt="Admin"
-            src="imagen"
-            sx={{ width: 100, height: 100, alignSelf: "center" }}
-          />
+          <div style={{ display: "flex", width: "100%", justifyContent: "center" }}>
+            {editar &&
+              <input
+                accept="image/*"
+                style={{ display: 'none' }}
+                id="avatar"
+
+                type="file"
+
+              />
+            }
+
+            <label htmlFor="avatar">
+              <Avatar
+                alt="profile image"
+                src="imagen"
+                sx={{
+                  width: 100,
+                  height: 100,
+                  alignSelf: "center",
+                  cursor: editar ? "cell" : "none"
+                }}
+              />
+
+            </label>
+
+
+          </div>
           <InputForm label="Marca" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
           <InputForm label="Modelo" sizeH='35px' marginB={3} readOnly={!editar} />
 
@@ -204,11 +250,35 @@ export default function VerticalTabs() {
       <TabPanel value={value} style={{ width: value == 2 ? "100%" : "0", display: "flex", justifyContent: "center" }} index={2}>
 
         <Stack display="flex" width={mobile ? "85vw" : "50vw"} flexDirection={"column"} justifyContent={"center"} alignContent={"center"}>
-          <Avatar
-            alt="Admin"
-            src="imagen"
-            sx={{ width: 100, height: 100, alignSelf: "center" }}
-          />
+
+          <div style={{ display: "flex", width: "100%", justifyContent: "center" }}>
+            {editar &&
+              <input
+                accept="image/*"
+                style={{ display: 'none' }}
+                id="avatar"
+
+                type="file"
+
+              />
+            }
+
+            <label htmlFor="avatar">
+              <Avatar
+                alt="profile image"
+                src="imagen"
+                sx={{
+                  width: 100,
+                  height: 100,
+                  alignSelf: "center",
+                  cursor: editar ? "cell" : "none"
+                }}
+              />
+
+            </label>
+
+
+          </div>
           <InputForm label="Licencia de conducir" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
           <InputForm label="Afiliación IESS" sizeH='35px' marginB={3} readOnly={!editar} />
 
