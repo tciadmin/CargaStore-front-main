@@ -28,7 +28,7 @@ export default function CompFooter() {
     setOpenLegalPages(!openLegalPages);
   };
   return (
-    <footer style={{ backgoundColor: Colors.primary.contrastText }}>
+    <footer style={{ backgoundColor: Colors.primary.contrastText, marginTop:mobile ?  "50px" : "100px" }}>
       {mobile ? (
         <Box className="mobile">
           {/* //? --------------------------------------------- NUESTRA EMPRESA */}
