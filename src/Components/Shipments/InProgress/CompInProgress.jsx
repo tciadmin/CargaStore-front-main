@@ -2,7 +2,7 @@ import * as React from "react";
 //? --------------------------------------------- MUI
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { Button, StepButton, useMediaQuery, Grid } from "@mui/material";
+import { Button, StepButton, useMediaQuery, Grid, Stack } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import Rating from "@mui/material/Rating";
 import Stepper from "@mui/material/Stepper";
@@ -655,23 +655,32 @@ export default function CompInProgress() {
                 </Box>
               </Box>
             </Box>
+
+
+
+            
             <Modal
               open={open}
               onClose={handleClose}
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
             >
+              <Stack direction={"column"} >
               <Box
                 sx={style}
                 style={{
                   display: "flex",
                   alignItems: "center",
                   gap: "10px",
+                  paddingLeft: "30px",
+                  paddingRight: "30px"
+
                 }}
               >
                 <Box
                   sx={{
                     width: "35%",
+                    padding: "40px 20px 10px 0px",
                   }}
                 >
                   <Stepper
@@ -680,6 +689,7 @@ export default function CompInProgress() {
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
+                      
                       color: Colors.primary.main,
                       fontWeight: 600,
                     }}
@@ -710,6 +720,7 @@ export default function CompInProgress() {
                               justifyContent: "left",
                               alignItems: "left",
                               gap: "10px",
+                              height: "45px"
                             }}
                           >
                             {label}
@@ -722,7 +733,7 @@ export default function CompInProgress() {
                           <Box
                             style={{
                               width: "100%",
-                              height: "10px",
+                              height: "100%",
                             }}
                           >
                             <img src="/imgShipments/StepConnector.svg" />
@@ -744,19 +755,25 @@ export default function CompInProgress() {
                   }}
                 >
                   <Box
+                  position={"relative"}
                     style={{
                       width: "100%",
+                      height: "40px",
                       display: "flex",
-                      justifyContent: "right",
-                      alignItems: "right",
+                      justifyContent: "flex-end",
+                      alignItems: "flex-start",
                       cursor: "pointer",
+                      postion: "relative",
+                      bottom: "20px",
+                      left: "15px"
                     }}
                   >
                     <img
                       onClick={handleClose}
                       style={{
                         display: "flex",
-                        justifyContent: "right",
+                        alignSelf: "self-start",
+                        justifyContent: "flex-end",
                         alignContent: "right",
                       }}
                       src="/imgShipments/CloseButton.svg"
@@ -848,6 +865,9 @@ export default function CompInProgress() {
                   </Typography>
                 </Box>
               </Box>
+
+              </Stack>
+             
             </Modal>
           </Box>
         </Box>

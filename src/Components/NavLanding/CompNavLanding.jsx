@@ -92,6 +92,7 @@ export default function CompNavLanding() {
         sx={{ width: "100%" }}
         style={{
           backgroundColor: Colors.primary.contrastText,
+          borderBottom: "1px solid #E4E7EC",
 
           display: "flex",
 
@@ -297,6 +298,7 @@ export default function CompNavLanding() {
                   flexGrow: 1,
                   marginRight: 2,
                   cursor: "pointer",
+                  gap:"50px",
                   display: { xs: "none", sm: "block" },
                 }}
                 onClick={() => {
@@ -314,17 +316,16 @@ export default function CompNavLanding() {
                   }
                 }}
               >
-                <img src="/imgLanding/LogoCargaStore.svg" />
+                <img src="/imgLanding/LogoCargaStore.svg" style={{marginRight: "40px"}} />
               </Typography>
               {!mobile && location.pathname != "/landing" && (
                 <>
                   {userRol  !== "cliente"
                     &&
-                    <Typography
+                    <Typography marginRight={"40px"}
                       fontSize={"16px"}
                       sx={{ cursor: "pointer" }}
                       onClick={() => navigate(userRol == "admin" ? "/administrador/panel":"/marketplace")}
-                      marginRight={2}
                       cursor="pointer"
                       color={
                         (userRol == "admin" && location.pathname.startsWith("/administrador/panel") ) || 
@@ -336,7 +337,7 @@ export default function CompNavLanding() {
                       {userRol == "admin" ? "Panel de control" : "Marketplace"}
                     </Typography>
                   }
-                  <Typography
+                  <Typography mr={"30px"}
                     fontSize={"16px"}
                     sx={{ cursor: "pointer" }}
                     onClick={() => navigate(userRol == "admin"? "/payment" :"/shipments")}

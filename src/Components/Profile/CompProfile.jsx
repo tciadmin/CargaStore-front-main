@@ -157,8 +157,8 @@ export const CompProfile = () => {
 
                   borderColor: Colors.terciary.main,
                   height: "107px",
-                  width: "100%",
-                  maxWidth: "100px",
+                  width:  mobile ? "100%": "212px",
+                  maxWidth: "33.3%",
                   fontWeight: 600,
                 }}
               >
@@ -172,6 +172,8 @@ export const CompProfile = () => {
                   alignItems: "center",
                   justifyContent: "center",
                   textAlign: " center",
+                  width:  mobile ? "100%": "212px",
+                  maxWidth: "33.3%",
                   height: "107px",
                   backgroundColor: Colors.primary.contrastText,
                   padding: "5px",
@@ -197,8 +199,8 @@ export const CompProfile = () => {
                   border: "2px solid",
                   borderColor: Colors.terciary.main,
                   height: "107px",
-                  width: "100%",
-                  maxWidth: "100px",
+                  width: mobile ? "100%": "212px",
+                  maxWidth: "33.3%",
                   fontWeight: 600,
                 }}
               >

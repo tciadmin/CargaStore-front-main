@@ -8,7 +8,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { Button, useMediaQuery } from "@mui/material";
+import { Button, ButtonGroup, useMediaQuery } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 //? --------------------------------------------- STYLES
@@ -16,7 +16,7 @@ import { Colors } from "../Utils/Colors";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
-  
+
 
   return (
     <div
@@ -49,14 +49,14 @@ function a11yProps(index) {
 }
 
 const LayoutShipments = () => {
-  const [userRol, setUserRol]= React.useState("cliente")
-  React.useEffect(()=>{
-    if(localStorage.getItem("userPrueba")){
+  const [userRol, setUserRol] = React.useState("cliente")
+  React.useEffect(() => {
+    if (localStorage.getItem("userPrueba")) {
       setUserRol(localStorage.getItem("userPrueba"));
-    }else{
-      localStorage.setItem("userPrueba","cliente")
+    } else {
+      localStorage.setItem("userPrueba", "cliente")
     }
-  },[])
+  }, [])
   const mobile = useMediaQuery("(max-width:720px)");
   const [value, setValue] = React.useState(0);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -227,7 +227,7 @@ const LayoutShipments = () => {
               alignItems: "center",
               padding: 5,
               height: "20px",
-              // backgroundColor: Colors.terciary.contrastText,
+              backgroundColor: Colors.terciary.contrastText,
             }}
           >
             <Box
@@ -236,22 +236,22 @@ const LayoutShipments = () => {
                 display: "flex",
                 justifyContent: "space-between",
                 width: "96%",
-                height:"60px",
+                height: "60px",
                 alignItems: "center",
                 // backgroundColor: Colors.terciary.contrastText,
               }}
             >
-              <Tabs
+              {/* <Tabs
                 value={value}
                 onChange={handleChange}
                 sx={{
                   display: "flex",
-                  height: "60px"
+                  height: "33px"
                   // backgroundColor: Colors.terciary.contrastText,
                 }}
               >
                 <Tab
-                  sx={{ textTransform: "none" }}
+                  style={{ textTransform: "none", display: "flex", justifyContent: "space-between"  }}
                   name="Pendientes"
                   label="Pendientes"
                   icon={
@@ -302,17 +302,121 @@ const LayoutShipments = () => {
                   }
                   {...a11yProps(2)}
                 />
-              </Tabs>
+              </Tabs> */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                  height: "34px",
+                  zIndex: 0,
+                  width: "100%",
+                  maxWidth: "780px",
+                  borderBottom: "1px solid #475367"
+                }}>
+                <Button
+                  onClick={() => setValue(0)}
+                  sx={{
+                    border: "none",
+                    height: "33px",
+                    padding: "0px",
+                    borderBottom: value == 0 ? "2px solid rgb(0, 124, 82)" : "none",
+                    color: value == 0 ? Colors.primary.main : "#475367",
+                    fontWeight: 600,
+                    fontSize: "16px",
+                    borderRadius: "0px"
+                  }}
+                  zIndex={10}
+                  variant="none"
+                >
+                  {
+                    value === 0 ? (
+                      <img src="/imgShipments/PendingActive.svg" style={{ marginRight: "5px" }} width="24px" />
+                    ) : (
+                      <img src="/imgShipments/PendingInactive.svg" style={{ marginRight: "5px" }} width="24px" />
+                    )
+                  }
+                  Pendientes                </Button>
+                <Button
+                  onClick={() => setValue(1)}
+                  sx={{
+                    border: "none",
+                    height: "33px",
+                    padding: "0px",
+                    borderRadius: "0px",
+                    borderBottom: value == 1 ? "2px solid rgb(0, 124, 82)" : "none",
+                    color: value == 1 ? Colors.primary.main : "#475367",
+                    fontWeight: 600,
+                    fontSize: "16px",
+                  }}
+                  variant="none"
+                >
+                  {
+                    value === 1 ? (
+                      <img src="/imgShipments/AssignedActive.svg" style={{ marginRight: "5px" }} width="24px" />
+                    ) : (
+                      <img src="/imgShipments/AssignedInactive.svg" style={{ marginRight: "5px" }} width="24px" />
+                    )
+                  }
+                  Asignado
+
+                </Button>
+                <Button
+                  onClick={() => setValue(2)}
+                  sx={{
+                    border: "none", 
+                    height: "33px",
+                    padding: "0px",
+                    borderRadius: "0px", borderBottom: value == 2 ? "2px solid rgb(0, 124, 82)" : "none",
+                    color: value == 2 ? Colors.primary.main : "#475367",
+                    fontWeight: 600,
+                    fontSize: "16px",
+                  }}
+                  variant="none"
+                >
+                  {
+                    value === 2 ? (
+                      <img src="/imgShipments/InProgressActive.svg" style={{ marginRight: "5px" }} width="24px" />
+                    ) : (
+                      <img src="/imgShipments/InProgressInactive.svg" style={{ marginRight: "5px" }} width="24px" />
+                    )
+                  }
+                  En curso                  </Button>
+                <Button
+                  sx={{
+                    border: "none",
+                    height: "33px",
+                    borderRadius: "0px",
+                    padding: "0px",
+                    borderBottom: value == 3 ? "2px solid rgb(0, 124, 82)" : "none",
+                    color: value == 3 ? Colors.primary.main : "#475367",
+                    fontWeight: 600,
+                    fontSize: "16px",
+                  }}
+                  onClick={() => setValue(3)}
+                  variant="none"
+                >
+
+                  {
+                    value === 3 ? (
+                      <img src="/imgShipments/DoneActive.svg" style={{ marginRight: "5px" }} width="24px" />
+                    ) : (
+                      <img src="/imgShipments/DoneInactive.svg" style={{ marginRight: "5px" }} width="24px" />
+                    )
+                  }
+
+                  Finalizados</Button>
+
+              </div>
               {userRol == "cliente" &&
-              <Button
-                style={{ margin: 0 }}
-                variant="contained"
-                onClick={() => navigate("/crearEnvios")}
-              >
-                Crear envío
-              </Button>
+                <Button
+                  style={{ margin: 0 }}
+                  variant="contained"
+                  onClick={() => navigate("/crearEnvios")}
+                >
+                  Crear envío
+                </Button>
               }
-              
+
             </Box>
           </Box>
         </Box>
