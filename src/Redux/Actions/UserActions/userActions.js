@@ -1,117 +1,161 @@
-import { axiosInstance } from "../../axiosInstance";
+import { axiosInstance } from '../../axiosInstance';
 //?------------------------------------------USER
-export const GET_ALL_USERS = "GET_ALL_USERS";
-export const GET_USER = "GET_USER";
-export const POST_USER = "POST_USER";
-export const AUTH_USER = "AUTH_USER";
-export const PUT_CUSTOMER = "PUT_CUSTOMER";
-export const PATCH_TRUCK = "PATCH_TRUCK";
-export const PATCH_DRIVER = "PATCH_DRIVER";
+export const GET_ALL_USERS_PENDING = 'GET_ALL_USERS_PENDING';
+export const GET_ALL_USERS_SUCCESS = 'GET_ALL_USERS_SUCCESS';
+export const GET_ALL_USERS_FAILURE = 'GET_ALL_USERS_FAILURE';
+
+export const GET_USER_PENDING = 'GET_USER_PENDING';
+export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
+export const GET_USER_FAILURE = 'GET_USER_FAILURE';
+
+export const POST_USER_PENDING = 'POST_USER_PENDING';
+export const POST_USER_SUCCESS = 'POST_USER_SUCCESS';
+export const POST_USER_FAILURE = 'POST_USER_FAILURE';
+
+export const AUTH_USER_PENDING = 'AUTH_USERR_PENDING';
+export const AUTH_USER_SUCCESS = 'AUTH_USER_SUCCESS';
+export const AUTH_USER_FAILURE = 'AUTH_USER_FAILURE';
+
+export const PUT_CUSTOMER_PENDING = 'PUT_CUSTOMER_PENDING';
+export const PUT_CUSTOMER_SUCCESS = 'PUT_CUSTOMER_SUCCESS';
+export const PUT_CUSTOMER_FAILURE = 'PUT_CUSTOMER_FAILURE';
+
+export const PATCH_TRUCK_PENDING = 'PATCH_TRUCK_PENDING';
+export const PATCH_TRUCK_SUCCESS = 'PATCH_TRUCK_SUCCESS';
+export const PATCH_TRUCK_FAILURE = 'PATCH_TRUCK_FAILURE';
+
+export const PATCH_DRIVER_PENDING = 'PATCH_DRIVER_PENDING';
+export const PATCH_DRIVER_SUCCESS = 'PATCH_DRIVER_SUCCESS';
+export const PATCH_DRIVER_FAILURE = 'PATCH_DRIVER_FAILURE';
 
 export const getAllUsers = () => {
   return async (dispatch) => {
+    dispatch({ type: GET_ALL_USERS_PENDING });
     try {
-      const allUsers = await axiosInstance("/users/all");
+      const allUsers = await axiosInstance('/users/all');
       return dispatch({
-        type: GET_ALL_USERS,
+        type: GET_ALL_USERS_SUCCESS,
         payload: allUsers,
       });
     } catch (error) {
-      console.log("Se produjo un error al buscar usuarios");
+      dispatch({ type: GET_ALL_USERS_FAILURE, error: error.message });
     }
   };
 };
 
 export const getUser = (id) => {
   return async (dispatch) => {
+    dispatch({ type: GET_USER_PENDING });
     try {
       const user = await axiosInstance(`/single_user/${id}`);
       return dispatch({
-        type: GET_USER,
+        type: GET_USER_SUCCESS,
         payload: user,
       });
     } catch (error) {
-      console.log("Se produjo un error al buscar usuario");
+      dispatch({ type: GET_USER_FAILURE, error: error.message });
     }
   };
 };
 
 export const postUser = (id, user) => {
   return async (dispatch) => {
+    dispatch({ type: POST_USER_PENDING });
+
     try {
-      let newUser = await axiosInstance.post("/auth/signup", user);
+      let newUser = await axiosInstance.post('/auth/signup', user);
       const { role } = newUser;
-      if (role === "driver") {
-        let driver = await axiosInstance.post(`/driver/create/${id}`, user);
+      if (role === 'driver') {
+        let driver = await axiosInstance.post(
+          `/driver/create/${id}`,
+          user
+        );
         return dispatch({
-          type: POST_USER,
+          type: POST_USER_SUCCESS,
           payload: { ...newUser, driver },
         });
       } else {
-        let customer = await axiosInstance.post(`/customer/create/${id}`, user);
+        let customer = await axiosInstance.post(
+          `/customer/create/${id}`,
+          user
+        );
         return dispatch({
-          type: POST_USER,
+          type: POST_USER_SUCCESS,
           payload: { ...newUser, customer },
         });
       }
     } catch (error) {
-      console.log("Se produjo un error al crear al usuario");
+      dispatch({ type: POST_USER_FAILURE, error: error.message });
     }
   };
 };
 
 export const authUser = (user) => {
   return async (dispatch) => {
+    dispatch({ type: AUTH_USER_PENDING });
+
     try {
-      const auth = await axiosInstance.post("/auth/signin", user);
+      const auth = await axiosInstance.post('/auth/signin', user);
       return dispatch({
-        type: AUTH_USER,
+        type: AUTH_USER_SUCCESS,
         payload: auth,
       });
     } catch (error) {
-      console.log("Se produjo un error al iniciar sesión");
+      dispatch({ type: AUTH_USER_FAILURE, error: error.message });
     }
   };
 };
 
 export const patchCustomer = (id, customer) => {
   return async (dispatch) => {
+    dispatch({ type: PUT_CUSTOMER_PENDING });
     try {
-      const user = await axiosInstance.put(`/customer/edit/${id}`, customer);
+      const user = await axiosInstance.put(
+        `/customer/edit/${id}`,
+        customer
+      );
       return dispatch({
-        type: PUT_CUSTOMER,
+        type: PUT_CUSTOMER_SUCCESS,
         payload: user,
       });
     } catch (error) {
-      console.log("e produjo un error al modificar los datos del usuario");
+      dispatch({ type: PUT_CUSTOMER_FAILURE, error: error.message });
     }
   };
 };
 
 export const patchDriver = (id, driver) => {
   return async (dispatch) => {
+    dispatch({ type: PATCH_DRIVER_PENDING });
     try {
-      const user = await axiosInstance.patch(`/driver/patch/${id}`, driver);
+      const user = await axiosInstance.patch(
+        `/driver/patch/${id}`,
+        driver
+      );
       return dispatch({
-        type: PATCH_DRIVER,
+        type: PATCH_DRIVER_SUCCESS,
         payload: user,
       });
     } catch (error) {
-      console.log("Se produjo un error al modificar los datos del usuario");
+      dispatch({ type: PATCH_DRIVER_FAILURE, error: error.message });
     }
   };
 };
 
 export const patchTruck = (id, truck) => {
   return async (dispatch) => {
+    dispatch({ type: PATCH_TRUCK_PENDING });
     try {
-      const user = await axiosInstance.patch(`/truck/update/${id}`, truck);
+      const user = await axiosInstance.patch(
+        `/truck/update/${id}`,
+        truck
+      );
       return dispatch({
-        type: PATCH_TRUCK,
+        type: PATCH_TRUCK_SUCCESS,
         payload: user,
       });
     } catch (error) {
-      console.log("e produjo un error al modificar los datos del usuario");
+      dispatch({ type: PATCH_TRUCK_FAILURE, error: error.message });
     }
   };
 };

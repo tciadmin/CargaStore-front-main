@@ -1,5 +1,10 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import {
+  recoveryPassword,
+  sendEmail,
+} from "../../Redux/Actions/PasswordActions/passwordActions";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -13,13 +18,17 @@ import "../Login/styles.css";
 export default function CompForgotPassword() {
   const mobile = useMediaQuery("(max-width:720px)");
   const navigate = useNavigate();
-
-  const goBack = () => {
-    navigate("/login");
-  };
+  const [email, setEmail] = React.useState("");
+  const dispatch = useDispatch();
 
   const goForward = () => {
-    navigate("/login/verification-code");
+    dispatch(recoveryPassword(email)) &&
+      dispatch(sendEmail(email)) &&
+      navigate("/login/verification-code");
+  };
+
+  const onChange = (event) => {
+    setEmail(event.target.value);
   };
 
   return (
@@ -44,6 +53,8 @@ export default function CompForgotPassword() {
           <p>Correo electrónico</p>
           <FormControl sx={{ m: 1, width: "350px" }} variant="outlined">
             <OutlinedInput
+              onChange={onChange}
+              value={email}
               placeholder="emailexample.com"
               style={{ height: "50px", borderRadius: "8px" }}
             />
