@@ -1,26 +1,29 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { postUser } from "../../Redux/Actions/UserActions/userActions";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
-import {
-  Button,
-  LinearProgress,
-  Stack,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { Button, useMediaQuery } from "@mui/material";
 //? --------------------------------------------- STYLES
 import { Colors } from "../../Utils/Colors";
 
 export default function CompRegUser() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const mobile = useMediaQuery("(max-width:720px)");
 
-  const [activeStepMobile, setActiveStepMobile] = React.useState(0);
+  const [user, setUser] = React.useState({
+    name: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
 
@@ -32,7 +35,12 @@ export default function CompRegUser() {
     event.preventDefault();
   };
   const onClick = () => {
-    navigate("/register/user/company-info");
+    dispatch(postUser(user)) && navigate("/register/user/company-info");
+  };
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
   };
 
   return (
@@ -85,6 +93,9 @@ export default function CompRegUser() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
+                value={user.name}
+                name="name"
+                onChange={onChange}
                 placeholder="Ingrese nombre"
                 style={{
                   borderRadius: "8px",
@@ -99,6 +110,9 @@ export default function CompRegUser() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
+                value={user.lastName}
+                name="lastName"
+                onChange={onChange}
                 placeholder="Ingrese apellido"
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
@@ -109,6 +123,9 @@ export default function CompRegUser() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
+                value={user.email}
+                name="email"
+                onChange={onChange}
                 placeholder="emailexample.com"
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
@@ -119,6 +136,9 @@ export default function CompRegUser() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
+                value={user.password}
+                name="password"
+                onChange={onChange}
                 placeholder="Máximo 8 carácteres"
                 type={showPassword ? "text" : "password"}
                 style={{

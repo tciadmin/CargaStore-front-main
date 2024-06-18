@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -11,13 +12,17 @@ import { useMediaQuery } from "@mui/material";
 //? --------------------------------------------- STYLES
 import { Colors } from "../../Utils/Colors";
 import "../Login/styles.css";
+import { changePassword } from "../../Redux/Actions/PasswordActions/passwordActions";
 
 export default function CompNewPassword() {
   const mobile = useMediaQuery("(max-width:720px)");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [showPassword, setShowPassword] = React.useState(false);
+  const [password, setPassword] = React.useState("");
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+  const [confirmPassword, setConfirmPassword] = React.useState("");
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleClickShowConfirmPassword = () =>
@@ -27,8 +32,17 @@ export default function CompNewPassword() {
     event.preventDefault();
   };
 
-  const goBack = () => {
-    navigate("/login");
+  const onSubmit = () => {
+    dispatch(changePassword(password)) && navigate("/login");
+  };
+
+  const onChange = (event) => {
+    const { name, value } = event.target;
+    if (name === "pass") {
+      setPassword(value);
+    } else {
+      setConfirmPassword(value);
+    }
   };
 
   return (
@@ -55,6 +69,9 @@ export default function CompNewPassword() {
           <p>Contraseña</p>
           <FormControl sx={{ m: 1, width: "350px" }} variant="outlined">
             <OutlinedInput
+              onChange={onChange}
+              name="pass"
+              value={password}
               placeholder="Ingresa contraseña"
               type={showPassword ? "text" : "password"}
               style={{ height: "50px", borderRadius: "8px" }}
@@ -80,6 +97,9 @@ export default function CompNewPassword() {
           <p>Confirma contraseña</p>
           <FormControl sx={{ m: 1, width: "350px" }} variant="outlined">
             <OutlinedInput
+              onChange={onChange}
+              name="confirmPass"
+              value={confirmPassword}
               placeholder="Ingresa contraseña"
               type={showConfirmPassword ? "text" : "password"}
               style={{ height: "50px", borderRadius: "8px" }}
@@ -113,7 +133,7 @@ export default function CompNewPassword() {
               backgroundColor: Colors.primary.main,
               borderRadius: "8px",
             }}
-            onClick={goBack}
+            onClick={onSubmit}
           >
             Cambiar contraseña
           </Button>

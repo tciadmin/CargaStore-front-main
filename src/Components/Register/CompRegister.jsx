@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function CompRegister() {
   const mobile = useMediaQuery("(max-width:720px)");
-
   const navigate = useNavigate();
 
   const nextDriver = () => {
