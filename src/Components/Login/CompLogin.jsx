@@ -18,8 +18,8 @@ export default function CompLogin() {
   const mobile = useMediaQuery("(max-width:720px)");
   const navigate = useNavigate();
   const [userPrueba, setUserPrueba] = React.useState("");
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+  // const dispatch = useDispatch();
+  // const user = useSelector((state) => state.user);
 
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -33,15 +33,15 @@ export default function CompLogin() {
   };
 
   const onClickLogin = () => {
-    if (user.role === "conductor") {
+    if (userPrueba === "conductor") {
       localStorage.setItem(user);
-      dispatch(authUser()) && navigate("/marketplace");
-    } else if (user.role === "admin") {
+       navigate("/marketplace");
+    } else if (userPrueba === "admin") {
       localStorage.setItem(user);
-      dispatch(authUser()) && navigate("/administrador/panel");
+       navigate("/administrador/panel");
     } else {
       localStorage.setItem(user);
-      dispatch(authUser()) && navigate("/shipments");
+       navigate("/shipments");
     }
   };
 

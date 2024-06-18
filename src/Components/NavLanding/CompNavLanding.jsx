@@ -23,14 +23,15 @@ import { Navigation } from "@mui/icons-material";
 export default function CompNavLanding() {
   const mobile = useMediaQuery("(max-width:720px)");
   const [open, setOpen] = useState(false);
-  const [userRol, setUserRol]= useState("cliente")
-  React.useEffect(()=>{
-    if(localStorage.getItem("userPrueba")){
+  const [userRol, setUserRol] = useState("cliente")
+  const [notificaciones, setNotificaciones] = useState(false)
+  React.useEffect(() => {
+    if (localStorage.getItem("userPrueba")) {
       setUserRol(localStorage.getItem("userPrueba"));
-    }else{
-      localStorage.setItem("userPrueba","cliente")
+    } else {
+      localStorage.setItem("userPrueba", "cliente")
     }
-  },[])
+  }, [])
   const [anchorElUser, setAnchorElUser] = useState(null);
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -143,10 +144,10 @@ export default function CompNavLanding() {
           <Drawer open={open} onClose={() => setOpen(false)}>
             <Box sx={{ width: 250 }} role="presentation">
               <Stack direction="row" justifyContent={"space-between"} px={2} alignItems={"center"} spacing={2}>
-                  <img src="/imgLanding/LogoCargaStore.svg" width={"100px"} />
-                  <svg style={{cursor: "pointer"}} onClick={()=>setOpen(false)} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M19.281 18.2194C19.3507 18.289 19.406 18.3718 19.4437 18.4628C19.4814 18.5539 19.5008 18.6514 19.5008 18.75C19.5008 18.8485 19.4814 18.9461 19.4437 19.0372C19.406 19.1282 19.3507 19.2109 19.281 19.2806C19.2114 19.3503 19.1286 19.4056 19.0376 19.4433C18.9465 19.481 18.849 19.5004 18.7504 19.5004C18.6519 19.5004 18.5543 19.481 18.4632 19.4433C18.3722 19.4056 18.2895 19.3503 18.2198 19.2806L12.0004 13.0603L5.78104 19.2806C5.64031 19.4213 5.44944 19.5004 5.25042 19.5004C5.05139 19.5004 4.86052 19.4213 4.71979 19.2806C4.57906 19.1399 4.5 18.949 4.5 18.75C4.5 18.551 4.57906 18.3601 4.71979 18.2194L10.9401 12L4.71979 5.78061C4.57906 5.63988 4.5 5.44901 4.5 5.24999C4.5 5.05097 4.57906 4.8601 4.71979 4.71936C4.86052 4.57863 5.05139 4.49957 5.25042 4.49957C5.44944 4.49957 5.64031 4.57863 5.78104 4.71936L12.0004 10.9397L18.2198 4.71936C18.3605 4.57863 18.5514 4.49957 18.7504 4.49957C18.9494 4.49957 19.1403 4.57863 19.281 4.71936C19.4218 4.8601 19.5008 5.05097 19.5008 5.24999C19.5008 5.44901 19.4218 5.63988 19.281 5.78061L13.0607 12L19.281 18.2194Z" fill="#343330"/>
-</svg>              </Stack>
+                <img src="/imgLanding/LogoCargaStore.svg" width={"100px"} />
+                <svg style={{ cursor: "pointer" }} onClick={() => setOpen(false)} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19.281 18.2194C19.3507 18.289 19.406 18.3718 19.4437 18.4628C19.4814 18.5539 19.5008 18.6514 19.5008 18.75C19.5008 18.8485 19.4814 18.9461 19.4437 19.0372C19.406 19.1282 19.3507 19.2109 19.281 19.2806C19.2114 19.3503 19.1286 19.4056 19.0376 19.4433C18.9465 19.481 18.849 19.5004 18.7504 19.5004C18.6519 19.5004 18.5543 19.481 18.4632 19.4433C18.3722 19.4056 18.2895 19.3503 18.2198 19.2806L12.0004 13.0603L5.78104 19.2806C5.64031 19.4213 5.44944 19.5004 5.25042 19.5004C5.05139 19.5004 4.86052 19.4213 4.71979 19.2806C4.57906 19.1399 4.5 18.949 4.5 18.75C4.5 18.551 4.57906 18.3601 4.71979 18.2194L10.9401 12L4.71979 5.78061C4.57906 5.63988 4.5 5.44901 4.5 5.24999C4.5 5.05097 4.57906 4.8601 4.71979 4.71936C4.86052 4.57863 5.05139 4.49957 5.25042 4.49957C5.44944 4.49957 5.64031 4.57863 5.78104 4.71936L12.0004 10.9397L18.2198 4.71936C18.3605 4.57863 18.5514 4.49957 18.7504 4.49957C18.9494 4.49957 19.1403 4.57863 19.281 4.71936C19.4218 4.8601 19.5008 5.05097 19.5008 5.24999C19.5008 5.44901 19.4218 5.63988 19.281 5.78061L13.0607 12L19.281 18.2194Z" fill="#343330" />
+                </svg>              </Stack>
               <Stack
                 display={"flex"}
                 height={"90vh"}
@@ -155,35 +156,36 @@ export default function CompNavLanding() {
               >
                 <List>
                   {userRol == "cliente" &&
-                  [
-                    {nombre: "Inicio", ruta: "/shipments"},
-                    {nombre: "Pendiente", ruta: "/shipments"},
-                    {nombre:"En curso", ruta: "/shipments/assigned"},
-                    {nombre:"Asignados", ruta: "/shipments/in-progress"},
-                    {nombre:"Finalizados", ruta: "/shipments/finished"},
-                  ].map((item, index) => (
-                    <ListItem key={item.nombre} onClick={()=>{
-                      setOpen(false)
-                      navigate(item.ruta)}}disablePadding>
-                      <ListItemButton>
-                        <Typography
-                          variant={"primary"}
-                          sx={{ fontWeight: 400 }}
-                        >
-                          {item.nombre}
-                        </Typography>
-                      </ListItemButton>
-                    </ListItem>
-                  ))
-                  
+                    [
+                      { nombre: "Inicio", ruta: "/shipments" },
+                      { nombre: "Pendiente", ruta: "/shipments" },
+                      { nombre: "En curso", ruta: "/shipments/assigned" },
+                      { nombre: "Asignados", ruta: "/shipments/in-progress" },
+                      { nombre: "Finalizados", ruta: "/shipments/finished" },
+                    ].map((item, index) => (
+                      <ListItem key={item.nombre} onClick={() => {
+                        setOpen(false)
+                        navigate(item.ruta)
+                      }} disablePadding>
+                        <ListItemButton>
+                          <Typography
+                            variant={"primary"}
+                            sx={{ fontWeight: 400 }}
+                          >
+                            {item.nombre}
+                          </Typography>
+                        </ListItemButton>
+                      </ListItem>
+                    ))
+
                   }
-                  {userRol == "conductor"&&[
-                    {nombre: "Mis envíos",ruta: "/shipments"},
-                    {nombre:"Marketplace", ruta: "/marketplace"}
-                    
+                  {userRol == "conductor" && [
+                    { nombre: "Mis envíos", ruta: "/shipments" },
+                    { nombre: "Marketplace", ruta: "/marketplace" }
+
                   ].map((item, index) => (
                     <ListItem key={item.nombre} disablePadding>
-                      <ListItemButton onClick={()=>navigate(item.ruta)}>
+                      <ListItemButton onClick={() => navigate(item.ruta)}>
                         <Typography
                           variant={"primary"}
                           sx={{ fontWeight: 400 }}
@@ -193,21 +195,21 @@ export default function CompNavLanding() {
                       </ListItemButton>
                     </ListItem>
                   ))}
-                  {userRol == "admin"&&[
-                    {nombre :"Inicio", ruta: "/administrador/panel"},
-                    {nombre: "Solicitudes de carga", ruta: "/administrador/panel/solicitudes"},
-                    {nombre:  "Viajes activos", ruta: "/administrador/panel/viajes-activos"},
-                    {nombre:  "Viajes finalizados", ruta: "/administrador/panel/viajes-finalizados"},
-                    {nombre:  "Socios Activos", ruta: "/administrador/panel/socios"},
-                    {nombre: "Pagos", ruta: "/payment"}
-                    
+                  {userRol == "admin" && [
+                    { nombre: "Inicio", ruta: "/administrador/panel" },
+                    { nombre: "Solicitudes de carga", ruta: "/administrador/panel/solicitudes" },
+                    { nombre: "Viajes activos", ruta: "/administrador/panel/viajes-activos" },
+                    { nombre: "Viajes finalizados", ruta: "/administrador/panel/viajes-finalizados" },
+                    { nombre: "Socios Activos", ruta: "/administrador/panel/socios" },
+                    { nombre: "Pagos", ruta: "/payment" }
+
                   ].map((item, index) => (
                     <ListItem key={item.ruta} disablePadding>
-                      <ListItemButton onClick={()=>{
+                      <ListItemButton onClick={() => {
                         navigate(item.ruta)
                         setOpen(false)
 
-                        }}>
+                      }}>
                         <Typography
                           variant={"primary"}
                           sx={{ fontWeight: 400 }}
@@ -275,7 +277,7 @@ export default function CompNavLanding() {
                         ml={1}
                         variant="primary"
                         sx={{ fontWeight: 400 }}
-                        onClick= {()=>navigate("/landing")}
+                        onClick={() => navigate("/landing")}
                       >
                         Cerrar sesión
                       </Typography>
@@ -298,38 +300,38 @@ export default function CompNavLanding() {
                   flexGrow: 1,
                   marginRight: 2,
                   cursor: "pointer",
-                  gap:"50px",
+                  gap: "50px",
                   display: { xs: "none", sm: "block" },
                 }}
                 onClick={() => {
-                  
+
                   if (userRol == "admin") {
                     navigate("/administrador/panel");
-                  } else if(userRol == "conductor") {
+                  } else if (userRol == "conductor") {
                     navigate("/marketplace");
-                  }else{
-                    if(location.pathname == "/landing"){
+                  } else {
+                    if (location.pathname == "/landing") {
                       navigate("/landing")
-                    }else{
+                    } else {
                       navigate("/shipments")
                     }
                   }
                 }}
               >
-                <img src="/imgLanding/LogoCargaStore.svg" style={{marginRight: "40px"}} />
+                <img src="/imgLanding/LogoCargaStore.svg" style={{ marginRight: "40px" }} />
               </Typography>
               {!mobile && location.pathname != "/landing" && (
                 <>
-                  {userRol  !== "cliente"
+                  {userRol !== "cliente"
                     &&
                     <Typography marginRight={"40px"}
                       fontSize={"16px"}
                       sx={{ cursor: "pointer" }}
-                      onClick={() => navigate(userRol == "admin" ? "/administrador/panel":"/marketplace")}
+                      onClick={() => navigate(userRol == "admin" ? "/administrador/panel" : "/marketplace")}
                       cursor="pointer"
                       color={
-                        (userRol == "admin" && location.pathname.startsWith("/administrador/panel") ) || 
-                        (userRol == "conductor" && location.pathname == "/marketplace" )
+                        (userRol == "admin" && location.pathname.startsWith("/administrador/panel")) ||
+                          (userRol == "conductor" && location.pathname == "/marketplace")
                           ? "primary"
                           : "secondary"
                       }
@@ -340,10 +342,10 @@ export default function CompNavLanding() {
                   <Typography mr={"30px"}
                     fontSize={"16px"}
                     sx={{ cursor: "pointer" }}
-                    onClick={() => navigate(userRol == "admin"? "/payment" :"/shipments")}
+                    onClick={() => navigate(userRol == "admin" ? "/payment" : "/shipments")}
                     color={
-                      (userRol == "admin" && location.pathname.startsWith("/payment") ) || 
-                        ((userRol == "conductor" || userRol == "cliente") && location.pathname.startsWith("/shipments") )
+                      (userRol == "admin" && location.pathname.startsWith("/payment")) ||
+                        ((userRol == "conductor" || userRol == "cliente") && location.pathname.startsWith("/shipments"))
                         ? "primary"
                         : "secondary"
                     }
@@ -451,7 +453,7 @@ export default function CompNavLanding() {
                 <MenuItem key={453} onClick={handleCloseUserMenu}>
                   <Typography
                     textAlign="center"
-                    onClick={() => navigate(userRol == "admin"?"/administrador/perfil":"/perfil")}
+                    onClick={() => navigate(userRol == "admin" ? "/administrador/perfil" : "/perfil")}
                   >
                     Ajustes del perfil
                   </Typography>
@@ -468,39 +470,42 @@ export default function CompNavLanding() {
             </Box>
           )}
         </Toolbar>
-        <Box position={"absolute"} top={67} right={85} width="400px" p={5} maxWidth={"400px"} height="600px" style={{background: "white", border: "1 solid black", boxShadow: "#007C521A 0 30px 60px 0", borderRadius: "10px"}}>
-          <Stack direction={"column"} justifyContent={"center"} spacing={2}>
-            <Grid  container spacing={2} >
-              <Grid item xs={1}>
-                <Stack direction="row" justifyContent={"flex-end"}>
-                  <Avatar width="60px" height="60px" style={{alignSelf: "flex-end"}}></Avatar>
-                </Stack>
-                
+        {notificaciones &&
+          <Box position={"absolute"} top={67} right={85} width="400px" p={5} maxWidth={"400px"} height="600px" style={{ background: "white", border: "1 solid black", boxShadow: "#007C521A 0 30px 60px 0", borderRadius: "10px" }}>
+            <Stack direction={"column"} justifyContent={"center"} spacing={2}>
+              <Grid container spacing={2} >
+                <Grid item xs={1}>
+                  <Stack direction="row" justifyContent={"flex-end"}>
+                    <Avatar width="60px" height="60px" style={{ alignSelf: "flex-end" }}></Avatar>
+                  </Stack>
+
+                </Grid>
+                <Grid item xs={11}>
+                  <Stack direction="column" >
+                    <p style={{ fontSize: "16px", fontWeight: 400, color: "black", textAlign: "start" }}><span style={{ fontWeight: 500 }}> José Luis</span> ha retirado el paquete.</p>
+                    <p style={{ alignSelf: "flex-end", color: "#8C94A6", fontWeight: 400 }}>Hace 1 hora</p>
+                  </Stack>
+                </Grid>
               </Grid>
-              <Grid item xs={11}>
-              <Stack direction="column" >
-                <p style={{fontSize: "16px", fontWeight: 400, color: "black",textAlign: "start"}}><span style={{fontWeight: 500}}> José Luis</span> ha retirado el paquete.</p>
-                <p style={{alignSelf: "flex-end", color: "#8C94A6", fontWeight: 400}}>Hace 1 hora</p>
-              </Stack>
+              <Grid container spacing={2}>
+                <Grid item xs={1}>
+                  <Stack direction="row" justifyContent={"flex-end"}>
+                    <Avatar width="60px" height="60px" style={{ alignSelf: "flex-end" }}></Avatar>
+                  </Stack>
+
+                </Grid>
+                <Grid item xs={11}>
+                  <Stack direction="column" >
+                    <p style={{ fontSize: "16px", fontWeight: 400, color: "black", textAlign: "start" }}>Tu conductor asignado es <span style={{ fontWeight: 500 }}> José Luis.</span></p>
+                    <p style={{ alignSelf: "flex-end", color: "#8C94A6", fontWeight: 400 }}>Hace 3 hora</p>
+                  </Stack>
+                </Grid>
               </Grid>
-            </Grid>
-            <Grid  container spacing={2}>
-              <Grid item xs={1}>
-                <Stack direction="row" justifyContent={"flex-end"}>
-                  <Avatar width="60px" height="60px" style={{alignSelf: "flex-end"}}></Avatar>
-                </Stack>
-                
-              </Grid>
-              <Grid item xs={11}>
-              <Stack direction="column" >
-                <p style={{fontSize: "16px", fontWeight: 400, color: "black",textAlign: "start"}}>Tu conductor asignado es <span style={{fontWeight: 500}}> José Luis.</span></p>
-                <p style={{alignSelf: "flex-end", color: "#8C94A6", fontWeight: 400}}>Hace 3 hora</p>
-              </Stack>
-              </Grid>
-            </Grid>
-          </Stack>
-          
-           </Box>
+            </Stack>
+
+          </Box>
+        }
+
       </AppBar>
     );
   }
