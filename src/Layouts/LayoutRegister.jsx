@@ -130,7 +130,7 @@ const LayoutRegister = () => {
       ) : (
         <Box className="imgContainer">
           {" "}
-          <img src="/imgRegister/registerSideImg.jpg" />{" "}
+          <img src="/imgRegister/RegisterSideImg.jpg" />{" "}
         </Box>
       )}
 

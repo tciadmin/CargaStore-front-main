@@ -17,6 +17,7 @@ export const CompProfile = () => {
   const [value2, setValue2] = useState(5);
   const [visibleComments, setVisibleComments] = useState(2);
   const mobile = useMediaQuery("(max-width:720px)");
+  const rol = localStorage.getItem("userPrueba");
 
   const handleShowMore = () => {
     setVisibleComments((prevVisibleComments) => prevVisibleComments + 2);
@@ -156,8 +157,8 @@ export const CompProfile = () => {
 
                   borderColor: Colors.terciary.main,
                   height: "107px",
-                  width: "100%",
-                  maxWidth: "100px",
+                  width:  mobile ? "100%": "212px",
+                  maxWidth: "33.3%",
                   fontWeight: 600,
                 }}
               >
@@ -171,6 +172,8 @@ export const CompProfile = () => {
                   alignItems: "center",
                   justifyContent: "center",
                   textAlign: " center",
+                  width:  mobile ? "100%": "212px",
+                  maxWidth: "33.3%",
                   height: "107px",
                   backgroundColor: Colors.primary.contrastText,
                   padding: "5px",
@@ -196,8 +199,8 @@ export const CompProfile = () => {
                   border: "2px solid",
                   borderColor: Colors.terciary.main,
                   height: "107px",
-                  width: "100%",
-                  maxWidth: "100px",
+                  width: mobile ? "100%": "212px",
+                  maxWidth: "33.3%",
                   fontWeight: 600,
                 }}
               >
@@ -205,7 +208,7 @@ export const CompProfile = () => {
                 <p>Reseñas</p>
               </Box>
             </Stack>
-            {mobile && 
+            {mobile && rol == "admin"&& 
              <Stack direction="column" justifyContent={"flex-start"} alignItems="flex-start" width="100%"
              maxWidth={"600px"}
              style={{border: "1px solid lightgrey", padding:"20px", borderRadius:"10px"}}
@@ -238,69 +241,72 @@ export const CompProfile = () => {
            </Stack>
             
             }
+            {rol == "cliente"  &&
             <Stack
-              sx={{
-                alignItems: " center",
+            sx={{
+              alignItems: " center",
+              textAlign: "left",
+            }}
+            direction="column"
+            justifyContent={"center"}
+            alignItems={"center"}
+            width="100%"
+            maxWidth={"600px"}
+          >
+            <p
+              style={{
+                width: "100%",
+                display: "flex",
+                fontWeight: 500,
+                fontSize: "14px",
                 textAlign: "left",
+                marginBottom: 5
               }}
-              direction="column"
-              justifyContent={"center"}
-              alignItems={"center"}
-              width="100%"
-              maxWidth={"600px"}
             >
-              <p
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  fontWeight: 500,
-                  fontSize: "14px",
-                  textAlign: "left",
-                  marginBottom: 5
-                }}
-              >
-                Deja tu reseña
-              </p>
+              Deja tu reseña
+            </p>
 
-              <input
-                style={{
-                  width: "100%",
-                  height: "134px",
-                  verticalAlign: "start",
-                  borderRadius: "8px",
-                  border: "2px solid " + Colors.primary.main,
-                  borderColor: Colors.terciary.main,
+            <input
+              style={{
+                width: "100%",
+                height: "134px",
+                verticalAlign: "start",
+                borderRadius: "8px",
+                border: "2px solid " + Colors.primary.main,
+                borderColor: Colors.terciary.main,
+              }}
+            ></input>
+            <Box
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                padding: 10,
+                width: "100%",
+                maxWidth: "600px"
+              }}
+            >
+              <Rating
+                name="simple-controlled"
+                value={value}
+                onChange={(event, newValue) => {
+                  setValue(newValue);
                 }}
-              ></input>
-              <Box
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  padding: 10,
-                  width: "100%",
-                  maxWidth: "600px"
+              />
+              <Button
+                sx={{
+                  color: "white",
+                  backgroundColor: "#007C52",
+                  fontWeight: 600,
                 }}
+                variant="contained"
               >
-                <Rating
-                  name="simple-controlled"
-                  value={value}
-                  onChange={(event, newValue) => {
-                    setValue(newValue);
-                  }}
-                />
-                <Button
-                  sx={{
-                    color: "white",
-                    backgroundColor: "#007C52",
-                    fontWeight: 600,
-                  }}
-                  variant="contained"
-                >
-                  Publicar
-                </Button>
-              </Box>
-            </Stack>
+                Publicar
+              </Button>
+            </Box>
+          </Stack>
+            }
+            
             <Box
               style={{
                 display: "flex",
@@ -364,7 +370,7 @@ export const CompProfile = () => {
               </Box>
             </Box>
           </Stack>
-          {!mobile&&
+          {!mobile && rol =="admin"&&
            <Stack direction="column" justifyContent={"flex-start"} alignItems="flex-start" width="100%"
            maxWidth={"600px"}
            style={{border: "1px solid lightgrey", padding:"20px", borderRadius:"10px"}}

@@ -9,11 +9,34 @@ const PageAdminPerfil = () => {
     <>
       <Stack direction="row" justifyContent={"center"}>
         <Stack display="flex" width={mobile? "90%":"100%"} maxWidth={"650px"} flexDirection={"column"} justifyContent={"center"} alignContent={"center"}>
-          <Avatar
-            alt="Admin"
-            src="imagen"
-            sx={{ width: 100, height: 100, alignSelf: "center" }}
-          />
+        <div style={{ display: "flex", width: "100%", justifyContent: "center" }}>
+            
+            {editar ?
+              <input
+                accept="image/*"
+                style={{ display: 'none' }}
+                id="avatar"
+
+                type="file"
+
+              />:""
+            }
+            <label htmlFor="avatar">
+              <Avatar
+                alt="Profile"
+                src="imagen"
+                sx={{
+                  width: 100,
+                  height: 100,
+                  alignSelf: "center",
+                  cursor: editar ? "cell" : "default"
+                }}
+              />
+
+            </label>
+
+
+          </div>
           <InputForm label="Nombre" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
           <InputForm label="Apellido" sizeH='35px' marginB={3} readOnly={!editar} />
 

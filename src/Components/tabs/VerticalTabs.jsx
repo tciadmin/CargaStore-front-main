@@ -43,15 +43,22 @@ function a11yProps(index) {
 }
 
 export default function VerticalTabs() {
-  const rol = "client";
+  const [rol, setRol] = React.useState("client")
+
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
+  React.useEffect(() => {
+    const user = localStorage.getItem("userPrueba");
+    if (user == "conductor") {
+      setRol("driver")
+    }
+  }, [])
 
   const [editar, setEditar] = React.useState(0);
   const mobile = useMediaQuery("(max-width: 750px)");
   const driverOptionsMobile = ["Datos Personales", "Datos del camión", "Documentos Legales", "Historial de cobros"]
   const containerBox = mobile ? { flexGrow: 1, bgcolor: '#e6e6e6', display: 'flex', flexDirection: "column", maxWidth: "100%", height: "100%" } : { flexGrow: 1, bgcolor: '#e6e6e6', display: 'flex', width: "100%", height: "100%" }
-  const clientOptionsMobile = ["Datos Personales", "Datos de empresa", "Configuración de pagos", "Historial de cobros"]
+  const clientOptionsMobile = ["Datos Personales", "Datos de la empresa", "Configuración de pagos", "Historial de cobros"]
 
 
   const handleChange = (event, newValue) => {
@@ -119,7 +126,7 @@ export default function VerticalTabs() {
           sx={{ borderRight: 1, borderColor: 'divider', width: "300px", height: "200vh" }}
         >
           <Tab label="Datos Personales" sx={{ textTransform: "none", background: value == 0 ? "white" : "transparent", width: "100%", alignItems: "flex-start", fontWeight: "bold" }} {...a11yProps(0)} />
-          <Tab label="Datos del empresa" sx={{ textTransform: "none", background: value == 1 ? "white" : "transparent", width: "100%", alignItems: "flex-start", fontWeight: "bold" }} {...a11yProps(1)} />
+          <Tab label="Datos de la empresa" sx={{ textTransform: "none", background: value == 1 ? "white" : "transparent", width: "100%", alignItems: "flex-start", fontWeight: "bold" }} {...a11yProps(1)} />
           <Tab label="Configuración de pagos" sx={{ textTransform: "none", background: value == 2 ? "white" : "transparent", width: "100%", alignItems: "flex-start", fontWeight: "bold" }} {...a11yProps(2)} />
           <Tab label="Historial de pagos" sx={{ textTransform: "none", background: value == 3 ? "white" : "transparent", width: "100%", alignItems: "flex-start", fontWeight: "bold" }} {...a11yProps(3)} />
 
@@ -129,11 +136,34 @@ export default function VerticalTabs() {
       <TabPanel value={value} style={{ width: value == 0 ? "100%" : "0", display: "flex", justifyContent: "center" }} index={0}>
 
         <Stack display="flex" width={mobile ? "85vw" : "50vw"} flexDirection={"column"} justifyContent={"center"} alignContent={"center"}>
-          <Avatar
-            alt="Admin"
-            src="imagen"
-            sx={{ width: 100, height: 100, alignSelf: "center" }}
-          />
+          <div style={{ display: "flex", width: "100%", justifyContent: "center" }}>
+            
+            {editar ?
+              <input
+                accept="image/*"
+                style={{ display: 'none' }}
+                id="avatar"
+
+                type="file"
+
+              />:""
+            }
+            <label htmlFor="avatar">
+              <Avatar
+                alt="Profile"
+                src="imagen"
+                sx={{
+                  width: 100,
+                  height: 100,
+                  alignSelf: "center",
+                  cursor: editar ? "cell" : "default"
+                }}
+              />
+
+            </label>
+
+
+          </div>
           {value == 0 && rol === "driver" && <>
 
             <InputForm label="Nombre" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
@@ -168,11 +198,34 @@ export default function VerticalTabs() {
       <TabPanel value={value} style={{ width: value == 1 ? "100%" : "0", display: "flex", justifyContent: "center" }} index={1}>
 
         <Stack display="flex" width={mobile ? "85vw" : "50vw"} flexDirection={"column"} justifyContent={"center"} alignContent={"center"}>
-          <Avatar
-            alt="Admin"
-            src="imagen"
-            sx={{ width: 100, height: 100, alignSelf: "center" }}
-          />
+          <div style={{ display: "flex", width: "100%", justifyContent: "center" }}>
+            {editar &&
+              <input
+                accept="image/*"
+                style={{ display: 'none' }}
+                id="avatar"
+
+                type="file"
+
+              />
+            }
+
+            <label htmlFor="avatar">
+              <Avatar
+                alt="profile image"
+                src="imagen"
+                sx={{
+                  width: 100,
+                  height: 100,
+                  alignSelf: "center",
+                  cursor: editar ? "cell" : "none"
+                }}
+              />
+
+            </label>
+
+
+          </div>
           <InputForm label="Marca" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
           <InputForm label="Modelo" sizeH='35px' marginB={3} readOnly={!editar} />
 
@@ -197,11 +250,35 @@ export default function VerticalTabs() {
       <TabPanel value={value} style={{ width: value == 2 ? "100%" : "0", display: "flex", justifyContent: "center" }} index={2}>
 
         <Stack display="flex" width={mobile ? "85vw" : "50vw"} flexDirection={"column"} justifyContent={"center"} alignContent={"center"}>
-          <Avatar
-            alt="Admin"
-            src="imagen"
-            sx={{ width: 100, height: 100, alignSelf: "center" }}
-          />
+
+          <div style={{ display: "flex", width: "100%", justifyContent: "center" }}>
+            {editar &&
+              <input
+                accept="image/*"
+                style={{ display: 'none' }}
+                id="avatar"
+
+                type="file"
+
+              />
+            }
+
+            <label htmlFor="avatar">
+              <Avatar
+                alt="profile image"
+                src="imagen"
+                sx={{
+                  width: 100,
+                  height: 100,
+                  alignSelf: "center",
+                  cursor: editar ? "cell" : "none"
+                }}
+              />
+
+            </label>
+
+
+          </div>
           <InputForm label="Licencia de conducir" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
           <InputForm label="Afiliación IESS" sizeH='35px' marginB={3} readOnly={!editar} />
 

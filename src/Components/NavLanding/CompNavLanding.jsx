@@ -18,15 +18,23 @@ import Menu from "@mui/material/Menu";
 //? --------------------------------------------- STYLES
 import { Colors } from "../../Utils/Colors";
 import { Drawer, Grid, List, ListItem, ListItemButton } from "@mui/material";
+import { Navigation } from "@mui/icons-material";
 
 export default function CompNavLanding() {
   const mobile = useMediaQuery("(max-width:720px)");
   const [open, setOpen] = useState(false);
+  const [userRol, setUserRol]= useState("cliente")
+  React.useEffect(()=>{
+    if(localStorage.getItem("userPrueba")){
+      setUserRol(localStorage.getItem("userPrueba"));
+    }else{
+      localStorage.setItem("userPrueba","cliente")
+    }
+  },[])
   const [anchorElUser, setAnchorElUser] = useState(null);
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
-  const rol = "admin"
   const pages = ["Marketplace", "Mis envíos"];
 
   const handleCloseUserMenu = () => {
@@ -83,7 +91,8 @@ export default function CompNavLanding() {
         position="sticky"
         sx={{ width: "100%" }}
         style={{
-          backgroundColor: mobile ? "transparent" : Colors.primary.contrastText,
+          backgroundColor: Colors.primary.contrastText,
+          borderBottom: "1px solid #E4E7EC",
 
           display: "flex",
 
@@ -133,11 +142,11 @@ export default function CompNavLanding() {
 
           <Drawer open={open} onClose={() => setOpen(false)}>
             <Box sx={{ width: 250 }} role="presentation">
-              <Grid container px={2} spacing={2}>
-                <Grid xs={6} mt={2} item>
+              <Stack direction="row" justifyContent={"space-between"} px={2} alignItems={"center"} spacing={2}>
                   <img src="/imgLanding/LogoCargaStore.svg" width={"100px"} />
-                </Grid>
-              </Grid>
+                  <svg style={{cursor: "pointer"}} onClick={()=>setOpen(false)} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.281 18.2194C19.3507 18.289 19.406 18.3718 19.4437 18.4628C19.4814 18.5539 19.5008 18.6514 19.5008 18.75C19.5008 18.8485 19.4814 18.9461 19.4437 19.0372C19.406 19.1282 19.3507 19.2109 19.281 19.2806C19.2114 19.3503 19.1286 19.4056 19.0376 19.4433C18.9465 19.481 18.849 19.5004 18.7504 19.5004C18.6519 19.5004 18.5543 19.481 18.4632 19.4433C18.3722 19.4056 18.2895 19.3503 18.2198 19.2806L12.0004 13.0603L5.78104 19.2806C5.64031 19.4213 5.44944 19.5004 5.25042 19.5004C5.05139 19.5004 4.86052 19.4213 4.71979 19.2806C4.57906 19.1399 4.5 18.949 4.5 18.75C4.5 18.551 4.57906 18.3601 4.71979 18.2194L10.9401 12L4.71979 5.78061C4.57906 5.63988 4.5 5.44901 4.5 5.24999C4.5 5.05097 4.57906 4.8601 4.71979 4.71936C4.86052 4.57863 5.05139 4.49957 5.25042 4.49957C5.44944 4.49957 5.64031 4.57863 5.78104 4.71936L12.0004 10.9397L18.2198 4.71936C18.3605 4.57863 18.5514 4.49957 18.7504 4.49957C18.9494 4.49957 19.1403 4.57863 19.281 4.71936C19.4218 4.8601 19.5008 5.05097 19.5008 5.24999C19.5008 5.44901 19.4218 5.63988 19.281 5.78061L13.0607 12L19.281 18.2194Z" fill="#343330"/>
+</svg>              </Stack>
               <Stack
                 display={"flex"}
                 height={"90vh"}
@@ -145,20 +154,65 @@ export default function CompNavLanding() {
                 justifyContent={"space-between"}
               >
                 <List>
-                  {[
-                    "Inicio",
-                    "Pendiente",
-                    "En curso",
-                    "Asignados",
-                    "Finalizados",
-                  ].map((text, index) => (
-                    <ListItem key={text} disablePadding>
+                  {userRol == "cliente" &&
+                  [
+                    {nombre: "Inicio", ruta: "/shipments"},
+                    {nombre: "Pendiente", ruta: "/shipments"},
+                    {nombre:"En curso", ruta: "/shipments/assigned"},
+                    {nombre:"Asignados", ruta: "/shipments/in-progress"},
+                    {nombre:"Finalizados", ruta: "/shipments/finished"},
+                  ].map((item, index) => (
+                    <ListItem key={item.nombre} onClick={()=>{
+                      setOpen(false)
+                      navigate(item.ruta)}}disablePadding>
                       <ListItemButton>
                         <Typography
                           variant={"primary"}
                           sx={{ fontWeight: 400 }}
                         >
-                          {text}
+                          {item.nombre}
+                        </Typography>
+                      </ListItemButton>
+                    </ListItem>
+                  ))
+                  
+                  }
+                  {userRol == "conductor"&&[
+                    {nombre: "Mis envíos",ruta: "/shipments"},
+                    {nombre:"Marketplace", ruta: "/marketplace"}
+                    
+                  ].map((item, index) => (
+                    <ListItem key={item.nombre} disablePadding>
+                      <ListItemButton onClick={()=>navigate(item.ruta)}>
+                        <Typography
+                          variant={"primary"}
+                          sx={{ fontWeight: 400 }}
+                        >
+                          {item.nombre}
+                        </Typography>
+                      </ListItemButton>
+                    </ListItem>
+                  ))}
+                  {userRol == "admin"&&[
+                    {nombre :"Inicio", ruta: "/administrador/panel"},
+                    {nombre: "Solicitudes de carga", ruta: "/administrador/panel/solicitudes"},
+                    {nombre:  "Viajes activos", ruta: "/administrador/panel/viajes-activos"},
+                    {nombre:  "Viajes finalizados", ruta: "/administrador/panel/viajes-finalizados"},
+                    {nombre:  "Socios Activos", ruta: "/administrador/panel/socios"},
+                    {nombre: "Pagos", ruta: "/payment"}
+                    
+                  ].map((item, index) => (
+                    <ListItem key={item.ruta} disablePadding>
+                      <ListItemButton onClick={()=>{
+                        navigate(item.ruta)
+                        setOpen(false)
+
+                        }}>
+                        <Typography
+                          variant={"primary"}
+                          sx={{ fontWeight: 400 }}
+                        >
+                          {item.nombre}
                         </Typography>
                       </ListItemButton>
                     </ListItem>
@@ -221,6 +275,7 @@ export default function CompNavLanding() {
                         ml={1}
                         variant="primary"
                         sx={{ fontWeight: 400 }}
+                        onClick= {()=>navigate("/landing")}
                       >
                         Cerrar sesión
                       </Typography>
@@ -243,53 +298,57 @@ export default function CompNavLanding() {
                   flexGrow: 1,
                   marginRight: 2,
                   cursor: "pointer",
+                  gap:"50px",
                   display: { xs: "none", sm: "block" },
                 }}
                 onClick={() => {
-                  const paginasnologueadas = [
-                    "/landing",
-                    "/login",
-                    "/register",
-                  ];
-                  if (paginasnologueadas.includes(location.pathname)) {
-                    navigate("/landing");
-                  } else {
-                    navigate("/shipments");
+                  
+                  if (userRol == "admin") {
+                    navigate("/administrador/panel");
+                  } else if(userRol == "conductor") {
+                    navigate("/marketplace");
+                  }else{
+                    if(location.pathname == "/landing"){
+                      navigate("/landing")
+                    }else{
+                      navigate("/shipments")
+                    }
                   }
                 }}
               >
-                <img src="/imgLanding/LogoCargaStore.svg" />
+                <img src="/imgLanding/LogoCargaStore.svg" style={{marginRight: "40px"}} />
               </Typography>
               {!mobile && location.pathname != "/landing" && (
                 <>
-                  {rol != "user"
+                  {userRol  !== "cliente"
                     &&
-                    <Typography
+                    <Typography marginRight={"40px"}
                       fontSize={"16px"}
                       sx={{ cursor: "pointer" }}
-                      onClick={() => navigate("/marketplace")}
-                      marginRight={2}
+                      onClick={() => navigate(userRol == "admin" ? "/administrador/panel":"/marketplace")}
                       cursor="pointer"
                       color={
-                        location.pathname == "/marketplace"
+                        (userRol == "admin" && location.pathname.startsWith("/administrador/panel") ) || 
+                        (userRol == "conductor" && location.pathname == "/marketplace" )
                           ? "primary"
                           : "secondary"
                       }
                     >
-                      {location.pathname.startsWith("/panel") ? "Panel de control" : "Marketplace"}
+                      {userRol == "admin" ? "Panel de control" : "Marketplace"}
                     </Typography>
                   }
-                  <Typography
+                  <Typography mr={"30px"}
                     fontSize={"16px"}
                     sx={{ cursor: "pointer" }}
-                    onClick={() => navigate("/shipments")}
+                    onClick={() => navigate(userRol == "admin"? "/payment" :"/shipments")}
                     color={
-                      location.pathname.startsWith("/shipments")
+                      (userRol == "admin" && location.pathname.startsWith("/payment") ) || 
+                        ((userRol == "conductor" || userRol == "cliente") && location.pathname.startsWith("/shipments") )
                         ? "primary"
                         : "secondary"
                     }
                   >
-                    {location.pathname.startsWith("/payment") ? "Pagos" : "Mis envios"}
+                    {userRol == "admin" ? "Pagos" : "Mis envios"}
                   </Typography>
                 </>
               )}
@@ -392,7 +451,7 @@ export default function CompNavLanding() {
                 <MenuItem key={453} onClick={handleCloseUserMenu}>
                   <Typography
                     textAlign="center"
-                    onClick={() => navigate("/perfil")}
+                    onClick={() => navigate(userRol == "admin"?"/administrador/perfil":"/perfil")}
                   >
                     Ajustes del perfil
                   </Typography>
