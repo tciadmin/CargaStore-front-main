@@ -1,11 +1,12 @@
 .footerContainer {
   display: flex;
-  justify-content: space-around;
-  max-width: 70%;
+  justify-content: center;
+  max-width: 100%;
   padding: 10px;
 }
 
 .itemList {
+  font-weight: 400;
   display: flex;
   text-align: left;
   flex-direction: column;

@@ -11,6 +11,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 //? --------------------------------------------- STYLES
 import { Colors } from "../../Utils/Colors";
 import "./styles.css";
+import { Stack } from "@mui/material";
 
 export default function CompFooter() {
   const mobile = useMediaQuery("(max-width:720px)");
@@ -28,7 +29,7 @@ export default function CompFooter() {
     setOpenLegalPages(!openLegalPages);
   };
   return (
-    <footer style={{ backgoundColor: Colors.primary.contrastText, marginTop:mobile ?  "50px" : "100px" }}>
+    <footer style={{ backgoundColor: Colors.primary.contrastText, marginTop:mobile ?  "50px" : "250px" }}>
       {mobile ? (
         <Box className="mobile">
           {/* //? --------------------------------------------- NUESTRA EMPRESA */}
@@ -41,7 +42,7 @@ export default function CompFooter() {
               onClick={handleClickCompany}
               style={{ color: Colors.primary.main }}
             >
-              <ListItemText primary="Nuestra empresa" />
+              <ListItemText fontWeight={400} primary="Nuestra empresa" />
               {openCompany ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={openCompany} timeout="auto" unmountOnExit>
@@ -84,7 +85,7 @@ export default function CompFooter() {
               onClick={handleClickLegalPages}
               style={{ color: Colors.primary.main }}
             >
-              <ListItemText primary="Páginas legales" />
+              <ListItemText sx={{fontWeight: 400}} primary="Páginas legales" />
               {openLegalPages ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={openLegalPages} timeout="auto" unmountOnExit>
@@ -107,27 +108,29 @@ export default function CompFooter() {
         </Box>
       ) : (
         <Box className="footerContainer">
-          <Box>
-            <h3 style={{ color: Colors.primary.main }}>Nuestra empresa</h3>
+          <Stack direction="row" width="600vw" justifyContent="space-around">
+          <Box >
+            <h3 style={{ color: Colors.primary.main, fontWeight: 400, marginBottom: "30px", fontSize: "20px" }}>Nuestra empresa</h3>
 
-            <p>Quiénes somos</p>
-            <p>Servicios</p>
-            <p>Contáctanos</p>
+            <p style={{fontSize: "16px", fontWeight: 400,marginBottom: "20px"}}>Quiénes somos</p>
+            <p style={{fontSize: "16px", fontWeight: 400,marginBottom: "20px"}}>Servicios</p>
+            <p style={{fontSize: "16px", fontWeight: 400,marginBottom: "20px"}}>Contáctanos</p>
           </Box>
 
           <Box>
-            <h3 style={{ color: Colors.primary.main }}>Nuestras oficinas</h3>
-            <p>TCI Ecuador</p>
-            <p>TCI Perú</p>
-            <p>TCI Colombia</p>
+            <h3 style={{ color: Colors.primary.main, fontWeight: 400, marginBottom: "30px", fontSize: "20px" }}>Nuestras oficinas</h3>
+            <p style={{fontSize: "16px", fontWeight: 400,marginBottom: "20px"}}>TCI Ecuador</p>
+            <p style={{fontSize: "16px", fontWeight: 400,marginBottom: "20px"}}>TCI Perú</p>
+            <p style={{fontSize: "16px", fontWeight: 400,marginBottom: "20px"}}>TCI Colombia</p>
           </Box>
 
           <Box>
-            <h3 style={{ color: Colors.primary.main }}>Páginas legales</h3>
-            <p>Política de privacidad</p>
-            <p>Términos y condiciones</p>
-            <p>Descargo de responsabilidad</p>
+            <h3 style={{ color: Colors.primary.main, fontWeight: 400, marginBottom: "30px", fontSize: "20px" }}>Páginas legales</h3>
+            <p style={{fontSize: "16px", fontWeight: 400,marginBottom: "20px"}}>Política de privacidad</p>
+            <p style={{fontSize: "16px", fontWeight: 400,marginBottom: "20px"}}>Términos y condiciones</p>
+            <p style={{fontSize: "16px", fontWeight: 400,marginBottom: "20px"}}>Descargo de responsabilidad</p>
           </Box>
+          </Stack>
         </Box>
       )}
     </footer>
