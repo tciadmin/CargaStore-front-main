@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -11,10 +12,12 @@ import { useMediaQuery } from "@mui/material";
 //? --------------------------------------------- STYLES
 import { Colors } from "../../Utils/Colors";
 import "./styles.css";
+import { authUser } from "../../Redux/Actions/UserActions/userActions";
 
 export default function CompLogin() {
   const mobile = useMediaQuery("(max-width:720px)");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -28,7 +31,7 @@ export default function CompLogin() {
   };
 
   const onClickLogin = () => {
-    navigate("/shipments");
+    dispatch(authUser()) && navigate("/shipments");
   };
 
   const onClickRegister = () => {
