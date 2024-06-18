@@ -1,7 +1,7 @@
-import { Box, InputAdornment, MenuItem, OutlinedInput, Select } from '@mui/material'
+import { Box, InputAdornment, MenuItem, OutlinedInput, Select, Typography } from '@mui/material'
 import React from 'react'
 
-const InputForm = ({label, type = "text", select = [], money=false, sizeH = "50px",inputW = "100%", marginB = 5, marginT = 0, sizeXL = false, readOnly = false}) => {
+const InputForm = ({label, type = "text",cambiar = false, select = [], money=false, sizeH = "50px",inputW = "100%", marginB = 5, marginT = 0, sizeXL = false, readOnly = false}) => {
 
   return (
 <Box display="flex" flexDirection={"column"} mb={marginB} mt={marginT} width={inputW} justifyContent={"flex-start"}  >
@@ -35,6 +35,7 @@ const InputForm = ({label, type = "text", select = [], money=false, sizeH = "50p
           id={"input-"+label}
           type={type}
           startAdornment={money && <InputAdornment position="start">$</InputAdornment>}
+          endAdornment={cambiar && <Typography color="primary">Cambiar</Typography>}
           defaultValue=""
           
           sx={{backgroundColor: "white", height: sizeH, alignItems: sizeXL ?  "flex-start" : "center"}}
