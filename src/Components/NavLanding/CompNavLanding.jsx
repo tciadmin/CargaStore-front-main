@@ -407,7 +407,7 @@ export default function CompNavLanding() {
                   />
                 </svg>
               </Tooltip>
-              <Tooltip title="Notifications" sx={{ pr: 1 }}>
+              <Tooltip title="Notifications" onClick={()=>setNotificaciones(!notificaciones)} sx={{ pr: 1 }}>
                 <svg
                   width="29"
                   height="29"
@@ -471,7 +471,7 @@ export default function CompNavLanding() {
           )}
         </Toolbar>
         {notificaciones &&
-          <Box position={"absolute"} top={67} right={85} width="400px" p={5} maxWidth={"400px"} height="600px" style={{ background: "white", border: "1 solid black", boxShadow: "#007C521A 0 30px 60px 0", borderRadius: "10px" }}>
+          <Box position={"absolute"} top={67} right={85} width="400px" px={5} py={3} maxWidth={"400px"} height="600px" style={{ background: "white", border: "1 solid black", boxShadow: "#007C521A 0 30px 60px 0", borderRadius: "10px" }}>
             <Stack direction={"column"} justifyContent={"center"} spacing={2}>
               <Grid container spacing={2} >
                 <Grid item xs={1}>
