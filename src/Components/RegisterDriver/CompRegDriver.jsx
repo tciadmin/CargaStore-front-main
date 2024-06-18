@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -10,10 +11,19 @@ import Button from "@mui/material/Button";
 import { useMediaQuery } from "@mui/material";
 //? --------------------------------------------- STYLES
 import { Colors } from "../../Utils/Colors";
+import { postUser } from "../../Redux/Actions/UserActions/userActions";
 
 export default function CompRegDriver() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const mobile = useMediaQuery("(max-width:720px)");
+
+  const [driver, setDriver] = React.useState({
+    name: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
 
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
@@ -26,7 +36,12 @@ export default function CompRegDriver() {
     event.preventDefault();
   };
   const onClick = () => {
-    navigate("/register/driver/vehicle-info");
+    dispatch(postUser(driver)) && navigate("/register/driver/vehicle-info");
+  };
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setDriver({ ...driver, [name]: value });
   };
 
   return (
@@ -79,6 +94,9 @@ export default function CompRegDriver() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
+                value={driver.name}
+                name="name"
+                onChange={onChange}
                 placeholder="Ingrese nombre"
                 style={{
                   borderRadius: "8px",
@@ -93,6 +111,9 @@ export default function CompRegDriver() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
+                name="lastName"
+                value={driver.lastName}
+                onChange={onChange}
                 placeholder="Ingrese apellido"
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
@@ -103,6 +124,9 @@ export default function CompRegDriver() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
+                value={driver.email}
+                name="email"
+                onChange={onChange}
                 placeholder="emailexample.com"
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
@@ -113,6 +137,9 @@ export default function CompRegDriver() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
+                value={driver.password}
+                name="password"
+                onChange={onChange}
                 placeholder="Máximo 8 carácteres"
                 type={showPassword ? "text" : "password"}
                 style={{
