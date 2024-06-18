@@ -1,5 +1,7 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { verifyCode } from "../../Redux/Actions/PasswordActions/passwordActions";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -12,14 +14,16 @@ import "../Login/styles.css";
 
 export default function CompVerificationCode() {
   const mobile = useMediaQuery("(max-width:720px)");
+  const [code, setCode] = React.useState("");
   const navigate = useNavigate();
-
-  const goBack = () => {
-    navigate("/login/forgot-password");
-  };
+  const dispatch = useDispatch();
 
   const goForward = () => {
-    navigate("/login/new-password");
+    dispatch(verifyCode(code)) && navigate("/login/new-password");
+  };
+
+  const onChange = (event) => {
+    setCode(event.target.value);
   };
 
   return (
@@ -53,6 +57,8 @@ export default function CompVerificationCode() {
           <p>Código de verificación</p>
           <FormControl sx={{ m: 1, width: "350px" }} variant="outlined">
             <OutlinedInput
+              onChange={onChange}
+              value={code}
               placeholder="122342445"
               style={{ height: "50px", borderRadius: "8px" }}
             />
