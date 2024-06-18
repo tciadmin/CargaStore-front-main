@@ -1,7 +1,5 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { authUser } from "../../Redux/Actions/UserActions/userActions";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -18,8 +16,6 @@ export default function CompLogin() {
   const mobile = useMediaQuery("(max-width:720px)");
   const navigate = useNavigate();
   const [userPrueba, setUserPrueba] = React.useState("");
-  // const dispatch = useDispatch();
-  // const user = useSelector((state) => state.user);
 
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -33,16 +29,18 @@ export default function CompLogin() {
   };
 
   const onClickLogin = () => {
-    if (userPrueba === "conductor") {
-      localStorage.setItem(user);
-       navigate("/marketplace");
-    } else if (userPrueba === "admin") {
-      localStorage.setItem(user);
-       navigate("/administrador/panel");
-    } else {
-      localStorage.setItem(user);
-       navigate("/shipments");
+     if(userPrueba.includes("conductor")){
+      localStorage.setItem("userPrueba","conductor");
+      navigate("/marketplace");
+
+    }else if (userPrueba.includes("admin")){
+      localStorage.setItem("userPrueba","admin")
+      navigate("/administrador/panel");
+    }else{
+      localStorage.setItem("userPrueba", "cliente")
+      navigate("/shipments");
     }
+    
   };
 
   const onClickRegister = () => {
@@ -78,7 +76,7 @@ export default function CompLogin() {
             <OutlinedInput
               placeholder="emailexample.com"
               style={{ height: mobile ? "40px" : "50px", borderRadius: "8px" }}
-              onChange={(e) => setUserPrueba(e.target.value)}
+              onChange={(e)=>setUserPrueba(e.target.value)}
               endAdornment={
                 <InputAdornment position="end">
                   <img src="/imgLogin/EmailIcon.svg" />
