@@ -11,7 +11,7 @@ import {
   SEND_EMAIL_FAILURE,
   SEND_EMAIL_PENDING,
   SEND_EMAIL_SUCCESS,
-} from "../Actions/PasswordActions/passwordActions";
+} from '../Actions/PasswordActions/passwordActions';
 import {
   AUTH_USER_SUCCESS,
   AUTH_USER_FAILURE,
@@ -34,7 +34,7 @@ import {
   PUT_CUSTOMER_FAILURE,
   PUT_CUSTOMER_PENDING,
   PUT_CUSTOMER_SUCCESS,
-} from "../Actions/UserActions/userActions";
+} from '../Actions/UserActions/userActions';
 
 const initialState = {
   allUsers: [],
@@ -128,13 +128,13 @@ export const userReducer = (state = initialState, action) => {
         error: null,
       };
 
-    case PUT_CUSTOMER_USER_PENDING:
+    case PUT_CUSTOMER_PENDING:
       return {
         ...state,
         userLoading: true,
         error: null,
       };
-    case PUT_CUSTOMER_USER_FAILURE:
+    case PUT_CUSTOMER_FAILURE:
       return {
         ...state,
         userLoading: false,

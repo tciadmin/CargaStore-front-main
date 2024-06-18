@@ -1,38 +1,38 @@
-import { axiosInstance } from "../../axiosInstance";
+import { axiosInstance } from '../../axiosInstance';
 //?------------------------------------------USER
-export const GET_ALL_USERS_PENDING = "GET_ALL_USERS_PENDING";
-export const GET_ALL_USERS_SUCCESS = "GET_ALL_USERS_SUCCESS";
-export const GET_ALL_USERS_FAILURE = "GET_ALL_USERS_FAILURE";
+export const GET_ALL_USERS_PENDING = 'GET_ALL_USERS_PENDING';
+export const GET_ALL_USERS_SUCCESS = 'GET_ALL_USERS_SUCCESS';
+export const GET_ALL_USERS_FAILURE = 'GET_ALL_USERS_FAILURE';
 
-export const GET_USER_PENDING = "GET_USER_PENDING";
-export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
-export const GET_USER_FAILURE = "GET_USER_FAILURE";
+export const GET_USER_PENDING = 'GET_USER_PENDING';
+export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
+export const GET_USER_FAILURE = 'GET_USER_FAILURE';
 
-export const POST_USER_PENDING = "POST_USER_PENDING";
-export const POST_USER_SUCCESS = "POST_USER_SUCCESS";
-export const POST_USER_FAILURE = "POST_USER_FAILURE";
+export const POST_USER_PENDING = 'POST_USER_PENDING';
+export const POST_USER_SUCCESS = 'POST_USER_SUCCESS';
+export const POST_USER_FAILURE = 'POST_USER_FAILURE';
 
-export const AUTH_USER_PENDING = "AUTH_USERR_PENDING";
-export const AUTH_USER_SUCCESS = "AUTH_USER_SUCCESS";
-export const AUTH_USER_FAILURE = "AUTH_USER_FAILURE";
+export const AUTH_USER_PENDING = 'AUTH_USERR_PENDING';
+export const AUTH_USER_SUCCESS = 'AUTH_USER_SUCCESS';
+export const AUTH_USER_FAILURE = 'AUTH_USER_FAILURE';
 
-export const PUT_CUSTOMER_PENDING = "PUT_CUSTOMER_PENDING";
-export const PUT_CUSTOMER_SUCCESS = "PUT_CUSTOMER_SUCCESS";
-export const PUT_CUSTOMER_FAILURE = "PUT_CUSTOMER_FAILURE";
+export const PUT_CUSTOMER_PENDING = 'PUT_CUSTOMER_PENDING';
+export const PUT_CUSTOMER_SUCCESS = 'PUT_CUSTOMER_SUCCESS';
+export const PUT_CUSTOMER_FAILURE = 'PUT_CUSTOMER_FAILURE';
 
-export const PATCH_TRUCK_PENDING = "PATCH_TRUCK_PENDING";
-export const PATCH_TRUCK_SUCCESS = "PATCH_TRUCK_SUCCESS";
-export const PATCH_TRUCK_FAILURE = "PATCH_TRUCK_FAILURE";
+export const PATCH_TRUCK_PENDING = 'PATCH_TRUCK_PENDING';
+export const PATCH_TRUCK_SUCCESS = 'PATCH_TRUCK_SUCCESS';
+export const PATCH_TRUCK_FAILURE = 'PATCH_TRUCK_FAILURE';
 
-export const PATCH_DRIVER_PENDING = "PATCH_DRIVER_PENDING";
-export const PATCH_DRIVER_SUCCESS = "PATCH_DRIVER_SUCCESS";
-export const PATCH_DRIVER_FAILURE = "PATCH_DRIVER_FAILURE";
+export const PATCH_DRIVER_PENDING = 'PATCH_DRIVER_PENDING';
+export const PATCH_DRIVER_SUCCESS = 'PATCH_DRIVER_SUCCESS';
+export const PATCH_DRIVER_FAILURE = 'PATCH_DRIVER_FAILURE';
 
 export const getAllUsers = () => {
   return async (dispatch) => {
     dispatch({ type: GET_ALL_USERS_PENDING });
     try {
-      const allUsers = await axiosInstance("/users/all");
+      const allUsers = await axiosInstance('/users/all');
       return dispatch({
         type: GET_ALL_USERS_SUCCESS,
         payload: allUsers,
@@ -59,20 +59,26 @@ export const getUser = (id) => {
 };
 
 export const postUser = (id, user) => {
-  dispatch({ type: POST_USER_PENDING });
-
   return async (dispatch) => {
+    dispatch({ type: POST_USER_PENDING });
+
     try {
-      let newUser = await axiosInstance.post("/auth/signup", user);
+      let newUser = await axiosInstance.post('/auth/signup', user);
       const { role } = newUser;
-      if (role === "driver") {
-        let driver = await axiosInstance.post(`/driver/create/${id}`, user);
+      if (role === 'driver') {
+        let driver = await axiosInstance.post(
+          `/driver/create/${id}`,
+          user
+        );
         return dispatch({
           type: POST_USER_SUCCESS,
           payload: { ...newUser, driver },
         });
       } else {
-        let customer = await axiosInstance.post(`/customer/create/${id}`, user);
+        let customer = await axiosInstance.post(
+          `/customer/create/${id}`,
+          user
+        );
         return dispatch({
           type: POST_USER_SUCCESS,
           payload: { ...newUser, customer },
@@ -89,7 +95,7 @@ export const authUser = (user) => {
     dispatch({ type: AUTH_USER_PENDING });
 
     try {
-      const auth = await axiosInstance.post("/auth/signin", user);
+      const auth = await axiosInstance.post('/auth/signin', user);
       return dispatch({
         type: AUTH_USER_SUCCESS,
         payload: auth,
@@ -104,9 +110,12 @@ export const patchCustomer = (id, customer) => {
   return async (dispatch) => {
     dispatch({ type: PUT_CUSTOMER_PENDING });
     try {
-      const user = await axiosInstance.put(`/customer/edit/${id}`, customer);
+      const user = await axiosInstance.put(
+        `/customer/edit/${id}`,
+        customer
+      );
       return dispatch({
-        type: PUT_CUSTOMER_PENDING,
+        type: PUT_CUSTOMER_SUCCESS,
         payload: user,
       });
     } catch (error) {
@@ -119,7 +128,10 @@ export const patchDriver = (id, driver) => {
   return async (dispatch) => {
     dispatch({ type: PATCH_DRIVER_PENDING });
     try {
-      const user = await axiosInstance.patch(`/driver/patch/${id}`, driver);
+      const user = await axiosInstance.patch(
+        `/driver/patch/${id}`,
+        driver
+      );
       return dispatch({
         type: PATCH_DRIVER_SUCCESS,
         payload: user,
@@ -134,7 +146,10 @@ export const patchTruck = (id, truck) => {
   return async (dispatch) => {
     dispatch({ type: PATCH_TRUCK_PENDING });
     try {
-      const user = await axiosInstance.patch(`/truck/update/${id}`, truck);
+      const user = await axiosInstance.patch(
+        `/truck/update/${id}`,
+        truck
+      );
       return dispatch({
         type: PATCH_TRUCK_SUCCESS,
         payload: user,
