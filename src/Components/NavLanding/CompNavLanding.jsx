@@ -468,6 +468,39 @@ export default function CompNavLanding() {
             </Box>
           )}
         </Toolbar>
+        <Box position={"absolute"} top={67} right={85} width="400px" p={5} maxWidth={"400px"} height="600px" style={{background: "white", border: "1 solid black", boxShadow: "#007C521A 0 30px 60px 0", borderRadius: "10px"}}>
+          <Stack direction={"column"} justifyContent={"center"} spacing={2}>
+            <Grid  container spacing={2} >
+              <Grid item xs={1}>
+                <Stack direction="row" justifyContent={"flex-end"}>
+                  <Avatar width="60px" height="60px" style={{alignSelf: "flex-end"}}></Avatar>
+                </Stack>
+                
+              </Grid>
+              <Grid item xs={11}>
+              <Stack direction="column" >
+                <p style={{fontSize: "16px", fontWeight: 400, color: "black",textAlign: "start"}}><span style={{fontWeight: 500}}> José Luis</span> ha retirado el paquete.</p>
+                <p style={{alignSelf: "flex-end", color: "#8C94A6", fontWeight: 400}}>Hace 1 hora</p>
+              </Stack>
+              </Grid>
+            </Grid>
+            <Grid  container spacing={2}>
+              <Grid item xs={1}>
+                <Stack direction="row" justifyContent={"flex-end"}>
+                  <Avatar width="60px" height="60px" style={{alignSelf: "flex-end"}}></Avatar>
+                </Stack>
+                
+              </Grid>
+              <Grid item xs={11}>
+              <Stack direction="column" >
+                <p style={{fontSize: "16px", fontWeight: 400, color: "black",textAlign: "start"}}>Tu conductor asignado es <span style={{fontWeight: 500}}> José Luis.</span></p>
+                <p style={{alignSelf: "flex-end", color: "#8C94A6", fontWeight: 400}}>Hace 3 hora</p>
+              </Stack>
+              </Grid>
+            </Grid>
+          </Stack>
+          
+           </Box>
       </AppBar>
     );
   }
