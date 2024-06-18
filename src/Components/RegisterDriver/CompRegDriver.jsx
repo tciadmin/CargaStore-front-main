@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { postUser } from "../../Redux/Actions/UserActions/userActions";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -11,7 +12,6 @@ import Button from "@mui/material/Button";
 import { useMediaQuery } from "@mui/material";
 //? --------------------------------------------- STYLES
 import { Colors } from "../../Utils/Colors";
-import { postUser } from "../../Redux/Actions/UserActions/userActions";
 
 export default function CompRegDriver() {
   const navigate = useNavigate();
