@@ -2,6 +2,7 @@ import * as React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { authUser } from "../../Redux/Actions/UserActions/userActions";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -13,7 +14,6 @@ import { useMediaQuery } from "@mui/material";
 //? --------------------------------------------- STYLES
 import { Colors } from "../../Utils/Colors";
 import "./styles.css";
-import { authUser } from "../../Redux/Actions/UserActions/userActions";
 
 export default function CompLogin() {
   const mobile = useMediaQuery("(max-width:720px)");

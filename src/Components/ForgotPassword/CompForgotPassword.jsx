@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
 import {
   recoveryPassword,
   sendEmail,
@@ -18,17 +19,22 @@ import "../Login/styles.css";
 export default function CompForgotPassword() {
   const mobile = useMediaQuery("(max-width:720px)");
   const navigate = useNavigate();
-  const [email, setEmail] = React.useState("");
   const dispatch = useDispatch();
 
-  const goForward = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: "",
+    },
+  });
+
+  const goForward = (email) => {
     dispatch(recoveryPassword(email)) &&
       dispatch(sendEmail(email)) &&
       navigate("/login/verification-code");
-  };
-
-  const onChange = (event) => {
-    setEmail(event.target.value);
   };
 
   return (
@@ -49,19 +55,21 @@ export default function CompForgotPassword() {
             Introduce tu correo electrónico para cambiar tu contraseña
           </p>
         </Box>
-        <Box className="inputContainer">
+        <form className="inputContainer" onSubmit={handleSubmit(goForward)}>
           <p>Correo electrónico</p>
           <FormControl sx={{ m: 1, width: "350px" }} variant="outlined">
             <OutlinedInput
-              onChange={onChange}
-              value={email}
+              {...register("email", { required: true })}
               placeholder="emailexample.com"
               style={{ height: "50px", borderRadius: "8px" }}
             />
+            {errors.email && (
+              <p style={{ color: "red" }}>Este campo es requerido</p>
+            )}
           </FormControl>
 
           <Button
-            onClick={goForward}
+            type="submit"
             variant="contained"
             sx={{
               m: 1,
@@ -76,7 +84,7 @@ export default function CompForgotPassword() {
           >
             Siguiente
           </Button>
-        </Box>
+        </form>
       </Box>
     </Box>
   );
