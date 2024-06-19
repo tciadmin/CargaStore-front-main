@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -18,11 +19,19 @@ export default function CompNewPassword() {
   const mobile = useMediaQuery("(max-width:720px)");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      password: "",
+      confirmPassword: "",
+    },
+  });
 
   const [showPassword, setShowPassword] = React.useState(false);
-  const [password, setPassword] = React.useState("");
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
-  const [confirmPassword, setConfirmPassword] = React.useState("");
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleClickShowConfirmPassword = () =>
@@ -32,17 +41,8 @@ export default function CompNewPassword() {
     event.preventDefault();
   };
 
-  const onSubmit = () => {
-    dispatch(changePassword(password)) && navigate("/login");
-  };
-
-  const onChange = (event) => {
-    const { name, value } = event.target;
-    if (name === "pass") {
-      setPassword(value);
-    } else {
-      setConfirmPassword(value);
-    }
+  const onSubmit = (data) => {
+    dispatch(changePassword(data.password)) && navigate("/login");
   };
 
   return (
@@ -64,14 +64,12 @@ export default function CompNewPassword() {
           </p>
         </Box>
 
-        <Box className="inputContainer">
+        <form className="inputContainer" onSubmit={handleSubmit(onSubmit)}>
           {/* //? --------------------------------------------- PASSWORD */}
           <p>Contraseña</p>
           <FormControl sx={{ m: 1, width: "350px" }} variant="outlined">
             <OutlinedInput
-              onChange={onChange}
-              name="pass"
-              value={password}
+              {...register("password", { required: true })}
               placeholder="Ingresa contraseña"
               type={showPassword ? "text" : "password"}
               style={{ height: "50px", borderRadius: "8px" }}
@@ -92,14 +90,17 @@ export default function CompNewPassword() {
                 </InputAdornment>
               }
             />
+            {errors.password && (
+              <p style={{ color: "red" }}>Este campo es requerido</p>
+            )}
           </FormControl>
           {/* //? --------------------------------------------- CONFIRM PASSWORD */}
           <p>Confirma contraseña</p>
           <FormControl sx={{ m: 1, width: "350px" }} variant="outlined">
             <OutlinedInput
-              onChange={onChange}
-              name="confirmPass"
-              value={confirmPassword}
+              {...register("confirmPassword", {
+                validate: (value, formValues) => value === formValues.password,
+              })}
               placeholder="Ingresa contraseña"
               type={showConfirmPassword ? "text" : "password"}
               style={{ height: "50px", borderRadius: "8px" }}
@@ -120,6 +121,9 @@ export default function CompNewPassword() {
                 </InputAdornment>
               }
             />
+            {errors.confirmPassword && (
+              <p style={{ color: "red" }}>La contraseña no coincide</p>
+            )}
           </FormControl>
           <Button
             variant="contained"
@@ -133,11 +137,11 @@ export default function CompNewPassword() {
               backgroundColor: Colors.primary.main,
               borderRadius: "8px",
             }}
-            onClick={onSubmit}
+            type="submit"
           >
             Cambiar contraseña
           </Button>
-        </Box>
+        </form>
       </Box>
     </Box>
   );

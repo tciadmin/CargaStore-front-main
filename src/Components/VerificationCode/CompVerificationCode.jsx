@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
 import { verifyCode } from "../../Redux/Actions/PasswordActions/passwordActions";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
@@ -14,16 +15,21 @@ import "../Login/styles.css";
 
 export default function CompVerificationCode() {
   const mobile = useMediaQuery("(max-width:720px)");
-  const [code, setCode] = React.useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const goForward = () => {
-    dispatch(verifyCode(code)) && navigate("/login/new-password");
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: "",
+    },
+  });
 
-  const onChange = (event) => {
-    setCode(event.target.value);
+  const goForward = (code) => {
+    dispatch(verifyCode(code)) && navigate("/login/new-password");
   };
 
   return (
@@ -53,19 +59,21 @@ export default function CompVerificationCode() {
             Consulta tu correo para obtener tu código de confirmación
           </p>
         </Box>
-        <Box className="inputContainer">
+        <form className="inputContainer" onSubmit={handleSubmit(goForward)}>
           <p>Código de verificación</p>
           <FormControl sx={{ m: 1, width: "350px" }} variant="outlined">
             <OutlinedInput
-              onChange={onChange}
-              value={code}
+              {...register("code", { required: true })}
               placeholder="122342445"
               style={{ height: "50px", borderRadius: "8px" }}
             />
+            {errors.code && (
+              <p style={{ color: "red" }}>Este campo es requerido</p>
+            )}
           </FormControl>
 
           <Button
-            onClick={goForward}
+            type="submit"
             variant="contained"
             sx={{
               m: 1,
@@ -80,7 +88,7 @@ export default function CompVerificationCode() {
           >
             Siguiente
           </Button>
-        </Box>
+        </form>
       </Box>
     </Box>
   );
