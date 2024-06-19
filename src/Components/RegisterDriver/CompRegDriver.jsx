@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { postUser } from '../../Redux/Actions/UserActions/userActions';
 //? --------------------------------------------- MUI
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -13,11 +11,16 @@ import Button from '@mui/material/Button';
 import { useMediaQuery } from '@mui/material';
 //? --------------------------------------------- STYLES
 import { Colors } from '../../Utils/Colors';
+import { driverFormData } from '../../Redux/Actions/formActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function CompRegDriver() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const mobile = useMediaQuery('(max-width:720px)');
+  const dispatch = useDispatch();
+
+  const { driverData } = useSelector((state) => state.forms);
+  console.log('formState: ', driverData);
 
   const {
     register,
@@ -46,8 +49,8 @@ export default function CompRegDriver() {
     event.preventDefault();
   };
 
-  const onSubmit = (user) => {
-    dispatch(postUser(user)) &&
+  const onSubmit = (data) => {
+    dispatch(driverFormData(data)) &&
       navigate('/register/user/company-info');
   };
 
