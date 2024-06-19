@@ -129,14 +129,17 @@ export default function CompRegUser() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
-                {...register("email", { required: true })}
+                {...register("email", {
+                  required: true,
+                  pattern: /^[a-zA-Z0–9._-]+@[a-zA-Z0–9.-]+\.[a-zA-Z]{2,4}$/,
+                })}
                 placeholder="emailexample.com"
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
             </FormControl>
             {errors.email && (
               <p style={{ color: "red", width: 400 }}>
-                Este campo es requerido
+                Ingrese un email válido
               </p>
             )}
 

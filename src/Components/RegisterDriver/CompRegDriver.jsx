@@ -134,16 +134,19 @@ export default function CompRegDriver() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
-                {...register("email", { required: true })}
+                {...register("email", {
+                  required: true,
+                  pattern: /^[a-zA-Z0–9._-]+@[a-zA-Z0–9.-]+\.[a-zA-Z]{2,4}$/,
+                })}
                 placeholder="emailexample.com"
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
-              {errors.email && (
-                <p style={{ color: "red", width: 400 }}>
-                  Este campo es requerido
-                </p>
-              )}
             </FormControl>
+            {errors.email && (
+              <p style={{ color: "red", width: 400 }}>
+                Ingrese un email válido
+              </p>
+            )}
             {/* //? --------------------------------------------- PASSWORD */}
             <span style={{ display: "flex", width: "100%" }}>
               Crea una contraseña <p style={{ color: "red" }}>*</p>

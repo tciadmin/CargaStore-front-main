@@ -73,7 +73,7 @@ export default function CompCompanyInfo() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
-                {...register("company", { required: true })}
+                {...register("name", { required: true })}
                 placeholder="El mundo del papel"
                 style={{
                   borderRadius: "8px",
@@ -81,8 +81,10 @@ export default function CompCompanyInfo() {
                   width: 400,
                 }}
               />
-              {errors.company && (
-                <p style={{ color: "red" }}>Este campo es requerido</p>
+              {errors.name && (
+                <p style={{ color: "red", width: 400 }}>
+                  Este campo es requerido
+                </p>
               )}
             </FormControl>
             {/* //? --------------------------------------------- ADDRESS */}
@@ -96,7 +98,9 @@ export default function CompCompanyInfo() {
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
               {errors.address && (
-                <p style={{ color: "red" }}>Este campo es requerido</p>
+                <p style={{ color: "red", width: 400 }}>
+                  Este campo es requerido
+                </p>
               )}
             </FormControl>
             {/* //? --------------------------------------------- CITY */}
@@ -110,7 +114,9 @@ export default function CompCompanyInfo() {
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
               {errors.city && (
-                <p style={{ color: "red" }}>Este campo es requerido</p>
+                <p style={{ color: "red", width: 400 }}>
+                  Este campo es requerido
+                </p>
               )}
             </FormControl>
             {/* //? --------------------------------------------- CONTACT PHONE */}
