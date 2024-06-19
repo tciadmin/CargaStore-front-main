@@ -21,11 +21,14 @@ export default function CompRegDriver() {
 
   const { driverData } = useSelector((state) => state.forms);
   console.log('formState: ', driverData);
+  const { name, lastname, email, password, confirmPassword } =
+    driverData;
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
     defaultValues: {
       name: '',
@@ -35,6 +38,14 @@ export default function CompRegDriver() {
       confirmPassword: '',
     },
   });
+
+  React.useEffect(() => {
+    setValue('name', name);
+    setValue('lastname', lastname);
+    setValue('email', email);
+    setValue('password', password);
+    setValue('confirmPassword', confirmPassword);
+  }, [name, lastname, email, password, confirmPassword, setValue]);
 
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] =
