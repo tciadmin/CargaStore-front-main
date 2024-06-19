@@ -1,5 +1,7 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { postUser } from "../../Redux/Actions/UserActions/userActions";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -12,16 +14,23 @@ import { Colors } from "../../Utils/Colors";
 export default function CompVehicleInfo() {
   const mobile = useMediaQuery("(max-width:720px)");
   const navigate = useNavigate();
-  const [truck, setTruck] = React.useState({
-    brand: "",
-    model: "",
-    year: "",
-    loadCapacity: "",
-    loadType: "",
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      brand: "",
+      model: "",
+      year: "",
+      loadCapacity: "",
+      loadType: "",
+    },
   });
 
-  const onClickRegister = () => {
-    navigate("/login");
+  const onSubmit = (truck) => {
+    dispatch(postUser(truck)) && navigate("/login");
   };
 
   return (
@@ -50,12 +59,13 @@ export default function CompVehicleInfo() {
         >
           <h1 style={{ fontSize: "1.5rem" }}> Información del vehículo </h1>
 
-          <Box
+          <form
             style={{
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
             }}
+            onSubmit={handleSubmit(onSubmit)}
           >
             {/* //? --------------------------------------------- BRAND */}
             <span style={{ display: "flex", width: "100%" }}>
@@ -63,6 +73,7 @@ export default function CompVehicleInfo() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
+                {...register("brand", { required: true })}
                 placeholder="Honda"
                 style={{
                   borderRadius: "8px",
@@ -70,6 +81,9 @@ export default function CompVehicleInfo() {
                   width: 400,
                 }}
               />
+              {errors.brand && (
+                <p style={{ color: "red" }}>Este campo es requerido</p>
+              )}
             </FormControl>
             {/* //? --------------------------------------------- MODEL */}
             <span style={{ display: "flex", width: "100%" }}>
@@ -77,9 +91,13 @@ export default function CompVehicleInfo() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
+                {...register("model", { required: true })}
                 placeholder="Dyna 300"
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
+              {errors.model && (
+                <p style={{ color: "red" }}>Este campo es requerido</p>
+              )}
             </FormControl>
             {/* //? --------------------------------------------- YEAR */}
             <span style={{ display: "flex", width: "100%" }}>
@@ -87,9 +105,13 @@ export default function CompVehicleInfo() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
+                {...register("year", { required: true })}
                 placeholder="2020"
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
+              {errors.year && (
+                <p style={{ color: "red" }}>Este campo es requerido</p>
+              )}
             </FormControl>
             {/* //? --------------------------------------------- LOAD CAPACITY */}
             <span style={{ display: "flex", width: "100%" }}>
@@ -97,9 +119,13 @@ export default function CompVehicleInfo() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
+                {...register("loadCapacity", { required: true })}
                 placeholder="2 toneladas"
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
+              {errors.loadCapacity && (
+                <p style={{ color: "red" }}>Este campo es requerido</p>
+              )}
             </FormControl>
             {/* //? --------------------------------------------- LOAD TYPE*/}
             <span style={{ display: "flex", width: "100%" }}>
@@ -108,9 +134,13 @@ export default function CompVehicleInfo() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
+                {...register("loadType", { required: true })}
                 placeholder="Refrigeradas"
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
+              {errors.loadType && (
+                <p style={{ color: "red" }}>Este campo es requerido</p>
+              )}
             </FormControl>
 
             <Button
@@ -125,11 +155,11 @@ export default function CompVehicleInfo() {
                 backgroundColor: Colors.primary.main,
                 borderRadius: "8px",
               }}
-              onClick={onClickRegister}
+              type="submit"
             >
               Registrarse
             </Button>
-          </Box>
+          </form>
         </Box>
       </Box>
     </Box>
