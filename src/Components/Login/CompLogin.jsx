@@ -1,5 +1,8 @@
 import * as React from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { authUser } from "../../Redux/Actions/UserActions/userActions";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -15,7 +18,18 @@ import "./styles.css";
 export default function CompLogin() {
   const mobile = useMediaQuery("(max-width:720px)");
   const navigate = useNavigate();
-  const [userPrueba, setUserPrueba] = React.useState("");
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -28,19 +42,20 @@ export default function CompLogin() {
     navigate("/login/forgot-password");
   };
 
-  const onClickLogin = () => {
-     if(userPrueba.includes("conductor")){
-      localStorage.setItem("userPrueba","conductor");
-      navigate("/marketplace");
-
-    }else if (userPrueba.includes("admin")){
-      localStorage.setItem("userPrueba","admin")
-      navigate("/administrador/panel");
-    }else{
-      localStorage.setItem("userPrueba", "cliente")
-      navigate("/shipments");
+  const onClickLogin = (data) => {
+    if (user.role === "conductor") {
+      dispatch(authUser(data)) &&
+        localStorage.setItem(user) &&
+        navigate("/marketplace");
+    } else if (user.role === "admin") {
+      dispatch(authUser(data)) &&
+        localStorage.setItem(user) &&
+        navigate("/administrador/panel");
+    } else {
+      dispatch(authUser(data)) &&
+        localStorage.setItem(user) &&
+        navigate("/shipments");
     }
-    
   };
 
   const onClickRegister = () => {
@@ -66,7 +81,7 @@ export default function CompLogin() {
           </p>
         </Box>
 
-        <Box className="inputContainer">
+        <form className="inputContainer" onSubmit={handleSubmit(onClickLogin)}>
           {/* //? --------------------------------------------- EMAIL */}
           <p>Correo electrónico</p>
           <FormControl
@@ -74,15 +89,19 @@ export default function CompLogin() {
             variant="outlined"
           >
             <OutlinedInput
+              {...register("email", { required: true })}
               placeholder="emailexample.com"
               style={{ height: mobile ? "40px" : "50px", borderRadius: "8px" }}
-              onChange={(e)=>setUserPrueba(e.target.value)}
+              onChange={(e) => setUserPrueba(e.target.value)}
               endAdornment={
                 <InputAdornment position="end">
                   <img src="/imgLogin/EmailIcon.svg" />
                 </InputAdornment>
               }
             />
+            {errors.email && (
+              <p style={{ color: "red" }}>Este campo es requerido</p>
+            )}
           </FormControl>
           {/* //? --------------------------------------------- PASSWORD */}
           <p>Contraseña</p>
@@ -91,6 +110,7 @@ export default function CompLogin() {
             variant="outlined"
           >
             <OutlinedInput
+              {...register("password", { required: true })}
               placeholder="Ingresa contraseña"
               type={showPassword ? "text" : "password"}
               style={{ height: mobile ? "40px" : "50px", borderRadius: "8px" }}
@@ -111,6 +131,9 @@ export default function CompLogin() {
                 </InputAdornment>
               }
             />
+            {errors.password && (
+              <p style={{ color: "red" }}>Este campo es requerido</p>
+            )}
           </FormControl>
           <span
             onClick={onClick}
@@ -135,11 +158,11 @@ export default function CompLogin() {
               backgroundColor: Colors.primary.main,
               borderRadius: "8px",
             }}
-            onClick={onClickLogin}
+            type="submit"
           >
             Ingresar
           </Button>
-        </Box>
+        </form>
         <img style={{ width: "350px" }} src="/imgLogin/Dividers.jpg" />
         <p style={{ fontWeight: 400 }}>
           ¿No tienes una cuenta?{" "}

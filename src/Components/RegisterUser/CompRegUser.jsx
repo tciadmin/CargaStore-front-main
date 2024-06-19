@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
 import { postUser } from "../../Redux/Actions/UserActions/userActions";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
@@ -17,11 +18,17 @@ export default function CompRegUser() {
   const dispatch = useDispatch();
   const mobile = useMediaQuery("(max-width:720px)");
 
-  const [user, setUser] = React.useState({
-    name: "",
-    lastName: "",
-    email: "",
-    password: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      name: "",
+      lastName: "",
+      email: "",
+      password: "",
+    },
   });
 
   const [showPassword, setShowPassword] = React.useState(false);
@@ -34,13 +41,8 @@ export default function CompRegUser() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  const onClick = () => {
+  const onSubmit = (user) => {
     dispatch(postUser(user)) && navigate("/register/user/company-info");
-  };
-
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
   };
 
   return (
@@ -67,10 +69,7 @@ export default function CompRegUser() {
             justifyContent: "center",
           }}
         >
-          <h1 style={{ fontSize: "1.5rem" }}>
-            {" "}
-            Registro de socios conductores{" "}
-          </h1>
+          <h1 style={{ fontSize: "1.5rem" }}> Datos personales </h1>
           <p
             style={{
               fontWeight: 400,
@@ -80,12 +79,13 @@ export default function CompRegUser() {
             Ingresa tus datos para comenzar
           </p>
 
-          <Box
+          <form
             style={{
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
             }}
+            onSubmit={handleSubmit(onSubmit)}
           >
             {/* //? --------------------------------------------- NAME */}
             <span style={{ display: "flex", width: "100%" }}>
@@ -93,9 +93,7 @@ export default function CompRegUser() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
-                value={user.name}
-                name="name"
-                onChange={onChange}
+                {...register("name", { required: true })}
                 placeholder="Ingrese nombre"
                 style={{
                   borderRadius: "8px",
@@ -103,6 +101,11 @@ export default function CompRegUser() {
                   width: 400,
                 }}
               />
+              {errors.name && (
+                <p style={{ color: "red", width: 400 }}>
+                  Este campo es requerido
+                </p>
+              )}
             </FormControl>
             {/* //? --------------------------------------------- LAST NAME */}
             <span style={{ display: "flex", width: "100%" }}>
@@ -110,12 +113,15 @@ export default function CompRegUser() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
-                value={user.lastName}
-                name="lastName"
-                onChange={onChange}
+                {...register("lastName", { required: true })}
                 placeholder="Ingrese apellido"
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
+              {errors.lastName && (
+                <p style={{ color: "red", width: 400 }}>
+                  Este campo es requerido
+                </p>
+              )}
             </FormControl>
             {/* //? --------------------------------------------- EMAIL */}
             <span style={{ display: "flex", width: "100%" }}>
@@ -123,22 +129,27 @@ export default function CompRegUser() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
-                value={user.email}
-                name="email"
-                onChange={onChange}
+                {...register("email", {
+                  required: true,
+                  pattern: /^[a-zA-Z0–9._-]+@[a-zA-Z0–9.-]+\.[a-zA-Z]{2,4}$/,
+                })}
                 placeholder="emailexample.com"
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
             </FormControl>
+            {errors.email && (
+              <p style={{ color: "red", width: 400 }}>
+                Ingrese un email válido
+              </p>
+            )}
+
             {/* //? --------------------------------------------- PASSWORD */}
             <span style={{ display: "flex", width: "100%" }}>
               Crea una contraseña <p style={{ color: "red" }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
-                value={user.password}
-                name="password"
-                onChange={onChange}
+                {...register("password", { required: true, maxLength: 8 })}
                 placeholder="Máximo 8 carácteres"
                 type={showPassword ? "text" : "password"}
                 style={{
@@ -163,6 +174,11 @@ export default function CompRegUser() {
                   </InputAdornment>
                 }
               />
+              {errors.password && (
+                <p style={{ color: "red", width: 400 }}>
+                  Este campo es requerido y debe tener máximo 8 caracteres
+                </p>
+              )}
             </FormControl>
             {/* //? --------------------------------------------- CONFIRM PASSWORD */}
             <span style={{ display: "flex", width: "100%" }}>
@@ -170,6 +186,10 @@ export default function CompRegUser() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
+                {...register("confirmPassword", {
+                  validate: (value, formValues) =>
+                    value === formValues.password,
+                })}
                 placeholder="Máximo 8 carácteres"
                 type={showConfirmPassword ? "text" : "password"}
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
@@ -190,10 +210,15 @@ export default function CompRegUser() {
                   </InputAdornment>
                 }
               />
+              {errors.confirmPassword && (
+                <p style={{ color: "red", width: 400 }}>
+                  La contraseña no coincide
+                </p>
+              )}
             </FormControl>
 
             <Button
-              onClick={onClick}
+              type="submit"
               variant="contained"
               sx={{
                 m: 1,
@@ -208,7 +233,7 @@ export default function CompRegUser() {
             >
               Siguiente paso
             </Button>
-          </Box>
+          </form>
         </Box>
       </Box>
     </Box>
