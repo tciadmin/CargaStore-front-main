@@ -1,5 +1,7 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { postUser } from "../../Redux/Actions/UserActions/userActions";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -13,8 +15,21 @@ export default function CompCompanyInfo() {
   const mobile = useMediaQuery("(max-width:720px)");
   const navigate = useNavigate();
 
-  const onClickRegister = () => {
-    navigate("/login");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      name: "",
+      address: "",
+      city: "",
+      phone: "",
+    },
+  });
+
+  const onSubmit = (company) => {
+    dispatch(postUser(company)) && navigate("/login");
   };
 
   return (
@@ -43,12 +58,13 @@ export default function CompCompanyInfo() {
         >
           <h1 style={{ fontSize: "1.5rem" }}> Información de la empresa </h1>
 
-          <Box
+          <form
             style={{
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
             }}
+            onSubmit={handleSubmit(onSubmit)}
           >
             {/* //? --------------------------------------------- COMPANY NAME */}
             <span style={{ display: "flex", width: "100%" }}>
@@ -57,6 +73,7 @@ export default function CompCompanyInfo() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
+                {...register("company", { required: true })}
                 placeholder="El mundo del papel"
                 style={{
                   borderRadius: "8px",
@@ -64,6 +81,9 @@ export default function CompCompanyInfo() {
                   width: 400,
                 }}
               />
+              {errors.company && (
+                <p style={{ color: "red" }}>Este campo es requerido</p>
+              )}
             </FormControl>
             {/* //? --------------------------------------------- ADDRESS */}
             <span style={{ display: "flex", width: "100%" }}>
@@ -71,9 +91,13 @@ export default function CompCompanyInfo() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
+                {...register("address", { required: true })}
                 placeholder="Calle 1"
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
+              {errors.address && (
+                <p style={{ color: "red" }}>Este campo es requerido</p>
+              )}
             </FormControl>
             {/* //? --------------------------------------------- CITY */}
             <span style={{ display: "flex", width: "100%" }}>
@@ -81,9 +105,13 @@ export default function CompCompanyInfo() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
+                {...register("city", { required: true })}
                 placeholder="Bogotá"
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
+              {errors.city && (
+                <p style={{ color: "red" }}>Este campo es requerido</p>
+              )}
             </FormControl>
             {/* //? --------------------------------------------- CONTACT PHONE */}
             <span style={{ display: "flex", width: "100%" }}>
@@ -92,12 +120,17 @@ export default function CompCompanyInfo() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
+                {...register("phone", { required: true })}
                 placeholder="123456"
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
+              {errors.phone && (
+                <p style={{ color: "red" }}>Este campo es requerido</p>
+              )}
             </FormControl>
             <Button
               variant="contained"
+              type="submit"
               sx={{
                 m: 1,
                 height: "40px",
@@ -108,11 +141,10 @@ export default function CompCompanyInfo() {
                 backgroundColor: Colors.primary.main,
                 borderRadius: "8px",
               }}
-              onClick={onClickRegister}
             >
               Registrarse
             </Button>
-          </Box>
+          </form>
         </Box>
       </Box>
     </Box>

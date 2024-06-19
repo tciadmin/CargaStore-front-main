@@ -107,7 +107,9 @@ export default function CompRegDriver() {
                 }}
               />
               {errors.name && (
-                <p style={{ color: "red" }}>Este campo es requerido</p>
+                <p style={{ color: "red", width: 400 }}>
+                  Este campo es requerido
+                </p>
               )}
             </FormControl>
             {/* //? --------------------------------------------- LAST NAME */}
@@ -121,7 +123,9 @@ export default function CompRegDriver() {
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
               {errors.lastName && (
-                <p style={{ color: "red" }}>Este campo es requerido</p>
+                <p style={{ color: "red", width: 400 }}>
+                  Este campo es requerido
+                </p>
               )}
             </FormControl>
             {/* //? --------------------------------------------- EMAIL */}
@@ -135,7 +139,9 @@ export default function CompRegDriver() {
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
               {errors.email && (
-                <p style={{ color: "red" }}>Este campo es requerido</p>
+                <p style={{ color: "red", width: 400 }}>
+                  Este campo es requerido
+                </p>
               )}
             </FormControl>
             {/* //? --------------------------------------------- PASSWORD */}
@@ -170,7 +176,7 @@ export default function CompRegDriver() {
                 }
               />
               {errors.password && (
-                <p style={{ color: "red" }}>
+                <p style={{ color: "red", width: 400 }}>
                   Este campo es requerido y debe tener máximo 8 caracteres
                 </p>
               )}
@@ -206,7 +212,9 @@ export default function CompRegDriver() {
                 }
               />
               {errors.confirmPassword && (
-                <p style={{ color: "red" }}>La contraseña no coincide</p>
+                <p style={{ color: "red", width: 400 }}>
+                  La contraseña no coincide
+                </p>
               )}
             </FormControl>
 

@@ -102,7 +102,9 @@ export default function CompRegUser() {
                 }}
               />
               {errors.name && (
-                <p style={{ color: "red" }}>Este campo es requerido</p>
+                <p style={{ color: "red", width: 400 }}>
+                  Este campo es requerido
+                </p>
               )}
             </FormControl>
             {/* //? --------------------------------------------- LAST NAME */}
@@ -116,7 +118,9 @@ export default function CompRegUser() {
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
               {errors.lastName && (
-                <p style={{ color: "red" }}>Este campo es requerido</p>
+                <p style={{ color: "red", width: 400 }}>
+                  Este campo es requerido
+                </p>
               )}
             </FormControl>
             {/* //? --------------------------------------------- EMAIL */}
@@ -131,7 +135,9 @@ export default function CompRegUser() {
               />
             </FormControl>
             {errors.email && (
-              <p style={{ color: "red" }}>Este campo es requerido</p>
+              <p style={{ color: "red", width: 400 }}>
+                Este campo es requerido
+              </p>
             )}
 
             {/* //? --------------------------------------------- PASSWORD */}
@@ -166,7 +172,7 @@ export default function CompRegUser() {
                 }
               />
               {errors.password && (
-                <p style={{ color: "red" }}>
+                <p style={{ color: "red", width: 400 }}>
                   Este campo es requerido y debe tener máximo 8 caracteres
                 </p>
               )}
@@ -202,7 +208,9 @@ export default function CompRegUser() {
                 }
               />
               {errors.confirmPassword && (
-                <p style={{ color: "red" }}>La contraseña no coincide</p>
+                <p style={{ color: "red", width: 400 }}>
+                  La contraseña no coincide
+                </p>
               )}
             </FormControl>
 
