@@ -122,7 +122,7 @@ export default function CompInProgress() {
   const mobile = useMediaQuery("(max-width:720px)");
 
   return (
-    <Box>
+    <Box >
       {mobile ? (
         <>
           <h3
@@ -169,6 +169,9 @@ export default function CompInProgress() {
         <Box
           sx={{
             minWidth: "100%",
+            display: "flex",
+            paddingLeft: "30px",
+            justifyContent: "flex-start",
             height: "100vh",
             backgroundColor: Colors.terciary.contrastText,
           }}
@@ -178,7 +181,7 @@ export default function CompInProgress() {
               width: "100%",
               display: "flex",
               flexDirection: "column",
-              alignItems: "center",
+              alignItems: "flex-start",
               padding: 5,
               height: "20px",
               backgroundColor: Colors.terciary.contrastText,
