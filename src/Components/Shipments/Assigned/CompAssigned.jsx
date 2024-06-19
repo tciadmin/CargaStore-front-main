@@ -161,6 +161,8 @@ export default function CompAssigned() {
           sx={{
             minWidth: "100%",
             height: "100vh",
+            paddingLeft: "30px",
+            justifyContent: "flex-start",
             backgroundColor: Colors.terciary.contrastText,
           }}
         >
@@ -169,7 +171,7 @@ export default function CompAssigned() {
               width: "100%",
               display: "flex",
               flexDirection: "column",
-              alignItems: "center",
+              alignItems: "flex-start",
               padding: 5,
               height: "20px",
               backgroundColor: Colors.terciary.contrastText,
@@ -182,6 +184,7 @@ export default function CompAssigned() {
                 display: "flex",
                 color: Colors.primary.main,
                 minWdth: "100%",
+                
                 alignItems: "center",
                 backgroundColor: Colors.terciary.contrastText,
               }}

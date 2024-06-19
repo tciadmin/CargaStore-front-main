@@ -407,7 +407,7 @@ export default function CompNavLanding() {
                   />
                 </svg>
               </Tooltip>
-              <Tooltip title="Notifications" sx={{ pr: 1 }}>
+              <Tooltip title="Notifications" onClick={()=>setNotificaciones(!notificaciones)} sx={{ pr: 1 }}>
                 <svg
                   width="29"
                   height="29"
@@ -471,9 +471,9 @@ export default function CompNavLanding() {
           )}
         </Toolbar>
         {notificaciones &&
-          <Box position={"absolute"} top={67} right={85} width="400px" p={5} maxWidth={"400px"} height="600px" style={{ background: "white", border: "1 solid black", boxShadow: "#007C521A 0 30px 60px 0", borderRadius: "10px" }}>
-            <Stack direction={"column"} justifyContent={"center"} spacing={2}>
-              <Grid container spacing={2} >
+          <Box position={"absolute"}  top={67} right={85} width="400px" px={4} py={3} maxWidth={"400px"} height="600px" style={{ background: "white", border: "1 solid black", boxShadow: "#007C521A 0 30px 60px 0", borderRadius: "10px",   }}>
+            <Stack direction={"column"} justifyContent={"center"} alignItems={"center"} spacing={0}>
+              <Grid container alignItems={"center"} spacing={1} >
                 <Grid item xs={1}>
                   <Stack direction="row" justifyContent={"flex-end"}>
                     <Avatar width="60px" height="60px" style={{ alignSelf: "flex-end" }}></Avatar>
@@ -481,13 +481,18 @@ export default function CompNavLanding() {
 
                 </Grid>
                 <Grid item xs={11}>
-                  <Stack direction="column" >
+                  <Stack direction="column" alignItems={"flex-start"}>
                     <p style={{ fontSize: "16px", fontWeight: 400, color: "black", textAlign: "start" }}><span style={{ fontWeight: 500 }}> José Luis</span> ha retirado el paquete.</p>
+                  </Stack>
+                </Grid>
+                <Grid item xs={12} style={{padding: "0px"}}>
+                <Stack direction="row" justifyContent={"flex-end"} alignItems={"flex-start"}  >
                     <p style={{ alignSelf: "flex-end", color: "#8C94A6", fontWeight: 400 }}>Hace 1 hora</p>
                   </Stack>
-                </Grid>
+                  </Grid>
               </Grid>
-              <Grid container spacing={2}>
+
+              <Grid container alignItems={"center"} spacing={1}>
                 <Grid item xs={1}>
                   <Stack direction="row" justifyContent={"flex-end"}>
                     <Avatar width="60px" height="60px" style={{ alignSelf: "flex-end" }}></Avatar>
@@ -495,11 +500,15 @@ export default function CompNavLanding() {
 
                 </Grid>
                 <Grid item xs={11}>
-                  <Stack direction="column" >
+                  <Stack direction="column" justifyContent="center" >
                     <p style={{ fontSize: "16px", fontWeight: 400, color: "black", textAlign: "start" }}>Tu conductor asignado es <span style={{ fontWeight: 500 }}> José Luis.</span></p>
-                    <p style={{ alignSelf: "flex-end", color: "#8C94A6", fontWeight: 400 }}>Hace 3 hora</p>
                   </Stack>
                 </Grid>
+                <Grid item xs={12} p={0} style={{padding: "0px"}}>
+                <Stack direction="row" justifyContent={"flex-end"} alignItems={"flex-start"} sx={{padding: "0px"}} >
+                    <p style={{ alignSelf: "flex-end", color: "#8C94A6", fontWeight: 400 }}>Hace 3 horas</p>
+                  </Stack>
+                  </Grid>
               </Grid>
             </Stack>
 
