@@ -12,6 +12,13 @@ import { Colors } from "../../Utils/Colors";
 export default function CompVehicleInfo() {
   const mobile = useMediaQuery("(max-width:720px)");
   const navigate = useNavigate();
+  const [truck, setTruck] = React.useState({
+    brand: "",
+    model: "",
+    year: "",
+    loadCapacity: "",
+    loadType: "",
+  });
 
   const onClickRegister = () => {
     navigate("/login");
