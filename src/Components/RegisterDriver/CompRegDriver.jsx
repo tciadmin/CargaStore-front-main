@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
 import { postUser } from "../../Redux/Actions/UserActions/userActions";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
@@ -18,11 +19,17 @@ export default function CompRegDriver() {
   const dispatch = useDispatch();
   const mobile = useMediaQuery("(max-width:720px)");
 
-  const [driver, setDriver] = React.useState({
-    name: "",
-    lastName: "",
-    email: "",
-    password: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      name: "",
+      lastName: "",
+      email: "",
+      password: "",
+    },
   });
 
   const [showPassword, setShowPassword] = React.useState(false);
@@ -35,13 +42,9 @@ export default function CompRegDriver() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  const onClick = () => {
-    dispatch(postUser(driver)) && navigate("/register/driver/vehicle-info");
-  };
 
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setDriver({ ...driver, [name]: value });
+  const onSubmit = (user) => {
+    dispatch(postUser(user)) && navigate("/register/user/company-info");
   };
 
   return (
@@ -81,12 +84,13 @@ export default function CompRegDriver() {
             Datos personales
           </p>
 
-          <Box
+          <form
             style={{
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
             }}
+            onSubmit={handleSubmit(onSubmit)}
           >
             {/* //? --------------------------------------------- NAME */}
             <span style={{ display: "flex", width: "100%" }}>
@@ -94,9 +98,7 @@ export default function CompRegDriver() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
-                value={driver.name}
-                name="name"
-                onChange={onChange}
+                {...register("name", { required: true })}
                 placeholder="Ingrese nombre"
                 style={{
                   borderRadius: "8px",
@@ -104,6 +106,9 @@ export default function CompRegDriver() {
                   width: 400,
                 }}
               />
+              {errors.name && (
+                <p style={{ color: "red" }}>Este campo es requerido</p>
+              )}
             </FormControl>
             {/* //? --------------------------------------------- LAST NAME */}
             <span style={{ display: "flex", width: "100%" }}>
@@ -111,12 +116,13 @@ export default function CompRegDriver() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
-                name="lastName"
-                value={driver.lastName}
-                onChange={onChange}
+                {...register("lastName", { required: true })}
                 placeholder="Ingrese apellido"
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
+              {errors.lastName && (
+                <p style={{ color: "red" }}>Este campo es requerido</p>
+              )}
             </FormControl>
             {/* //? --------------------------------------------- EMAIL */}
             <span style={{ display: "flex", width: "100%" }}>
@@ -124,12 +130,13 @@ export default function CompRegDriver() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
-                value={driver.email}
-                name="email"
-                onChange={onChange}
+                {...register("email", { required: true })}
                 placeholder="emailexample.com"
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
+              {errors.email && (
+                <p style={{ color: "red" }}>Este campo es requerido</p>
+              )}
             </FormControl>
             {/* //? --------------------------------------------- PASSWORD */}
             <span style={{ display: "flex", width: "100%" }}>
@@ -137,9 +144,7 @@ export default function CompRegDriver() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
-                value={driver.password}
-                name="password"
-                onChange={onChange}
+                {...register("password", { required: true, maxLength: 8 })}
                 placeholder="Máximo 8 carácteres"
                 type={showPassword ? "text" : "password"}
                 style={{
@@ -164,6 +169,11 @@ export default function CompRegDriver() {
                   </InputAdornment>
                 }
               />
+              {errors.password && (
+                <p style={{ color: "red" }}>
+                  Este campo es requerido y debe tener máximo 8 caracteres
+                </p>
+              )}
             </FormControl>
             {/* //? --------------------------------------------- CONFIRM PASSWORD */}
             <span style={{ display: "flex", width: "100%" }}>
@@ -171,6 +181,10 @@ export default function CompRegDriver() {
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
+                {...register("confirmPassword", {
+                  validate: (value, formValues) =>
+                    value === formValues.password,
+                })}
                 placeholder="Máximo 8 carácteres"
                 type={showConfirmPassword ? "text" : "password"}
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
@@ -191,10 +205,13 @@ export default function CompRegDriver() {
                   </InputAdornment>
                 }
               />
+              {errors.confirmPassword && (
+                <p style={{ color: "red" }}>La contraseña no coincide</p>
+              )}
             </FormControl>
 
             <Button
-              onClick={onClick}
+              type="submit"
               variant="contained"
               sx={{
                 m: 1,
@@ -209,7 +226,7 @@ export default function CompRegDriver() {
             >
               Siguiente paso
             </Button>
-          </Box>
+          </form>
         </Box>
       </Box>
     </Box>

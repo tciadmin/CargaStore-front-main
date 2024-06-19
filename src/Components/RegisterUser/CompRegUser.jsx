@@ -69,10 +69,7 @@ export default function CompRegUser() {
             justifyContent: "center",
           }}
         >
-          <h1 style={{ fontSize: "1.5rem" }}>
-            {" "}
-            Registro de socios conductores{" "}
-          </h1>
+          <h1 style={{ fontSize: "1.5rem" }}> Datos personales </h1>
           <p
             style={{
               fontWeight: 400,
@@ -205,9 +202,7 @@ export default function CompRegUser() {
                 }
               />
               {errors.confirmPassword && (
-                <p style={{ color: "red" }}>
-                  Este campo es requerido y debe tener máximo 8 caracteres
-                </p>
+                <p style={{ color: "red" }}>La contraseña no coincide</p>
               )}
             </FormControl>
 
