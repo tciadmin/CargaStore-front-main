@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { postUser } from '../../Redux/Actions/UserActions/userActions';
 //? --------------------------------------------- MUI
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -12,16 +11,22 @@ import FormControl from '@mui/material/FormControl';
 import { Button, useMediaQuery } from '@mui/material';
 //? --------------------------------------------- STYLES
 import { Colors } from '../../Utils/Colors';
+import { clientFormData } from '../../Redux/Actions/formActions';
 
 export default function CompRegUser() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const mobile = useMediaQuery('(max-width:720px)');
 
+  const { clientData } = useSelector((state) => state.forms);
+  const { name, lastname, email, password, confirmPassword } =
+    clientData;
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
     defaultValues: {
       name: '',
@@ -31,6 +36,14 @@ export default function CompRegUser() {
       confirmPassword: '',
     },
   });
+
+  React.useEffect(() => {
+    setValue('name', name);
+    setValue('lastname', lastname);
+    setValue('email', email);
+    setValue('password', password);
+    setValue('confirmPassword', confirmPassword);
+  }, [name, lastname, email, password, confirmPassword, setValue]);
 
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] =
@@ -44,8 +57,8 @@ export default function CompRegUser() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  const onSubmit = (user) => {
-    dispatch(postUser(user)) &&
+  const onSubmit = (data) => {
+    dispatch(clientFormData(data)) &&
       navigate('/register/user/company-info');
   };
 

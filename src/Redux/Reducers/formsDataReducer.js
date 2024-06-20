@@ -1,4 +1,7 @@
-import { DRIVER_FORM_DATA } from '../Actions/formActions';
+import {
+  CLIENT_FORM_DATA,
+  DRIVER_FORM_DATA,
+} from '../Actions/formActions';
 
 const initialState = {
   driverData: {
@@ -18,6 +21,17 @@ const initialState = {
     num_plate: '',
     capacity: '',
     charge_capacity: '',
+  },
+  clientData: {
+    name: '',
+    lastname: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    company_name: '',
+    ruc: '',
+    address: '',
+    company_phone: '',
   },
 };
 
@@ -42,7 +56,6 @@ export const formDataReducer = (state = initialState, action) => {
         capacity,
         charge_capacity,
       } = action.payload;
-      console.log('action: ', action.payload);
       return {
         ...state,
         driverData: {
@@ -63,6 +76,34 @@ export const formDataReducer = (state = initialState, action) => {
           num_plate,
           capacity,
           charge_capacity,
+        },
+      };
+    }
+    case CLIENT_FORM_DATA: {
+      const {
+        name,
+        lastname,
+        email,
+        password,
+        confirmPassword,
+        company_name,
+        ruc,
+        address,
+        company_phone,
+      } = action.payload;
+      return {
+        ...state,
+        clientData: {
+          ...state.clientData,
+          name,
+          lastname,
+          email,
+          password,
+          confirmPassword,
+          company_name,
+          ruc,
+          address,
+          company_phone,
         },
       };
     }
