@@ -58,15 +58,23 @@ export const getUser = (id) => {
   };
 };
 
-export const postUser = (user) => {
+export const postUser = (userType, data) => {
+  console.log('data: ', data);
   return async (dispatch) => {
     dispatch({ type: POST_USER_PENDING });
 
     try {
-      let newUser = await axiosInstance.post('/auth/signup', user);
-      const { role } = newUser;
-      if (role === 'driver') {
-        let driver = await axiosInstance.post(
+      const { name, lastname, email, password, confirmPassword } =
+        data;
+      const newUser = await axiosInstance.post('/auth/signup', {
+        name,
+        lastname,
+        email,
+        password,
+        confirmPassword,
+      });
+      if (userType === 'driver') {
+        const driver = await axiosInstance.post(
           `/driver/create/${newUser?.user.id}`,
           user
         );
@@ -74,9 +82,12 @@ export const postUser = (user) => {
           type: POST_USER_SUCCESS,
           payload: { ...newUser, driver },
         });
-      } else {
-        let customer = await axiosInstance.post(
+      }
+      if (userType === 'customer') {
+        const { company_name, address, city, company_phone } = data;
+        const customer = await axiosInstance.post(
           `/customer/create/${newUser?.user.id}`,
+          { company_name, address, city, company_phone },
           user
         );
         return dispatch({

@@ -31,6 +31,8 @@ const initialState = {
     company_name: '',
     ruc: '',
     address: '',
+    city: '',
+    country: '',
     company_phone: '',
   },
 };
@@ -89,6 +91,8 @@ export const formDataReducer = (state = initialState, action) => {
         company_name,
         ruc,
         address,
+        city,
+        country,
         company_phone,
       } = action.payload;
       return {
@@ -103,6 +107,8 @@ export const formDataReducer = (state = initialState, action) => {
           company_name,
           ruc,
           address,
+          city,
+          country,
           company_phone,
         },
       };
