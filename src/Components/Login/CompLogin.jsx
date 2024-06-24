@@ -89,7 +89,10 @@ export default function CompLogin() {
             variant="outlined"
           >
             <OutlinedInput
-              {...register("email", { required: true })}
+              {...register("email", {
+                required: true,
+                pattern: /^[a-zA-Z0–9._-]+@[a-zA-Z0–9.-]+\.[a-zA-Z]{2,4}$/,
+              })}
               placeholder="emailexample.com"
               style={{ height: mobile ? "40px" : "50px", borderRadius: "8px" }}
               onChange={(e) => setUserPrueba(e.target.value)}
@@ -100,7 +103,7 @@ export default function CompLogin() {
               }
             />
             {errors.email && (
-              <p style={{ color: "red" }}>Este campo es requerido</p>
+              <p style={{ color: "red" }}>Ingrese un email válido</p>
             )}
           </FormControl>
           {/* //? --------------------------------------------- PASSWORD */}

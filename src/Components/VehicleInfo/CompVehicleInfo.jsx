@@ -82,7 +82,9 @@ export default function CompVehicleInfo() {
                 }}
               />
               {errors.brand && (
-                <p style={{ color: "red" }}>Este campo es requerido</p>
+                <p style={{ color: "red", width: 400 }}>
+                  Este campo es requerido
+                </p>
               )}
             </FormControl>
             {/* //? --------------------------------------------- MODEL */}
@@ -96,7 +98,9 @@ export default function CompVehicleInfo() {
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
               {errors.model && (
-                <p style={{ color: "red" }}>Este campo es requerido</p>
+                <p style={{ color: "red", width: 400 }}>
+                  Este campo es requerido
+                </p>
               )}
             </FormControl>
             {/* //? --------------------------------------------- YEAR */}
@@ -110,7 +114,9 @@ export default function CompVehicleInfo() {
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
               {errors.year && (
-                <p style={{ color: "red" }}>Este campo es requerido</p>
+                <p style={{ color: "red", width: 400 }}>
+                  Este campo es requerido
+                </p>
               )}
             </FormControl>
             {/* //? --------------------------------------------- LOAD CAPACITY */}
@@ -124,7 +130,9 @@ export default function CompVehicleInfo() {
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
               {errors.loadCapacity && (
-                <p style={{ color: "red" }}>Este campo es requerido</p>
+                <p style={{ color: "red", width: 400 }}>
+                  Este campo es requerido
+                </p>
               )}
             </FormControl>
             {/* //? --------------------------------------------- LOAD TYPE*/}
@@ -139,7 +147,9 @@ export default function CompVehicleInfo() {
                 style={{ borderRadius: "8px", height: "40px", width: 400 }}
               />
               {errors.loadType && (
-                <p style={{ color: "red" }}>Este campo es requerido</p>
+                <p style={{ color: "red", width: 400 }}>
+                  Este campo es requerido
+                </p>
               )}
             </FormControl>
 

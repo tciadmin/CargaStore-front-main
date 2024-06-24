@@ -59,12 +59,15 @@ export default function CompForgotPassword() {
           <p>Correo electrónico</p>
           <FormControl sx={{ m: 1, width: "350px" }} variant="outlined">
             <OutlinedInput
-              {...register("email", { required: true })}
+              {...register("email", {
+                required: true,
+                pattern: /^[a-zA-Z0–9._-]+@[a-zA-Z0–9.-]+\.[a-zA-Z]{2,4}$/,
+              })}
               placeholder="emailexample.com"
               style={{ height: "50px", borderRadius: "8px" }}
             />
             {errors.email && (
-              <p style={{ color: "red" }}>Este campo es requerido</p>
+              <p style={{ color: "red" }}>Ingrese un email válido</p>
             )}
           </FormControl>
 
