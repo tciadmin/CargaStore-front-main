@@ -1,22 +1,22 @@
-import * as React from "react";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { authUser } from "../../Redux/Actions/UserActions/userActions";
+import * as React from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { authUser } from '../../Redux/Actions/UserActions/userActions';
 //? --------------------------------------------- MUI
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputAdornment from "@mui/material/InputAdornment";
-import FormControl from "@mui/material/FormControl";
-import Button from "@mui/material/Button";
-import { useMediaQuery } from "@mui/material";
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import Button from '@mui/material/Button';
+import { useMediaQuery } from '@mui/material';
 //? --------------------------------------------- STYLES
-import { Colors } from "../../Utils/Colors";
-import "./styles.css";
+import { Colors } from '../../Utils/Colors';
+import './styles.css';
 
 export default function CompLogin() {
-  const mobile = useMediaQuery("(max-width:720px)");
+  const mobile = useMediaQuery('(max-width:720px)');
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -26,51 +26,52 @@ export default function CompLogin() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   });
 
   const [showPassword, setShowPassword] = React.useState(false);
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowPassword = () =>
+    setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
   const onClick = () => {
-    navigate("/login/forgot-password");
+    navigate('/login/forgot-password');
   };
 
   const onClickLogin = (data) => {
-    if (user.role === "conductor") {
+    if (user.role === 'conductor') {
       dispatch(authUser(data)) &&
         localStorage.setItem(user) &&
-        navigate("/marketplace");
-    } else if (user.role === "admin") {
+        navigate('/marketplace');
+    } else if (user.role === 'admin') {
       dispatch(authUser(data)) &&
         localStorage.setItem(user) &&
-        navigate("/administrador/panel");
+        navigate('/administrador/panel');
     } else {
       dispatch(authUser(data)) &&
         localStorage.setItem(user) &&
-        navigate("/shipments");
+        navigate('/shipments');
     }
   };
 
   const onClickRegister = () => {
-    navigate("/register");
+    navigate('/register');
   };
 
   return (
     <Box
-      sx={{ display: "flex" }}
+      sx={{ display: 'flex' }}
       className="loginContainer"
-      style={{ overflow: mobile ? "" : "hidden" }}
+      style={{ overflow: mobile ? '' : 'hidden' }}
     >
       <Box className="formContainer">
         <Box className="headerContainer">
-          <h1 style={{ fontSize: "1.5rem" }}> Inicia sesión </h1>
+          <h1 style={{ fontSize: '1.5rem' }}> Inicia sesión </h1>
           <p
             style={{
               fontWeight: 400,
@@ -81,18 +82,32 @@ export default function CompLogin() {
           </p>
         </Box>
 
-        <form className="inputContainer" onSubmit={handleSubmit(onClickLogin)}>
+        <form
+          className="inputContainer"
+          onSubmit={handleSubmit(onClickLogin)}
+        >
           {/* //? --------------------------------------------- EMAIL */}
           <p>Correo electrónico</p>
           <FormControl
-            sx={{ m: 1, width: mobile ? "300px" : "350px" }}
+            sx={{ m: 1, width: mobile ? '300px' : '350px' }}
             variant="outlined"
           >
             <OutlinedInput
-              {...register("email", { required: true })}
+              {...register('email', {
+                required: {
+                  value: true,
+                  message: 'Este campo es requerido',
+                }, // Si no hay nada escrito en el input de email se coloca un mensaje
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, // Si en el input no se cumple con esta expreción regular se coloca un mensaje distinto
+                  message: 'Email invalido',
+                },
+              })}
               placeholder="emailexample.com"
-              style={{ height: mobile ? "40px" : "50px", borderRadius: "8px" }}
-              onChange={(e) => setUserPrueba(e.target.value)}
+              style={{
+                height: mobile ? '40px' : '50px',
+                borderRadius: '8px',
+              }}
               endAdornment={
                 <InputAdornment position="end">
                   <img src="/imgLogin/EmailIcon.svg" />
@@ -100,20 +115,32 @@ export default function CompLogin() {
               }
             />
             {errors.email && (
-              <p style={{ color: "red" }}>Este campo es requerido</p>
+              <p style={{ color: 'red' }}>{errors.email.message}</p>
             )}
           </FormControl>
           {/* //? --------------------------------------------- PASSWORD */}
           <p>Contraseña</p>
           <FormControl
-            sx={{ m: 1, width: mobile ? "300px" : "350px" }}
+            sx={{ m: 1, width: mobile ? '300px' : '350px' }}
             variant="outlined"
           >
             <OutlinedInput
-              {...register("password", { required: true })}
+              {...register('password', {
+                required: {
+                  value: true,
+                  message: 'Este campo es requerido',
+                },
+                pattern: {
+                  value: /^.{0,8}$/i, // Si en el input no se cumple con esta expreción regular se coloca un mensaje distinto
+                  message: 'Maximo 8 caracteres',
+                },
+              })}
               placeholder="Ingresa contraseña"
-              type={showPassword ? "text" : "password"}
-              style={{ height: mobile ? "40px" : "50px", borderRadius: "8px" }}
+              type={showPassword ? 'text' : 'password'}
+              style={{
+                height: mobile ? '40px' : '50px',
+                borderRadius: '8px',
+              }}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -132,13 +159,15 @@ export default function CompLogin() {
               }
             />
             {errors.password && (
-              <p style={{ color: "red" }}>Este campo es requerido</p>
+              <p style={{ color: 'red' }}>
+                {errors.password.message}
+              </p>
             )}
           </FormControl>
           <span
             onClick={onClick}
             style={{
-              cursor: "pointer",
+              cursor: 'pointer',
               fontWeight: 500,
               color: Colors.primary.main,
             }}
@@ -150,28 +179,31 @@ export default function CompLogin() {
             variant="contained"
             sx={{
               m: 1,
-              width: mobile ? "300px" : "350px",
-              height: "40px",
+              width: mobile ? '300px' : '350px',
+              height: '40px',
             }}
             style={{
               color: Colors.primary.contrastText,
               backgroundColor: Colors.primary.main,
-              borderRadius: "8px",
+              borderRadius: '8px',
             }}
             type="submit"
           >
             Ingresar
           </Button>
         </form>
-        <img style={{ width: "350px" }} src="/imgLogin/Dividers.jpg" />
+        <img
+          style={{ width: '350px' }}
+          src="/imgLogin/Dividers.jpg"
+        />
         <p style={{ fontWeight: 400 }}>
-          ¿No tienes una cuenta?{" "}
+          ¿No tienes una cuenta?{' '}
           <span
             onClick={onClickRegister}
             style={{
               fontWeight: 500,
               color: Colors.primary.main,
-              cursor: "pointer",
+              cursor: 'pointer',
             }}
           >
             Regístrate
