@@ -1,0 +1,19 @@
+.worm {
+    display: flex;
+    animation: wormAnimation 1.9s ease-in infinite;
+  }
+  .worm-delay2{
+    animation-delay: .5s;
+  }
+  .worm-delay3{
+    animation-delay: 1s;
+  }
+  @keyframes wormAnimation {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+  
