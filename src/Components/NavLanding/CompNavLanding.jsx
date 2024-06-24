@@ -646,7 +646,7 @@ export default function CompNavLanding() {
                         </svg>
 
                       </svg>
-                      <Stack ml={1} sx={{ cursor: "pointer" }} direction="column" justifyContent={"center"} alignItems="center" width="40px" height="40px" borderRadius="100px" sx={{ background: Colors.primary.main }}>
+                      <Stack ml={1} direction="column" justifyContent={"center"} alignItems="center" width="40px" height="40px" borderRadius="100px" sx={{ background: Colors.primary.main,  cursor: "pointer"  }}>
                         <svg style={{ cursor: "pointer" }} width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M9.5 18L15.5 12L9.5 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
