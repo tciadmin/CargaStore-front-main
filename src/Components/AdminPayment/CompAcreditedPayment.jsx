@@ -1,4 +1,5 @@
 import * as React from "react";
+
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import html2pdf from "html2pdf.js";
@@ -84,11 +85,9 @@ export default function CompAcreditedPayment() {
   const componentRef = React.useRef();
   //Generar pdf
   const generatePdf = () => {
-   
-   
     const opt = {
       margin: 1,
-      filename:   "Factura_:" + Date.now() + ".pdf",
+      filename: "Factura_:" + Date.now() + ".pdf",
       image: { type: "png", quality: 0.98 },
       html2canvas: { scale: 2 },
       jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
@@ -858,7 +857,7 @@ export default function CompAcreditedPayment() {
           <Typography
             id="modal-modal-description"
             style={{ color: Colors.cuaternary.main, cursor: "pointer" }}
-            onClick={()=>generatePdf()}
+            onClick={() => generatePdf()}
           >
             Ver factura
           </Typography>

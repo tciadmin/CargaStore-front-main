@@ -90,12 +90,20 @@ export default function CompLogin() {
           >
             <OutlinedInput
               {...register("email", {
-                required: true,
-                pattern: /^[a-zA-Z0–9._-]+@[a-zA-Z0–9.-]+\.[a-zA-Z]{2,4}$/,
+                required: {
+                  value: true,
+                  message: "Este campo es requerido",
+                }, // Si no hay nada escrito en el input de email se coloca un mensaje
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, // Si en el input no se cumple con esta expreción regular se coloca un mensaje distinto
+                  message: "Email invalido",
+                },
               })}
               placeholder="emailexample.com"
-              style={{ height: mobile ? "40px" : "50px", borderRadius: "8px" }}
-              onChange={(e) => setUserPrueba(e.target.value)}
+              style={{
+                height: mobile ? "40px" : "50px",
+                borderRadius: "8px",
+              }}
               endAdornment={
                 <InputAdornment position="end">
                   <img src="/imgLogin/EmailIcon.svg" />
@@ -103,7 +111,7 @@ export default function CompLogin() {
               }
             />
             {errors.email && (
-              <p style={{ color: "red" }}>Ingrese un email válido</p>
+              <p style={{ color: "red" }}>{errors.email.message}</p>
             )}
           </FormControl>
           {/* //? --------------------------------------------- PASSWORD */}
@@ -113,10 +121,22 @@ export default function CompLogin() {
             variant="outlined"
           >
             <OutlinedInput
-              {...register("password", { required: true })}
+              {...register("password", {
+                required: {
+                  value: true,
+                  message: "Este campo es requerido",
+                },
+                pattern: {
+                  value: /^.{0,8}$/i, // Si en el input no se cumple con esta expreción regular se coloca un mensaje distinto
+                  message: "Maximo 8 caracteres",
+                },
+              })}
               placeholder="Ingresa contraseña"
               type={showPassword ? "text" : "password"}
-              style={{ height: mobile ? "40px" : "50px", borderRadius: "8px" }}
+              style={{
+                height: mobile ? "40px" : "50px",
+                borderRadius: "8px",
+              }}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -135,7 +155,7 @@ export default function CompLogin() {
               }
             />
             {errors.password && (
-              <p style={{ color: "red" }}>Este campo es requerido</p>
+              <p style={{ color: "red" }}>{errors.password.message}</p>
             )}
           </FormControl>
           <span

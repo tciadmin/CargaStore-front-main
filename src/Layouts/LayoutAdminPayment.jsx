@@ -3,6 +3,8 @@ import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import CompNavLanding from "../Components/NavLanding/CompNavLanding";
+import { filterPayment } from "../../Redux/Actions/PaymentActions/paymentActions";
+import { useDispatch } from "react-redux";
 //? --------------------------------------------- MUI
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
@@ -56,6 +58,7 @@ export default function LayoutAdminPayment() {
   const mobile = useMediaQuery("(max-width:720px)");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const open = Boolean(anchorEl);
 
@@ -91,10 +94,10 @@ export default function LayoutAdminPayment() {
   };
 
   useEffect(() => {
-    if (value === 0) {
-      navigate("/payment");
+    if (value === "pendiente") {
+      dispatch(filterPayment(value)) && navigate("/payment");
     } else {
-      navigate("/payment/acredited");
+      dispatch(filterPayment(value)) && navigate("/payment/acredited");
     }
   }, [value]);
   return (
@@ -130,7 +133,7 @@ export default function LayoutAdminPayment() {
             >
               <MenuItem
                 name="Pendientes"
-                value="0"
+                value="pendiente"
                 onClick={clickPending}
                 style={{
                   fontWeight: 500,
@@ -142,7 +145,7 @@ export default function LayoutAdminPayment() {
               </MenuItem>
               <MenuItem
                 name="Asignado"
-                value="1"
+                value="acreditado"
                 onClick={clickAccredited}
                 style={{
                   fontWeight: 500,

@@ -58,7 +58,7 @@ export const getUser = (id) => {
   };
 };
 
-export const postUser = (id, user) => {
+export const postUser = (user) => {
   return async (dispatch) => {
     dispatch({ type: POST_USER_PENDING });
 
@@ -67,7 +67,7 @@ export const postUser = (id, user) => {
       const { role } = newUser;
       if (role === 'driver') {
         let driver = await axiosInstance.post(
-          `/driver/create/${id}`,
+          `/driver/create/${newUser?.user.id}`,
           user
         );
         return dispatch({
@@ -76,7 +76,7 @@ export const postUser = (id, user) => {
         });
       } else {
         let customer = await axiosInstance.post(
-          `/customer/create/${id}`,
+          `/customer/create/${newUser?.user.id}`,
           user
         );
         return dispatch({

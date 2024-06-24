@@ -162,6 +162,8 @@ export default function CompSent() {
           sx={{
             width: "100%",
             height: "100vh",
+            paddingLeft: "30px",
+            justifyContent: "flex-start",
             backgroundColor: Colors.terciary.contrastText,
           }}
         >
@@ -170,7 +172,7 @@ export default function CompSent() {
               minWidth: "100%",
               display: "flex",
               flexDirection: "column",
-              alignItems: "center",
+              alignItems: "flex-start",
               padding: 5,
               height: "20px",
               backgroundColor: Colors.terciary.contrastText,
