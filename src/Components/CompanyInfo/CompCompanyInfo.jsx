@@ -42,9 +42,11 @@ export default function CompCompanyInfo() {
     setValue('company_phone', company_phone);
   }, [company_name, address, city, company_phone, setValue]);
 
-  const onSubmit = (data) => {
-    dispatch(clientFormData(data));
-    dispatch(postUser('customer', clientData)) && navigate('/login');
+  const onSubmit = async (data) => {
+    await dispatch(clientFormData(data));
+    // console.table({ ...clientData, ...data });
+    dispatch(postUser('customer', { ...clientData, ...data })) &&
+      navigate('/login');
   };
 
   return (
