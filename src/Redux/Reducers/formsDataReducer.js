@@ -82,35 +82,14 @@ export const formDataReducer = (state = initialState, action) => {
       };
     }
     case CLIENT_FORM_DATA: {
-      const {
-        name,
-        lastname,
-        email,
-        password,
-        confirmPassword,
-        company_name,
-        ruc,
-        address,
-        city,
-        country,
-        company_phone,
-      } = action.payload;
+      const updatedClientData = {
+        ...state.clientData,
+        ...action.payload,
+      };
+      console.log('actionPayload: ', action.payload);
       return {
         ...state,
-        clientData: {
-          ...state.clientData,
-          name,
-          lastname,
-          email,
-          password,
-          confirmPassword,
-          company_name,
-          ruc,
-          address,
-          city,
-          country,
-          company_phone,
-        },
+        clientData: updatedClientData,
       };
     }
     default:

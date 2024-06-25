@@ -58,14 +58,14 @@ export const getUser = (id) => {
   };
 };
 
-export const postUser = (userType, data) => {
-  console.log('data: ', data);
+export const postUser = (userType, userData) => {
+  console.log('userData: ', userData);
   return async (dispatch) => {
     dispatch({ type: POST_USER_PENDING });
 
     try {
       const { name, lastname, email, password, confirmPassword } =
-        data;
+        userData;
       const newUser = await axiosInstance.post('/auth/signup', {
         name,
         lastname,
@@ -73,26 +73,28 @@ export const postUser = (userType, data) => {
         password,
         confirmPassword,
       });
+      const { data } = newUser;
+      console.log('data: ', data);
       if (userType === 'driver') {
         const driver = await axiosInstance.post(
-          `/driver/create/${newUser?.user.id}`,
-          user
+          `/driver/create/${data?.user.id}`
         );
         return dispatch({
           type: POST_USER_SUCCESS,
-          payload: { ...newUser, driver },
+          payload: { ...data.user, driver },
         });
-      }
-      if (userType === 'customer') {
-        const { company_name, address, city, company_phone } = data;
+      } else if (userType === 'customer') {
+        const { company_name, address, city, company_phone } =
+          userData;
+        console.table({ company_name, address, city, company_phone });
         const customer = await axiosInstance.post(
-          `/customer/create/${newUser?.user.id}`,
-          { company_name, address, city, company_phone },
-          user
+          `/customer/create/${data?.user.id}`,
+          { company_name, address, city, company_phone }
         );
+        console.log('customer: ', customer);
         return dispatch({
           type: POST_USER_SUCCESS,
-          payload: { ...newUser, customer },
+          payload: { ...data.user, customer },
         });
       }
     } catch (error) {
