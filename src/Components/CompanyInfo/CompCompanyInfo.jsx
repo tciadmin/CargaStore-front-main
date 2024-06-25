@@ -42,8 +42,8 @@ export default function CompCompanyInfo() {
     setValue('company_phone', company_phone);
   }, [company_name, address, city, company_phone, setValue]);
 
-  const onSubmit = async (data) => {
-    await dispatch(clientFormData(data));
+  const onSubmit = (data) => {
+    dispatch(clientFormData(data));
     // console.table({ ...clientData, ...data });
     dispatch(postUser('customer', { ...clientData, ...data })) &&
       navigate('/login');

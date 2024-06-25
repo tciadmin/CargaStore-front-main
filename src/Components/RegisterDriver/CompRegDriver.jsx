@@ -62,7 +62,7 @@ export default function CompRegDriver() {
 
   const onSubmit = (data) => {
     dispatch(driverFormData(data)) &&
-      navigate('/register/user/company-info');
+      navigate('/register/driver/vehicle-info');
   };
 
   return (
