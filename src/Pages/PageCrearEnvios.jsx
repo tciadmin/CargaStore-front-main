@@ -37,7 +37,7 @@ const PageCrearEnvios = () => {
             <svg width="24" style={{ marginLeft: "15px", cursor: "pointer" }} onClick={() => {
               setStepIndex(stepIndex - 1);
               if (stepIndex == 0) {
-                navigate("/home")
+                navigate("/shipments")
               }
             }} height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clip-path="url(#clip0_343_8051)">

@@ -52,16 +52,26 @@ export default function CompNavLanding() {
     navigate("/register");
   };
   const onClickChat = () => {
-    setChatear(false);
-    setNotificaciones(false);
-    setChat(!chat);
+    if (mobile) {
+      navigate("/chat");
+    } else {
+      setChatear(false);
+      setNotificaciones(false);
+      setChat(!chat);
+    }
+
 
   }
   const onClickNotificaciones = () => {
-    setChat(false);
+    if(mobile){
+      navigate("/notificaciones");
+    }else{
+       setChat(false);
     setChatear(false);
 
     setNotificaciones(!notificaciones);
+    }
+   
   }
   if (location.pathname == '/home/crearEnvios' && mobile
   ) {
@@ -566,7 +576,7 @@ export default function CompNavLanding() {
                 </>
                 :
                 <>
-                  /*Nuestro mensaje */
+                  {/*Nuestro mensaje */}
 
                   <Stack direction="column" alignItems={"flex-end"} p={2}>
                     <Box style={{ backgroundColor: Colors.primary.main, width: "230px", borderRadius: "10px 0px 10px 10px", padding: "10px 15px 10px 15px" }}>
@@ -577,7 +587,7 @@ export default function CompNavLanding() {
 
 
                   </Stack>
-                  /*Respuesta */
+                  {/*Respuesta */}
                   <Grid container p={2}>
 
                     <Grid item xs={2}>
@@ -625,8 +635,8 @@ export default function CompNavLanding() {
                     </Grid>
 
                   </Grid>
-                  /*Escribir */
-                  <Stack direction="row" justifyContent={"space-between"} width="400px" height="60px" pb={2} px={2}>
+                  {/*Escribir */}
+                  <Stack direction="row" position="absolute" bottom={0} left={0} justifyContent={"space-between"} width="400px" height="60px" pb={2} px={2}>
                     <Stack direction="row" alignItems={"center"}>
                       <svg width="25" style={{ cursor: "pointer" }} height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12.5 22C18.0228 22 22.5 17.5228 22.5 12C22.5 6.47715 18.0228 2 12.5 2C6.97715 2 2.5 6.47715 2.5 12C2.5 17.5228 6.97715 22 12.5 22Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -637,27 +647,20 @@ export default function CompNavLanding() {
                       <Input placeholder="Responder" style={{ marginLeft: "5px", border: "none", color: "#0D082C", fontSize: "16px" }}></Input>
                     </Stack>
                     <Stack direction="row" alignItems="center">
-
                       <svg style={{ cursor: "pointer" }} width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <svg opacity="0.4">
                           <path d="M19.5 3H5.5C4.39543 3 3.5 3.89543 3.5 5V19C3.5 20.1046 4.39543 21 5.5 21H19.5C20.6046 21 21.5 20.1046 21.5 19V5C21.5 3.89543 20.6046 3 19.5 3Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                           <path d="M9.5 11C10.6046 11 11.5 10.1046 11.5 9C11.5 7.89543 10.6046 7 9.5 7C8.39543 7 7.5 7.89543 7.5 9C7.5 10.1046 8.39543 11 9.5 11Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                           <path d="M21.5 15.0002L18.414 11.9142C18.0389 11.5392 17.5303 11.3286 17 11.3286C16.4697 11.3286 15.9611 11.5392 15.586 11.9142L6.5 21.0002" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
-
                       </svg>
-                      <Stack ml={1} direction="column" justifyContent={"center"} alignItems="center" width="40px" height="40px" borderRadius="100px" sx={{ background: Colors.primary.main,  cursor: "pointer"  }}>
+                      <Stack ml={1} direction="column" justifyContent={"center"} alignItems="center" width="40px" height="40px" borderRadius="100px" sx={{ background: Colors.primary.main, cursor: "pointer" }}>
                         <svg style={{ cursor: "pointer" }} width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M9.5 18L15.5 12L9.5 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
-
                       </Stack>
-
                     </Stack>
                   </Stack>
-
-
-
                 </>
               }
 
@@ -665,7 +668,7 @@ export default function CompNavLanding() {
 
           </Box>
         }
-
+        {/*fin del componente chat */}
         {
           notificaciones &&
           <Box position={"fixed"} top={67} right={85} width="400px" px={4} py={3} maxWidth={"400px"} height="600px" style={{ background: "white", border: "1 solid black", boxShadow: "#007C521A 0 30px 60px 0", borderRadius: "10px", }}>
