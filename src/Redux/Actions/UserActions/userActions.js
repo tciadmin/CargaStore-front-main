@@ -59,11 +59,14 @@ export const getUser = (id) => {
 };
 
 export const postUser = (userType, userData) => {
-  console.log('userData: ', userData);
+  // userTpe es el tipo de usuario que se creara,
+  //por el momento solo puede ser 'driver' y 'customer'
+  //userData es la informacion del usuario
   return async (dispatch) => {
     dispatch({ type: POST_USER_PENDING });
 
     try {
+      //Destructuramos los datos del usuario
       const { name, lastname, email, password, confirmPassword } =
         userData;
       const newUser = await axiosInstance.post('/auth/signup', {
@@ -73,20 +76,31 @@ export const postUser = (userType, userData) => {
         password,
         confirmPassword,
       });
+      //Destructuramos los datos de la respuesta de newUser
       const { data } = newUser;
       console.log('data: ', data);
       if (userType === 'driver') {
+        //Destructuramos los datos del conductor en caso de que
+        //userType sea 'driver'
+        const { brand, model, year, charge_capacity, charge_type } =
+          userData;
+        //Hacemos la peticion al endpoint de creacion de conductor
+        //y le pasamos como id del usuario el de la respuesta de newUser
         const driver = await axiosInstance.post(
-          `/driver/create/${data?.user.id}`
+          `/driver/create/${data?.user.id}`,
+          { brand, model, year, charge_capacity, charge_type }
         );
         return dispatch({
           type: POST_USER_SUCCESS,
           payload: { ...data.user, driver },
         });
       } else if (userType === 'customer') {
+        //Destructuramos los datos del cliente en caso de que
+        //userType sea 'customer'
         const { company_name, address, city, company_phone } =
           userData;
-        console.table({ company_name, address, city, company_phone });
+        //Hacemos la peticion al endpoint de creacion de cliente
+        //y le pasamos como id del usuario el de la respuesta de newUser
         const customer = await axiosInstance.post(
           `/customer/create/${data?.user.id}`,
           { company_name, address, city, company_phone }
