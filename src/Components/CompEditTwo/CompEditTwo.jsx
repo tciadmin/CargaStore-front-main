@@ -5,10 +5,25 @@ import {
   TextField,
   Typography,
   Box,
-} from "@mui/material"
-import Avatar from "../../assets/Avatar/Avatar.png"
+} from "@mui/material";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import Avatar from "../../assets/Avatar/Avatar.png";
+import { changePassword } from "../../Redux/Actions/PasswordActions/passwordActions";
+import { patchCustomer } from "../../Redux/Actions/UserActions/userActions";
 
 const CompEditTwo = () => {
+  const dispatch = useDispatch();
+
+  const { register } = useForm({
+    defaultValues: {
+      company: "",
+      ruc: "",
+      address: "",
+      country: "",
+      password: "",
+    },
+  });
   return (
     <Box>
       <Stack style={{ position: "relative" }}>
@@ -60,6 +75,7 @@ const CompEditTwo = () => {
                   height: "34px",
                 },
               }}
+              {...register("company")}
             ></TextField>
             <Typography
               sx={{
@@ -81,6 +97,7 @@ const CompEditTwo = () => {
                   height: "34px",
                 },
               }}
+              {...register("ruc")}
             ></TextField>
             <Typography
               sx={{
@@ -102,6 +119,7 @@ const CompEditTwo = () => {
                   height: "34px",
                 },
               }}
+              {...register("address")}
             ></TextField>
             <Typography
               sx={{
@@ -123,6 +141,7 @@ const CompEditTwo = () => {
                   height: "34px",
                 },
               }}
+              {...register("country")}
             ></TextField>
 
             <Button
@@ -136,6 +155,7 @@ const CompEditTwo = () => {
                 marginTop: "5px",
               }}
               variant="outlined"
+              onClick={(data) => dispatch(patchCustomer(data))}
             >
               <Typography sx={{ fontWeight: 600, fontSize: "12px" }}>
                 Editar datos
@@ -187,6 +207,9 @@ const CompEditTwo = () => {
                         fontWeight: 600,
                       }}
                       variant="text"
+                      onClick={(data) =>
+                        dispatch(changePassword(data.password))
+                      }
                     >
                       Cambiar
                     </Button>
@@ -198,7 +221,7 @@ const CompEditTwo = () => {
         </Stack>
       </Stack>
     </Box>
-  )
-}
+  );
+};
 
-export default CompEditTwo
+export default CompEditTwo;
