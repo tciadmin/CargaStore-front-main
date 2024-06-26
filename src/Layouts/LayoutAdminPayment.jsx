@@ -3,8 +3,8 @@ import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import CompNavLanding from "../Components/NavLanding/CompNavLanding";
-import { filterPayment } from "../../Redux/Actions/PaymentActions/paymentActions";
 import { useDispatch } from "react-redux";
+import { filterPayment } from "../Redux/Actions/PaymentActions/paymentActions";
 //? --------------------------------------------- MUI
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
@@ -94,10 +94,12 @@ export default function LayoutAdminPayment() {
   };
 
   useEffect(() => {
-    if (value === "pendiente") {
-      dispatch(filterPayment(value)) && navigate("/payment");
+    if (value === "0") {
+      // dispatch(filterPayment(value)) &&
+      navigate("/payment");
     } else {
-      dispatch(filterPayment(value)) && navigate("/payment/acredited");
+      // dispatch(filterPayment(value)) &&
+      navigate("/payment/acredited");
     }
   }, [value]);
   return (
@@ -133,7 +135,7 @@ export default function LayoutAdminPayment() {
             >
               <MenuItem
                 name="Pendientes"
-                value="pendiente"
+                value="0"
                 onClick={clickPending}
                 style={{
                   fontWeight: 500,
@@ -145,7 +147,7 @@ export default function LayoutAdminPayment() {
               </MenuItem>
               <MenuItem
                 name="Asignado"
-                value="acreditado"
+                value="1"
                 onClick={clickAccredited}
                 style={{
                   fontWeight: 500,

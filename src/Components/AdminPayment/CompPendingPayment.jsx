@@ -9,6 +9,7 @@ import Modal from "@mui/material/Modal";
 import { Colors } from "../../Utils/Colors";
 import { useRef } from "react";
 import html2pdf from "html2pdf.js";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -83,14 +84,13 @@ export default function CompPendingPayment() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const mobile = useMediaQuery("(max-width:720px)");
-    const componentRef = useRef();
+  const navigate = useNavigate();
+  const componentRef = useRef();
   //Generar pdf
   const generatePdf = () => {
-   
-   
     const opt = {
       margin: 1,
-      filename:   "Factura_:" + Date.now() + ".pdf",
+      filename: "Factura_:" + Date.now() + ".pdf",
       image: { type: "png", quality: 0.98 },
       html2canvas: { scale: 2 },
       jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
@@ -828,12 +828,16 @@ export default function CompPendingPayment() {
           <Typography
             id="modal-modal-description"
             style={{ color: Colors.cuaternary.main, cursor: "pointer" }}
-            onClick={()=>generatePdf()}
+            onClick={() => generatePdf()}
           >
             Ver factura
           </Typography>
 
-          <Button variant="contained" style={{ marginBottom: "10px" }}>
+          <Button
+            variant="contained"
+            style={{ marginBottom: "10px" }}
+            onClick={() => navigate("/post-payment")}
+          >
             Efectuar pago al conductor
           </Button>
         </Box>
