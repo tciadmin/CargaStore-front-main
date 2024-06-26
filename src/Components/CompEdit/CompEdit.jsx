@@ -1,7 +1,20 @@
-import { Button, Stack, TextField, Typography } from "@mui/material"
-import Avatar from "../../assets/Avatar/Avatar.png"
+import { Button, Stack, TextField, Typography } from "@mui/material";
+import { useForm } from "react-hook-form";
+import Avatar from "../../assets/Avatar/Avatar.png";
+import { useDispatch } from "react-redux";
+import { patchCustomer } from "../../Redux/Actions/UserActions/userActions";
 
 export const CompEdit = () => {
+  const dispatch = useDispatch();
+
+  const { register } = useForm({
+    defaultValues: {
+      name: "",
+      lastName: "",
+      email: "",
+    },
+  });
+
   return (
     <Stack style={{ position: "relative" }}>
       <img
@@ -54,6 +67,7 @@ export const CompEdit = () => {
                 height: "34px",
               },
             }}
+            {...register("name")}
           ></TextField>
           <Typography
             sx={{
@@ -75,6 +89,7 @@ export const CompEdit = () => {
                 height: "34px",
               },
             }}
+            {...register("lastName")}
           ></TextField>
           <Typography
             sx={{
@@ -96,6 +111,7 @@ export const CompEdit = () => {
                 height: "34px",
               },
             }}
+            {...register("email")}
           ></TextField>
 
           <Button
@@ -108,6 +124,7 @@ export const CompEdit = () => {
               marginLeft: "170px",
             }}
             variant="outlined"
+            onClick={(data) => dispatch(patchCustomer(data))}
           >
             <Typography sx={{ fontWeight: 500, fontSize: "12px" }}>
               Editar datos
@@ -116,5 +133,5 @@ export const CompEdit = () => {
         </Stack>
       </Stack>
     </Stack>
-  )
-}
+  );
+};
