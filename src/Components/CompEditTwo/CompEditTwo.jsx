@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import Avatar from "../../assets/Avatar/Avatar.png";
 import { changePassword } from "../../Redux/Actions/PasswordActions/passwordActions";
+import { patchCustomer } from "../../Redux/Actions/UserActions/userActions";
 
 const CompEditTwo = () => {
   const dispatch = useDispatch();

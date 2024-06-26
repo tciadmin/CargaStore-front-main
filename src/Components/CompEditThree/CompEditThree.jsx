@@ -1,7 +1,21 @@
-import { Button, Stack, TextField, Typography } from "@mui/material"
-import Avatar from "../../assets/Avatar/Avatar.png"
+import { Button, Stack, TextField, Typography } from "@mui/material";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import Avatar from "../../assets/Avatar/Avatar.png";
+import { patchCustomer } from "../../Redux/Actions/UserActions/userActions";
 
 export const CompEditThree = () => {
+  const dispatch = useDispatch();
+
+  const { register } = useForm({
+    defaultValues: {
+      name: "",
+      bank: "",
+      accountType: "",
+      accountNum: "",
+      country: "",
+    },
+  });
   return (
     <Stack style={{ position: "relative" }}>
       <img
@@ -52,6 +66,7 @@ export const CompEditThree = () => {
                 height: "34px",
               },
             }}
+            {...register("name")}
           ></TextField>
           <Typography
             sx={{
@@ -73,6 +88,7 @@ export const CompEditThree = () => {
                 height: "34px",
               },
             }}
+            {...register("bank")}
           ></TextField>
           <Typography
             sx={{
@@ -94,6 +110,7 @@ export const CompEditThree = () => {
                 height: "34px",
               },
             }}
+            {...register("accountType")}
           ></TextField>
           <Typography
             sx={{
@@ -115,6 +132,7 @@ export const CompEditThree = () => {
                 height: "34px",
               },
             }}
+            {...register("accountNum")}
           ></TextField>
           <Typography
             sx={{
@@ -136,6 +154,7 @@ export const CompEditThree = () => {
                 height: "34px",
               },
             }}
+            {...register("country")}
           ></TextField>
 
           <Button
@@ -149,6 +168,7 @@ export const CompEditThree = () => {
               marginTop: "17px",
             }}
             variant="outlined"
+            onClick={(data) => dispatch(patchCustomer(data))}
           >
             <Typography sx={{ fontWeight: 600, fontSize: "12px" }}>
               Editar datos
@@ -157,5 +177,5 @@ export const CompEditThree = () => {
         </Stack>
       </Stack>
     </Stack>
-  )
-}
+  );
+};
