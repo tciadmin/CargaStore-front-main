@@ -19,6 +19,7 @@ export default function CompVehicleInfo() {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
     defaultValues: {
       brand: "",

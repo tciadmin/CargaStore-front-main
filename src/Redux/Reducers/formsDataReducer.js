@@ -31,6 +31,8 @@ const initialState = {
     company_name: '',
     ruc: '',
     address: '',
+    city: '',
+    country: '',
     company_phone: '',
   },
 };
@@ -38,73 +40,24 @@ const initialState = {
 export const formDataReducer = (state = initialState, action) => {
   switch (action.type) {
     case DRIVER_FORM_DATA: {
-      const {
-        name,
-        lastname,
-        email,
-        password,
-        confirmPassword,
-        picture,
-        num_license,
-        description,
-        phone,
-        brand,
-        model,
-        year,
-        charge_type,
-        num_plate,
-        capacity,
-        charge_capacity,
-      } = action.payload;
+      const updatedDriverData = {
+        ...state.driverData,
+        ...action.payload,
+      };
       return {
         ...state,
-        driverData: {
-          ...state.driverData,
-          name,
-          lastname,
-          email,
-          password,
-          confirmPassword,
-          picture,
-          num_license,
-          description,
-          phone,
-          brand,
-          model,
-          year,
-          charge_type,
-          num_plate,
-          capacity,
-          charge_capacity,
-        },
+        driverData: updatedDriverData,
       };
     }
     case CLIENT_FORM_DATA: {
-      const {
-        name,
-        lastname,
-        email,
-        password,
-        confirmPassword,
-        company_name,
-        ruc,
-        address,
-        company_phone,
-      } = action.payload;
+      const updatedClientData = {
+        ...state.clientData,
+        ...action.payload,
+      };
+      console.log('actionPayload: ', action.payload);
       return {
         ...state,
-        clientData: {
-          ...state.clientData,
-          name,
-          lastname,
-          email,
-          password,
-          confirmPassword,
-          company_name,
-          ruc,
-          address,
-          company_phone,
-        },
+        clientData: updatedClientData,
       };
     }
     default:

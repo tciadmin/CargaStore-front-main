@@ -45,6 +45,8 @@ import PageEditarEnvio from "../Pages/PageEditarEnvio";
 import { CompPublication } from "../Components/Publication/CompPublication";
 import { CompDashboard } from "../Components/Dashboard/CompDashboard";
 import CompPayDriver from "../Components/PayDriver/CompPayDriver";
+import PageChatMobile from "../Pages/PageChatMobile";
+import PageNotificacionesMobile from "../Pages/PageNotificacionesMobile";
 
 export const router = createBrowserRouter([
   {
@@ -157,6 +159,14 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <CompDashboard />,
+  },
+  {
+    path: "/chat",
+    element: <PageChatMobile />,
+  },
+  {
+    path: "/notificaciones",
+    element: <PageNotificacionesMobile />,
   },
   {
     path: "completedtrips",

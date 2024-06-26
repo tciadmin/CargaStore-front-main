@@ -15,16 +15,18 @@ import Avatar from "@mui/material/Avatar";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 
+
 //? --------------------------------------------- STYLES
 import { Colors } from "../../Utils/Colors";
-import { Drawer, Grid, List, ListItem, ListItemButton } from "@mui/material";
-import { Navigation } from "@mui/icons-material";
-
+import { Drawer, Grid, Input, List, ListItem, ListItemButton } from "@mui/material";
+import "./styles.css"
 export default function CompNavLanding() {
   const mobile = useMediaQuery("(max-width:720px)");
   const [open, setOpen] = useState(false);
   const [userRol, setUserRol] = useState("cliente")
   const [notificaciones, setNotificaciones] = useState(false)
+  const [chat, setChat] = useState(false);
+  const [chatear, setChatear] = useState(false)
   React.useEffect(() => {
     if (localStorage.getItem("userPrueba")) {
       setUserRol(localStorage.getItem("userPrueba"));
@@ -36,7 +38,6 @@ export default function CompNavLanding() {
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
-  const pages = ["Marketplace", "Mis envíos"];
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -50,6 +51,28 @@ export default function CompNavLanding() {
   const onClickRegister = () => {
     navigate("/register");
   };
+  const onClickChat = () => {
+    if (mobile) {
+      navigate("/chat");
+    } else {
+      setChatear(false);
+      setNotificaciones(false);
+      setChat(!chat);
+    }
+
+
+  }
+  const onClickNotificaciones = () => {
+    if(mobile){
+      navigate("/notificaciones");
+    }else{
+       setChat(false);
+    setChatear(false);
+
+    setNotificaciones(!notificaciones);
+    }
+   
+  }
   if (location.pathname == '/home/crearEnvios' && mobile
   ) {
     return <></>
@@ -391,7 +414,7 @@ export default function CompNavLanding() {
               alignSelf="flex-end"
               sx={{ flexGrow: 0 }}
             >
-              <Tooltip title="Messages" sx={{ pr: 2 }}>
+              <Tooltip onClick={() => onClickChat()} title="Chat" sx={{ pr: 2 }}>
                 <svg
                   width="29"
                   height="29"
@@ -407,7 +430,7 @@ export default function CompNavLanding() {
                   />
                 </svg>
               </Tooltip>
-              <Tooltip title="Notifications" onClick={()=>setNotificaciones(!notificaciones)} sx={{ pr: 1 }}>
+              <Tooltip title="Notificaciones" onClick={() => onClickNotificaciones()} sx={{ pr: 1 }}>
                 <svg
                   width="29"
                   height="29"
@@ -470,8 +493,185 @@ export default function CompNavLanding() {
             </Box>
           )}
         </Toolbar>
-        {notificaciones &&
-          <Box position={"absolute"}  top={67} right={85} width="400px" px={4} py={3} maxWidth={"400px"} height="600px" style={{ background: "white", border: "1 solid black", boxShadow: "#007C521A 0 30px 60px 0", borderRadius: "10px",   }}>
+        {
+          chat &&
+          <Box position="fixed" bottom={0} right={0} width="400px" height={"580px"}
+            sx={{
+              background: "#fff",
+              boxShadow: " 45px 9px 34px 0px #0000001A",
+              display: "flex",
+              flexDirection: "column",
+              borderRadius: "10px 10px 0px 0px"
+            }}>
+            <Stack direction="row" borderRadius={"10px 10px 0px 0px"} justifyContent="space-between" bgcolor={Colors.terciary.contrastText} alignItems={"center"} p={2}>
+              <Stack direction="row" alignItems={"center"}>
+                {
+                  chatear &&
+                  <Avatar width="40px" src="imagen" height="40px" ></Avatar>
+
+                }
+                <Typography ml={1} color={"#000"} fontSize={"16px"}>{chatear ? "José Luis" : "Chats"}</Typography>
+
+              </Stack>
+              <svg style={{ cursor: "pointer" }} onClick={() => setChat(false)} width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0.5" width="40" height="40" rx="20" fill="#DDF4EC" />
+                <path d="M26.5 14L14.5 26" stroke="#007C52" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M14.5 14L26.5 26" stroke="#007C52" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </Stack>
+            <Stack direction="column">
+              {!chatear ?
+                <>
+                  <Stack direction={"row"} p={2} sx={{ cursor: "pointer" }} onClick={() => setChatear(true)}>
+                    <Avatar width="40px" src="imagen" height="40px" ></Avatar>
+                    <Stack direction="column" ml={0.5}>
+                      <Typography fontSize={"12px"} color="#000">José Luis</Typography>
+
+                      <Grid container xs={12} minWidth={"300px"}>
+                        <Grid item xs={8}>
+                          <Typography
+                            fontSize={"12px"}
+                            fontWeight={600}
+                            color="#000" sx={{
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              whiteSpace: 'nowrap',
+                              maxWidth: '100%',
+                            }}>Hola,estoy afuera, abrime por favor asi descargamos </Typography>
+
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Typography fontSize={"12px"} color={"#8C94A6"}>Hace 1 hora</Typography>
+
+                        </Grid>
+
+                      </Grid>
+                    </Stack>
+                  </Stack>
+
+
+                  <Stack direction={"row"} p={2} sx={{ cursor: "pointer" }} onClick={() => setChatear(true)} >
+                    <Avatar width="40px" src="imagen" height="40px" ></Avatar>
+                    <Stack direction="column" ml={0.5}>
+                      <Typography fontSize={"12px"} color="#000">Ana Luz</Typography>
+
+                      <Grid container xs={12} minWidth={"300px"}>
+                        <Grid item xs={8}>
+                          <Typography fontSize={"12px"} fontWeight={400} color="#000" sx={{
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                            maxWidth: '100%',
+                          }}>Ya enviamos el pedido! </Typography>
+
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Typography fontSize={"12px"} color={"#8C94A6"}>Hace 2 hora</Typography>
+
+                        </Grid>
+
+                      </Grid>
+                    </Stack>
+                  </Stack>
+                </>
+                :
+                <>
+                  {/*Nuestro mensaje */}
+
+                  <Stack direction="column" alignItems={"flex-end"} p={2}>
+                    <Box style={{ backgroundColor: Colors.primary.main, width: "230px", borderRadius: "10px 0px 10px 10px", padding: "10px 15px 10px 15px" }}>
+                      <Typography fontSize={"16px"} fontWeight={400}>Hola! El paquete salió a hora?</Typography>
+
+                    </Box>
+                    <Typography fontSize={"14px"} fontWeight={400} width="230px" color={"#0D082C66"}>08:15 AM</Typography>
+
+
+                  </Stack>
+                  {/*Respuesta */}
+                  <Grid container p={2}>
+
+                    <Grid item xs={2}>
+                      <Avatar alignSelf="flex-end"></Avatar>
+                    </Grid>
+                    <Grid item xs={10}>
+                      <Stack direction="column" alignItems={"flex-start"} >
+                        <Typography fontSize="16px" color="#000" >José Luis</Typography>
+                        <Box style={{ backgroundColor: "#F1F7FF", width: "230px", borderRadius: "0px 10px 10px 10px", padding: "10px 15px 10px 15px" }}>
+                          <Typography fontSize={"16px"} color={"#000"} fontWeight={400}>Hola, Mariana, el paquete salió a horario y se entregará en horario.</Typography>
+
+                        </Box>
+                        <Typography fontSize={"14px"} fontWeight={400} width="230px" textAlign="end" color={"#0D082C66"}>08:18 AM</Typography>
+
+
+                      </Stack>
+                    </Grid>
+
+                  </Grid>
+
+                  /*Cuando alguien está escribiendo */
+                  <Grid container p={2}>
+
+                    <Grid item xs={2}>
+                      <Avatar alignSelf="flex-end"></Avatar>
+                    </Grid>
+                    <Grid item xs={10}>
+                      <Stack direction="column" alignItems={"flex-start"} >
+                        <Typography fontSize="16px" color="#000" >José Luis</Typography>
+                        <Stack direction="row" justifyContent={"space-around"} p="10px 15px 10px 15px" borderRadius="0px 10px 10px 10px" width="91px" height="35px" bgcolor={"#F1F7FF"}>
+                          <svg width="16" className="worm" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="8" cy="7.5" r="7.5" fill="#C7DFFF" />
+                          </svg>
+                          <svg width="16" className="worm worm-delay2" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="8" cy="7.5" r="7.5" fill="#C7DFFF" />
+                          </svg>
+                          <svg width="16" className="worm worm-delay3" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="8" cy="7.5" r="7.5" fill="#C7DFFF" />
+                          </svg>
+
+                        </Stack>
+
+
+                      </Stack>
+                    </Grid>
+
+                  </Grid>
+                  {/*Escribir */}
+                  <Stack direction="row" position="absolute" bottom={0} left={0} justifyContent={"space-between"} width="400px" height="60px" pb={2} px={2}>
+                    <Stack direction="row" alignItems={"center"}>
+                      <svg width="25" style={{ cursor: "pointer" }} height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12.5 22C18.0228 22 22.5 17.5228 22.5 12C22.5 6.47715 18.0228 2 12.5 2C6.97715 2 2.5 6.47715 2.5 12C2.5 17.5228 6.97715 22 12.5 22Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M8.5 14C8.5 14 10 16 12.5 16C15 16 16.5 14 16.5 14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M9.5 9H9.51" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M15.5 9H15.51" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                      <Input placeholder="Responder" style={{ marginLeft: "5px", border: "none", color: "#0D082C", fontSize: "16px" }}></Input>
+                    </Stack>
+                    <Stack direction="row" alignItems="center">
+                      <svg style={{ cursor: "pointer" }} width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg opacity="0.4">
+                          <path d="M19.5 3H5.5C4.39543 3 3.5 3.89543 3.5 5V19C3.5 20.1046 4.39543 21 5.5 21H19.5C20.6046 21 21.5 20.1046 21.5 19V5C21.5 3.89543 20.6046 3 19.5 3Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                          <path d="M9.5 11C10.6046 11 11.5 10.1046 11.5 9C11.5 7.89543 10.6046 7 9.5 7C8.39543 7 7.5 7.89543 7.5 9C7.5 10.1046 8.39543 11 9.5 11Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                          <path d="M21.5 15.0002L18.414 11.9142C18.0389 11.5392 17.5303 11.3286 17 11.3286C16.4697 11.3286 15.9611 11.5392 15.586 11.9142L6.5 21.0002" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </svg>
+                      <Stack ml={1} direction="column" justifyContent={"center"} alignItems="center" width="40px" height="40px" borderRadius="100px" sx={{ background: Colors.primary.main, cursor: "pointer" }}>
+                        <svg style={{ cursor: "pointer" }} width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M9.5 18L15.5 12L9.5 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </Stack>
+                    </Stack>
+                  </Stack>
+                </>
+              }
+
+            </Stack>
+
+          </Box>
+        }
+        {/*fin del componente chat */}
+        {
+          notificaciones &&
+          <Box position={"fixed"} top={67} right={85} width="400px" px={4} py={3} maxWidth={"400px"} height="600px" style={{ background: "white", border: "1 solid black", boxShadow: "#007C521A 0 30px 60px 0", borderRadius: "10px", }}>
             <Stack direction={"column"} justifyContent={"center"} alignItems={"center"} spacing={0}>
               <Grid container alignItems={"center"} spacing={1} >
                 <Grid item xs={1}>
@@ -485,11 +685,11 @@ export default function CompNavLanding() {
                     <p style={{ fontSize: "16px", fontWeight: 400, color: "black", textAlign: "start" }}><span style={{ fontWeight: 500 }}> José Luis</span> ha retirado el paquete.</p>
                   </Stack>
                 </Grid>
-                <Grid item xs={12} style={{padding: "0px"}}>
-                <Stack direction="row" justifyContent={"flex-end"} alignItems={"flex-start"}  >
+                <Grid item xs={12} style={{ padding: "0px" }}>
+                  <Stack direction="row" justifyContent={"flex-end"} alignItems={"flex-start"}  >
                     <p style={{ alignSelf: "flex-end", color: "#8C94A6", fontWeight: 400 }}>Hace 1 hora</p>
                   </Stack>
-                  </Grid>
+                </Grid>
               </Grid>
 
               <Grid container alignItems={"center"} spacing={1}>
@@ -504,11 +704,11 @@ export default function CompNavLanding() {
                     <p style={{ fontSize: "16px", fontWeight: 400, color: "black", textAlign: "start" }}>Tu conductor asignado es <span style={{ fontWeight: 500 }}> José Luis.</span></p>
                   </Stack>
                 </Grid>
-                <Grid item xs={12} p={0} style={{padding: "0px"}}>
-                <Stack direction="row" justifyContent={"flex-end"} alignItems={"flex-start"} sx={{padding: "0px"}} >
+                <Grid item xs={12} p={0} style={{ padding: "0px" }}>
+                  <Stack direction="row" justifyContent={"flex-end"} alignItems={"flex-start"} sx={{ padding: "0px" }} >
                     <p style={{ alignSelf: "flex-end", color: "#8C94A6", fontWeight: 400 }}>Hace 3 horas</p>
                   </Stack>
-                  </Grid>
+                </Grid>
               </Grid>
             </Stack>
 
