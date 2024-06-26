@@ -1,4 +1,6 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
@@ -9,7 +11,6 @@ import Modal from "@mui/material/Modal";
 import { Colors } from "../../Utils/Colors";
 import { useRef } from "react";
 import html2pdf from "html2pdf.js";
-import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -22,62 +23,62 @@ const style = {
   p: 0,
 };
 
-function createData(
-  index,
-  code,
-  product,
-  weight,
-  country,
-  delivery,
-  load,
-  client,
-  value,
-  img,
-  driver
-) {
-  return {
-    index,
-    code,
-    product,
-    weight,
-    country,
-    delivery,
-    load,
-    client,
-    value,
-    img,
-    driver,
-  };
-}
+// function createData(
+//   index,
+//   code,
+//   product,
+//   weight,
+//   country,
+//   delivery,
+//   load,
+//   client,
+//   value,
+//   img,
+//   driver
+// ) {
+//   return {
+//     index,
+//     code,
+//     product,
+//     weight,
+//     country,
+//     delivery,
+//     load,
+//     client,
+//     value,
+//     img,
+//     driver,
+//   };
+// }
 
-const rows = [
-  createData(
-    "0",
-    "#1205",
-    "Bobinas",
-    "1 tonelada",
-    "Colombia",
-    "12/03/24 - 21/03/24",
-    "Seca",
-    "María Paz",
-    "$12.00",
-    "/imgShipments/Bobinas.jpg",
-    "Luis Alvarez"
-  ),
-  createData(
-    "1",
-    "#1205",
-    "Bobinas",
-    "1 tonelada",
-    "Colombia",
-    "12/03/24 - 21/03/24",
-    "Seca",
-    "María Paz",
-    "$12.00",
-    "/imgShipments/Bobinas.jpg",
-    "Luis Alvarez"
-  ),
-];
+// const rows = [
+//   createData(
+//     "0",
+//     "#1205",
+//     "Bobinas",
+//     "1 tonelada",
+//     "Colombia",
+//     "12/03/24 - 21/03/24",
+//     "Seca",
+//     "María Paz",
+//     "$12.00",
+//     "/imgShipments/Bobinas.jpg",
+//     "Luis Alvarez"
+//   ),
+//   createData(
+//     "1",
+//     "#1205",
+//     "Bobinas",
+//     "1 tonelada",
+//     "Colombia",
+//     "12/03/24 - 21/03/24",
+//     "Seca",
+//     "María Paz",
+//     "$12.00",
+//     "/imgShipments/Bobinas.jpg",
+//     "Luis Alvarez"
+//   ),
+// ];
 
 export default function CompPendingPayment() {
   const [open, setOpen] = React.useState(false);
@@ -86,6 +87,9 @@ export default function CompPendingPayment() {
   const mobile = useMediaQuery("(max-width:720px)");
   const navigate = useNavigate();
   const componentRef = useRef();
+  const pending = useSelector((state) =>
+    state.adminPayment.filter((e) => e.status === "pendiente")
+  );
   //Generar pdf
   const generatePdf = () => {
     const opt = {
@@ -117,7 +121,7 @@ export default function CompPendingPayment() {
               padding: "20px",
             }}
           >
-            {rows.map((row) => (
+            {pending.map((row) => (
               <Box
                 style={{
                   padding: "10px",

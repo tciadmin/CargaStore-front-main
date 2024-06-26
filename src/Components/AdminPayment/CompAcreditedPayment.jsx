@@ -1,5 +1,5 @@
 import * as React from "react";
-
+import { useSelector } from "react-redux";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import html2pdf from "html2pdf.js";
@@ -83,6 +83,9 @@ export default function CompAcreditedPayment() {
   const handleClose = () => setOpen(false);
   const mobile = useMediaQuery("(max-width:720px)");
   const componentRef = React.useRef();
+  const accredited = useSelector((state) =>
+    state.adminPayment.filter((e) => e.status === "acreditado")
+  );
   //Generar pdf
   const generatePdf = () => {
     const opt = {
@@ -113,7 +116,7 @@ export default function CompAcreditedPayment() {
               padding: "20px",
             }}
           >
-            {rows.map((row) => (
+            {accredited.map((row) => (
               <Box
                 style={{
                   padding: "10px",
