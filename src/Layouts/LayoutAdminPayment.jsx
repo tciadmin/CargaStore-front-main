@@ -3,6 +3,8 @@ import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import CompNavLanding from "../Components/NavLanding/CompNavLanding";
+import { useDispatch } from "react-redux";
+import { filterPayment } from "../Redux/Actions/PaymentActions/paymentActions";
 //? --------------------------------------------- MUI
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
@@ -56,6 +58,7 @@ export default function LayoutAdminPayment() {
   const mobile = useMediaQuery("(max-width:720px)");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const open = Boolean(anchorEl);
 
@@ -91,9 +94,11 @@ export default function LayoutAdminPayment() {
   };
 
   useEffect(() => {
-    if (value === 0) {
+    if (value === "0") {
+      // dispatch(filterPayment(value)) &&
       navigate("/payment");
     } else {
+      // dispatch(filterPayment(value)) &&
       navigate("/payment/acredited");
     }
   }, [value]);

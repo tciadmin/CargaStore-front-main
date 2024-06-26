@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useSelector } from "react-redux";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import html2pdf from "html2pdf.js";
@@ -82,13 +83,14 @@ export default function CompAcreditedPayment() {
   const handleClose = () => setOpen(false);
   const mobile = useMediaQuery("(max-width:720px)");
   const componentRef = React.useRef();
+  const accredited = useSelector((state) =>
+    state.adminPayment.filter((e) => e.status === "acreditado")
+  );
   //Generar pdf
   const generatePdf = () => {
-   
-   
     const opt = {
       margin: 1,
-      filename:   "Factura_:" + Date.now() + ".pdf",
+      filename: "Factura_:" + Date.now() + ".pdf",
       image: { type: "png", quality: 0.98 },
       html2canvas: { scale: 2 },
       jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
@@ -114,7 +116,7 @@ export default function CompAcreditedPayment() {
               padding: "20px",
             }}
           >
-            {rows.map((row) => (
+            {accredited.map((row) => (
               <Box
                 style={{
                   padding: "10px",
@@ -858,7 +860,7 @@ export default function CompAcreditedPayment() {
           <Typography
             id="modal-modal-description"
             style={{ color: Colors.cuaternary.main, cursor: "pointer" }}
-            onClick={()=>generatePdf()}
+            onClick={() => generatePdf()}
           >
             Ver factura
           </Typography>
