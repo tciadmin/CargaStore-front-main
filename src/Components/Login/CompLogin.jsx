@@ -18,7 +18,7 @@ import './styles.css';
 export default function CompLogin() {
   const mobile = useMediaQuery('(max-width:720px)');
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
+  const { userLoading } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const {
     register,
@@ -165,6 +165,7 @@ export default function CompLogin() {
 
           <Button
             variant="contained"
+            disabled={userLoading}
             sx={{
               m: 1,
               width: mobile ? '300px' : '350px',
@@ -177,7 +178,7 @@ export default function CompLogin() {
             }}
             type="submit"
           >
-            Ingresar
+            {userLoading ? 'Cargando' : 'Ingresar'}
           </Button>
         </form>
         <img

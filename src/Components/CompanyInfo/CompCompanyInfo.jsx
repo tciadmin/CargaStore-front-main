@@ -19,6 +19,7 @@ export default function CompCompanyInfo() {
   const dispatch = useDispatch();
 
   const { clientData } = useSelector((state) => state.forms);
+  const { userLoading } = useSelector((state) => state.user);
   const { company_name, address, city, company_phone } = clientData;
 
   const {
@@ -174,6 +175,7 @@ export default function CompCompanyInfo() {
             <Button
               variant="contained"
               type="submit"
+              disabled={userLoading}
               sx={{
                 m: 1,
                 height: '40px',
@@ -185,7 +187,7 @@ export default function CompCompanyInfo() {
                 borderRadius: '8px',
               }}
             >
-              Registrarse
+              {userLoading ? 'Cargando' : 'Registrarse'}
             </Button>
           </form>
         </Box>

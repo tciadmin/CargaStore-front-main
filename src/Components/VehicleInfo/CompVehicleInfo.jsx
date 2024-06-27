@@ -19,6 +19,7 @@ export default function CompVehicleInfo() {
   const dispatch = useDispatch();
 
   const { driverData } = useSelector((state) => state.forms);
+  const { userLoading } = useSelector((state) => state.user);
   const { brand, model, year, charge_capacity, charge_type } =
     driverData;
 
@@ -50,7 +51,6 @@ export default function CompVehicleInfo() {
     dispatch(
       postUser('driver', { ...driverData, ...data }, navigate)
     );
-    // navigate('/login');
   };
 
   return (
@@ -196,6 +196,7 @@ export default function CompVehicleInfo() {
 
             <Button
               variant="contained"
+              disabled={userLoading}
               sx={{
                 m: 1,
                 height: '40px',
@@ -208,7 +209,7 @@ export default function CompVehicleInfo() {
               }}
               type="submit"
             >
-              Registrarse
+              {userLoading ? 'Cargando' : 'Registrarse'}
             </Button>
           </form>
         </Box>
