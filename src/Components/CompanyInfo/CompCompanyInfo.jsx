@@ -45,8 +45,9 @@ export default function CompCompanyInfo() {
   const onSubmit = (data) => {
     dispatch(clientFormData(data));
     // console.table({ ...clientData, ...data });
-    dispatch(postUser('customer', { ...clientData, ...data })) &&
-      navigate('/login');
+    dispatch(
+      postUser('customer', { ...clientData, ...data }, navigate)
+    );
   };
 
   return (

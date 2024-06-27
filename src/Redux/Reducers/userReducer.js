@@ -37,13 +37,13 @@ import {
 } from '../Actions/UserActions/userActions';
 
 const initialState = {
-  token: null,
-  allUsers: [],
-  user: {},
-  request: [],
-  email: [],
   userLoading: false,
   passwordLoading: false,
+  token: null,
+  user: {},
+  allUsers: [],
+  request: [],
+  email: [],
   error: null,
 };
 
