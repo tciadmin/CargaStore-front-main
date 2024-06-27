@@ -1,37 +1,44 @@
-import * as React from "react";
-import { useNavigate, useLocation, Outlet } from "react-router-dom";
+import * as React from 'react';
+import { useNavigate, useLocation, Outlet } from 'react-router-dom';
 //? --------------------------------------------- MUI
-import Box from "@mui/material/Box";
-import { useMediaQuery } from "@mui/material";
+import Box from '@mui/material/Box';
+import { useMediaQuery } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 const LayoutLogin = () => {
-  const mobile = useMediaQuery("(max-width:720px)");
+  const mobile = useMediaQuery('(max-width:720px)');
   const navigate = useNavigate();
   const location = useLocation();
 
+  const { token, user } = useSelector((store) => store.user);
+
+  React.useEffect(() => {
+    console.table({ token, user });
+  }, [token, user]);
+
   const goBack = () => {
     if (
-      location.pathname === "/login/forgot-password" ||
-      location.pathname === "/login/new-password"
+      location.pathname === '/login/forgot-password' ||
+      location.pathname === '/login/new-password'
     ) {
-      navigate("/login");
-    } else if (location.pathname === "/login/verification-code") {
-      navigate("/login/forgot-password");
+      navigate('/login');
+    } else if (location.pathname === '/login/verification-code') {
+      navigate('/login/forgot-password');
     }
   };
 
   return (
     <Box>
       <Box
-        sx={{ display: "flex" }}
+        sx={{ display: 'flex' }}
         className="loginContainer"
         style={{
-          height: "100vh",
-          overflow: mobile ? "" : "hidden",
+          height: '100vh',
+          overflow: mobile ? '' : 'hidden',
         }}
       >
         {mobile ? (
-          ""
+          ''
         ) : (
           <Box className="imgContainer">
             <img src="/imgLogin/LoginCamion.jpg" />
@@ -40,28 +47,30 @@ const LayoutLogin = () => {
 
         <Box
           style={{
-            width: "100%",
-            heigth: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-            gap: "20px",
+            width: '100%',
+            heigth: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'column',
+            gap: '20px',
           }}
         >
           <Box
             className="formContainer"
             style={{
-              border: mobile ? "" : "1px solid rgb(102, 113, 133, 0.3)",
-              padding: mobile ? "" : "30px 50px",
+              border: mobile
+                ? ''
+                : '1px solid rgb(102, 113, 133, 0.3)',
+              padding: mobile ? '' : '30px 50px',
             }}
           >
             <Box
               className="arrow"
               style={{
-                width: "100%",
-                display: "flex",
-                alignItems: "left",
+                width: '100%',
+                display: 'flex',
+                alignItems: 'left',
               }}
             >
               {mobile ? (
@@ -69,23 +78,27 @@ const LayoutLogin = () => {
                   onClick={goBack}
                   src="/imgLogin/GoBackArrow.svg"
                   style={{
-                    display: location.pathname !== "/login" ? "flex" : "none",
-                    cursor: "pointer",
-                    alignItems: "left",
+                    display:
+                      location.pathname !== '/login'
+                        ? 'flex'
+                        : 'none',
+                    cursor: 'pointer',
+                    alignItems: 'left',
                   }}
                 />
               ) : (
-                ""
+                ''
               )}
             </Box>
 
             <Box className="headerContainer">
               {mobile ? (
-                location.pathname.includes("/forgot-password") ? (
+                location.pathname.includes('/forgot-password') ? (
                   <img src="/imgLogin/ForgotPassword.jpg" />
-                ) : location.pathname === "/login/verification-code" ? (
+                ) : location.pathname ===
+                  '/login/verification-code' ? (
                   <img src="/imgLogin/VerificationCodeImage.jpg" />
-                ) : location.pathname === "/login/new-password" ? (
+                ) : location.pathname === '/login/new-password' ? (
                   <img src="/imgLogin/NewPasswordImage.jpg" />
                 ) : (
                   <img src="/imgLanding/LogoCargaStore.svg" />
