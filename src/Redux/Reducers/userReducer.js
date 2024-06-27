@@ -37,8 +37,9 @@ import {
 } from '../Actions/UserActions/userActions';
 
 const initialState = {
+  token: null,
   allUsers: [],
-  user: [],
+  user: {},
   request: [],
   email: [],
   userLoading: false,
@@ -80,13 +81,16 @@ export const userReducer = (state = initialState, action) => {
         userLoading: false,
         error: action.error,
       };
-    case GET_USER_SUCCESS:
+    case GET_USER_SUCCESS: {
+      const { token, user } = action.payload;
       return {
         ...state,
-        user: action.payload,
+        token,
+        user,
         userLoading: false,
         error: null,
       };
+    }
 
     case POST_USER_PENDING:
       return {
@@ -100,13 +104,18 @@ export const userReducer = (state = initialState, action) => {
         userLoading: false,
         error: action.error,
       };
-    case POST_USER_SUCCESS:
+    case POST_USER_SUCCESS: {
+      const { token, user } = action.payload;
+
       return {
         ...state,
-        allUsers: [...state.allUsers, action.payload],
+        token,
+        user,
+        allUsers: [...state.allUsers, user],
         userLoading: false,
         error: null,
       };
+    }
 
     case AUTH_USER_PENDING:
       return {
@@ -120,13 +129,17 @@ export const userReducer = (state = initialState, action) => {
         userLoading: false,
         error: action.error,
       };
-    case AUTH_USER_SUCCESS:
+    case AUTH_USER_SUCCESS: {
+      const { token, user } = action.payload;
+
       return {
         ...state,
-        user: action.payload,
+        token,
+        user,
         userLoading: false,
         error: null,
       };
+    }
 
     case PUT_CUSTOMER_PENDING:
       return {

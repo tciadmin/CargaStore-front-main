@@ -50,7 +50,7 @@ export const getUser = (id) => {
       const user = await axiosInstance(`/single_user/${id}`);
       return dispatch({
         type: GET_USER_SUCCESS,
-        payload: user,
+        payload: user.data,
       });
     } catch (error) {
       dispatch({ type: GET_USER_FAILURE, error: error.message });
@@ -92,7 +92,7 @@ export const postUser = (userType, userData) => {
         );
         return dispatch({
           type: POST_USER_SUCCESS,
-          payload: { ...data.user, driver },
+          payload: driver.data,
         });
       } else if (userType === 'customer') {
         //Destructuramos los datos del cliente en caso de que
@@ -108,7 +108,7 @@ export const postUser = (userType, userData) => {
         console.log('customer: ', customer);
         return dispatch({
           type: POST_USER_SUCCESS,
-          payload: { ...data.user, customer },
+          payload: customer.data,
         });
       }
     } catch (error) {
@@ -125,7 +125,7 @@ export const authUser = (user) => {
       const auth = await axiosInstance.post('/auth/signin', user);
       return dispatch({
         type: AUTH_USER_SUCCESS,
-        payload: auth,
+        payload: auth.data,
       });
     } catch (error) {
       dispatch({ type: AUTH_USER_FAILURE, error: error.message });
