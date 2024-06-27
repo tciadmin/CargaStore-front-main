@@ -50,7 +50,7 @@ export const getUser = (id) => {
       const user = await axiosInstance(`/single_user/${id}`);
       return dispatch({
         type: GET_USER_SUCCESS,
-        payload: user,
+        payload: user.data,
       });
     } catch (error) {
       dispatch({ type: GET_USER_FAILURE, error: error.message });
@@ -58,30 +58,57 @@ export const getUser = (id) => {
   };
 };
 
-export const postUser = (user) => {
+export const postUser = (userType, userData) => {
+  // userTpe es el tipo de usuario que se creara,
+  //por el momento solo puede ser 'driver' y 'customer'
+  //userData es la informacion del usuario
   return async (dispatch) => {
     dispatch({ type: POST_USER_PENDING });
 
     try {
-      let newUser = await axiosInstance.post('/auth/signup', user);
-      const { role } = newUser;
-      if (role === 'driver') {
-        let driver = await axiosInstance.post(
-          `/driver/create/${newUser?.user.id}`,
-          user
+      //Destructuramos los datos del usuario
+      const { name, lastname, email, password, confirmPassword } =
+        userData;
+      const newUser = await axiosInstance.post('/auth/signup', {
+        name,
+        lastname,
+        email,
+        password,
+        confirmPassword,
+      });
+      //Destructuramos los datos de la respuesta de newUser
+      const { data } = newUser;
+      console.log('data: ', data);
+      if (userType === 'driver') {
+        //Destructuramos los datos del conductor en caso de que
+        //userType sea 'driver'
+        const { brand, model, year, charge_capacity, charge_type } =
+          userData;
+        //Hacemos la peticion al endpoint de creacion de conductor
+        //y le pasamos como id del usuario el de la respuesta de newUser
+        const driver = await axiosInstance.post(
+          `/driver/create/${data?.user.id}`,
+          { brand, model, year, charge_capacity, charge_type }
         );
         return dispatch({
           type: POST_USER_SUCCESS,
-          payload: { ...newUser, driver },
+          payload: driver.data,
         });
-      } else {
-        let customer = await axiosInstance.post(
-          `/customer/create/${newUser?.user.id}`,
-          user
+      } else if (userType === 'customer') {
+        //Destructuramos los datos del cliente en caso de que
+        //userType sea 'customer'
+        const { company_name, address, city, company_phone } =
+          userData;
+        //Hacemos la peticion al endpoint de creacion de cliente
+        //y le pasamos como id del usuario el de la respuesta de newUser
+        const customer = await axiosInstance.post(
+          `/customer/create/${data?.user.id}`,
+          { company_name, address, city, company_phone }
         );
+        console.log('customer: ', customer);
         return dispatch({
           type: POST_USER_SUCCESS,
-          payload: { ...newUser, customer },
+          payload: customer.data,
         });
       }
     } catch (error) {
@@ -98,7 +125,7 @@ export const authUser = (user) => {
       const auth = await axiosInstance.post('/auth/signin', user);
       return dispatch({
         type: AUTH_USER_SUCCESS,
-        payload: auth,
+        payload: auth.data,
       });
     } catch (error) {
       dispatch({ type: AUTH_USER_FAILURE, error: error.message });

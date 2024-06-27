@@ -1,4 +1,6 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
@@ -21,76 +23,78 @@ const style = {
   p: 0,
 };
 
-function createData(
-  index,
-  code,
-  product,
-  weight,
-  country,
-  delivery,
-  load,
-  client,
-  value,
-  img,
-  driver
-) {
-  return {
-    index,
-    code,
-    product,
-    weight,
-    country,
-    delivery,
-    load,
-    client,
-    value,
-    img,
-    driver,
-  };
-}
+// function createData(
+//   index,
+//   code,
+//   product,
+//   weight,
+//   country,
+//   delivery,
+//   load,
+//   client,
+//   value,
+//   img,
+//   driver
+// ) {
+//   return {
+//     index,
+//     code,
+//     product,
+//     weight,
+//     country,
+//     delivery,
+//     load,
+//     client,
+//     value,
+//     img,
+//     driver,
+//   };
+// }
 
-const rows = [
-  createData(
-    "0",
-    "#1205",
-    "Bobinas",
-    "1 tonelada",
-    "Colombia",
-    "12/03/24 - 21/03/24",
-    "Seca",
-    "María Paz",
-    "$12.00",
-    "/imgShipments/Bobinas.jpg",
-    "Luis Alvarez"
-  ),
-  createData(
-    "1",
-    "#1205",
-    "Bobinas",
-    "1 tonelada",
-    "Colombia",
-    "12/03/24 - 21/03/24",
-    "Seca",
-    "María Paz",
-    "$12.00",
-    "/imgShipments/Bobinas.jpg",
-    "Luis Alvarez"
-  ),
-];
+// const rows = [
+//   createData(
+//     "0",
+//     "#1205",
+//     "Bobinas",
+//     "1 tonelada",
+//     "Colombia",
+//     "12/03/24 - 21/03/24",
+//     "Seca",
+//     "María Paz",
+//     "$12.00",
+//     "/imgShipments/Bobinas.jpg",
+//     "Luis Alvarez"
+//   ),
+//   createData(
+//     "1",
+//     "#1205",
+//     "Bobinas",
+//     "1 tonelada",
+//     "Colombia",
+//     "12/03/24 - 21/03/24",
+//     "Seca",
+//     "María Paz",
+//     "$12.00",
+//     "/imgShipments/Bobinas.jpg",
+//     "Luis Alvarez"
+//   ),
+// ];
 
 export default function CompPendingPayment() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const mobile = useMediaQuery("(max-width:720px)");
-    const componentRef = useRef();
+  const navigate = useNavigate();
+  const componentRef = useRef();
+  const pending = useSelector((state) =>
+    state.adminPayment.filter((e) => e.status === "pendiente")
+  );
   //Generar pdf
   const generatePdf = () => {
-   
-   
     const opt = {
       margin: 1,
-      filename:   "Factura_:" + Date.now() + ".pdf",
+      filename: "Factura_:" + Date.now() + ".pdf",
       image: { type: "png", quality: 0.98 },
       html2canvas: { scale: 2 },
       jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
@@ -117,7 +121,7 @@ export default function CompPendingPayment() {
               padding: "20px",
             }}
           >
-            {rows.map((row) => (
+            {pending.map((row) => (
               <Box
                 style={{
                   padding: "10px",
@@ -828,12 +832,16 @@ export default function CompPendingPayment() {
           <Typography
             id="modal-modal-description"
             style={{ color: Colors.cuaternary.main, cursor: "pointer" }}
-            onClick={()=>generatePdf()}
+            onClick={() => generatePdf()}
           >
             Ver factura
           </Typography>
 
-          <Button variant="contained" style={{ marginBottom: "10px" }}>
+          <Button
+            variant="contained"
+            style={{ marginBottom: "10px" }}
+            onClick={() => navigate("/post-payment")}
+          >
             Efectuar pago al conductor
           </Button>
         </Box>
