@@ -47,8 +47,10 @@ export default function CompVehicleInfo() {
 
   const onSubmit = (data) => {
     dispatch(driverFormData(data));
-    dispatch(postUser('driver', { ...driverData, ...data })) &&
-      navigate('/login');
+    dispatch(
+      postUser('driver', { ...driverData, ...data }, navigate)
+    );
+    // navigate('/login');
   };
 
   return (

@@ -58,7 +58,7 @@ export const getUser = (id) => {
   };
 };
 
-export const postUser = (userType, userData) => {
+export const postUser = (userType, userData, navigate) => {
   // userTpe es el tipo de usuario que se creara,
   //por el momento solo puede ser 'driver' y 'customer'
   //userData es la informacion del usuario
@@ -90,10 +90,11 @@ export const postUser = (userType, userData) => {
           `/driver/create/${data?.user.id}`,
           { brand, model, year, charge_capacity, charge_type }
         );
-        return dispatch({
+        dispatch({
           type: POST_USER_SUCCESS,
           payload: driver.data,
         });
+        navigate('/marketplace');
       } else if (userType === 'customer') {
         //Destructuramos los datos del cliente en caso de que
         //userType sea 'customer'
@@ -106,10 +107,11 @@ export const postUser = (userType, userData) => {
           { company_name, address, city, company_phone }
         );
         console.log('customer: ', customer);
-        return dispatch({
+        dispatch({
           type: POST_USER_SUCCESS,
           payload: customer.data,
         });
+        navigate('/shipments');
       }
     } catch (error) {
       dispatch({ type: POST_USER_FAILURE, error: error.message });
@@ -117,16 +119,22 @@ export const postUser = (userType, userData) => {
   };
 };
 
-export const authUser = (user) => {
+export const authUser = (user, navigate) => {
   return async (dispatch) => {
     dispatch({ type: AUTH_USER_PENDING });
 
     try {
       const auth = await axiosInstance.post('/auth/signin', user);
-      return dispatch({
+      const { data } = auth;
+      dispatch({
         type: AUTH_USER_SUCCESS,
-        payload: auth.data,
+        payload: data,
       });
+      if (data.user.role === 'driver') {
+        navigate('/marketplace');
+      } else if (data.user.role === 'customer') {
+        navigate('/shipments');
+      }
     } catch (error) {
       dispatch({ type: AUTH_USER_FAILURE, error: error.message });
     }
