@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-
 //? --------------------------------------------- MUI
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -114,10 +113,7 @@ export default function CompSent() {
   const handleClose = () => setOpen(false);
   const navigate = useNavigate();
   const mobile = useMediaQuery("(max-width:720px)");
-  const order =
-    useSelector((state) =>
-      state.orders.filter((e) => e.OrderStatus === "finalizado")
-    ) || [];
+  const order = useSelector((state) => state.orders.orders) || [];
 
   return (
     <Box>
