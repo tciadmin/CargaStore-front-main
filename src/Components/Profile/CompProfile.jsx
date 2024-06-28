@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
   Stack,
@@ -24,11 +24,7 @@ export const CompProfile = () => {
   const feedback = useSelector((state) => state.user.feedback) || [];
   const rol = localStorage.getItem("userPrueba");
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const { register } = useForm({
     defaultValues: {
       feed: "",
       score: "",

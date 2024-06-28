@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useSelector } from "react-redux";
 //? --------------------------------------------- MUI
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -8,91 +9,6 @@ import Rating from "@mui/material/Rating";
 import { Grid } from "@mui/material";
 //? --------------------------------------------- STYLES
 import { Colors } from "../../../Utils/Colors";
-
-function createData(
-  index,
-  product,
-  retire,
-  date,
-  delivery,
-  secondDate,
-  receiver,
-  unity,
-  load,
-  seca,
-  value,
-  driver,
-  country,
-  img
-) {
-  return {
-    index,
-    product,
-    retire,
-    date,
-    delivery,
-    secondDate,
-    receiver,
-    unity,
-    load,
-    seca,
-    value,
-    driver,
-    country,
-    img,
-  };
-}
-
-const rows = [
-  createData(
-    "0",
-    "#1205",
-    "Bobinas de papel",
-    "Calle 12, Quito, Peru",
-    "12/03/24 12:00hs",
-    "Calle 12, Quito, Peru",
-    "21/03/24 12:00hs",
-    "El mundo del papel",
-    "Furgón",
-    "Seca",
-    "$12.00",
-    "Luis Alvarez",
-    "Colombia",
-    "/imgShipments/Bobinas.jpg"
-  ),
-  createData(
-    "1",
-    "#1205",
-    "Bobinas de papel",
-    "Calle 12, Quito, Peru",
-    "12/03/24 12:00hs",
-    "Calle 12, Quito, Peru",
-    "21/03/24 12:00hs",
-    "El mundo del papel",
-    "Furgón",
-    "Seca",
-    "$12.00",
-    "Luis Alvarez",
-    "Colombia",
-    "/imgShipments/Bobinas.jpg"
-  ),
-  createData(
-    "2",
-    "#1903",
-    "Cañas de azúcar",
-    "Calle 12, Quito, Peru",
-    "12/03/24 12:00hs",
-    "Calle 12, Quito, Peru",
-    "21/03/24 12:00hs",
-    "El mundo del papel",
-    "Furgón",
-    "Peligrosa",
-    "$12.00",
-    "Luis Alvarez",
-    "Colombia",
-    "/imgShipments/Bobinas.jpg"
-  ),
-];
 
 const style = {
   position: "absolute",
@@ -111,6 +27,10 @@ export default function CompAssigned() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const mobile = useMediaQuery("(max-width:720px)");
+  const order =
+    useSelector((state) =>
+      state.orders.filter((e) => e.OrderStatus === "asignado")
+    ) || [];
 
   return (
     <Box>
@@ -130,7 +50,7 @@ export default function CompAssigned() {
               padding: "20px",
             }}
           >
-            {rows.map((row) => (
+            {order.map((row) => (
               <Box
                 style={{
                   padding: "10px",
@@ -184,7 +104,7 @@ export default function CompAssigned() {
                 display: "flex",
                 color: Colors.primary.main,
                 minWdth: "100%",
-                
+
                 alignItems: "center",
                 backgroundColor: Colors.terciary.contrastText,
               }}
@@ -391,7 +311,7 @@ export default function CompAssigned() {
                     gap: "20px",
                   }}
                 >
-                  {rows.map((row) => (
+                  {order.map((row) => (
                     <Box
                       style={{
                         display: "flex",
