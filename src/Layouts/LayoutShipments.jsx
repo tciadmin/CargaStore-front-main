@@ -59,7 +59,12 @@ const LayoutShipments = () => {
     }
   }, []);
   const mobile = useMediaQuery("(max-width:720px)");
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState({
+    pendiente: 0,
+    asignado: 1,
+    "en curso": 2,
+    finalizado: 3,
+  });
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -112,6 +117,7 @@ const LayoutShipments = () => {
     } else {
       navigate("/shipments/finished");
     }
+    dispatch(listOrder(value[name]));
   }, [value]);
 
   return (
