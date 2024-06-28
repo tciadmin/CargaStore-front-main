@@ -13,6 +13,8 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 //? --------------------------------------------- STYLES
 import { Colors } from "../Utils/Colors";
+import { useDispatch } from "react-redux";
+import { listOrder } from "../Redux/Actions/OrderActions/listOrder";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -60,11 +62,13 @@ const LayoutShipments = () => {
   const [value, setValue] = React.useState(0);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+    dispatch(listOrder(event.target.name));
   };
   const tabNameToIndex = {
     pendiente: 0,
@@ -96,16 +100,6 @@ const LayoutShipments = () => {
     setAnchorEl(null);
 
     navigate("/shipments/finished");
-  };
-
-  const handleChange = (event, newValue) => {
-    const tabName = event.target.name;
-
-    if (tabName in tabNameToIndex) {
-      setValue(tabNameToIndex[tabName]);
-    } else {
-      setValue(newValue);
-    }
   };
 
   useEffect(() => {
