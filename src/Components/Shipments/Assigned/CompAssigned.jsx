@@ -27,10 +27,7 @@ export default function CompAssigned() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const mobile = useMediaQuery("(max-width:720px)");
-  const order =
-    useSelector((state) =>
-      state.orders.filter((e) => e.OrderStatus === "asignado")
-    ) || [];
+  const order = useSelector((state) => state.orders.orders) || [];
 
   return (
     <Box>
