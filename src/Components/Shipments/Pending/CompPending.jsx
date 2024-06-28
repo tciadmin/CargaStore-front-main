@@ -26,91 +26,6 @@ const steps = [
   { label: "En camino", date: "10/03/24" },
 ];
 
-function createData(
-  index,
-  product,
-  retire,
-  date,
-  delivery,
-  secondDate,
-  receiver,
-  unity,
-  load,
-  seca,
-  value,
-  driver,
-  country,
-  img
-) {
-  return {
-    index,
-    product,
-    retire,
-    date,
-    delivery,
-    secondDate,
-    receiver,
-    unity,
-    load,
-    seca,
-    value,
-    driver,
-    country,
-    img,
-  };
-}
-
-const rows = [
-  //   createData(
-  //     "0",
-  //     "#1205",
-  //     "Bobinas de papel",
-  //     "Calle 12, Quito, Peru",
-  //     "12/03/24 12:00hs",
-  //     "Calle 12, Quito, Peru",
-  //     "21/03/24 12:00hs",
-  //     "El mundo del papel",
-  //     "Furgón",
-  //     "Seca",
-  //     "$12.00",
-  //     "Luis Alvarez",
-  //     "Colombia",
-  //     "/imgShipments/Bobinas.jpg"
-  //   ),
-  //   createData(
-  //     "1",
-  //     "#1205",
-  //     "Bobinas de papel",
-  //     "Calle 12, Quito, Peru",
-  //     "12/03/24 12:00hs",
-  //     "Calle 12, Quito, Peru",
-  //     "21/03/24 12:00hs",
-  //     "El mundo del papel",
-  //     "Furgón",
-  //     "Seca",
-  //     "$12.00",
-  //     "Luis Alvarez",
-  //     "Colombia",
-  //     "/imgShipments/Bobinas.jpg"
-  //   ),
-  //   createData(
-  //     "2",
-  //     "#1903",
-  //     "Cañas de azúcar",
-  //     "Calle 12, Quito, Peru",
-  //     "12/03/24 12:00hs",
-  //     "Calle 12, Quito, Peru",
-  //     "21/03/24 12:00hs",
-  //     "El mundo del papel",
-  //     "Furgón",
-  //     "Peligrosa",
-  //     "$12.00",
-  //     "Luis Alvarez",
-  //     "Colombia",
-  //     "/imgShipments/Bobinas.jpg"
-  //   ),
-];
-
 export default function CompPending() {
   const mobile = useMediaQuery("(max-width:720px)");
   const order =
@@ -520,7 +435,7 @@ export default function CompPending() {
                         gap: "20px",
                       }}
                     >
-                      {rows.map((row) => (
+                      {order.map((row) => (
                         <Box
                           style={{
                             display: "flex",
