@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useSelector } from "react-redux";
 //? --------------------------------------------- MUI
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -111,6 +112,10 @@ export default function CompAssigned() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const mobile = useMediaQuery("(max-width:720px)");
+  const order =
+    useSelector((state) =>
+      state.orders.filter((e) => e.state === "asignado")
+    ) || [];
 
   return (
     <Box>
@@ -130,7 +135,7 @@ export default function CompAssigned() {
               padding: "20px",
             }}
           >
-            {rows.map((row) => (
+            {order.map((row) => (
               <Box
                 style={{
                   padding: "10px",
@@ -184,7 +189,7 @@ export default function CompAssigned() {
                 display: "flex",
                 color: Colors.primary.main,
                 minWdth: "100%",
-                
+
                 alignItems: "center",
                 backgroundColor: Colors.terciary.contrastText,
               }}

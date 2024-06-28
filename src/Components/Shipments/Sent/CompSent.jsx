@@ -131,7 +131,7 @@ export default function CompSent() {
               padding: "20px",
             }}
           >
-            {rows.map((row) => (
+            {order.map((row) => (
               <Box
                 style={{
                   padding: "10px",
@@ -392,7 +392,7 @@ export default function CompSent() {
                     gap: "20px",
                   }}
                 >
-                  {rows.map((row) => (
+                  {order.map((row) => (
                     <Box
                       style={{
                         display: "flex",
