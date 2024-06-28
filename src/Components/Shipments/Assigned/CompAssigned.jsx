@@ -29,7 +29,7 @@ export default function CompAssigned() {
   const mobile = useMediaQuery("(max-width:720px)");
   const order =
     useSelector((state) =>
-      state.orders.filter((e) => e.state === "asignado")
+      state.orders.filter((e) => e.OrderStatus === "asignado")
     ) || [];
 
   return (

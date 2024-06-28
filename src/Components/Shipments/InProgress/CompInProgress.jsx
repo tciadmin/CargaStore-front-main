@@ -38,7 +38,7 @@ export default function CompInProgress() {
   const mobile = useMediaQuery("(max-width:720px)");
   const order =
     useSelector((state) =>
-      state.orders.filter((e) => e.state === "in-progress")
+      state.orders.filter((e) => e.OrderStatus === "en curso")
     ) || [];
 
   return (

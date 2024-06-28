@@ -29,8 +29,9 @@ const steps = [
 export default function CompPending() {
   const mobile = useMediaQuery("(max-width:720px)");
   const order =
-    useSelector((state) => state.orders.filter((e) => e.state === "pending")) ||
-    [];
+    useSelector((state) =>
+      state.orders.filter((e) => e.OrderStatus === "pendiente")
+    ) || [];
   return (
     <Box style={{ background: "#F6F6F6" }}>
       {rows.length === 0 ? (

@@ -17,7 +17,6 @@ import { Colors } from "../Utils/Colors";
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
-
   return (
     <div
       role="tabpanel"
@@ -49,14 +48,14 @@ function a11yProps(index) {
 }
 
 const LayoutShipments = () => {
-  const [userRol, setUserRol] = React.useState("cliente")
+  const [userRol, setUserRol] = React.useState("cliente");
   React.useEffect(() => {
     if (localStorage.getItem("userPrueba")) {
       setUserRol(localStorage.getItem("userPrueba"));
     } else {
-      localStorage.setItem("userPrueba", "cliente")
+      localStorage.setItem("userPrueba", "cliente");
     }
-  }, [])
+  }, []);
   const mobile = useMediaQuery("(max-width:720px)");
   const [value, setValue] = React.useState(0);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -68,10 +67,10 @@ const LayoutShipments = () => {
     setAnchorEl(event.currentTarget);
   };
   const tabNameToIndex = {
-    Pendientes: 0,
-    Asignado: 1,
-    "En curso": 2,
-    Finalizados: 3,
+    pendiente: 0,
+    asignado: 1,
+    "en curso": 2,
+    finalizado: 3,
   };
 
   const handleClose = () => {
@@ -153,7 +152,7 @@ const LayoutShipments = () => {
               }}
             >
               <MenuItem
-                name="Pendientes"
+                name="pendiente"
                 value="0"
                 onClick={clickPending}
                 style={{
@@ -167,7 +166,7 @@ const LayoutShipments = () => {
                 Envíos pendientes
               </MenuItem>
               <MenuItem
-                name="Asignado"
+                name="asignado"
                 value="1"
                 onClick={clickAssigned}
                 style={{
@@ -181,7 +180,7 @@ const LayoutShipments = () => {
                 Envíos asignados
               </MenuItem>
               <MenuItem
-                name="En curso"
+                name="en curso"
                 value="2"
                 onClick={clickProgress}
                 style={{
@@ -195,7 +194,7 @@ const LayoutShipments = () => {
                 Envíos en curso
               </MenuItem>
               <MenuItem
-                name="Finalizados"
+                name="finalizado"
                 value="3"
                 onClick={clickDone}
                 style={{
@@ -216,7 +215,6 @@ const LayoutShipments = () => {
           sx={{
             minWidth: "100%",
             height: "100%",
-            // backgroundColor: Colors.terciary.contrastText,
           }}
         >
           <Box
@@ -238,71 +236,8 @@ const LayoutShipments = () => {
                 width: "96%",
                 height: "60px",
                 alignItems: "center",
-                // backgroundColor: Colors.terciary.contrastText,
               }}
             >
-              {/* <Tabs
-                value={value}
-                onChange={handleChange}
-                sx={{
-                  display: "flex",
-                  height: "33px"
-                  // backgroundColor: Colors.terciary.contrastText,
-                }}
-              >
-                <Tab
-                  style={{ textTransform: "none", display: "flex", justifyContent: "space-between"  }}
-                  name="Pendientes"
-                  label="Pendientes"
-                  icon={
-                    value === 0 ? (
-                      <img src="/imgShipments/PendingActive.svg" style={{marginRight: "5px"}} />
-                    ) : (
-                      <img src="/imgShipments/PendingInactive.svg" style={{marginRight: "5px"}} />
-                    )
-                  }
-                  {...a11yProps(0)}
-                />
-                <Tab
-                  sx={{ textTransform: "none" }}
-                  name="Asignado"
-                  label="Asignado"
-                  icon={
-                    value === 1 ? (
-                      <img src="/imgShipments/AssignedActive.svg" style={{marginRight: "5px"}} />
-                    ) : (
-                      <img src="/imgShipments/AssignedInactive.svg" style={{marginRight: "5px"}} />
-                    )
-                  }
-                  {...a11yProps(1)}
-                />
-                <Tab
-                  sx={{ textTransform: "none" }}
-                  name="En curso"
-                  label="En curso"
-                  icon={
-                    value === 2 ? (
-                      <img src="/imgShipments/InProgressActive.svg" style={{marginRight: "5px"}} />
-                    ) : (
-                      <img src="/imgShipments/InProgressInactive.svg" style={{marginRight: "5px"}} />
-                    )
-                  }
-                  {...a11yProps(2)}
-                />
-                <Tab
-                  sx={{ textTransform: "none" }}
-                  name="Finalizados"
-                  label="Finalizados"
-                  icon={
-                    value === 3 ? (
-                      <img src="/imgShipments/DoneActive.svg"  style={{marginRight: "5px"}}/>
-                    ) : (
-                      <img src="/imgShipments/DoneInactive.svg" style={{marginRight: "5px"}} />
-                    )
-                  }
-                  {...a11yProps(2)}
-                />
-              </Tabs> */}
               <div
                 style={{
                   display: "flex",
@@ -311,31 +246,40 @@ const LayoutShipments = () => {
                   zIndex: 0,
                   width: "100%",
                   maxWidth: "780px",
-                  borderBottom: "1px solid #475367"
-                }}>
+                  borderBottom: "1px solid #475367",
+                }}
+              >
                 <Button
                   onClick={() => setValue(0)}
                   sx={{
                     border: "none",
                     height: "33px",
                     padding: "0px",
-                    borderBottom: value == 0 ? "2px solid rgb(0, 124, 82)" : "none",
+                    borderBottom:
+                      value == 0 ? "2px solid rgb(0, 124, 82)" : "none",
                     color: value == 0 ? Colors.primary.main : "#475367",
                     fontWeight: 600,
                     fontSize: "16px",
-                    borderRadius: "0px"
+                    borderRadius: "0px",
                   }}
                   zIndex={10}
                   variant="none"
                 >
-                  {
-                    value === 0 ? (
-                      <img src="/imgShipments/PendingActive.svg" style={{ marginRight: "5px" }} width="24px" />
-                    ) : (
-                      <img src="/imgShipments/PendingInactive.svg" style={{ marginRight: "5px" }} width="24px" />
-                    )
-                  }
-                  Pendientes                </Button>
+                  {value === 0 ? (
+                    <img
+                      src="/imgShipments/PendingActive.svg"
+                      style={{ marginRight: "5px" }}
+                      width="24px"
+                    />
+                  ) : (
+                    <img
+                      src="/imgShipments/PendingInactive.svg"
+                      style={{ marginRight: "5px" }}
+                      width="24px"
+                    />
+                  )}
+                  Pendientes{" "}
+                </Button>
                 <Button
                   onClick={() => setValue(1)}
                   sx={{
@@ -343,51 +287,67 @@ const LayoutShipments = () => {
                     height: "33px",
                     padding: "0px",
                     borderRadius: "0px",
-                    borderBottom: value == 1 ? "2px solid rgb(0, 124, 82)" : "none",
+                    borderBottom:
+                      value == 1 ? "2px solid rgb(0, 124, 82)" : "none",
                     color: value == 1 ? Colors.primary.main : "#475367",
                     fontWeight: 600,
                     fontSize: "16px",
                   }}
                   variant="none"
                 >
-                  {
-                    value === 1 ? (
-                      <img src="/imgShipments/AssignedActive.svg" style={{ marginRight: "5px" }} width="24px" />
-                    ) : (
-                      <img src="/imgShipments/AssignedInactive.svg" style={{ marginRight: "5px" }} width="24px" />
-                    )
-                  }
+                  {value === 1 ? (
+                    <img
+                      src="/imgShipments/AssignedActive.svg"
+                      style={{ marginRight: "5px" }}
+                      width="24px"
+                    />
+                  ) : (
+                    <img
+                      src="/imgShipments/AssignedInactive.svg"
+                      style={{ marginRight: "5px" }}
+                      width="24px"
+                    />
+                  )}
                   Asignado
-
                 </Button>
                 <Button
                   onClick={() => setValue(2)}
                   sx={{
-                    border: "none", 
+                    border: "none",
                     height: "33px",
                     padding: "0px",
-                    borderRadius: "0px", borderBottom: value == 2 ? "2px solid rgb(0, 124, 82)" : "none",
+                    borderRadius: "0px",
+                    borderBottom:
+                      value == 2 ? "2px solid rgb(0, 124, 82)" : "none",
                     color: value == 2 ? Colors.primary.main : "#475367",
                     fontWeight: 600,
                     fontSize: "16px",
                   }}
                   variant="none"
                 >
-                  {
-                    value === 2 ? (
-                      <img src="/imgShipments/InProgressActive.svg" style={{ marginRight: "5px" }} width="24px" />
-                    ) : (
-                      <img src="/imgShipments/InProgressInactive.svg" style={{ marginRight: "5px" }} width="24px" />
-                    )
-                  }
-                  En curso                  </Button>
+                  {value === 2 ? (
+                    <img
+                      src="/imgShipments/InProgressActive.svg"
+                      style={{ marginRight: "5px" }}
+                      width="24px"
+                    />
+                  ) : (
+                    <img
+                      src="/imgShipments/InProgressInactive.svg"
+                      style={{ marginRight: "5px" }}
+                      width="24px"
+                    />
+                  )}
+                  En curso{" "}
+                </Button>
                 <Button
                   sx={{
                     border: "none",
                     height: "33px",
                     borderRadius: "0px",
                     padding: "0px",
-                    borderBottom: value == 3 ? "2px solid rgb(0, 124, 82)" : "none",
+                    borderBottom:
+                      value == 3 ? "2px solid rgb(0, 124, 82)" : "none",
                     color: value == 3 ? Colors.primary.main : "#475367",
                     fontWeight: 600,
                     fontSize: "16px",
@@ -395,19 +355,23 @@ const LayoutShipments = () => {
                   onClick={() => setValue(3)}
                   variant="none"
                 >
-
-                  {
-                    value === 3 ? (
-                      <img src="/imgShipments/DoneActive.svg" style={{ marginRight: "5px" }} width="24px" />
-                    ) : (
-                      <img src="/imgShipments/DoneInactive.svg" style={{ marginRight: "5px" }} width="24px" />
-                    )
-                  }
-
-                  Finalizados</Button>
-
+                  {value === 3 ? (
+                    <img
+                      src="/imgShipments/DoneActive.svg"
+                      style={{ marginRight: "5px" }}
+                      width="24px"
+                    />
+                  ) : (
+                    <img
+                      src="/imgShipments/DoneInactive.svg"
+                      style={{ marginRight: "5px" }}
+                      width="24px"
+                    />
+                  )}
+                  Finalizados
+                </Button>
               </div>
-              {userRol == "cliente" &&
+              {userRol == "cliente" && (
                 <Button
                   style={{ margin: 0 }}
                   variant="contained"
@@ -415,8 +379,7 @@ const LayoutShipments = () => {
                 >
                   Crear envío
                 </Button>
-              }
-
+              )}
             </Box>
           </Box>
         </Box>

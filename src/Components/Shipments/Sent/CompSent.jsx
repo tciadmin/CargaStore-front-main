@@ -116,7 +116,7 @@ export default function CompSent() {
   const mobile = useMediaQuery("(max-width:720px)");
   const order =
     useSelector((state) =>
-      state.orders.filter((e) => e.state === "finalizado")
+      state.orders.filter((e) => e.OrderStatus === "finalizado")
     ) || [];
 
   return (
