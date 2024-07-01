@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
@@ -8,7 +9,9 @@ import { Avatar, Button, Container, Grid, Paper, Stack, useMediaQuery } from '@m
 import ResponsiveImageBox from '../imageComponents/ResponsiveImageBox'
 import InputForm from '../inputs/InputForm';
 import CobroItemCard from '../cards/CobroItemCard';
-
+import {  useDispatch, useSelector } from 'react-redux';
+import { getUser } from '../../Redux/Actions/UserActions/userActions';
+import Cookies from 'js-cookie';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -43,23 +46,42 @@ function a11yProps(index) {
 }
 
 export default function VerticalTabs() {
-  const [rol, setRol] = React.useState("client")
+   const dispatch = useDispatch();
 
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
-  React.useEffect(() => {
-    const user = localStorage.getItem("userPrueba");
-    if (user == "conductor") {
-      setRol("driver")
-    }
-  }, [])
+  
 
   const [editar, setEditar] = React.useState(0);
+  const { user} = useSelector(state => state.user);
+  console.log(user);  
+  React.useEffect(() => {
+    dispatch(getUser(Cookies.get("id")));    
+  }, [])
+  React.useEffect(()=>{
+    setClientData(user);
+
+  },[user && !editar])
+  const [clientData, setClientData] = React.useState({});
   const mobile = useMediaQuery("(max-width: 750px)");
   const driverOptionsMobile = ["Datos Personales", "Datos del camión", "Documentos Legales", "Historial de cobros"]
   const containerBox = mobile ? { flexGrow: 1, bgcolor: '#e6e6e6', display: 'flex', flexDirection: "column", maxWidth: "100%", height: "100%" } : { flexGrow: 1, bgcolor: '#e6e6e6', display: 'flex', width: "100%", height: "100%" }
   const clientOptionsMobile = ["Datos Personales", "Configuración de la cuenta", "Configuración de pagos", "Historial de cobros"]
+ 
+  const handleInputClient = (value, name) => {
+    
+    setClientData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
 
+  /*Aquí se hace la llamada al dispatch del redux para que suba los cambios */
+  // const putDataClient = ()=>{
+  // }
+  // const putDataDriver = ()=>{
+  // }
+ 
 
   const handleChange = (event, newValue) => {
     setEditar(false);
@@ -75,7 +97,7 @@ export default function VerticalTabs() {
       {mobile &&
         <Container>
           <Stack direction="row" justifyContent={"space-between"} style={{ padding: "10px 0" }} alignContent={"center"}>
-            <Typography fontSize={"20px"} fontWeight={600}>{rol == "driver" ? driverOptionsMobile[value] : clientOptionsMobile[value]}</Typography>
+            <Typography fontSize={"20px"} fontWeight={600}>{user.role == "driver" ? driverOptionsMobile[value] : clientOptionsMobile[value]}</Typography>
             <div style={{ height: "100%", position: "relative" }}>
               <Button variant="terciary"
                 onClick={() => setOpen(!open)}
@@ -87,9 +109,9 @@ export default function VerticalTabs() {
               {
                 open &&
                 <Paper style={{ maxWidth: "500px", width: "200px", position: "absolute", right: "25px ", top: "30px", zIndex: 10 }}>
-                  {rol == "driver" && driverOptionsMobile.map((option, index) => <Button variant='terciary' sx={{ fontSize: "14px", textAlign: "start", width: "100%", display: "inline-block", fontWeight: value == index ? 600 : 400, color: value == index ? "#007C52" : "black" }} onClick={() => setValue(index)}>{option}</Button>
+                  {user.role == "driver" && driverOptionsMobile.map((option, index) => <Button variant='terciary' key={index} sx={{ fontSize: "14px", textAlign: "start", width: "100%", display: "inline-block", fontWeight: value == index ? 600 : 400, color: value == index ? "#007C52" : "black" }} onClick={() => setValue(index)}>{option}</Button>
                   )}
-                  {rol == "client" && clientOptionsMobile.map((option, index) => <Button variant='terciary' sx={{ fontSize: "14px", textAlign: "start", width: "100%", display: "inline-block", fontWeight: value == index ? 600 : 400, color: value == index ? "#007C52" : "black" }} onClick={() => setValue(index)}>{option}</Button>
+                  {user.role == "customer" && clientOptionsMobile.map((option, index) => <Button variant='terciary' key={index} sx={{ fontSize: "14px", textAlign: "start", width: "100%", display: "inline-block", fontWeight: value == index ? 600 : 400, color: value == index ? "#007C52" : "black" }} onClick={() => setValue(index)}>{option}</Button>
                   )}
 
                 </Paper>
@@ -100,7 +122,7 @@ export default function VerticalTabs() {
         </Container>
       }
 
-      {!mobile && rol == "driver" &&
+      {!mobile && user.role == "driver" &&
         <Tabs
           orientation="vertical"
           variant="scrollable"
@@ -116,7 +138,7 @@ export default function VerticalTabs() {
 
         </Tabs>
       }
-      {!mobile && rol == "client" &&
+      {!mobile && user.role == "customer" &&
         <Tabs
           orientation="vertical"
           variant="scrollable"
@@ -137,7 +159,7 @@ export default function VerticalTabs() {
 
         <Stack display="flex" width={mobile ? "85vw" : "50vw"} flexDirection={"column"} justifyContent={"center"} alignContent={"center"}>
           <div style={{ display: "flex", width: "100%", justifyContent: "center" }}>
-            
+
             {editar ?
               <input
                 accept="image/*"
@@ -146,7 +168,7 @@ export default function VerticalTabs() {
 
                 type="file"
 
-              />:""
+              /> : ""
             }
             <label htmlFor="avatar">
               <Avatar
@@ -164,27 +186,28 @@ export default function VerticalTabs() {
 
 
           </div>
-          {value == 0 && rol === "driver" && <>
+          {value == 0 && user.role === "driver" && <>
 
-            <InputForm label="Nombre" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
-            <InputForm label="Apellido" sizeH='35px' marginB={3} readOnly={!editar} />
+            <InputForm value={clientData.name} setter={(valor)=>handleInputClient(valor,"name")} label="Nombre" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
+            <InputForm value={clientData.lastname} setter={(valor)=>handleInputClient(valor,"lastname")}label="Apellido" sizeH='35px' marginB={3} readOnly={!editar} />
 
-            <InputForm label="Correo electrónico" type='email' sizeH='35px' marginB={3} readOnly={!editar} />
-            <InputForm label="Número de contacto" sizeH='35px' marginB={3} readOnly={!editar} />
-            <InputForm label="Descripción" sizeH='150px' marginB={3} readOnly={!editar} sizeXL={true} />
+            <InputForm value={clientData.email} setter={(valor)=>handleInputClient(valor,"email")}label="Correo electrónico" type='email' sizeH='35px' marginB={3} readOnly={!editar} />
+            <InputForm value={clientData.name} setter={(valor)=>handleInputClient(valor,"name")}label="Número de contacto" sizeH='35px' marginB={3} readOnly={!editar} />
+            <InputForm value={clientData.name} setter={(valor)=>handleInputClient(valor,"name")}label="Descripción" sizeH='150px' marginB={3} readOnly={!editar} sizeXL={true} />
           </>
           }
-          {value == 0 && rol === "client" && <>
+          {value == 0 && user.role === "customer" && <>
 
-            <InputForm label="Nombre" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
-            <InputForm label="Apellido" sizeH='35px' marginB={3} readOnly={!editar} />
-            <InputForm label="Correo electrónico" type='email' sizeH='35px' marginB={3} readOnly={!editar} />
+            <InputForm value={clientData.name} setter={(valor)=>handleInputClient(valor,"name")} label="Nombre" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
+            <InputForm value={clientData.lastname} setter={(valor)=>handleInputClient(valor,"lastname")}  label="Apellido" sizeH='35px' marginB={3} readOnly={!editar} />
+            <InputForm value={clientData.email} setter={(valor)=>handleInputClient(valor,"email")} label="Correo electrónico" type='email' sizeH='35px' marginB={3} readOnly={!editar} />
 
           </>
           }
 
           {editar ?
-            <Button variant="contained" style={{ fontWeight: "bold" }} > Guardar Cambios
+            <Button variant="contained" style={{ fontWeight: "bold" }} onClick={()=>{              
+            }} > Guardar Cambios
             </Button>
 
             :
@@ -225,48 +248,52 @@ export default function VerticalTabs() {
 
 
           </div>
-          {rol == "client" && 
-          <>
-            <InputForm label="Nombre de la empresa" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
-          <InputForm label="RUC" sizeH='35px' marginB={3} readOnly={!editar} />
+          <form >
+          {user.role == "customer" &&
+            <>
+              <InputForm value={clientData.customer.company_name} setter={(valor)=>handleInputClient(valor,"customer.company_name")} label="Nombre de la empresa" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
+              <InputForm value={clientData.customer.ruc} setter={(valor)=>handleInputClient(valor,"customer.ruc")} label="RUC" sizeH='35px' marginB={3} readOnly={!editar} />
 
-          <InputForm label="Dirección" type='email' sizeH='35px' marginB={3} readOnly={!editar} />
-          <InputForm label="País" sizeH='35px' marginB={3} readOnly={!editar} />
-          </>
+              <InputForm value={clientData.customer.address} 
+              setter={(valor)=>handleInputClient(valor,"customer.address")} label="Dirección" type='text' sizeH='35px' marginB={3} readOnly={!editar} />
+              <InputForm value={clientData.customer.country} 
+              setter={(valor)=>handleInputClient(valor,"customer.country")} label="País" sizeH='35px' marginB={3} readOnly={!editar} />
+            </>
           }
-          {rol == "driver" && 
-          <>
-            <InputForm label="Marca" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
-          <InputForm label="Modelo" sizeH='35px' marginB={3} readOnly={!editar} />
+          {user.role == "driver" &&
+            <>
+              <InputForm label="Marca" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
+              <InputForm label="Modelo" sizeH='35px' marginB={3} readOnly={!editar} />
 
-          <InputForm label="Año" type='email' sizeH='35px' marginB={3} readOnly={!editar} />
-          <InputForm label="Matrícula" sizeH='35px' marginB={3} readOnly={!editar} />
-          <InputForm label="Capacidad de carga" sizeH='35px' marginB={3} readOnly={!editar} />
-          <InputForm label="Unidad de carga" sizeH='35px' marginB={3} readOnly={!editar} />
-          </>
+              <InputForm label="Año" type='email' sizeH='35px' marginB={3} readOnly={!editar} />
+              <InputForm label="Matrícula" sizeH='35px' marginB={3} readOnly={!editar} />
+              <InputForm label="Capacidad de carga" sizeH='35px' marginB={3} readOnly={!editar} />
+              <InputForm label="Unidad de carga" sizeH='35px' marginB={3} readOnly={!editar} />
+            </>
           }
-        
+
 
 
 
           {editar ?
-            <Button variant="contained" style={{ fontWeight: "bold" }} > Guardar Cambios
+            <Button variant="contained"type="submit" style={{ fontWeight: "bold" }} > Guardar Cambios
             </Button>
 
             :
-            <Button variant="outlined" onClick={() => setEditar(true)} style={{ fontWeight: "bold", width: "80px", alignSelf: "center" }} > Editar
+            <Button variant="outlined"  onClick={() => setEditar(true)} style={{ fontWeight: "bold", width: "80px", alignSelf: "center" }} > Editar
             </Button>
 
           }
-          {rol == "client" && 
-          <Stack direction="column" mt={5}>
-            <svg width="665" height="2" viewBox="0 0 665 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-<line x1="0.1875" y1="1.11719" x2="665" y2="1.11719" stroke="#D0D5DD"/>
-</svg>
+          </form>
+          {user.role == "customer" &&
+            <Stack direction="column" mt={5}>
+              <svg width="665" height="2" viewBox="0 0 665 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0.1875" y1="1.11719" x2="665" y2="1.11719" stroke="#D0D5DD" />
+              </svg>
 
-            <InputForm label="Contraseña" cambiar={true} type="password" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
+              <InputForm label="Contraseña" cambiar={true} type="password" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
 
-          </Stack>
+            </Stack>
           }
         </Stack>
       </TabPanel>
@@ -303,118 +330,118 @@ export default function VerticalTabs() {
 
           </div>
           {
-            rol == "driver" && <>
-            
-            <InputForm label="Licencia de conducir" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
-          <InputForm label="Afiliación IESS" sizeH='35px' marginB={3} readOnly={!editar} />
+            user.role == "driver" && <>
 
-          <InputForm label="Permiso de puerto" type='text' sizeH='35px' marginB={3} readOnly={!editar} />
-          <InputForm label="Matrícula" sizeH='35px' marginB={3} readOnly={!editar} />
-          <InputForm label="Póliza de seguro" sizeH='35px' marginB={3} readOnly={!editar} />
-          <InputForm label="Unidad de carga" sizeH='35px' marginB={3} readOnly={!editar} />
-          <Box style={{ display: "flex", justifyContent: "space-between " }} mb={3} width="100%">
-            <Typography style={{ display: "inline", color: "#475367", fontWeight: 500 }} width={"50%"}>Foto de licencia de conducir {editar && <span style={{ color: "red" }}>*</span>}</Typography>
-            </Box>
-          {editar &&
-              <>
-                <input
-                  accept="image/*"
-                  style={{ display: 'none' }}
-                  id="licencia"
-                  multiple
-                  type="file"
+              <InputForm label="Licencia de conducir" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
+              <InputForm label="Afiliación IESS" sizeH='35px' marginB={3} readOnly={!editar} />
 
-                />
-                <label htmlFor="licencia">
-                  <Typography style={{ color: "#475367", cursor: "pointer", fontWeight: "bold" }} width={"50%"} >
-                    Subir
-                  </Typography>
-                </label>
-              </>
-            }
+              <InputForm label="Permiso de puerto" type='text' sizeH='35px' marginB={3} readOnly={!editar} />
+              <InputForm label="Matrícula" sizeH='35px' marginB={3} readOnly={!editar} />
+              <InputForm label="Póliza de seguro" sizeH='35px' marginB={3} readOnly={!editar} />
+              <InputForm label="Unidad de carga" sizeH='35px' marginB={3} readOnly={!editar} />
+              <Box style={{ display: "flex", justifyContent: "space-between " }} mb={3} width="100%">
+                <Typography style={{ display: "inline", color: "#475367", fontWeight: 500 }} width={"50%"}>Foto de licencia de conducir {editar && <span style={{ color: "red" }}>*</span>}</Typography>
+              </Box>
+              {editar &&
+                <>
+                  <input
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    id="licencia"
+                    multiple
+                    type="file"
 
-
-          <Box style={{ display: "flex", justifyContent: "space-between " }} mb={3} width="100%">
-            <Typography style={{ display: "inline", color: "#475367", fontWeight: 500 }} >Comprobante de afiliación IESS (PDF) {editar && <span style={{ color: "red" }}>*</span>}</Typography>
-            {editar &&
-              <>
-                <input
-                  accept="application/pdf"
-                  style={{ display: 'none' }}
-                  id="comprobanteAfiliacion"
-                  multiple
-                  type="file"
-
-                />
-                <label htmlFor="comprobanteAfiliacion">
-                  <Typography style={{ color: "#475367", cursor: "pointer", fontWeight: "bold" }}  >
-                    Subir
-                  </Typography>
-                </label>
-              </>
-            }
+                  />
+                  <label htmlFor="licencia">
+                    <Typography style={{ color: "#475367", cursor: "pointer", fontWeight: "bold" }} width={"50%"} >
+                      Subir
+                    </Typography>
+                  </label>
+                </>
+              }
 
 
-          </Box>
-          <Box style={{ display: "flex", justifyContent: "space-between " }} mb={3} width="100%">
-            <Typography style={{ display: "inline", color: "#475367", fontWeight: 500 }} >Comprobante de permiso de puerto (PDF) {editar && <span style={{ color: "red" }}>*</span>}</Typography>
-            {editar &&
-              <>
-                <input
-                  accept="application/pdf"
-                  style={{ display: 'none' }}
-                  id="permisoPuerto"
-                  multiple
-                  type="file"
+              <Box style={{ display: "flex", justifyContent: "space-between " }} mb={3} width="100%">
+                <Typography style={{ display: "inline", color: "#475367", fontWeight: 500 }} >Comprobante de afiliación IESS (PDF) {editar && <span style={{ color: "red" }}>*</span>}</Typography>
+                {editar &&
+                  <>
+                    <input
+                      accept="application/pdf"
+                      style={{ display: 'none' }}
+                      id="comprobanteAfiliacion"
+                      multiple
+                      type="file"
 
-                />
-                <label htmlFor="permisoPuerto">
-                  <Typography style={{ color: "#475367", cursor: "pointer", fontWeight: "bold" }}  >
-                    Subir
-                  </Typography>
-                </label>
-              </>
-            }
-
-
-          </Box>
-          <Box style={{ display: "flex", justifyContent: "space-between " }} mb={3} width="100%">
-            <Typography style={{ display: "inline", color: "#475367", fontWeight: 500 }} >Foto póliza de seguro{editar && <span style={{ color: "red" }}>*</span>}</Typography>
-            {editar &&
-              <>
-                <input
-                  accept="image/*"
-                  style={{ display: 'none' }}
-                  id="licencia"
-                  multiple
-                  type="file"
-
-                />
-                <label htmlFor="licencia">
-                  <Typography style={{ color: "#475367", cursor: "pointer", fontWeight: "bold" }} width={"50%"} >
-                    Subir
-                  </Typography>
-                </label>
-              </>
-            }
+                    />
+                    <label htmlFor="comprobanteAfiliacion">
+                      <Typography style={{ color: "#475367", cursor: "pointer", fontWeight: "bold" }}  >
+                        Subir
+                      </Typography>
+                    </label>
+                  </>
+                }
 
 
-          </Box>
+              </Box>
+              <Box style={{ display: "flex", justifyContent: "space-between " }} mb={3} width="100%">
+                <Typography style={{ display: "inline", color: "#475367", fontWeight: 500 }} >Comprobante de permiso de puerto (PDF) {editar && <span style={{ color: "red" }}>*</span>}</Typography>
+                {editar &&
+                  <>
+                    <input
+                      accept="application/pdf"
+                      style={{ display: 'none' }}
+                      id="permisoPuerto"
+                      multiple
+                      type="file"
+
+                    />
+                    <label htmlFor="permisoPuerto">
+                      <Typography style={{ color: "#475367", cursor: "pointer", fontWeight: "bold" }}  >
+                        Subir
+                      </Typography>
+                    </label>
+                  </>
+                }
+
+
+              </Box>
+              <Box style={{ display: "flex", justifyContent: "space-between " }} mb={3} width="100%">
+                <Typography style={{ display: "inline", color: "#475367", fontWeight: 500 }} >Foto póliza de seguro{editar && <span style={{ color: "red" }}>*</span>}</Typography>
+                {editar &&
+                  <>
+                    <input
+                      accept="image/*"
+                      style={{ display: 'none' }}
+                      id="licencia"
+                      multiple
+                      type="file"
+
+                    />
+                    <label htmlFor="licencia">
+                      <Typography style={{ color: "#475367", cursor: "pointer", fontWeight: "bold" }} width={"50%"} >
+                        Subir
+                      </Typography>
+                    </label>
+                  </>
+                }
+
+
+              </Box>
             </>
           }
-          {rol == "client" && 
-          <>
-            <InputForm label="Nombre" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
-          <InputForm label="Banco" sizeH='35px' marginB={3} readOnly={!editar} />
+          {user.role == "customer" &&
+            <>
+              <InputForm label="Nombre" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
+              <InputForm label="Banco" sizeH='35px' marginB={3} readOnly={!editar} />
 
-          <InputForm label="Tipo de cuenta" type='number' sizeH='35px' marginB={3} readOnly={!editar} />
-          <InputForm label="Número de cuenta" type='number' sizeH='35px' marginB={3} readOnly={!editar} />
+              <InputForm label="Tipo de cuenta" type='number' sizeH='35px' marginB={3} readOnly={!editar} />
+              <InputForm label="Número de cuenta" type='number' sizeH='35px' marginB={3} readOnly={!editar} />
 
-          <InputForm label="País" sizeH='35px' marginB={3} readOnly={!editar} />
-          </>
+              <InputForm label="País" sizeH='35px' marginB={3} readOnly={!editar} />
+            </>
           }
-          
-           
+
+
 
 
           {editar ?

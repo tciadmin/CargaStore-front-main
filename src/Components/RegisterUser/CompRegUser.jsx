@@ -198,11 +198,11 @@ export default function CompRegUser() {
                     message: 'Este campo es requerido',
                   },
                   pattern: {
-                    value: /^.{0,8}$/i, // maximo 8 caracteres
-                    message: 'Maximo 8 caracteres',
+                    value: /^.{9,}$/i, 
+                    message: 'Minimo 8 caracteres',
                   },
                 })}
-                placeholder="Máximo 8 carácteres"
+                placeholder="Minimo 8 carácteres"
                 type={showPassword ? 'text' : 'password'}
                 style={{
                   borderRadius: '8px',
@@ -244,8 +244,8 @@ export default function CompRegUser() {
                     message: 'Este campo es requerido',
                   },
                   pattern: {
-                    value: /^.{0,8}$/i, // Si en el input no se cumple con esta expreción regular se coloca un mensaje distinto
-                    message: 'Maximo 8 caracteres',
+                    value: /^.{9,}$/i, // Si en el input no se cumple con esta expreción regular se coloca un mensaje distinto
+                    message: 'Minimo 8 caracteres',
                   },
                   validate: (value, formValues) =>
                     value === formValues.password ||
