@@ -1,6 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import LayoutPublic from "../Layouts/LayoutPublic";
-import NotFound from "../Pages/PageNotFound";
 import PageLogin from "../Pages/PageLogin";
 import PageRedirect from "../Pages/PageRedirect";
 import LayoutLogin from "../Layouts/LayoutLogin";
@@ -33,7 +31,6 @@ import LayoutAdminPayment from "../Layouts/LayoutAdminPayment";
 import CompAcreditedPayment from "../Components/AdminPayment/CompAcreditedPayment";
 import { CompMarketplacePostular } from "../Components/MarketPlacePostular/CompMarketplacePostular";
 import { CompCompletedTrips } from "../Components/CompletedTrips/CompCompletedTrips";
-import PageHome from "../Pages/PageHome";
 import PageMarketplace from "../Pages/PageMarketplace";
 import PagePerfil from "../Pages/PagePerfil";
 import PageAdminPanel from "../Pages/PageAdminPanel";
