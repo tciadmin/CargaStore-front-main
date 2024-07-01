@@ -88,10 +88,10 @@ export default function CompLogin() {
                 }, // Si no hay nada escrito en el input de email se coloca un mensaje
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, // Si en el input no se cumple con esta expreción regular se coloca un mensaje distinto
-                  message: 'Email invalido',
+                  message: 'Email inválido',
                 },
               })}
-              placeholder="emailexample.com"
+              placeholder="email@example.com"
               style={{
                 height: mobile ? '40px' : '50px',
                 borderRadius: '8px',
@@ -119,8 +119,8 @@ export default function CompLogin() {
                   message: 'Este campo es requerido',
                 },
                 pattern: {
-                  value: /^.{0,8}$/i, // Si en el input no se cumple con esta expreción regular se coloca un mensaje distinto
-                  message: 'Maximo 8 caracteres',
+                  value: /^.{9,}$/i, // Si en el input no se cumple con esta expreción regular se coloca un mensaje distinto
+                  message: 'Mínimo 8 carácteres',
                 },
               })}
               placeholder="Ingresa contraseña"

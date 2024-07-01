@@ -1,4 +1,5 @@
 import { axiosInstance } from '../../axiosInstance';
+import Cookies from 'js-cookie';
 //?------------------------------------------USER
 export const GET_ALL_USERS_PENDING = 'GET_ALL_USERS_PENDING';
 export const GET_ALL_USERS_SUCCESS = 'GET_ALL_USERS_SUCCESS';
@@ -47,7 +48,7 @@ export const getUser = (id) => {
   return async (dispatch) => {
     dispatch({ type: GET_USER_PENDING });
     try {
-      const user = await axiosInstance(`/single_user/${id}`);
+      const user = await axiosInstance(`/auth/single_user/${id}`);
       return dispatch({
         type: GET_USER_SUCCESS,
         payload: user.data,
@@ -135,6 +136,18 @@ export const authUser = (user, navigate) => {
       } else if (data.user.role === 'customer') {
         navigate('/shipments');
       }
+      Cookies.set('token', data.token, { 
+        expires: 7,  
+        secure: true, 
+        sameSite: 'Strict',
+        path: '/' 
+    });
+    Cookies.set('id', data.user.id, { 
+      expires: 7,  
+      secure: true, 
+      sameSite: 'Strict',
+      path: '/' 
+  });
     } catch (error) {
       dispatch({ type: AUTH_USER_FAILURE, error: error.message });
     }
