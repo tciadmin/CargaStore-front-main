@@ -185,20 +185,22 @@ export default function CompInProgress() {
                       gap: "5px",
                     }}
                   >
-                    <img src={row.img} />
+                    <img src={row.image1} />
                     <p style={{ color: Colors.secondary.contrastText }}>
-                      {row.product}
+                      {row.product_name}
                     </p>
                     <span
                       style={{ display: "flex", gap: "5px", fontWeight: 600 }}
                     >
                       Valor ofertado:{" "}
-                      <p style={{ fontWeight: 400 }}> {row.value} </p>
+                      <p style={{ fontWeight: 400 }}> {row.offered_price} </p>
                     </span>
-                    <p>{row.retire}</p>
-                    <p>Tipo de carga: {row.seca}</p>
-                    <p>{row.country}</p>
-                    <p style={{ fontWeight: 500 }}>{row.driver}</p>
+                    <p>
+                      {row.pick_up_date} - {row.delivery_date}
+                    </p>
+                    <p>Tipo de carga: {row.orderType}</p>
+                    <p>{row.delivery_city}</p>
+                    <p style={{ fontWeight: 500 }}>{row.assignedDriver}</p>
                   </Box>
                 ))}
               </Box>
@@ -477,7 +479,7 @@ export default function CompInProgress() {
                                   marginLeft: "3px",
                                 }}
                               >
-                                {row.product}
+                                {row.packageId}
                               </p>
                             </Grid>
                             <Grid
@@ -497,7 +499,7 @@ export default function CompInProgress() {
                                     marginLeft: "3px",
                                   }}
                                 >
-                                  {row.retire}
+                                  {row.product_name}
                                 </p>
                               </Box>
                             </Grid>
@@ -522,7 +524,7 @@ export default function CompInProgress() {
                                     marginLeft: "3px",
                                   }}
                                 >
-                                  {row.date}
+                                  {row.pick_up_address}
                                 </p>
                               </Box>
                             </Grid>
@@ -544,7 +546,7 @@ export default function CompInProgress() {
                                     marginLeft: "3px",
                                   }}
                                 >
-                                  {row.delivery}
+                                  {row.pick_up_date}
                                 </p>
                               </Box>
                             </Grid>
@@ -565,7 +567,7 @@ export default function CompInProgress() {
                                     marginLeft: "3px",
                                   }}
                                 >
-                                  {row.secondDate}
+                                  {row.delivery_address}
                                 </p>
                               </Box>
                             </Grid>
@@ -586,7 +588,7 @@ export default function CompInProgress() {
                                     marginLeft: "3px",
                                   }}
                                 >
-                                  {row.receiver}
+                                  {row.delivery_date}
                                 </p>
                               </Box>
                             </Grid>
@@ -607,7 +609,7 @@ export default function CompInProgress() {
                                     marginLeft: "3px",
                                   }}
                                 >
-                                  {row.unity}
+                                  {row.receiving_company}
                                 </p>
                               </Box>
                             </Grid>
@@ -649,7 +651,7 @@ export default function CompInProgress() {
                                     marginLeft: "3px",
                                   }}
                                 >
-                                  {row.seca}
+                                  {row.type}
                                 </p>
                               </Box>
                             </Grid>
@@ -669,7 +671,7 @@ export default function CompInProgress() {
                                   marginLeft: "3px",
                                 }}
                               >
-                                {row.value}
+                                {row.offered_price}
                               </p>
                             </Grid>
                             <Grid

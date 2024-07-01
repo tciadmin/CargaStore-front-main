@@ -9,6 +9,9 @@ import { Grid, useMediaQuery, Menu, MenuItem } from "@mui/material";
 import MarketplaceCard from "../Components/cards/MarketplaceCard";
 import { Colors } from "../Utils/Colors";
 import CompNavLanding from "../Components/NavLanding/CompNavLanding";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { listOrder } from "../Redux/Actions/OrderActions/listOrder";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -162,8 +165,10 @@ export default function PageMarketplace() {
   const [value, setValue] = useState(0);
   const mobile = useMediaQuery("(max-width:720px)");
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const dispatch = useDispatch();
+  const order = useSelector((state) => state.orders) || [];
   const [national, setNational] = useState(
-    enviosFake.filter((item) => item.international == false)
+    order.filter((item) => item.orderType == national)
   );
   const [international, setInternational] = useState(null);
 
@@ -179,13 +184,13 @@ export default function PageMarketplace() {
 
   const clickPending = () => {
     setAnchorEl(null);
-    setNational(enviosFake.filter((item) => item.international == false));
+    setNational(order.filter((item) => item.orderType == national));
     setInternational(null);
   };
   const clickAccredited = () => {
     setAnchorEl(null);
     setNational(null);
-    setInternational(enviosFake.filter((item) => item.international == true));
+    setInternational(order.filter((item) => item.orderType == international));
   };
 
   const enviosNacionales = enviosFake.filter(
@@ -199,9 +204,14 @@ export default function PageMarketplace() {
     setValue(newValue);
   };
 
+  useEffect(() => {
+    const orderType = order.orderType || "national";
+    dispatch(listOrder(orderType));
+  }, [dispatch]);
+
   return (
     <>
-    <CompNavLanding></CompNavLanding>
+      <CompNavLanding></CompNavLanding>
       <Box>
         {mobile ? (
           <>
@@ -266,10 +276,9 @@ export default function PageMarketplace() {
                   display: "grid",
                   gridTemplateColumns: "repeat(2, 1fr)",
                   padding: "20px",
-                  
                 }}
               >
-                {enviosNacionales.map((item) => (
+                {order.map((item) => (
                   <Box
                     style={{
                       padding: "10px",
@@ -279,15 +288,18 @@ export default function PageMarketplace() {
                       gap: "5px",
                     }}
                   >
-                    <img style={{ height: 200, width: 200 }} src={item.image} />
+                    <img
+                      style={{ height: 200, width: 200 }}
+                      src={item.image1}
+                    />
                     <span style={{ fontWeight: 600 }}>
                       {" "}
                       Valor ofertado:{" "}
-                      <p style={{ fontWeight: 400 }}> {item.price}</p>
+                      <p style={{ fontWeight: 400 }}> {item.offered_price}</p>
                     </span>
-                    <p> {item.title}</p>
+                    <p> {item.product_name}</p>
                     <p> {item.weight}</p>
-                    <p>{item.typeCharge}</p>
+                    <p>{item.type}</p>
                   </Box>
                 ))}
               </Box>
@@ -309,15 +321,18 @@ export default function PageMarketplace() {
                       gap: "5px",
                     }}
                   >
-                    <img style={{ height: 200, width: 200 }} src={item.image} />
+                    <img
+                      style={{ height: 200, width: 200 }}
+                      src={item.image1}
+                    />
                     <span style={{ fontWeight: 600 }}>
                       {" "}
                       Valor ofertado:{" "}
-                      <p style={{ fontWeight: 400 }}> {item.price}</p>
+                      <p style={{ fontWeight: 400 }}> {item.offered_price}</p>
                     </span>
-                    <p> {item.title}</p>
+                    <p> {item.product_name}</p>
                     <p> {item.weight}</p>
-                    <p>{item.typeCharge}</p>
+                    <p>{item.type}</p>
                   </Box>
                 ))}
               </Box>
@@ -378,11 +393,11 @@ export default function PageMarketplace() {
                 {enviosNacionales.map((item) => (
                   <Grid item xs={6} sm={4} md={3} lg={2.4}>
                     <MarketplaceCard
-                      image={item.image}
-                      title={item.title}
+                      image={item.image1}
+                      title={item.product_name}
                       weight={item.weight}
-                      price={item.price}
-                      typeCharge={item.typeCharge}
+                      price={item.offered_price}
+                      typeCharge={item.type}
                     ></MarketplaceCard>
                   </Grid>
                 ))}
@@ -393,11 +408,11 @@ export default function PageMarketplace() {
                 {enviosInternacionales.map((item) => (
                   <Grid item xs={6} sm={4} md={3} lg={2.4}>
                     <MarketplaceCard
-                      image={item.image}
-                      title={item.title}
+                      image={item.image1}
+                      title={item.product_name}
                       weight={item.weight}
-                      price={item.price}
-                      typeCharge={item.typeCharge}
+                      price={item.offered_price}
+                      typeCharge={item.type}
                     ></MarketplaceCard>
                   </Grid>
                 ))}
