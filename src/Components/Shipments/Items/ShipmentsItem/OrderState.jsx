@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import StepLabel from '@mui/material/StepLabel';
 import { StepButton } from '@mui/material';
-import { Colors } from '../../../Utils/Colors';
+import { Colors } from '../../../../Utils/Colors';
 import { format } from 'date-fns';
 
 const OrderState = ({ orderState }) => {

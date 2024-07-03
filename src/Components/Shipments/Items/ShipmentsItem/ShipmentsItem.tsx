@@ -1,17 +1,14 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import { Grid, Typography } from '@mui/material';
-import { Button, StepButton } from '@mui/material';
+import { Grid } from '@mui/material';
+import { Button } from '@mui/material';
 import Modal from '@mui/material/Modal';
-import Rating from '@mui/material/Rating';
-import Stepper from '@mui/material/Stepper';
-import StepLabel from '@mui/material/StepLabel';
-import { Colors } from '../../../Utils/Colors';
+import { Colors } from '../../../../Utils/Colors';
 import { format } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
-import { getOrderState } from '../../../Redux/Actions/OrderActions/getOrderState';
+import { getOrderState } from '../../../../Redux/Actions/OrderActions/getOrderState';
 import OrderState from './OrderState';
-import { clearOrderState } from '../../../Redux/Actions/OrderActions/clearOrderState';
+import { clearOrderState } from '../../../../Redux/Actions/OrderActions/clearOrderState';
 import DriverInfo from './DriverInfo';
 import FinishMessage from './FinishMessage';
 
@@ -371,6 +368,8 @@ const ShipmentsItem = ({
           </Grid>
         </Grid>
       </Box>
+
+      {/* -----------------------------MODAL----------------------------- */}
 
       <Modal
         open={open}

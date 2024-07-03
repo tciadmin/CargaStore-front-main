@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
-import { Colors } from '../../../Utils/Colors';
+import { Colors } from '../../../../Utils/Colors';
 import Rating from '@mui/material/Rating';
 import { format } from 'date-fns';
 
