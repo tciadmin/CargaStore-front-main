@@ -1,26 +1,26 @@
-import * as React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import * as React from "react";
+import { useDispatch, useSelector } from "react-redux";
 //? --------------------------------------------- MUI
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import { useMediaQuery } from '@mui/material';
-import { Grid } from '@mui/material';
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import { useMediaQuery } from "@mui/material";
+import { Grid } from "@mui/material";
 //? --------------------------------------------- STYLES
-import { Colors } from '../../../Utils/Colors';
-import { listOrder } from '../../../Redux/Actions/OrderActions/listOrder';
-import ShipmentsItem from '../ShipmentsItem/ShipmentsItem';
-import { clearOrdersList } from '../../../Redux/Actions/OrderActions/clearOrdersList';
+import { Colors } from "../../../Utils/Colors";
+import { listOrder } from "../../../Redux/Actions/OrderActions/listOrder";
+import ShipmentsItem from "../ShipmentsItem/ShipmentsItem";
+import { clearOrdersList } from "../../../Redux/Actions/OrderActions/clearOrdersList";
 
 export default function CompAssigned() {
   const dispatch = useDispatch();
-  const mobile = useMediaQuery('(max-width:720px)');
+  const mobile = useMediaQuery("(max-width:720px)");
   const order = useSelector((state) => state.orders.orders) || [];
   React.useEffect(() => {
     dispatch(
       listOrder(
-        'asignado', //status
-        '', //orderType
-        'cc22b78d-3e0c-4e4b-b040-644e1061184c' //customerId
+        "asignado", //status
+        "", //orderType
+        "cc22b78d-3e0c-4e4b-b040-644e1061184c" //customerId
       )
     );
     return () => {
@@ -29,14 +29,14 @@ export default function CompAssigned() {
   }, [dispatch]);
 
   return (
-    <Box style={{ background: '#F6F6F6' }}>
+    <Box style={{ background: "#F6F6F6" }}>
       {order.length === 0 ? (
         <Box
           display="flex"
-          flexDirection={'column'}
-          alignItems={'center'}
+          flexDirection={"column"}
+          alignItems={"center"}
           height="80vh"
-          justifyContent={'center'}
+          justifyContent={"center"}
         >
           <svg
             width="175"
@@ -138,25 +138,12 @@ export default function CompAssigned() {
               stroke="#007C52"
               strokeWidth="1.65451"
             />
-            <circle
-              cx="69.1983"
-              cy="30.2462"
-              r="5.98346"
-              fill="#007C52"
-            />
-            <circle
-              cx="141.414"
-              cy="52.1436"
-              r="4.43559"
-              fill="#007C52"
-            />
+            <circle cx="69.1983" cy="30.2462" r="5.98346" fill="#007C52" />
+            <circle cx="141.414" cy="52.1436" r="4.43559" fill="#007C52" />
           </svg>
 
-          <Typography
-            variant="h4"
-            fontSize={mobile ? '16px' : '24px'}
-          >
-            {' '}
+          <Typography variant="h4" fontSize={mobile ? "16px" : "24px"}>
+            {" "}
             Aun no tienes envíos asignados
           </Typography>
         </Box>
@@ -166,49 +153,49 @@ export default function CompAssigned() {
             <>
               <h3
                 style={{
-                  paddingLeft: '30px',
+                  paddingLeft: "30px",
                 }}
               >
                 Envíos asignados
               </h3>
               <Box
                 style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(2, 1fr)',
-                  padding: '20px',
+                  display: "grid",
+                  gridTemplateColumns: "repeat(2, 1fr)",
+                  padding: "20px",
                 }}
               >
                 {order.map((row) => (
                   <Box
                     key={row.id}
                     style={{
-                      padding: '10px',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justyfyContent: 'center',
-                      gap: '5px',
+                      padding: "10px",
+                      display: "flex",
+                      flexDirection: "column",
+                      justyfyContent: "center",
+                      gap: "5px",
                     }}
                   >
-                    <img src={row.img} />
-                    <p
-                      style={{ color: Colors.secondary.contrastText }}
-                    >
-                      {row.product}
+                    <img src={row.image1} />
+                    <p style={{ color: Colors.secondary.contrastText }}>
+                      {row.product_name}
                     </p>
                     <span
                       style={{
-                        display: 'flex',
-                        gap: '5px',
+                        display: "flex",
+                        gap: "5px",
                         fontWeight: 600,
                       }}
                     >
-                      Valor ofertado:{' '}
-                      <p style={{ fontWeight: 400 }}> {row.value} </p>
+                      Valor ofertado:{" "}
+                      <p style={{ fontWeight: 400 }}> {row.offered_price} </p>
                     </span>
-                    <p>{row.retire}</p>
-                    <p>Tipo de carga: {row.seca}</p>
-                    <p>{row.country}</p>
-                    <p style={{ fontWeight: 500 }}>{row.driver}</p>
+                    <p>
+                      {row.pick_up_date} - {row.delivery_date}
+                    </p>
+                    <p>Tipo de carga: {row.orderType}</p>
+                    <p>{row.delivery_city}</p>
+                    <p style={{ fontWeight: 500 }}>{row.assignedDriver}</p>
                   </Box>
                 ))}
               </Box>
@@ -216,21 +203,21 @@ export default function CompAssigned() {
           ) : (
             <Box
               sx={{
-                minWidth: '100%',
-                height: '100vh',
-                paddingLeft: '30px',
-                justifyContent: 'flex-start',
+                minWidth: "100%",
+                height: "100vh",
+                paddingLeft: "30px",
+                justifyContent: "flex-start",
                 backgroundColor: Colors.terciary.contrastText,
               }}
             >
               <Box
                 sx={{
-                  width: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'flex-start',
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-start",
                   padding: 5,
-                  height: '20px',
+                  height: "20px",
                   backgroundColor: Colors.terciary.contrastText,
                 }}
               >
@@ -238,29 +225,29 @@ export default function CompAssigned() {
 
                 <Box
                   style={{
-                    display: 'flex',
+                    display: "flex",
                     color: Colors.primary.main,
-                    minWdth: '100%',
+                    minWdth: "100%",
 
-                    alignItems: 'center',
+                    alignItems: "center",
                     backgroundColor: Colors.terciary.contrastText,
                   }}
                 >
                   <Box>
                     <Grid
-                      justifyContent={'center'}
-                      alignItems={'center'}
+                      justifyContent={"center"}
+                      alignItems={"center"}
                       style={{
-                        display: 'flex',
-                        height: '100%',
+                        display: "flex",
+                        height: "100%",
                         marginBottom: 20,
                         padding: 5,
-                        border: '1px solid',
+                        border: "1px solid",
                         borderColor: Colors.primary.main,
                         backgroundColor: Colors.primary.main,
                         color: Colors.primary.contrastText,
                         fontWeight: 600,
-                        textAlign: 'center',
+                        textAlign: "center",
                       }}
                       spacing={0.5}
                     >
@@ -272,9 +259,9 @@ export default function CompAssigned() {
                       >
                         <p
                           style={{
-                            fontSize: '12px',
+                            fontSize: "12px",
                             fontWeight: 600,
-                            marginLeft: '3px',
+                            marginLeft: "3px",
                           }}
                         >
                           Producto
@@ -289,9 +276,9 @@ export default function CompAssigned() {
                       >
                         <p
                           style={{
-                            fontSize: '12px',
+                            fontSize: "12px",
                             fontWeight: 600,
-                            marginLeft: '3px',
+                            marginLeft: "3px",
                           }}
                         >
                           Retiro
@@ -306,9 +293,9 @@ export default function CompAssigned() {
                       >
                         <p
                           style={{
-                            fontSize: '12px',
+                            fontSize: "12px",
                             fontWeight: 600,
-                            marginLeft: '3px',
+                            marginLeft: "3px",
                           }}
                         >
                           Fecha y hora
@@ -324,9 +311,9 @@ export default function CompAssigned() {
                       >
                         <p
                           style={{
-                            fontSize: '12px',
+                            fontSize: "12px",
                             fontWeight: 600,
-                            marginLeft: '3px',
+                            marginLeft: "3px",
                           }}
                         >
                           Entrega
@@ -341,10 +328,10 @@ export default function CompAssigned() {
                       >
                         <p
                           style={{
-                            width: '80px',
-                            fontSize: '12px',
+                            width: "80px",
+                            fontSize: "12px",
                             fontWeight: 600,
-                            marginLeft: '3px',
+                            marginLeft: "3px",
                           }}
                         >
                           Fecha y hora
@@ -359,9 +346,9 @@ export default function CompAssigned() {
                       >
                         <p
                           style={{
-                            fontSize: '12px',
+                            fontSize: "12px",
                             fontWeight: 600,
-                            marginLeft: '3px',
+                            marginLeft: "3px",
                           }}
                         >
                           Destinatario
@@ -376,10 +363,10 @@ export default function CompAssigned() {
                       >
                         <p
                           style={{
-                            width: '80px',
-                            fontSize: '12px',
+                            width: "80px",
+                            fontSize: "12px",
                             fontWeight: 600,
-                            marginLeft: '3px',
+                            marginLeft: "3px",
                           }}
                         >
                           Unidad
@@ -394,10 +381,10 @@ export default function CompAssigned() {
                       >
                         <p
                           style={{
-                            width: '80px',
-                            fontSize: '12px',
+                            width: "80px",
+                            fontSize: "12px",
                             fontWeight: 600,
-                            marginLeft: '3px',
+                            marginLeft: "3px",
                           }}
                         >
                           Tipo de carga
@@ -412,10 +399,10 @@ export default function CompAssigned() {
                       >
                         <p
                           style={{
-                            width: '80px',
-                            fontSize: '12px',
+                            width: "80px",
+                            fontSize: "12px",
                             fontWeight: 600,
-                            marginLeft: '3px',
+                            marginLeft: "3px",
                           }}
                         >
                           Valor ofertado
@@ -430,10 +417,10 @@ export default function CompAssigned() {
                       >
                         <p
                           style={{
-                            width: '80px',
-                            fontSize: '12px',
+                            width: "80px",
+                            fontSize: "12px",
                             fontWeight: 600,
-                            marginLeft: '3px',
+                            marginLeft: "3px",
                           }}
                         >
                           Conductor
@@ -443,9 +430,9 @@ export default function CompAssigned() {
                     {/* //? ----------------------------------------------------------- BODY */}
                     <Box
                       style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '20px',
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "20px",
                       }}
                     >
                       {order.map((row) => (
@@ -466,14 +453,10 @@ export default function CompAssigned() {
                           model={row.assignedDriver?.truck.model}
                           type={row.package.type}
                           price={row.package.offered_price}
-                          driverName={
-                            row.assignedDriver?.user_driver.name
-                          }
+                          driverName={row.assignedDriver?.user_driver.name}
                           license={row.assignedDriver?.num_license}
                           rating={row.assignedDriver?.rating}
-                          num_plate={
-                            row.assignedDriver?.truck.num_plate
-                          }
+                          num_plate={row.assignedDriver?.truck.num_plate}
                           charge_capacity={
                             row.assignedDriver?.truck.charge_capacity
                           }
