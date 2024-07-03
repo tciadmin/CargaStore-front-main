@@ -5,13 +5,17 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { Avatar, Button, Container, Grid, Paper, Stack, useMediaQuery } from '@mui/material';
+import { Alert, Avatar, Button, Container, Grid, Paper, Snackbar, Stack, useMediaQuery } from '@mui/material';
 import ResponsiveImageBox from '../imageComponents/ResponsiveImageBox'
 import InputForm from '../inputs/InputForm';
 import CobroItemCard from '../cards/CobroItemCard';
-import {  useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../../Redux/Actions/UserActions/userActions';
 import Cookies from 'js-cookie';
+//Agregar setter a todos los campos
+//Agregar al backend la posibilidad de editar
+// Validar datos editados antes de que se guarden en la base de datos
+//mostrar errores y mensaje de guardado
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -46,45 +50,91 @@ function a11yProps(index) {
 }
 
 export default function VerticalTabs() {
-   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
-  
+  const [errorValidation,setErrorValidation]=React.useState({value: false, message: "Mensaje incorrecto"});
+  const [dataChanged,setDataChanged] = React.useState(true)
+
 
   const [editar, setEditar] = React.useState(0);
-  const { user} = useSelector(state => state.user);
-  console.log(user);  
+  const { user } = useSelector(state => state.user);
   React.useEffect(() => {
-    dispatch(getUser(Cookies.get("id")));    
-  }, [])
-  React.useEffect(()=>{
-    setClientData(user);
+    dispatch(getUser(Cookies.get("id")));
+    setData(user);
+    setEditar(false);
+  }, []);
+  const [data, setData] = React.useState(user);
 
-  },[user && !editar])
-  const [clientData, setClientData] = React.useState({});
+  React.useEffect(() => {
+    if (!editar) {
+      setData(user);
+    }
+
+  }, [user])
   const mobile = useMediaQuery("(max-width: 750px)");
   const driverOptionsMobile = ["Datos Personales", "Datos del camión", "Documentos Legales", "Historial de cobros"]
   const containerBox = mobile ? { flexGrow: 1, bgcolor: '#e6e6e6', display: 'flex', flexDirection: "column", maxWidth: "100%", height: "100%" } : { flexGrow: 1, bgcolor: '#e6e6e6', display: 'flex', width: "100%", height: "100%" }
   const clientOptionsMobile = ["Datos Personales", "Configuración de la cuenta", "Configuración de pagos", "Historial de cobros"]
- 
+
   const handleInputClient = (value, name) => {
-    
-    setClientData(prevState => ({
+
+    setData(prevState => ({
       ...prevState,
       [name]: value
     }));
   };
 
-  /*Aquí se hace la llamada al dispatch del redux para que suba los cambios */
-  // const putDataClient = ()=>{
-  // }
+ const putBasicDataClient = ()=> {
+  if(!data.name ){
+    setErrorValidation({value: true, message: "El campo nombre debe completarse"})
+  }else if(!data.lastname){
+    setErrorValidation({value: true, message: "El campo apellido debe completarse"})
+
+  }else{
+    const regex = /^[a-zA-Z\s]+$/;
+        if(regex.test(data.name) == false){
+      setErrorValidation({value: true, message: "Su nombre no puede contener carácteres especiales ni números"})
+
+    }else if(regex.test(data.lastname) == false){
+      setErrorValidation({value: true, message: "Su apellido no puede contener carácteres especiales ni números"})
+
+    }else{
+      setDataChanged(true)
+
+    }
+  }
+
+ }
+ const putCustomerDataClient = ()=> {
+  if(!data.customer.company_name ){
+    setErrorValidation({value: true, message: "El nombre de la empresa debe completarse"})
+  }else if(!data.customer.address){
+    setErrorValidation({value: true, message: "La dirección es obligatoria"})
+
+  }else{
+    const regex = /^[a-zA-Z0-9.\-'\s]+$/;
+            if(regex.test(data.customer.company_name) == false){
+      setErrorValidation({value: true, message: "El nombre de su empresa no puede contener carácteres especiales "})
+
+    }else if(regex.test(data.customer.address) == false){
+      setErrorValidation({value: true, message: "La dirección no puede contener carácteres especiales "})
+
+    }else{
+      setDataChanged(true)
+
+    }
+  }
+
+ }
   // const putDataDriver = ()=>{
   // }
- 
+
 
   const handleChange = (event, newValue) => {
     setEditar(false);
+    setData(user);
     setValue(newValue);
   };
 
@@ -188,28 +238,27 @@ export default function VerticalTabs() {
           </div>
           {value == 0 && user.role === "driver" && <>
 
-            <InputForm value={clientData.name} setter={(valor)=>handleInputClient(valor,"name")} label="Nombre" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
-            <InputForm value={clientData.lastname} setter={(valor)=>handleInputClient(valor,"lastname")}label="Apellido" sizeH='35px' marginB={3} readOnly={!editar} />
+            <InputForm value={data.name} setter={(valor) => handleInputClient(valor, "name")} label="Nombre" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
+            <InputForm value={data.lastname} setter={(valor) => handleInputClient(valor, "lastname")} label="Apellido" sizeH='35px' marginB={3} readOnly={!editar} />
 
-            <InputForm value={clientData.email} setter={(valor)=>handleInputClient(valor,"email")}label="Correo electrónico" type='email' sizeH='35px' marginB={3} readOnly={!editar} />
-            <InputForm value={clientData.name} setter={(valor)=>handleInputClient(valor,"name")}label="Número de contacto" sizeH='35px' marginB={3} readOnly={!editar} />
-            <InputForm value={clientData.name} setter={(valor)=>handleInputClient(valor,"name")}label="Descripción" sizeH='150px' marginB={3} readOnly={!editar} sizeXL={true} />
+            <InputForm value={data.email} setter={(valor) => handleInputClient(valor, "email")} label="Correo electrónico" type='email' sizeH='35px' marginB={3} readOnly={!editar} />
+            <InputForm value={data.name} setter={(valor) => handleInputClient(valor, "name")} label="Número de contacto" sizeH='35px' marginB={3} readOnly={!editar} />
+            <InputForm value={data.name} setter={(valor) => handleInputClient(valor, "name")} label="Descripción" sizeH='150px' marginB={3} readOnly={!editar} sizeXL={true} />
           </>
           }
           {value == 0 && user.role === "customer" && <>
 
-            <InputForm value={clientData.name} setter={(valor)=>handleInputClient(valor,"name")} label="Nombre" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
-            <InputForm value={clientData.lastname} setter={(valor)=>handleInputClient(valor,"lastname")}  label="Apellido" sizeH='35px' marginB={3} readOnly={!editar} />
-            <InputForm value={clientData.email} setter={(valor)=>handleInputClient(valor,"email")} label="Correo electrónico" type='email' sizeH='35px' marginB={3} readOnly={!editar} />
+            <InputForm value={data.name} setter={(valor) => handleInputClient(valor, "name")} label="Nombre" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
+            <InputForm value={data.lastname} setter={(valor) => handleInputClient(valor, "lastname")} label="Apellido" sizeH='35px' marginB={3} readOnly={!editar} />
+            <InputForm value={data.email} setter={(valor) => handleInputClient(valor, "email")} label="Correo electrónico" type='email' sizeH='35px' marginB={3} readOnly={!editar} />
 
           </>
           }
 
           {editar ?
-            <Button variant="contained" style={{ fontWeight: "bold" }} onClick={()=>{              
-            }} > Guardar Cambios
+            <Button variant="contained" style={{ fontWeight: "bold" }} onClick={() => {
+              putBasicDataClient()}} > Guardar Cambios
             </Button>
-
             :
             <Button variant="outlined" onClick={() => setEditar(true)} style={{ fontWeight: "bold", width: "80px", alignSelf: "center" }} > Editar
             </Button>
@@ -249,41 +298,83 @@ export default function VerticalTabs() {
 
           </div>
           <form >
-          {user.role == "customer" &&
-            <>
-              <InputForm value={clientData.customer.company_name} setter={(valor)=>handleInputClient(valor,"customer.company_name")} label="Nombre de la empresa" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
-              <InputForm value={clientData.customer.ruc} setter={(valor)=>handleInputClient(valor,"customer.ruc")} label="RUC" sizeH='35px' marginB={3} readOnly={!editar} />
+            {user.role == "customer" &&
+              <>
+                <InputForm value={data.customer && data.customer.company_name} setter={(valor) => {
+                  setData(prevState => ({
+                    ...prevState,
+                    customer: {
+                      ...prevState.customer,
+                      company_name: valor
+                    }
+                  }))
+                }} label="Nombre de la empresa" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
+                <InputForm 
+                required={false}
+                value={data.customer && data.customer.ruc} 
+                setter={(valor) => {
+                  setData(prevState => ({
+                    ...prevState,
+                    customer: {
+                      ...prevState.customer,
+                      ruc: valor
+                    }
+                  }))
+                }}
+                label="RUC" sizeH='35px' marginB={3} readOnly={!editar} />
 
-              <InputForm value={clientData.customer.address} 
-              setter={(valor)=>handleInputClient(valor,"customer.address")} label="Dirección" type='text' sizeH='35px' marginB={3} readOnly={!editar} />
-              <InputForm value={clientData.customer.country} 
-              setter={(valor)=>handleInputClient(valor,"customer.country")} label="País" sizeH='35px' marginB={3} readOnly={!editar} />
-            </>
-          }
-          {user.role == "driver" &&
-            <>
-              <InputForm label="Marca" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
-              <InputForm label="Modelo" sizeH='35px' marginB={3} readOnly={!editar} />
+                <InputForm value={data.customer && data.customer.address}
+                  setter={(valor) => {
+                    setData(prevState => ({
+                      ...prevState,
+                      customer: {
+                        ...prevState.customer,
+                        address: valor
+                      }
+                    }))
+                  }}
+                  label="Dirección" type='text' sizeH='35px' marginB={3} readOnly={!editar} />
+                <InputForm 
+                required={false}
+                value={data.customer && data.customer.country}
+                  setter={(valor) => {
+                    setData(prevState => ({
+                      ...prevState,
+                      customer: {
+                        ...prevState.customer,
+                        country: valor
+                      }
+                    }))
+                  }}
+                  label="País" sizeH='35px' marginB={3} readOnly={!editar} />
+              </>
+            }
+            {user.role == "driver" &&
+              <>
+                <InputForm label="Marca" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
+                <InputForm label="Modelo" sizeH='35px' marginB={3} readOnly={!editar} />
 
-              <InputForm label="Año" type='email' sizeH='35px' marginB={3} readOnly={!editar} />
-              <InputForm label="Matrícula" sizeH='35px' marginB={3} readOnly={!editar} />
-              <InputForm label="Capacidad de carga" sizeH='35px' marginB={3} readOnly={!editar} />
-              <InputForm label="Unidad de carga" sizeH='35px' marginB={3} readOnly={!editar} />
-            </>
-          }
+                <InputForm label="Año" type='email' sizeH='35px' marginB={3} readOnly={!editar} />
+                <InputForm label="Matrícula" sizeH='35px' marginB={3} readOnly={!editar} />
+                <InputForm label="Capacidad de carga" sizeH='35px' marginB={3} readOnly={!editar} />
+                <InputForm label="Unidad de carga" sizeH='35px' marginB={3} readOnly={!editar} />
+              </>
+            }
 
 
 
 
-          {editar ?
-            <Button variant="contained"type="submit" style={{ fontWeight: "bold" }} > Guardar Cambios
-            </Button>
+            {editar ?
+              <Button variant="contained" style={{ fontWeight: "bold" }} onClick={()=>{
+                putCustomerDataClient()
+              }}> Guardar Cambios
+              </Button>
 
-            :
-            <Button variant="outlined"  onClick={() => setEditar(true)} style={{ fontWeight: "bold", width: "80px", alignSelf: "center" }} > Editar
-            </Button>
+              :
+              <Button variant="outlined" onClick={() => setEditar(true)} style={{ fontWeight: "bold", width: "80px", alignSelf: "center" }} > Editar
+              </Button>
 
-          }
+            }
           </form>
           {user.role == "customer" &&
             <Stack direction="column" mt={5}>
@@ -530,7 +621,26 @@ export default function VerticalTabs() {
         }
 
       </TabPanel>
-
+      <Snackbar open={errorValidation.value} anchorOrigin={{ vertical: "top", horizontal: "center" }} autoHideDuration={6000} onClose={()=>setErrorValidation({value: false, message: ""})}>
+  <Alert
+    onClose={()=>setErrorValidation({value: false, message: ""})}
+    severity="error"
+    variant="filled"
+    sx={{ width: '100%' }}
+  >
+    {errorValidation.message}
+  </Alert>
+</Snackbar>
+<Snackbar open={dataChanged} anchorOrigin={{ vertical: "bottom", horizontal: "center" }} autoHideDuration={6000} onClose={()=>setDataChanged(false)}>
+  <Alert
+    onClose={()=>setDataChanged(false)}
+    severity="success"
+    variant="filled"
+    sx={{ width: '100%' }}
+  >
+    Los cambios se guardaron con éxito!
+  </Alert>
+</Snackbar>
 
     </Box>
   );
