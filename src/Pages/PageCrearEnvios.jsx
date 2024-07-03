@@ -6,6 +6,8 @@ import {
   Stack,
   Typography,
   useMediaQuery,
+  FormControl,
+  OutlinedInput,
 } from "@mui/material";
 import React, { useState } from "react";
 import GreenStepper from "../Components/steppers/GreenStepper";
@@ -15,6 +17,7 @@ import CompNavLanding from "../Components/NavLanding/CompNavLanding";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { createOrder } from "../Redux/Actions/OrderActions/createOrder";
+import { Colors } from "../Utils/Colors";
 
 const PageCrearEnvios = () => {
   const [stepIndex, setStepIndex] = useState(0);
@@ -155,20 +158,70 @@ const PageCrearEnvios = () => {
           <Stack direction="column" alignItems={"center"}>
             {stepIndex === 0 && (
               <>
-                <InputForm
-                  label="Usuario o empresa que envía"
-                  inputW={mobile ? "90%" : "100%"}
-                  {...register("company_name", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                  })}
-                ></InputForm>
-                {errors.company_name && (
-                  <p style={{ color: "red" }}>{errors.company_name.message}</p>
-                )}
-                <InputForm
+                <p
+                  style={{
+                    fontWeight: 400,
+                    color: Colors.secondary.main,
+                    textAlign: "left",
+                  }}
+                >
+                  Usuario o empresa que envía
+                </p>
+                <FormControl
+                  sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    {...register("company_name", {
+                      required: {
+                        value: true,
+                        message: "Este campo es requerido",
+                      },
+                    })}
+                    style={{
+                      height: mobile ? "40px" : "50px",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  {errors.company_name && (
+                    <p style={{ color: "red" }}>
+                      {errors.company_name.message}
+                    </p>
+                  )}
+                </FormControl>
+                <p
+                  style={{
+                    fontWeight: 400,
+                    color: Colors.secondary.main,
+                    textAlign: "left",
+                  }}
+                >
+                  Número de teléfono
+                </p>
+                <FormControl
+                  sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    {...register("company_phone", {
+                      required: {
+                        value: true,
+                        message: "Este campo es requerido",
+                      },
+                    })}
+                    style={{
+                      height: mobile ? "40px" : "50px",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  {errors.company_phone && (
+                    <p style={{ color: "red" }}>
+                      {errors.company_phone.message}
+                    </p>
+                  )}
+                </FormControl>
+
+                {/* <InputForm
                   label="Número de teléfono"
                   inputW={mobile ? "90%" : "100%"}
                   {...register("company_phone", {
@@ -180,150 +233,320 @@ const PageCrearEnvios = () => {
                 ></InputForm>
                 {errors.company_phone && (
                   <p style={{ color: "red" }}>{errors.company_phone.message}</p>
-                )}
-                <InputForm
-                  inputW={mobile ? "90%" : "100%"}
-                  label="RUC"
-                  {...register("ruc", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                  })}
-                ></InputForm>
-                {errors.ruc && (
-                  <p style={{ color: "red" }}>{errors.ruc.message}</p>
-                )}
-                <InputForm
-                  inputW={mobile ? "90%" : "100%"}
-                  label="Empresa que recibe"
-                  {...register("receiving_company", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                  })}
-                ></InputForm>
-                {errors.receiving_company && (
-                  <p style={{ color: "red" }}>
-                    {errors.receiving_company.message}
-                  </p>
-                )}
-                <InputForm
-                  inputW={mobile ? "90%" : "100%"}
-                  label="Número de contacto"
-                  {...register("contact_number", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                  })}
-                ></InputForm>
-                {errors.contact_number && (
-                  <p style={{ color: "red" }}>
-                    {errors.contact_number.message}
-                  </p>
-                )}
-                <InputForm
-                  inputW={mobile ? "90%" : "100%"}
-                  label="RUC"
-                  {...register("receiving_company_RUC", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                  })}
-                ></InputForm>
-                {errors.receiving_company_RUC && (
-                  <p style={{ color: "red" }}>
-                    {errors.receiving_company_RUC.message}
-                  </p>
-                )}
+                )} */}
+                <p
+                  style={{
+                    fontWeight: 400,
+                    color: Colors.secondary.main,
+                    textAlign: "left",
+                  }}
+                >
+                  RUC
+                </p>
+                <FormControl
+                  sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    {...register("ruc", {
+                      required: {
+                        value: true,
+                        message: "Este campo es requerido",
+                      },
+                    })}
+                    style={{
+                      height: mobile ? "40px" : "50px",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  {errors.ruc && (
+                    <p style={{ color: "red" }}>{errors.ruc.message}</p>
+                  )}
+                </FormControl>
+
+                <p
+                  style={{
+                    fontWeight: 400,
+                    color: Colors.secondary.main,
+                    textAlign: "left",
+                  }}
+                >
+                  Empresa que recibe
+                </p>
+                <FormControl
+                  sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    {...register("receiving_company", {
+                      required: {
+                        value: true,
+                        message: "Este campo es requerido",
+                      },
+                    })}
+                    style={{
+                      height: mobile ? "40px" : "50px",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  {errors.receiving_company && (
+                    <p style={{ color: "red" }}>
+                      {errors.receiving_company.message}
+                    </p>
+                  )}
+                </FormControl>
+
+                <p
+                  style={{
+                    fontWeight: 400,
+                    color: Colors.secondary.main,
+                    textAlign: "left",
+                  }}
+                >
+                  Número de contacto
+                </p>
+                <FormControl
+                  sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    {...register("contact_number", {
+                      required: {
+                        value: true,
+                        message: "Este campo es requerido",
+                      },
+                    })}
+                    style={{
+                      height: mobile ? "40px" : "50px",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  {errors.contact_number && (
+                    <p style={{ color: "red" }}>
+                      {errors.contact_number.message}
+                    </p>
+                  )}
+                </FormControl>
+
+                <p
+                  style={{
+                    fontWeight: 400,
+                    color: Colors.secondary.main,
+                    textAlign: "left",
+                  }}
+                >
+                  RUC
+                </p>
+                <FormControl
+                  sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    {...register("receiving_company_RUC", {
+                      required: {
+                        value: true,
+                        message: "Este campo es requerido",
+                      },
+                    })}
+                    style={{
+                      height: mobile ? "40px" : "50px",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  {errors.receiving_company_RUC && (
+                    <p style={{ color: "red" }}>
+                      {errors.receiving_company_RUC.message}
+                    </p>
+                  )}
+                </FormControl>
               </>
             )}
             {stepIndex === 1 && (
               <>
-                <InputForm
-                  inputW={mobile ? "90%" : "100%"}
-                  label="Nombre del producto"
-                  {...register("product_name", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                  })}
-                ></InputForm>
-                {errors.product_name && (
-                  <p style={{ color: "red" }}>{errors.product_name.message}</p>
-                )}
-                <InputForm
-                  inputW={mobile ? "90%" : "100%"}
-                  label="Cantidad de unidades"
-                  {...register("quantity", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                  })}
-                ></InputForm>
-                {errors.quantity && (
-                  <p style={{ color: "red" }}>{errors.quantity.message}</p>
-                )}
-                <InputForm
-                  inputW={mobile ? "90%" : "100%"}
-                  label="Tipo de carga"
-                  type="select"
-                  select={select}
-                  {...register("type", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                  })}
-                ></InputForm>
-                {errors.type && (
-                  <p style={{ color: "red" }}>{errors.type.message}</p>
-                )}
-                <InputForm
-                  inputW={mobile ? "90%" : "100%"}
-                  label="Peso total"
-                  {...register("weight", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                  })}
-                ></InputForm>
-                {errors.weight && (
-                  <p style={{ color: "red" }}>{errors.weight.message}</p>
-                )}
-                <InputForm
-                  inputW={mobile ? "90%" : "100%"}
-                  label="Volumen del paquete"
-                  {...register("volume", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                  })}
-                ></InputForm>
-                {errors.volume && (
-                  <p style={{ color: "red" }}>{errors.volume.message}</p>
-                )}
-                <InputForm
-                  inputW={mobile ? "90%" : "100%"}
-                  label="Valor ofertado"
-                  money={true}
-                  {...register("offered_price", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                  })}
-                ></InputForm>
-                {errors.offered_price && (
-                  <p style={{ color: "red" }}>{errors.offered_price.message}</p>
-                )}
+                <p
+                  style={{
+                    fontWeight: 400,
+                    color: Colors.secondary.main,
+                    textAlign: "left",
+                  }}
+                >
+                  Nombre del producto
+                </p>
+                <FormControl
+                  sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    {...register("product_name", {
+                      required: {
+                        value: true,
+                        message: "Este campo es requerido",
+                      },
+                    })}
+                    style={{
+                      height: mobile ? "40px" : "50px",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  {errors.product_name && (
+                    <p style={{ color: "red" }}>
+                      {errors.product_name.message}
+                    </p>
+                  )}
+                </FormControl>
+
+                <p
+                  style={{
+                    fontWeight: 400,
+                    color: Colors.secondary.main,
+                    textAlign: "left",
+                  }}
+                >
+                  Cantidad de unidades
+                </p>
+                <FormControl
+                  sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    {...register("quantity", {
+                      required: {
+                        value: true,
+                        message: "Este campo es requerido",
+                      },
+                    })}
+                    style={{
+                      height: mobile ? "40px" : "50px",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  {errors.quantity && (
+                    <p style={{ color: "red" }}>{errors.quantity.message}</p>
+                  )}
+                </FormControl>
+
+                <p
+                  style={{
+                    fontWeight: 400,
+                    color: Colors.secondary.main,
+                    textAlign: "left",
+                  }}
+                >
+                  Tipo de carga
+                </p>
+                <FormControl
+                  sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    {...register("type", {
+                      required: {
+                        value: true,
+                        message: "Este campo es requerido",
+                      },
+                    })}
+                    style={{
+                      height: mobile ? "40px" : "50px",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  {errors.type && (
+                    <p style={{ color: "red" }}>{errors.type.message}</p>
+                  )}
+                </FormControl>
+
+                <p
+                  style={{
+                    fontWeight: 400,
+                    color: Colors.secondary.main,
+                    textAlign: "left",
+                  }}
+                >
+                  Peso total
+                </p>
+                <FormControl
+                  sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    {...register("weight", {
+                      required: {
+                        value: true,
+                        message: "Este campo es requerido",
+                      },
+                    })}
+                    style={{
+                      height: mobile ? "40px" : "50px",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  {errors.weight && (
+                    <p style={{ color: "red" }}>{errors.weight.message}</p>
+                  )}
+                </FormControl>
+
+                <p
+                  style={{
+                    fontWeight: 400,
+                    color: Colors.secondary.main,
+                    textAlign: "left",
+                  }}
+                >
+                  Volumen del paquete
+                </p>
+                <FormControl
+                  sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    {...register("volume", {
+                      required: {
+                        value: true,
+                        message: "Este campo es requerido",
+                      },
+                    })}
+                    style={{
+                      height: mobile ? "40px" : "50px",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  {errors.volume && (
+                    <p style={{ color: "red" }}>{errors.volume.message}</p>
+                  )}
+                </FormControl>
+
+                <p
+                  style={{
+                    fontWeight: 400,
+                    color: Colors.secondary.main,
+                    textAlign: "left",
+                  }}
+                >
+                  Valor ofertado
+                </p>
+                <FormControl
+                  sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    {...register("offered_price", {
+                      required: {
+                        value: true,
+                        message: "Este campo es requerido",
+                      },
+                    })}
+                    style={{
+                      height: mobile ? "40px" : "50px",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  {errors.offered_price && (
+                    <p style={{ color: "red" }}>
+                      {errors.offered_price.message}
+                    </p>
+                  )}
+                </FormControl>
+
                 <Stack
                   direction="row"
                   width={mobile ? "90%" : "100%"}
@@ -426,158 +649,328 @@ const PageCrearEnvios = () => {
             )}
             {stepIndex === 2 && (
               <>
-                <InputForm
-                  inputW={mobile ? "90%" : "100%"}
-                  label="Fecha de retiro"
-                  type="date"
-                  {...register("pick_up_date", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                  })}
-                ></InputForm>
-                {errors.pick_up_date && (
-                  <p style={{ color: "red" }}>{errors.pick_up_date.message}</p>
-                )}
-                <InputForm
-                  inputW={mobile ? "90%" : "100%"}
-                  label="Hora de retiro"
-                  type="time"
-                  {...register("pick_up_time", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                  })}
-                ></InputForm>
-                {errors.pick_up_time && (
-                  <p style={{ color: "red" }}>{errors.pick_up_time.message}</p>
-                )}
-                <InputForm
-                  inputW={mobile ? "90%" : "100%"}
-                  label="Dirección de retiro"
-                  {...register("pick_up_address", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                  })}
-                ></InputForm>
-                {errors.pick_up_address && (
-                  <p style={{ color: "red" }}>
-                    {errors.pick_up_address.message}
-                  </p>
-                )}
-                <InputForm
-                  inputW={mobile ? "90%" : "100%"}
-                  label="Fecha de entrega"
-                  type="date"
-                  {...register("delivery_date", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                  })}
-                ></InputForm>
-                {errors.delivery_date && (
-                  <p style={{ color: "red" }}>{errors.delivery_date.message}</p>
-                )}
-                <InputForm
-                  inputW={mobile ? "90%" : "100%"}
-                  label="Hora de entrega"
-                  type="time"
-                  {...register("delivery_time", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                  })}
-                ></InputForm>
-                {errors.delivery_time && (
-                  <p style={{ color: "red" }}>{errors.delivery_time.message}</p>
-                )}
-                <InputForm
-                  inputW={mobile ? "90%" : "100%"}
-                  label="Dirección de entrega"
-                  {...register("delivery_address", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                  })}
-                ></InputForm>
-                {errors.delivery_address && (
-                  <p style={{ color: "red" }}>
-                    {errors.delivery_address.message}
-                  </p>
-                )}
+                <p
+                  style={{
+                    fontWeight: 400,
+                    color: Colors.secondary.main,
+                    textAlign: "left",
+                  }}
+                >
+                  Fecha de retiro
+                </p>
+                <FormControl
+                  sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    {...register("pick_up_date", {
+                      required: {
+                        value: true,
+                        message: "Este campo es requerido",
+                      },
+                    })}
+                    style={{
+                      height: mobile ? "40px" : "50px",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  {errors.pick_up_date && (
+                    <p style={{ color: "red" }}>
+                      {errors.pick_up_date.message}
+                    </p>
+                  )}
+                </FormControl>
+
+                <p
+                  style={{
+                    fontWeight: 400,
+                    color: Colors.secondary.main,
+                    textAlign: "left",
+                  }}
+                >
+                  Hora de retiro
+                </p>
+                <FormControl
+                  sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    {...register("pick_up_time", {
+                      required: {
+                        value: true,
+                        message: "Este campo es requerido",
+                      },
+                    })}
+                    style={{
+                      height: mobile ? "40px" : "50px",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  {errors.pick_up_time && (
+                    <p style={{ color: "red" }}>
+                      {errors.pick_up_time.message}
+                    </p>
+                  )}
+                </FormControl>
+
+                <p
+                  style={{
+                    fontWeight: 400,
+                    color: Colors.secondary.main,
+                    textAlign: "left",
+                  }}
+                >
+                  Dirección de retiro
+                </p>
+                <FormControl
+                  sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    {...register("pick_up_address", {
+                      required: {
+                        value: true,
+                        message: "Este campo es requerido",
+                      },
+                    })}
+                    style={{
+                      height: mobile ? "40px" : "50px",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  {errors.pick_up_address && (
+                    <p style={{ color: "red" }}>
+                      {errors.pick_up_address.message}
+                    </p>
+                  )}
+                </FormControl>
+
+                <p
+                  style={{
+                    fontWeight: 400,
+                    color: Colors.secondary.main,
+                    textAlign: "left",
+                  }}
+                >
+                  Dirección de retiro
+                </p>
+                <FormControl
+                  sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    {...register("delivery_date", {
+                      required: {
+                        value: true,
+                        message: "Este campo es requerido",
+                      },
+                    })}
+                    style={{
+                      height: mobile ? "40px" : "50px",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  {errors.delivery_date && (
+                    <p style={{ color: "red" }}>
+                      {errors.delivery_date.message}
+                    </p>
+                  )}
+                </FormControl>
+
+                <p
+                  style={{
+                    fontWeight: 400,
+                    color: Colors.secondary.main,
+                    textAlign: "left",
+                  }}
+                >
+                  Hora de entrega
+                </p>
+                <FormControl
+                  sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    {...register("delivery_time", {
+                      required: {
+                        value: true,
+                        message: "Este campo es requerido",
+                      },
+                    })}
+                    style={{
+                      height: mobile ? "40px" : "50px",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  {errors.delivery_time && (
+                    <p style={{ color: "red" }}>
+                      {errors.delivery_time.message}
+                    </p>
+                  )}
+                </FormControl>
+
+                <p
+                  style={{
+                    fontWeight: 400,
+                    color: Colors.secondary.main,
+                    textAlign: "left",
+                  }}
+                >
+                  Dirección de entrega
+                </p>
+                <FormControl
+                  sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    {...register("delivery_address", {
+                      required: {
+                        value: true,
+                        message: "Este campo es requerido",
+                      },
+                    })}
+                    style={{
+                      height: mobile ? "40px" : "50px",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  {errors.delivery_address && (
+                    <p style={{ color: "red" }}>
+                      {errors.delivery_address.message}
+                    </p>
+                  )}
+                </FormControl>
               </>
             )}
             {stepIndex === 3 && (
               <>
-                <InputForm
-                  inputW={mobile ? "90%" : "100%"}
-                  label="Nombre"
-                  {...register("name", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                  })}
-                ></InputForm>
-                {errors.name && (
-                  <p style={{ color: "red" }}>{errors.name.message}</p>
-                )}
-                <InputForm
-                  inputW={mobile ? "90%" : "100%"}
-                  label="Número de tarjeta"
-                  {...register("card", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                  })}
-                ></InputForm>
-                {errors.card && (
-                  <p style={{ color: "red" }}>{errors.card.message}</p>
-                )}
-                <InputForm
-                  inputW={mobile ? "90%" : "100%"}
-                  label="Fecha de vencimiento"
-                  type="date"
-                  {...register("expire", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                  })}
-                ></InputForm>
-                {errors.expire && (
-                  <p style={{ color: "red" }}>{errors.expire.message}</p>
-                )}
-                <InputForm
-                  inputW={mobile ? "90%" : "100%"}
-                  label="Monto a pagar"
-                  money={true}
-                  {...register("payment", {
-                    required: {
-                      value: true,
-                      message: "Este campo es requerido",
-                    },
-                  })}
-                ></InputForm>
-                {errors.payment && (
-                  <p style={{ color: "red" }}>{errors.payment.message}</p>
-                )}
+                <p
+                  style={{
+                    fontWeight: 400,
+                    color: Colors.secondary.main,
+                    textAlign: "left",
+                  }}
+                >
+                  Nombre
+                </p>
+                <FormControl
+                  sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    {...register("name", {
+                      required: {
+                        value: true,
+                        message: "Este campo es requerido",
+                      },
+                    })}
+                    style={{
+                      height: mobile ? "40px" : "50px",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  {errors.name && (
+                    <p style={{ color: "red" }}>{errors.name.message}</p>
+                  )}
+                </FormControl>
+
+                <p
+                  style={{
+                    fontWeight: 400,
+                    color: Colors.secondary.main,
+                    textAlign: "left",
+                  }}
+                >
+                  Número de tarjeta
+                </p>
+                <FormControl
+                  sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    {...register("card", {
+                      required: {
+                        value: true,
+                        message: "Este campo es requerido",
+                      },
+                    })}
+                    style={{
+                      height: mobile ? "40px" : "50px",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  {errors.card && (
+                    <p style={{ color: "red" }}>{errors.card.message}</p>
+                  )}
+                </FormControl>
+
+                <p
+                  style={{
+                    fontWeight: 400,
+                    color: Colors.secondary.main,
+                    textAlign: "left",
+                  }}
+                >
+                  Fecha de vencimiento
+                </p>
+                <FormControl
+                  sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    {...register("expire", {
+                      required: {
+                        value: true,
+                        message: "Este campo es requerido",
+                      },
+                    })}
+                    style={{
+                      height: mobile ? "40px" : "50px",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  {errors.expire && (
+                    <p style={{ color: "red" }}>{errors.expire.message}</p>
+                  )}
+                </FormControl>
+
+                <p
+                  style={{
+                    fontWeight: 400,
+                    color: Colors.secondary.main,
+                    textAlign: "left",
+                  }}
+                >
+                  Monto a pagar
+                </p>
+                <FormControl
+                  sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    {...register("payment", {
+                      required: {
+                        value: true,
+                        message: "Este campo es requerido",
+                      },
+                    })}
+                    style={{
+                      height: mobile ? "40px" : "50px",
+                      borderRadius: "8px",
+                    }}
+                  />
+                  {errors.payment && (
+                    <p style={{ color: "red" }}>{errors.payment.message}</p>
+                  )}
+                </FormControl>
               </>
             )}
             <Button
               sx={{
-                width: mobile ? "90%" : "100%",
+                width: mobile ? "300px" : "666px",
                 padding: mobile ? "" : "18px 0",
                 fontWeight: "bold",
-                fontSize: "16px",
+                fontSize: "1rem",
               }}
               onClick={handleSubmit(onClick)}
               href="#arriba"
