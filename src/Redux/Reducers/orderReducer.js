@@ -3,6 +3,8 @@ import {
   CHANGE_ORDER_STATE_PENDING,
   CHANGE_ORDER_STATE_SUCCESS,
 } from '../Actions/OrderActions/changeOrderState';
+import { CLEAR_ORDER_STATE } from '../Actions/OrderActions/clearOrderState';
+import { CLEAR_ORDERS_LIST } from '../Actions/OrderActions/clearOrdersList';
 import {
   CREATE_ORDER_FAILURE,
   CREATE_ORDER_PENDING,
@@ -46,6 +48,16 @@ const initialState = {
 
 export const orderReducer = (state = initialState, action) => {
   switch (action.type) {
+    case CLEAR_ORDERS_LIST:
+      return {
+        ...state,
+        orders: action.payload,
+      };
+    case CLEAR_ORDER_STATE:
+      return {
+        ...state,
+        orderState: action.payload,
+      };
     case LIST_ORDER_PENDING:
       return {
         ...state,

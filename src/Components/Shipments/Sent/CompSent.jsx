@@ -1,112 +1,15 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { format } from 'date-fns';
 //? --------------------------------------------- MUI
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { Button, useMediaQuery } from '@mui/material';
-import Modal from '@mui/material/Modal';
+import { useMediaQuery } from '@mui/material';
 import { Grid } from '@mui/material';
 //? --------------------------------------------- STYLES
 import { Colors } from '../../../Utils/Colors';
 import { listOrder } from '../../../Redux/Actions/OrderActions/listOrder';
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 500,
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  p: 2,
-};
-
-function createData(
-  index,
-  product,
-  retire,
-  date,
-  delivery,
-  secondDate,
-  receiver,
-  unity,
-  load,
-  seca,
-  value,
-  driver,
-  country,
-  img
-) {
-  return {
-    index,
-    product,
-    retire,
-    date,
-    delivery,
-    secondDate,
-    receiver,
-    unity,
-    load,
-    seca,
-    value,
-    driver,
-    country,
-    img,
-  };
-}
-
-const rows = [
-  createData(
-    '0',
-    '#1205',
-    'Bobinas de papel',
-    'Calle 12, Quito, Peru',
-    '12/03/24 12:00hs',
-    'Calle 12, Quito, Peru',
-    '21/03/24 12:00hs',
-    'El mundo del papel',
-    'Furgón',
-    'Seca',
-    '$12.00',
-    'Luis Alvarez',
-    'Colombia',
-    '/imgShipments/Bobinas.jpg'
-  ),
-  createData(
-    '1',
-    '#1205',
-    'Bobinas de papel',
-    'Calle 12, Quito, Peru',
-    '12/03/24 12:00hs',
-    'Calle 12, Quito, Peru',
-    '21/03/24 12:00hs',
-    'El mundo del papel',
-    'Furgón',
-    'Seca',
-    '$12.00',
-    'Luis Alvarez',
-    'Colombia',
-    '/imgShipments/Bobinas.jpg'
-  ),
-  createData(
-    '2',
-    '#1903',
-    'Cañas de azúcar',
-    'Calle 12, Quito, Peru',
-    '12/03/24 12:00hs',
-    'Calle 12, Quito, Peru',
-    '21/03/24 12:00hs',
-    'El mundo del papel',
-    'Furgón',
-    'Peligrosa',
-    '$12.00',
-    'Luis Alvarez',
-    'Colombia',
-    '/imgShipments/Bobinas.jpg'
-  ),
-];
+import ShipmentsItem from '../ShipmentsItem/ShipmentsItem';
+import { clearOrdersList } from '../../../Redux/Actions/OrderActions/clearOrdersList';
 
 export default function CompSent() {
   const dispatch = useDispatch();
@@ -119,12 +22,10 @@ export default function CompSent() {
         'cc22b78d-3e0c-4e4b-b040-644e1061184c' //customerId
       )
     );
+    return () => {
+      dispatch(clearOrdersList());
+    };
   }, [dispatch]);
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState(5);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const navigate = useNavigate();
   const mobile = useMediaQuery('(max-width:720px)');
   const order = useSelector((state) => state.orders.orders) || [];
 
@@ -549,381 +450,39 @@ export default function CompSent() {
                       }}
                     >
                       {order.map((row) => (
-                        <Box
+                        <ShipmentsItem
                           key={row.id}
-                          style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            width: '100%',
-                            background: 'white',
-                            color: 'black',
-                          }}
-                        >
-                          <Grid
-                            container
-                            justifyContent={'center'}
-                            alignItems={'center'}
-                            style={{
-                              display: 'flex',
-                              flexDirection: 'row',
-                              width: '100%',
-                              height: '75px',
-                              background: 'white',
-                            }}
-                            spacing={0.5}
-                          >
-                            <Grid
-                              item
-                              container
-                              width={'9%'}
-                              direction="row"
-                              justifyContent="center"
-                              alignItems="center"
-                            >
-                              <p
-                                style={{
-                                  fontSize: '12px',
-                                  fontWeight: 500,
-                                  marginLeft: '3px',
-                                }}
-                              >
-                                {`#${row.id}`}
-                              </p>
-                            </Grid>
-                            <Grid
-                              item
-                              container
-                              width={'9%'}
-                              direction="row"
-                              justifyContent="center"
-                              alignItems="center"
-                            >
-                              <Box
-                                style={{
-                                  display: 'flex',
-                                  gap: '5px',
-                                }}
-                              >
-                                <img src="/imgShipments/Product.svg" />
-                                <p
-                                  style={{
-                                    fontSize: '12px',
-                                    fontWeight: 500,
-                                    marginLeft: '3px',
-                                  }}
-                                >
-                                  {row.package.product_name}
-                                </p>
-                              </Box>
-                            </Grid>
-                            <Grid
-                              item
-                              container
-                              style={{ display: 'flex' }}
-                              width={'9%'}
-                              direction="row"
-                              justifyContent="center"
-                              alignItems="center"
-                            >
-                              <Box
-                                style={{
-                                  display: 'flex',
-                                  gap: '5px',
-                                }}
-                              >
-                                <img
-                                  style={{ display: 'flex' }}
-                                  src="/imgShipments/Location.svg"
-                                />
-                                <p
-                                  style={{
-                                    fontSize: '12px',
-                                    fontWeight: 500,
-                                    marginLeft: '3px',
-                                  }}
-                                >
-                                  {row.pick_up_address}
-                                </p>
-                              </Box>
-                            </Grid>
-
-                            <Grid
-                              item
-                              container
-                              width={'9%'}
-                              direction="row"
-                              justifyContent="center"
-                              alignItems="center"
-                            >
-                              <Box
-                                style={{
-                                  display: 'flex',
-                                  gap: '5px',
-                                }}
-                              >
-                                <img src="/imgShipments/Date.svg" />
-                                <p
-                                  style={{
-                                    fontSize: '12px',
-                                    fontWeight: 500,
-                                    marginLeft: '3px',
-                                  }}
-                                >
-                                  {`${format(
-                                    new Date(row.pick_up_date ?? ''),
-                                    'dd/MM/yy'
-                                  )} ${row.pick_up_time}`}
-                                </p>
-                              </Box>
-                            </Grid>
-                            <Grid
-                              item
-                              container
-                              width={'9%'}
-                              direction="row"
-                              justifyContent="center"
-                              alignItems="center"
-                            >
-                              <Box
-                                style={{
-                                  display: 'flex',
-                                  gap: '5px',
-                                }}
-                              >
-                                <img src="/imgShipments/Location.svg" />
-                                <p
-                                  style={{
-                                    fontSize: '12px',
-                                    fontWeight: 500,
-                                    marginLeft: '3px',
-                                  }}
-                                >
-                                  {row.delivery_address}
-                                </p>
-                              </Box>
-                            </Grid>
-                            <Grid
-                              item
-                              container
-                              width={'9%'}
-                              direction="row"
-                              justifyContent="center"
-                              alignItems="center"
-                            >
-                              <Box
-                                style={{
-                                  display: 'flex',
-                                  gap: '5px',
-                                }}
-                              >
-                                <img src="/imgShipments/Date.svg" />
-                                <p
-                                  style={{
-                                    fontSize: '12px',
-                                    fontWeight: 500,
-                                    marginLeft: '3px',
-                                  }}
-                                >
-                                  {`${format(
-                                    new Date(row.delivery_date ?? ''),
-                                    'dd/MM/yy'
-                                  )} ${row.delivery_time}`}
-                                </p>
-                              </Box>
-                            </Grid>
-                            <Grid
-                              item
-                              container
-                              width={'9%'}
-                              direction="row"
-                              justifyContent="center"
-                              alignItems="center"
-                            >
-                              <Box
-                                style={{
-                                  display: 'flex',
-                                  gap: '5px',
-                                }}
-                              >
-                                <img src="/imgShipments/Receiver.svg" />
-                                <p
-                                  style={{
-                                    fontSize: '12px',
-                                    fontWeight: 500,
-                                    marginLeft: '3px',
-                                  }}
-                                >
-                                  {row.receiving_company}
-                                </p>
-                              </Box>
-                            </Grid>
-                            <Grid
-                              item
-                              container
-                              width={'9%'}
-                              direction="row"
-                              justifyContent="center"
-                              alignItems="center"
-                            >
-                              <Box
-                                style={{
-                                  display: 'flex',
-                                  gap: '5px',
-                                }}
-                              >
-                                <img src="/imgShipments/Truck.svg" />
-                                <p
-                                  style={{
-                                    fontSize: '12px',
-                                    fontWeight: 500,
-                                    marginLeft: '3px',
-                                  }}
-                                >
-                                  {row.load}
-                                </p>
-                              </Box>
-                            </Grid>
-                            <Grid
-                              item
-                              container
-                              width={'9%'}
-                              direction="row"
-                              justifyContent="center"
-                              alignItems="center"
-                            >
-                              <Box
-                                style={{
-                                  display: 'flex',
-                                  gap: '5px',
-                                }}
-                              >
-                                <img src="/imgShipments/Load.svg" />
-                                <p
-                                  style={{
-                                    fontSize: '12px',
-                                    fontWeight: 500,
-                                    marginLeft: '3px',
-                                  }}
-                                >
-                                  {row.package.type}
-                                </p>
-                              </Box>
-                            </Grid>
-                            <Grid
-                              item
-                              container
-                              width={'9%'}
-                              direction="row"
-                              justifyContent="center"
-                              alignItems="center"
-                            >
-                              <p
-                                style={{
-                                  width: '80px',
-                                  fontSize: '12px',
-                                  fontWeight: 500,
-                                  marginLeft: '3px',
-                                }}
-                              >
-                                {`$${row.package.offered_price}`}
-                              </p>
-                            </Grid>
-                            <Grid
-                              item
-                              container
-                              width={'9%'}
-                              direction="row"
-                              justifyContent="center"
-                              alignItems="center"
-                            >
-                              <Box className="flexTable">
-                                <Button
-                                  onClick={handleOpen}
-                                  variant="outlined"
-                                  style={{}}
-                                >
-                                  Ver
-                                </Button>
-                              </Box>
-                            </Grid>
-                          </Grid>
-                        </Box>
+                          status={row.status}
+                          code={row.id}
+                          productName={row.package.product_name}
+                          pick_up_address={row.pick_up_address}
+                          pick_up_date={row.pick_up_date}
+                          pick_up_time={row.pick_up_time}
+                          delivery_address={row.delivery_address}
+                          delivery_date={row.delivery_date}
+                          delivery_time={row.delivery_time}
+                          receiving_company={row.receiving_company}
+                          assignedDriver={row.assignedDriver}
+                          brand={row.assignedDriver?.truck.brand}
+                          model={row.assignedDriver?.truck.model}
+                          type={row.package.type}
+                          price={row.package.offered_price}
+                          driverName={
+                            row.assignedDriver?.user_driver.name
+                          }
+                          license={row.assignedDriver?.num_license}
+                          rating={row.assignedDriver?.rating}
+                          num_plate={
+                            row.assignedDriver?.truck.num_plate
+                          }
+                          charge_capacity={
+                            row.assignedDriver?.truck.charge_capacity
+                          }
+                        />
                       ))}
                     </Box>
                   </Box>
                 </Box>
-                <Modal
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
-                >
-                  <Box
-                    sx={style}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '10px',
-                    }}
-                  >
-                    <Box
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        flexDirection: 'column',
-                        gap: '10px',
-                        width: '100%',
-                      }}
-                    >
-                      <Box
-                        style={{
-                          width: '100%',
-                          display: 'flex',
-                          justifyContent: 'right',
-                          alignItems: 'right',
-                          cursor: 'pointer',
-                        }}
-                      >
-                        <img
-                          onClick={handleClose}
-                          style={{
-                            display: 'flex',
-                            justifyContent: 'right',
-                            alignContent: 'right',
-                          }}
-                          src="/imgShipments/CloseButton.svg"
-                        />
-                      </Box>
-
-                      <img src="/imgShipments/Success.jpg" />
-
-                      <Typography
-                        id="modal-modal-title"
-                        variant="h6"
-                        component="h2"
-                      >
-                        ¡Tu envío ha sido entregado con éxito!
-                      </Typography>
-
-                      <Typography id="modal-modal-description">
-                        Califica a José Luis
-                      </Typography>
-                      <Button
-                        variant="contained"
-                        style={{
-                          borderRadius: '15px',
-                          marginBottom: '20px',
-                          fontWeight: 600,
-                        }}
-                        onClick={() => {
-                          navigate('/conductor');
-                        }}
-                      >
-                        Calificar
-                      </Button>
-                    </Box>
-                  </Box>
-                </Modal>
               </Box>
             </Box>
           )}
