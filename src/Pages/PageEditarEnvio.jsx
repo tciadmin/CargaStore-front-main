@@ -1,194 +1,667 @@
-import { Button, Container, Grid, Stack, Typography } from "@mui/material"
-import React, { useState } from "react"
-import GreenStepper from "../Components/steppers/GreenStepper"
-import InputForm from "../Components/inputs/InputForm"
-import CompNavLanding from "../Components/NavLanding/CompNavLanding"
+import {
+  Button,
+  Container,
+  Grid,
+  Stack,
+  Typography,
+  FormControl,
+  OutlinedInput,
+  useMediaQuery,
+  InputAdornment,
+  Select,
+  MenuItem,
+} from "@mui/material";
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import GreenStepper from "../Components/steppers/GreenStepper";
+import InputForm from "../Components/inputs/InputForm";
+import CompNavLanding from "../Components/NavLanding/CompNavLanding";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { editOrder } from "../Redux/Actions/OrderActions/editOrder";
+import { Colors } from "../Utils/Colors";
 
 const PageEditarEnvio = () => {
-  const [stepIndex, setStepIndex] = useState(0)
-  const steps = ["Datos personales", "Producto", "Envío"]
+  const { orderId } = useParams();
+  const [stepIndex, setStepIndex] = useState(0);
+  const steps = ["Datos personales", "Producto", "Envío"];
+  const mobile = useMediaQuery("(max-width:750px)");
+  const dispatch = useDispatch();
   const descripciones = [
     "Detalles del generador de carga",
     "Información del producto",
     "Detalles del envío",
-  ]
-  const select = ["Seca", "Peligrosa", "Refrigerada"]
+  ];
+  const [selected, setSelected] = useState([]);
+  const select = ["Seca", "Peligrosa", "Refrigerada"];
+
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      company_name: "",
+      company_phone: "",
+      ruc: "",
+      receiving_company: "",
+      contact_number: "",
+      receiving_company_RUC: "",
+      product_name: "",
+      quantity: "",
+      orderType: "",
+      weight: "",
+      volume: "",
+      offered_price: "",
+      image1: "",
+      image2: "",
+      image3: "",
+      image4: "",
+      pick_up_date: "",
+      pick_up_time: "",
+      pick_up_city: "",
+      delivery_date: "",
+      delivery_time: "",
+      name: "",
+      card: "",
+      expire: "",
+      payment: "",
+    },
+  });
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setSelected(typeof value === "string" ? value.split(",") : value);
+  };
+
   return (
     <>
-    <CompNavLanding></CompNavLanding>
-    <section
-      style={{ background: "#F6F6F6", height: "100%" }}
-      id="arriba"
-    >
-      <Container
-        maxWidth={"md"}
-        sx={{ padding: "20px 0" }}
-      >
-        <GreenStepper
-          steps={steps}
-          activeStep={stepIndex}
-        ></GreenStepper>
-        <Typography
-          variant="h5"
-          textAlign={"center"}
-          mt={5}
-        >
-          Editar envío
-        </Typography>
-        <Typography
-          variant="h6"
-          sx={{
-            fontSize: "16px",
-            color: "#8C94A6",
-            textAlign: "center",
-            fontWeight: 400,
-          }}
-        >
-          {descripciones[stepIndex]}
-        </Typography>
-        {stepIndex === 0 && (
-          <>
-            <InputForm label="Usuario o empresa que envía"></InputForm>
-            <InputForm label="Número de teléfono"></InputForm>
-            <InputForm label="RUC"></InputForm>
-            <InputForm label="Empresa que recibe"></InputForm>
-            <InputForm label="Número de contacto"></InputForm>
-            <InputForm label="RUC"></InputForm>
-          </>
-        )}
-        {stepIndex === 1 && (
-          <>
-            <InputForm label="Nombre del producto"></InputForm>
-            <InputForm label="Cantidad de unidades"></InputForm>
-            <InputForm
-              label="Tipo de carga"
-              type="select"
-              select={select}
-            ></InputForm>
-            <InputForm label="Peso total"></InputForm>
-            <InputForm label="Volumen del paquete"></InputForm>
-            <InputForm
-              label="Valor ofertado"
-              money={true}
-            ></InputForm>
-            <label
-              style={{ color: "#475367", fontWeight: 500 }}
-              htmlFor={"imagenes"}
-            >
-              Imagénes del producto
-            </label>
+      <CompNavLanding></CompNavLanding>
+      <section style={{ background: "#F6F6F6", height: "100%" }} id="arriba">
+        <Container maxWidth={"md"} sx={{ padding: "20px 0" }}>
+          <GreenStepper steps={steps} activeStep={stepIndex}></GreenStepper>
+          <Typography variant="h5" textAlign={"center"} mt={5}>
+            Editar envío
+          </Typography>
+          <Typography
+            variant="h6"
+            sx={{
+              fontSize: "16px",
+              color: "#8C94A6",
+              textAlign: "center",
+              fontWeight: 400,
+            }}
+          >
+            {descripciones[stepIndex]}
+          </Typography>
+          {stepIndex === 0 && (
+            <>
+              <p
+                style={{
+                  fontWeight: 400,
+                  color: Colors.secondary.main,
+                  textAlign: "left",
+                }}
+              >
+                Usuario o empresa que envía
+              </p>
+              <FormControl
+                sx={{ m: 1, width: mobile ? "300px" : "852px" }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  {...register("company_name")}
+                  style={{
+                    height: mobile ? "40px" : "50px",
+                    borderRadius: "8px",
+                  }}
+                />
+              </FormControl>
+              <p
+                style={{
+                  fontWeight: 400,
+                  color: Colors.secondary.main,
+                  textAlign: "left",
+                }}
+              >
+                Número de teléfono
+              </p>
+              <FormControl
+                sx={{ m: 1, width: mobile ? "300px" : "852px" }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  {...register("company_phone")}
+                  style={{
+                    height: mobile ? "40px" : "50px",
+                    borderRadius: "8px",
+                  }}
+                />
+              </FormControl>
+              <p
+                style={{
+                  fontWeight: 400,
+                  color: Colors.secondary.main,
+                  textAlign: "left",
+                }}
+              >
+                RUC
+              </p>
+              <FormControl
+                sx={{ m: 1, width: mobile ? "300px" : "852px" }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  {...register("ruc")}
+                  style={{
+                    height: mobile ? "40px" : "50px",
+                    borderRadius: "8px",
+                  }}
+                />
+              </FormControl>
+              <p
+                style={{
+                  fontWeight: 400,
+                  color: Colors.secondary.main,
+                  textAlign: "left",
+                }}
+              >
+                Empresa que recibe
+              </p>
+              <FormControl
+                sx={{ m: 1, width: mobile ? "300px" : "852px" }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  {...register("receiving_company")}
+                  style={{
+                    height: mobile ? "40px" : "50px",
+                    borderRadius: "8px",
+                  }}
+                />
+              </FormControl>
+              <p
+                style={{
+                  fontWeight: 400,
+                  color: Colors.secondary.main,
+                  textAlign: "left",
+                }}
+              >
+                Número de contacto
+              </p>
+              <FormControl
+                sx={{ m: 1, width: mobile ? "300px" : "852px" }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  {...register("contact_number")}
+                  style={{
+                    height: mobile ? "40px" : "50px",
+                    borderRadius: "8px",
+                  }}
+                />
+              </FormControl>
+              <p
+                style={{
+                  fontWeight: 400,
+                  color: Colors.secondary.main,
+                  textAlign: "left",
+                }}
+              >
+                RUC
+              </p>
+              <FormControl
+                sx={{ m: 1, width: mobile ? "300px" : "852px" }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  {...register("receiving_company_RUC")}
+                  style={{
+                    height: mobile ? "40px" : "50px",
+                    borderRadius: "8px",
+                  }}
+                />
+              </FormControl>
+            </>
+          )}
+          {stepIndex === 1 && (
+            <>
+              <p
+                style={{
+                  fontWeight: 400,
+                  color: Colors.secondary.main,
+                  textAlign: "left",
+                }}
+              >
+                Nombre del producto
+              </p>
+              <FormControl
+                sx={{ m: 1, width: mobile ? "300px" : "852px" }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  {...register("product_name")}
+                  style={{
+                    height: mobile ? "40px" : "50px",
+                    borderRadius: "8px",
+                  }}
+                />
+              </FormControl>
+              <p
+                style={{
+                  fontWeight: 400,
+                  color: Colors.secondary.main,
+                  textAlign: "left",
+                }}
+              >
+                Cantidad de unidades
+              </p>
+              <FormControl
+                sx={{ m: 1, width: mobile ? "300px" : "852px" }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  {...register("quantity")}
+                  style={{
+                    height: mobile ? "40px" : "50px",
+                    borderRadius: "8px",
+                  }}
+                />
+              </FormControl>
 
-            <Grid
-              my={2}
-              container
-              justifyContent={"flex-start"}
-              spacing={1}
-            >
-              <Grid
-                item
-                xs={4}
-                md={3}
+              <p
+                style={{
+                  fontWeight: 400,
+                  color: Colors.secondary.main,
+                  textAlign: "left",
+                }}
               >
-                <img
-                  src="/crearenvios/i1.png"
-                  width={"150px"}
-                  alt="imagen de prueba"
-                />
-              </Grid>
-              <Grid
-                item
-                xs={4}
-                md={3}
+                Tipo de carga
+              </p>
+              <FormControl
+                sx={{
+                  m: 1,
+                  width: mobile ? "300px" : "852px",
+                }}
               >
-                <img
-                  src="/crearenvios/i2.png"
-                  width={"150px"}
-                  alt="imagen de prueba"
-                />
-              </Grid>
-              <Grid
-                item
-                xs={4}
-                md={3}
+                <Select
+                  displayEmpty
+                  onChange={handleChange}
+                  input={<OutlinedInput />}
+                  inputProps={{ "aria-label": "Without label" }}
+                  style={{
+                    height: mobile ? "40px" : "50px",
+                    borderRadius: "8px",
+                  }}
+                  {...register("orderType")}
+                >
+                  {select.map((name) => (
+                    <MenuItem key={name} value={name}>
+                      {name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+
+              {/* <InputForm
+                {...register("type")}
+                style={{
+                  height: mobile ? "40px" : "50px",
+                  borderRadius: "8px",
+                }}
+                label="Tipo de carga"
+                type="select"
+                select={select}
+              ></InputForm> */}
+              <p
+                style={{
+                  fontWeight: 400,
+                  color: Colors.secondary.main,
+                  textAlign: "left",
+                }}
               >
-                <img
-                  src="/crearenvios/i3.png"
-                  width={"150px"}
-                  alt="imagen de prueba"
-                />
-              </Grid>
-              <Grid
-                item
-                xs={4}
-                md={3}
+                Peso total
+              </p>
+              <FormControl
+                sx={{ m: 1, width: mobile ? "300px" : "852px" }}
+                variant="outlined"
               >
-                <img
-                  src="/crearenvios/i4.png"
-                  width={"150px"}
-                  alt="imagen de prueba"
+                <OutlinedInput
+                  {...register("weight")}
+                  style={{
+                    height: mobile ? "40px" : "50px",
+                    borderRadius: "8px",
+                  }}
                 />
+              </FormControl>
+              <p
+                style={{
+                  fontWeight: 400,
+                  color: Colors.secondary.main,
+                  textAlign: "left",
+                }}
+              >
+                Volumen del paquete
+              </p>
+              <FormControl
+                sx={{ m: 1, width: mobile ? "300px" : "852px" }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  {...register("volume")}
+                  style={{
+                    height: mobile ? "40px" : "50px",
+                    borderRadius: "8px",
+                  }}
+                />
+              </FormControl>
+              <p
+                style={{
+                  fontWeight: 400,
+                  color: Colors.secondary.main,
+                  textAlign: "left",
+                }}
+              >
+                Valor ofertado
+              </p>
+              <FormControl
+                sx={{ m: 1, width: mobile ? "300px" : "852px" }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  {...register("offered_price")}
+                  style={{
+                    height: mobile ? "40px" : "50px",
+                    borderRadius: "8px",
+                  }}
+                />
+              </FormControl>
+              <label
+                style={{ color: "#475367", fontWeight: 500 }}
+                htmlFor={"imagenes"}
+              >
+                Imagénes del producto
+              </label>
+
+              <Grid my={2} container justifyContent={"flex-start"} spacing={1}>
+                <Grid item xs={4} md={3}>
+                  <img
+                    src={{
+                      ...register("image1"),
+                    }}
+                    width={"150px"}
+                    alt="imagen de prueba"
+                  />
+                </Grid>
+                <Grid item xs={4} md={3}>
+                  <img
+                    src={{
+                      ...register("image2"),
+                    }}
+                    width={"150px"}
+                    alt="imagen de prueba"
+                  />
+                </Grid>
+                <Grid item xs={4} md={3}>
+                  <img
+                    src={{
+                      ...register("image3"),
+                    }}
+                    width={"150px"}
+                    alt="imagen de prueba"
+                  />
+                </Grid>
+                <Grid item xs={4} md={3}>
+                  <img
+                    src={{
+                      ...register("image4"),
+                    }}
+                    width={"150px"}
+                    alt="imagen de prueba"
+                  />
+                </Grid>
               </Grid>
-            </Grid>
-          </>
-        )}
-        {stepIndex === 2 && (
-          <>
-            <InputForm
-              label="Fecha de retiro"
-              type="date"
-            ></InputForm>
-            <InputForm
-              label="Hora de retiro"
-              type="time"
-            ></InputForm>
-            <InputForm label="Dirección de retiro"></InputForm>
-            <InputForm
-              label="Fecha de entrega"
-              type="date"
-            ></InputForm>
-            <InputForm
-              label="Hora de entrega"
-              type="time"
-            ></InputForm>
-            <InputForm label="Dirección de entrega"></InputForm>
-          </>
-        )}
-        {stepIndex === 3 && (
-          <>
-            <InputForm label="Nombre"></InputForm>
-            <InputForm label="Número de tarjeta"></InputForm>
-            <InputForm
-              label="Fecha de vencimiento"
-              type="date"
-            ></InputForm>
-            <InputForm
-              label="Monto a pagar"
-              money={true}
-            ></InputForm>
-          </>
-        )}
-        <Button
-          sx={{
-            width: "100%",
-            padding: "18px 0",
-            fontWeight: "bold",
-            fontSize: "16px",
-          }}
-          onClick={() => {
-            if (stepIndex < steps.length - 1) {
-              setStepIndex(stepIndex + 1)
-            }
-          }}
-          href="#arriba"
-        >
-          {stepIndex == steps.length - 1
-            ? "Guardar cambios "
-            : "Siguiente paso"}
-        </Button>
-      </Container>
-    </section>
+            </>
+          )}
+          {stepIndex === 2 && (
+            <>
+              <p
+                style={{
+                  fontWeight: 400,
+                  color: Colors.secondary.main,
+                  textAlign: "left",
+                }}
+              >
+                Fecha de retiro
+              </p>
+              <FormControl
+                sx={{ m: 1, width: mobile ? "300px" : "852px" }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  {...register("pick_up_date")}
+                  style={{
+                    height: mobile ? "40px" : "50px",
+                    borderRadius: "8px",
+                  }}
+                />
+              </FormControl>
+              <p
+                style={{
+                  fontWeight: 400,
+                  color: Colors.secondary.main,
+                  textAlign: "left",
+                }}
+              >
+                Hora de retiro
+              </p>
+              <FormControl
+                sx={{ m: 1, width: mobile ? "300px" : "852px" }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  {...register("pick_up_time")}
+                  style={{
+                    height: mobile ? "40px" : "50px",
+                    borderRadius: "8px",
+                  }}
+                />
+              </FormControl>
+              <p
+                style={{
+                  fontWeight: 400,
+                  color: Colors.secondary.main,
+                  textAlign: "left",
+                }}
+              >
+                Dirección de retiro
+              </p>
+              <FormControl
+                sx={{ m: 1, width: mobile ? "300px" : "852px" }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  {...register("pick_up_city")}
+                  style={{
+                    height: mobile ? "40px" : "50px",
+                    borderRadius: "8px",
+                  }}
+                />
+              </FormControl>
+              <p
+                style={{
+                  fontWeight: 400,
+                  color: Colors.secondary.main,
+                  textAlign: "left",
+                }}
+              >
+                Fecha de entrega
+              </p>
+              <FormControl
+                sx={{ m: 1, width: mobile ? "300px" : "852px" }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  {...register("delivery_date")}
+                  style={{
+                    height: mobile ? "40px" : "50px",
+                    borderRadius: "8px",
+                  }}
+                />
+              </FormControl>
+              <p
+                style={{
+                  fontWeight: 400,
+                  color: Colors.secondary.main,
+                  textAlign: "left",
+                }}
+              >
+                Hora de entrega
+              </p>
+              <FormControl
+                sx={{ m: 1, width: mobile ? "300px" : "852px" }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  {...register("delivery_time")}
+                  style={{
+                    height: mobile ? "40px" : "50px",
+                    borderRadius: "8px",
+                  }}
+                />
+              </FormControl>
+              <p
+                style={{
+                  fontWeight: 400,
+                  color: Colors.secondary.main,
+                  textAlign: "left",
+                }}
+              >
+                Dirección de entrega
+              </p>
+              <FormControl
+                sx={{ m: 1, width: mobile ? "300px" : "852px" }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  {...register("delivery_address")}
+                  style={{
+                    height: mobile ? "40px" : "50px",
+                    borderRadius: "8px",
+                  }}
+                />
+              </FormControl>
+            </>
+          )}
+          {stepIndex === 3 && (
+            <>
+              <p
+                style={{
+                  fontWeight: 400,
+                  color: Colors.secondary.main,
+                  textAlign: "left",
+                }}
+              >
+                Nombre
+              </p>
+              <FormControl
+                sx={{ m: 1, width: mobile ? "300px" : "852px" }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  {...register("name")}
+                  style={{
+                    height: mobile ? "40px" : "50px",
+                    borderRadius: "8px",
+                  }}
+                />
+              </FormControl>
+              <p
+                style={{
+                  fontWeight: 400,
+                  color: Colors.secondary.main,
+                  textAlign: "left",
+                }}
+              >
+                Número de tarjeta
+              </p>
+              <FormControl
+                sx={{ m: 1, width: mobile ? "300px" : "852px" }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  {...register("card")}
+                  style={{
+                    height: mobile ? "40px" : "50px",
+                    borderRadius: "8px",
+                  }}
+                />
+              </FormControl>
+              <p
+                style={{
+                  fontWeight: 400,
+                  color: Colors.secondary.main,
+                  textAlign: "left",
+                }}
+              >
+                Fecha de vencimiento
+              </p>
+              <FormControl
+                sx={{ m: 1, width: mobile ? "300px" : "852px" }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  {...register("expire")}
+                  style={{
+                    height: mobile ? "40px" : "50px",
+                    borderRadius: "8px",
+                  }}
+                />
+              </FormControl>
+              <p
+                style={{
+                  fontWeight: 400,
+                  color: Colors.secondary.main,
+                  textAlign: "left",
+                }}
+              >
+                Monto a pagar
+              </p>
+              <FormControl
+                sx={{ m: 1, width: mobile ? "300px" : "852px" }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  {...register("payment")}
+                  style={{
+                    height: mobile ? "40px" : "50px",
+                    borderRadius: "8px",
+                  }}
+                />
+              </FormControl>
+            </>
+          )}
+          <Button
+            sx={{
+              width: "100%",
+              padding: "18px 0",
+              fontWeight: "bold",
+              fontSize: "16px",
+            }}
+            onClick={handleSubmit((orderId, data) => {
+              if (stepIndex < steps.length - 1) {
+                setStepIndex(stepIndex + 1);
+              } else {
+                dispatch(editOrder(orderId, data));
+              }
+            })}
+            href="#arriba"
+          >
+            {stepIndex == steps.length - 1
+              ? "Guardar cambios "
+              : "Siguiente paso"}
+          </Button>
+        </Container>
+      </section>
     </>
-  )
-}
+  );
+};
 
-export default PageEditarEnvio
+export default PageEditarEnvio;
