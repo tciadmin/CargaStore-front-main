@@ -12,6 +12,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import GreenStepper from "../Components/steppers/GreenStepper";
 import InputForm from "../Components/inputs/InputForm";
 import CompNavLanding from "../Components/NavLanding/CompNavLanding";
@@ -21,6 +22,7 @@ import { editOrder } from "../Redux/Actions/OrderActions/editOrder";
 import { Colors } from "../Utils/Colors";
 
 const PageEditarEnvio = () => {
+  const { orderId } = useParams();
   const [stepIndex, setStepIndex] = useState(0);
   const steps = ["Datos personales", "Producto", "Envío"];
   const mobile = useMediaQuery("(max-width:750px)");
@@ -43,7 +45,7 @@ const PageEditarEnvio = () => {
       receiving_company_RUC: "",
       product_name: "",
       quantity: "",
-      type: "",
+      orderType: "",
       weight: "",
       volume: "",
       offered_price: "",
@@ -51,7 +53,6 @@ const PageEditarEnvio = () => {
       image2: "",
       image3: "",
       image4: "",
-      orderType: "",
       pick_up_date: "",
       pick_up_time: "",
       pick_up_city: "",
@@ -67,10 +68,7 @@ const PageEditarEnvio = () => {
     const {
       target: { value },
     } = event;
-    setSelected(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
+    setSelected(typeof value === "string" ? value.split(",") : value);
   };
 
   return (
@@ -292,7 +290,7 @@ const PageEditarEnvio = () => {
                     height: mobile ? "40px" : "50px",
                     borderRadius: "8px",
                   }}
-                  {...register("type")}
+                  {...register("orderType")}
                 >
                   {select.map((name) => (
                     <MenuItem key={name} value={name}>
@@ -647,11 +645,12 @@ const PageEditarEnvio = () => {
               fontWeight: "bold",
               fontSize: "16px",
             }}
-            onClick={handleSubmit((data) => {
+            onClick={handleSubmit((orderId, data) => {
               if (stepIndex < steps.length - 1) {
                 setStepIndex(stepIndex + 1);
+              } else {
+                dispatch(editOrder(orderId, data));
               }
-              dispatch(editOrder(data));
             })}
             href="#arriba"
           >
