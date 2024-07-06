@@ -43,6 +43,7 @@ const PageCrearEnvios = () => {
       company_name: "",
       company_phone: "",
       ruc: "",
+      receiving_company: "",
       contact_number: "",
       receiving_company_RUC: "",
       product_name: "",
