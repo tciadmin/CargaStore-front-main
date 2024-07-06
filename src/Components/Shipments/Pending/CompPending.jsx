@@ -30,7 +30,7 @@ export default function CompPending() {
   const mobile = useMediaQuery('(max-width:720px)');
   const { orders } = useSelector((state) => state.orders);
   return (
-    <Box style={{ background: '#F6F6F6' }}>
+    <Box style={{ background: '#FFF' }}>
       {orders.length === 0 ? (
         <Box
           display="flex"
@@ -181,9 +181,9 @@ export default function CompPending() {
               </h3>
               <Box
                 style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(2, 1fr)',
-                  padding: '20px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '18px',
                 }}
               >
                 {orders.map((row) => (
@@ -195,8 +195,6 @@ export default function CompPending() {
                     productName={row.package.product_name}
                     pick_up_date={row.pick_up_date}
                     delivery_date={row.delivery_date}
-                    type={row.package.type}
-                    pick_up_address={row.pick_up_address}
                     driverName={row.assignedDriver?.user_driver.name}
                   />
                 ))}
