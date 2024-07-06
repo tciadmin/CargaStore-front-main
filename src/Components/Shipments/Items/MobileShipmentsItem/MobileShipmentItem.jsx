@@ -1,6 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import { Colors } from '../../../../Utils/Colors';
+// import { Colors } from '../../../../Utils/Colors';
 import Modal from '@mui/material/Modal';
 import { format } from 'date-fns';
 import FinishMessage from '../ShipmentsItem/FinishMessage';
@@ -12,8 +12,6 @@ const MobileShipmentItem = ({
   productName,
   pick_up_date,
   delivery_date,
-  type,
-  pick_up_address,
   driverName,
 }) => {
   const style = {
@@ -22,7 +20,7 @@ const MobileShipmentItem = ({
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 352,
-    bgcolor: 'background.paper',
+    bgcolor: '#fff',
     boxShadow: 24,
     p: 2,
   };
@@ -36,42 +34,112 @@ const MobileShipmentItem = ({
     setOpen(false);
   };
 
+  console.log('image: ', `http://localhost:3000/api/${image}`);
   return (
     <>
       <Box
         onClick={handleOpen}
         style={{
-          padding: '10px',
           display: 'flex',
-          flexDirection: 'column',
+          flexDirection: 'row',
+          width: '370px',
+          height: '125px',
           justyfyContent: 'center',
-          gap: '5px',
+          alignItems: 'center',
+          gap: '16px',
+          padding: '12px 61px 12px 20px',
+          borderRadius: '8px',
+          border: 'solid 1px #D0D5DD',
         }}
       >
-        <img src={image} />
-        <p style={{ color: Colors.secondary.contrastText }}>
-          {productName}
-        </p>
-        <span
+        <Box
           style={{
             display: 'flex',
-            gap: '5px',
-            fontWeight: 600,
+            justifyContent: 'center',
+            alignItemas: 'center',
+            width: '108px',
+            height: '101px',
+            borderRadius: '9px',
+            overflow: 'hidden',
           }}
         >
-          Valor ofertado:{' '}
-          <p style={{ fontWeight: 400 }}>{`$${price}`} </p>
-        </span>
-        <p>{`${format(
-          new Date(pick_up_date ?? ''),
-          'dd/MM/yy'
-        )} - ${format(
-          new Date(delivery_date ?? ''),
-          'dd/MM/yy'
-        )}`}</p>
-        <p>Tipo de carga: {type}</p>
-        <p>{pick_up_address}</p>
-        <p style={{ fontWeight: 500 }}>{driverName}</p>
+          <img
+            src={`http://localhost:3000/api/${image}`}
+            alt="undefined"
+            style={{
+              width: '100%',
+              height: '100%',
+            }}
+          />
+        </Box>
+        <Box
+          style={{
+            width: '165px',
+            height: '89px',
+            gap: '2px',
+          }}
+        >
+          <p
+            style={{
+              // color: Colors.secondary.contrastText,
+              fontFamily: 'Montserrat',
+              fontSize: '16px',
+              fontWeight: '500',
+              lineHeight: '23.2px',
+            }}
+          >
+            {productName}
+          </p>
+          <p
+            style={{
+              fontFamily: 'Montserrat',
+              fontSize: '14px',
+              fontWeight: '400',
+              lineHeight: '20.3px',
+            }}
+          >{`${format(
+            new Date(pick_up_date ?? ''),
+            'dd/MM/yy'
+          )} - ${format(
+            new Date(delivery_date ?? ''),
+            'dd/MM/yy'
+          )}`}</p>
+          {!driverName ? (
+            <p
+              style={{
+                fontFamily: 'Montserrat',
+                fontSize: '14px',
+                fontWeight: '400',
+                lineHeight: '20.3px',
+              }}
+            >
+              Conductor sin asignar
+            </p>
+          ) : (
+            <p
+              style={{
+                fontFamily: 'Montserrat',
+                fontSize: '14px',
+                fontWeight: '500',
+                lineHeight: '20.3px',
+                color: '#000000',
+              }}
+            >
+              {driverName}
+            </p>
+          )}
+          <p
+            style={{
+              fontFamily: 'Montserrat',
+              fontSize: '14px',
+              fontWeight: '500',
+              lineHeight: '20.3px',
+              color: '#007C52',
+            }}
+          >
+            {`$${price}`}{' '}
+          </p>
+        </Box>
       </Box>
 
       <Modal

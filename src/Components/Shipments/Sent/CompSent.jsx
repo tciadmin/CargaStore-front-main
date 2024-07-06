@@ -31,7 +31,7 @@ export default function CompSent() {
   const order = useSelector((state) => state.orders.orders) || [];
 
   return (
-    <Box style={{ background: '#F6F6F6' }}>
+    <Box style={{ background: '#FFF' }}>
       {order.length === 0 ? (
         <Box
           display="flex"
@@ -175,9 +175,9 @@ export default function CompSent() {
               </h3>
               <Box
                 style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(2, 1fr)',
-                  padding: '20px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '18px',
                 }}
               >
                 {order.map((row) => (
