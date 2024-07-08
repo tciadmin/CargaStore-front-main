@@ -17,6 +17,12 @@ export const AUTH_USER_PENDING = 'AUTH_USERR_PENDING';
 export const AUTH_USER_SUCCESS = 'AUTH_USER_SUCCESS';
 export const AUTH_USER_FAILURE = 'AUTH_USER_FAILURE';
 
+export const PATCH_BASIC_USER_PENDING = "PATCH_BASIC_USER_PENDING";
+export const PATCH_BASIC_USER_SUCCESS = "PATCH_BASIC_USER_SUCCESS";
+export const PATCH_BASIC_USER_FAILURE = "PATCH_BASIC_USER_FAILURE";
+
+
+
 export const PUT_CUSTOMER_PENDING = 'PUT_CUSTOMER_PENDING';
 export const PUT_CUSTOMER_SUCCESS = 'PUT_CUSTOMER_SUCCESS';
 export const PUT_CUSTOMER_FAILURE = 'PUT_CUSTOMER_FAILURE';
@@ -28,6 +34,7 @@ export const PATCH_TRUCK_FAILURE = 'PATCH_TRUCK_FAILURE';
 export const PATCH_DRIVER_PENDING = 'PATCH_DRIVER_PENDING';
 export const PATCH_DRIVER_SUCCESS = 'PATCH_DRIVER_SUCCESS';
 export const PATCH_DRIVER_FAILURE = 'PATCH_DRIVER_FAILURE';
+
 
 export const getAllUsers = () => {
   return async (dispatch) => {
@@ -204,6 +211,31 @@ export const patchTruck = (id, truck) => {
       });
     } catch (error) {
       dispatch({ type: PATCH_TRUCK_FAILURE, error: error.message });
+    }
+  };
+};
+export const patchBasicUserData = (name, lastname) => {
+  return async (dispatch) => {
+    dispatch({ type: PATCH_BASIC_USER_PENDING });
+    try {
+      const token = Cookies.get('token'); // Obtén el token desde las cookies
+      const headers = {
+        Authorization: `Bearer ${token}` // Configura correctamente el encabezado de autorización
+      };
+      await axiosInstance.patch(
+        `/users/patchDataUser`,
+        {name, lastname}, {headers}
+
+      );
+      return dispatch({
+        type: PATCH_BASIC_USER_SUCCESS,
+        payload: {
+          name,
+          lastname
+        },
+      });
+    } catch (error) {
+      dispatch({ type: PATCH_BASIC_USER_FAILURE, error: error.message });
     }
   };
 };

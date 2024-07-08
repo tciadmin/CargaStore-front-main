@@ -10,12 +10,8 @@ import ResponsiveImageBox from '../imageComponents/ResponsiveImageBox'
 import InputForm from '../inputs/InputForm';
 import CobroItemCard from '../cards/CobroItemCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser } from '../../Redux/Actions/UserActions/userActions';
+import { getUser, patchBasicUserData } from '../../Redux/Actions/UserActions/userActions';
 import Cookies from 'js-cookie';
-//Agregar setter a todos los campos
-//Agregar al backend la posibilidad de editar
-// Validar datos editados antes de que se guarden en la base de datos
-//mostrar errores y mensaje de guardado
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -54,8 +50,8 @@ export default function VerticalTabs() {
 
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
-  const [errorValidation,setErrorValidation]=React.useState({value: false, message: "Mensaje incorrecto"});
-  const [dataChanged,setDataChanged] = React.useState(true)
+  const [errorValidation, setErrorValidation] = React.useState({ value: false, message: "Mensaje incorrecto" });
+  const [dataChanged, setDataChanged] = React.useState(false)
 
 
   const [editar, setEditar] = React.useState(0);
@@ -66,7 +62,6 @@ export default function VerticalTabs() {
     setEditar(false);
   }, []);
   const [data, setData] = React.useState(user);
-
   React.useEffect(() => {
     if (!editar) {
       setData(user);
@@ -86,48 +81,63 @@ export default function VerticalTabs() {
     }));
   };
 
- const putBasicDataClient = ()=> {
-  if(!data.name ){
-    setErrorValidation({value: true, message: "El campo nombre debe completarse"})
-  }else if(!data.lastname){
-    setErrorValidation({value: true, message: "El campo apellido debe completarse"})
+  const putBasicDataClient = () => {
+    if (!data.name) {
+      setErrorValidation({ value: true, message: "El campo nombre debe completarse" })
+    } else if (!data.lastname) {
+      setErrorValidation({ value: true, message: "El campo apellido debe completarse" })
 
-  }else{
-    const regex = /^[a-zA-Z\s]+$/;
-        if(regex.test(data.name) == false){
-      setErrorValidation({value: true, message: "Su nombre no puede contener carácteres especiales ni números"})
+    } else {
+      const regex = /^[a-zA-Z\s]+$/;
+      if (regex.test(data.name) == false) {
+        setErrorValidation({ value: true, message: "Su nombre no puede contener carácteres especiales ni números" })
 
-    }else if(regex.test(data.lastname) == false){
-      setErrorValidation({value: true, message: "Su apellido no puede contener carácteres especiales ni números"})
+      } else if (regex.test(data.lastname) == false) {
+        setErrorValidation({ value: true, message: "Su apellido no puede contener carácteres especiales ni números" })
 
-    }else{
-      setDataChanged(true)
+      } else {
+        dispatch(patchBasicUserData(data.name,data.lastname))
+        setDataChanged(true)
 
+      }
     }
+
   }
+  const putCustomerDataClient = () => {
+    if (!data.customer.company_name) {
+      setErrorValidation({ value: true, message: "El nombre de la empresa debe completarse" })
+    } else if (!data.customer.address) {
+      setErrorValidation({ value: true, message: "La dirección es obligatoria" })
 
- }
- const putCustomerDataClient = ()=> {
-  if(!data.customer.company_name ){
-    setErrorValidation({value: true, message: "El nombre de la empresa debe completarse"})
-  }else if(!data.customer.address){
-    setErrorValidation({value: true, message: "La dirección es obligatoria"})
+    } else {
+      const regex = /^[a-zA-Z0-9.\-'\s]+$/;
+      const regexRUC = /^[0-9]+$/;
+      const cleanRuc = data.customer.ruc.trim();
+      if (regex.test(data.customer.company_name) == false) {
+        setErrorValidation({ value: true, message: "El nombre de su empresa no puede contener carácteres especiales " });
+      } else if (regex.test(data.customer.address) == false) {
+        setErrorValidation({ value: true, message: "La dirección no puede contener carácteres especiales " })
 
-  }else{
-    const regex = /^[a-zA-Z0-9.\-'\s]+$/;
-            if(regex.test(data.customer.company_name) == false){
-      setErrorValidation({value: true, message: "El nombre de su empresa no puede contener carácteres especiales "})
+      } else if (regexRUC.test(cleanRuc) == false) {
+        setErrorValidation({ value: true, message: "El RUC solamente puede contener números" });
+      }
+      else if (regex.test(data.customer.country) == false) {
+        setErrorValidation({ value: true, message: "El país no puede contener carácteres especiales " })
 
-    }else if(regex.test(data.customer.address) == false){
-      setErrorValidation({value: true, message: "La dirección no puede contener carácteres especiales "})
+      } else {
+        console.log(cleanRuc)
+        if (cleanRuc.length != 10) {
+          setErrorValidation({ value: true, message: "El número RUC debe contener 10 digitos" })
 
-    }else{
-      setDataChanged(true)
+        } else {
+          setDataChanged(true)
 
+        }
+
+      }
     }
-  }
 
- }
+  }
   // const putDataDriver = ()=>{
   // }
 
@@ -250,14 +260,15 @@ export default function VerticalTabs() {
 
             <InputForm value={data.name} setter={(valor) => handleInputClient(valor, "name")} label="Nombre" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
             <InputForm value={data.lastname} setter={(valor) => handleInputClient(valor, "lastname")} label="Apellido" sizeH='35px' marginB={3} readOnly={!editar} />
-            <InputForm value={data.email} setter={(valor) => handleInputClient(valor, "email")} label="Correo electrónico" type='email' sizeH='35px' marginB={3} readOnly={!editar} />
+            <InputForm value={data.email} label="Correo electrónico" type='email' sizeH='35px' marginB={3} readOnly={true} />
 
           </>
           }
 
           {editar ?
             <Button variant="contained" style={{ fontWeight: "bold" }} onClick={() => {
-              putBasicDataClient()}} > Guardar Cambios
+              putBasicDataClient()
+            }} > Guardar Cambios
             </Button>
             :
             <Button variant="outlined" onClick={() => setEditar(true)} style={{ fontWeight: "bold", width: "80px", alignSelf: "center" }} > Editar
@@ -309,19 +320,19 @@ export default function VerticalTabs() {
                     }
                   }))
                 }} label="Nombre de la empresa" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
-                <InputForm 
-                required={false}
-                value={data.customer && data.customer.ruc} 
-                setter={(valor) => {
-                  setData(prevState => ({
-                    ...prevState,
-                    customer: {
-                      ...prevState.customer,
-                      ruc: valor
-                    }
-                  }))
-                }}
-                label="RUC" sizeH='35px' marginB={3} readOnly={!editar} />
+                <InputForm
+                  required={false}
+                  value={data.customer && data.customer.ruc}
+                  setter={(valor) => {
+                    setData(prevState => ({
+                      ...prevState,
+                      customer: {
+                        ...prevState.customer,
+                        ruc: valor
+                      }
+                    }))
+                  }}
+                  label="RUC" sizeH='35px' marginB={3} readOnly={!editar} />
 
                 <InputForm value={data.customer && data.customer.address}
                   setter={(valor) => {
@@ -334,9 +345,9 @@ export default function VerticalTabs() {
                     }))
                   }}
                   label="Dirección" type='text' sizeH='35px' marginB={3} readOnly={!editar} />
-                <InputForm 
-                required={false}
-                value={data.customer && data.customer.country}
+                <InputForm
+                  required={false}
+                  value={data.customer && data.customer.country}
                   setter={(valor) => {
                     setData(prevState => ({
                       ...prevState,
@@ -365,7 +376,7 @@ export default function VerticalTabs() {
 
 
             {editar ?
-              <Button variant="contained" style={{ fontWeight: "bold" }} onClick={()=>{
+              <Button variant="contained" style={{ fontWeight: "bold" }} onClick={() => {
                 putCustomerDataClient()
               }}> Guardar Cambios
               </Button>
@@ -621,26 +632,26 @@ export default function VerticalTabs() {
         }
 
       </TabPanel>
-      <Snackbar open={errorValidation.value} anchorOrigin={{ vertical: "top", horizontal: "center" }} autoHideDuration={6000} onClose={()=>setErrorValidation({value: false, message: ""})}>
-  <Alert
-    onClose={()=>setErrorValidation({value: false, message: ""})}
-    severity="error"
-    variant="filled"
-    sx={{ width: '100%' }}
-  >
-    {errorValidation.message}
-  </Alert>
-</Snackbar>
-<Snackbar open={dataChanged} anchorOrigin={{ vertical: "bottom", horizontal: "center" }} autoHideDuration={6000} onClose={()=>setDataChanged(false)}>
-  <Alert
-    onClose={()=>setDataChanged(false)}
-    severity="success"
-    variant="filled"
-    sx={{ width: '100%' }}
-  >
-    Los cambios se guardaron con éxito!
-  </Alert>
-</Snackbar>
+      <Snackbar open={errorValidation.value} anchorOrigin={{ vertical: "top", horizontal: "center" }} autoHideDuration={6000} onClose={() => setErrorValidation({ value: false, message: "" })}>
+        <Alert
+          onClose={() => setErrorValidation({ value: false, message: "" })}
+          severity="error"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          {errorValidation.message}
+        </Alert>
+      </Snackbar>
+      <Snackbar open={dataChanged} anchorOrigin={{ vertical: "bottom", horizontal: "center" }} autoHideDuration={6000} onClose={() => setDataChanged(false)}>
+        <Alert
+          onClose={() => setDataChanged(false)}
+          severity="success"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          Los cambios se guardaron con éxito!
+        </Alert>
+      </Snackbar>
 
     </Box>
   );

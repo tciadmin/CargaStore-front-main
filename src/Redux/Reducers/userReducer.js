@@ -34,6 +34,9 @@ import {
   PUT_CUSTOMER_FAILURE,
   PUT_CUSTOMER_PENDING,
   PUT_CUSTOMER_SUCCESS,
+  PATCH_BASIC_USER_SUCCESS,
+  PATCH_BASIC_USER_PENDING,
+  PATCH_BASIC_USER_FAILURE
 } from '../Actions/UserActions/userActions';
 
 const initialState = {
@@ -180,6 +183,29 @@ export const userReducer = (state = initialState, action) => {
         userLoading: false,
         error: null,
       };
+      case PATCH_BASIC_USER_PENDING:
+        return {
+          ...state,
+          userLoading: true,
+          error: null,
+        };
+      case PATCH_BASIC_USER_FAILURE:
+        return {
+          ...state,
+          userLoading: false,
+          error: action.error,
+        };
+      case PATCH_BASIC_USER_SUCCESS:
+        return {
+          ...state,
+          user: {
+            ...state.user,
+            name: action.payload.name,
+            lastname: action.payload.lastname
+          },
+          userLoading: false,
+          error: null,
+        };
 
     case PATCH_TRUCK_PENDING:
       return {
