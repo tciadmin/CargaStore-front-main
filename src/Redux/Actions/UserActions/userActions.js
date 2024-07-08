@@ -1,5 +1,9 @@
 import { axiosInstance } from '../../axiosInstance';
 import Cookies from 'js-cookie';
+const token = Cookies.get('token');
+const headers = {
+  Authorization: `Bearer ${token}`
+};
 //?------------------------------------------USER
 export const GET_ALL_USERS_PENDING = 'GET_ALL_USERS_PENDING';
 export const GET_ALL_USERS_SUCCESS = 'GET_ALL_USERS_SUCCESS';
@@ -72,7 +76,7 @@ export const postUser = (userType, userData, navigate) => {
   //userData es la informacion del usuario
   return async (dispatch) => {
     dispatch({ type: POST_USER_PENDING });
-
+    console.log(userType)
     try {
       //Destructuramos los datos del usuario
       const { name, lastname, email, password, confirmPassword } =
@@ -83,20 +87,29 @@ export const postUser = (userType, userData, navigate) => {
         email,
         password,
         confirmPassword,
+        role: userType
       });
+      console.log(newUser)
       //Destructuramos los datos de la respuesta de newUser
       const { data } = newUser;
-      console.log('data: ', data);
+
       if (userType === 'driver') {
         //Destructuramos los datos del conductor en caso de que
         //userType sea 'driver'
-        const { brand, model, year, charge_capacity, charge_type } =
+        let { brand, model, year, charge_capacity, charge_type } =
           userData;
+          
         //Hacemos la peticion al endpoint de creacion de conductor
         //y le pasamos como id del usuario el de la respuesta de newUser
         const driver = await axiosInstance.post(
           `/driver/create/${data?.user.id}`,
-          { brand, model, year, charge_capacity, charge_type }
+          {
+            brand,
+            model,
+            year:parseInt(year),
+            charge_capacity,
+            charge_type
+          }
         );
         dispatch({
           type: POST_USER_SUCCESS,
@@ -143,18 +156,18 @@ export const authUser = (user, navigate) => {
       } else if (data.user.role === 'customer') {
         navigate('/shipments');
       }
-      Cookies.set('token', data.token, { 
-        expires: 7,  
-        secure: true, 
+      Cookies.set('token', data.token, {
+        expires: 1,
+        secure: true,
         sameSite: 'Strict',
-        path: '/' 
-    });
-    Cookies.set('id', data.user.id, { 
-      expires: 7,  
-      secure: true, 
-      sameSite: 'Strict',
-      path: '/' 
-  });
+        path: '/'
+      });
+      Cookies.set('id', data.user.id, {
+        expires: 1,
+        secure: true,
+        sameSite: 'Strict',
+        path: '/'
+      });
     } catch (error) {
       dispatch({ type: AUTH_USER_FAILURE, error: error.message });
     }
@@ -162,16 +175,20 @@ export const authUser = (user, navigate) => {
 };
 
 export const patchCustomer = (id, customer) => {
+
   return async (dispatch) => {
     dispatch({ type: PUT_CUSTOMER_PENDING });
     try {
-      const user = await axiosInstance.put(
+      await axiosInstance.put(
         `/customer/edit/${id}`,
-        customer
+        customer,
+        {
+          headers
+        }
       );
       return dispatch({
         type: PUT_CUSTOMER_SUCCESS,
-        payload: user,
+        payload: customer,
       });
     } catch (error) {
       dispatch({ type: PUT_CUSTOMER_FAILURE, error: error.message });
@@ -180,12 +197,13 @@ export const patchCustomer = (id, customer) => {
 };
 
 export const patchDriver = (id, driver) => {
+  console.log(driver)
   return async (dispatch) => {
     dispatch({ type: PATCH_DRIVER_PENDING });
     try {
       const user = await axiosInstance.patch(
         `/driver/patch/${id}`,
-        driver
+        driver,{headers}
       );
       return dispatch({
         type: PATCH_DRIVER_SUCCESS,
@@ -203,7 +221,7 @@ export const patchTruck = (id, truck) => {
     try {
       const user = await axiosInstance.patch(
         `/truck/update/${id}`,
-        truck
+        truck,{headers}
       );
       return dispatch({
         type: PATCH_TRUCK_SUCCESS,
@@ -218,13 +236,13 @@ export const patchBasicUserData = (name, lastname) => {
   return async (dispatch) => {
     dispatch({ type: PATCH_BASIC_USER_PENDING });
     try {
-      const token = Cookies.get('token'); // Obtén el token desde las cookies
+      const token = Cookies.get('token');
       const headers = {
-        Authorization: `Bearer ${token}` // Configura correctamente el encabezado de autorización
+        Authorization: `Bearer ${token}`
       };
       await axiosInstance.patch(
         `/users/patchDataUser`,
-        {name, lastname}, {headers}
+        { name, lastname }, { headers }
 
       );
       return dispatch({

@@ -8,8 +8,9 @@ import { Grid, Typography } from '@mui/material';
 import { Colors } from '../../../Utils/Colors';
 import './styles.css';
 import { listOrder } from '../../../Redux/Actions/OrderActions/listOrder';
-import ShipmentsItem from '../ShipmentsItem/ShipmentsItem';
+import ShipmentsItem from '../Items/ShipmentsItem/ShipmentsItem';
 import { clearOrdersList } from '../../../Redux/Actions/OrderActions/clearOrdersList';
+import MobileShipmentItem from '../Items/MobileShipmentsItem/MobileShipmentItem';
 
 export default function CompPending() {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ export default function CompPending() {
   const mobile = useMediaQuery('(max-width:720px)');
   const { orders } = useSelector((state) => state.orders);
   return (
-    <Box style={{ background: '#F6F6F6' }}>
+    <Box style={{ background: '#FFF' }}>
       {orders.length === 0 ? (
         <Box
           display="flex"
@@ -180,46 +181,22 @@ export default function CompPending() {
               </h3>
               <Box
                 style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(2, 1fr)',
-                  padding: '20px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '18px',
                 }}
               >
                 {orders.map((row) => (
-                  <Box
+                  <MobileShipmentItem
                     key={row.id}
-                    style={{
-                      padding: '10px',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justyfyContent: 'center',
-                      gap: '5px',
-                    }}
-                  >
-                    <img src={row.img} />
-                    <p
-                      style={{ color: Colors.secondary.contrastText }}
-                    >
-                      {row.package.product_name}
-                    </p>
-                    <span
-                      style={{
-                        display: 'flex',
-                        gap: '5px',
-                        fontWeight: 600,
-                      }}
-                    >
-                      Valor ofertado:{' '}
-                      <p style={{ fontWeight: 400 }}>
-                        {' '}
-                        {row.package.offered_price}{' '}
-                      </p>
-                    </span>
-                    <p>{row.retire}</p>
-                    <p>Tipo de carga: {row.seca}</p>
-                    <p>{row.country}</p>
-                    <p style={{ fontWeight: 500 }}>{row.driver}</p>
-                  </Box>
+                    status={row.status}
+                    image={row.package.image1}
+                    price={row.package.offered_price}
+                    productName={row.package.product_name}
+                    pick_up_date={row.pick_up_date}
+                    delivery_date={row.delivery_date}
+                    driverName={row.assignedDriver?.user_driver.name}
+                  />
                 ))}
               </Box>
             </>
