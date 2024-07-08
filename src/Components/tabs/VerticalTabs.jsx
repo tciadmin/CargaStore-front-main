@@ -10,12 +10,9 @@ import ResponsiveImageBox from '../imageComponents/ResponsiveImageBox'
 import InputForm from '../inputs/InputForm';
 import CobroItemCard from '../cards/CobroItemCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser } from '../../Redux/Actions/UserActions/userActions';
+import { getUser, patchBasicUserData, patchCustomer, patchDriver, patchTruck } from '../../Redux/Actions/UserActions/userActions';
 import Cookies from 'js-cookie';
-//Agregar setter a todos los campos
-//Agregar al backend la posibilidad de editar
-// Validar datos editados antes de que se guarden en la base de datos
-//mostrar errores y mensaje de guardado
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -53,26 +50,30 @@ export default function VerticalTabs() {
   const dispatch = useDispatch();
 
   const [value, setValue] = React.useState(0);
+
+
   const [open, setOpen] = React.useState(false);
-  const [errorValidation,setErrorValidation]=React.useState({value: false, message: "Mensaje incorrecto"});
-  const [dataChanged,setDataChanged] = React.useState(true)
+  const [errorValidation, setErrorValidation] = React.useState({ value: false, message: "Mensaje incorrecto" });
+  const [dataChanged, setDataChanged] = React.useState(false)
 
 
   const [editar, setEditar] = React.useState(0);
   const { user } = useSelector(state => state.user);
+
   React.useEffect(() => {
+
     dispatch(getUser(Cookies.get("id")));
     setData(user);
     setEditar(false);
   }, []);
   const [data, setData] = React.useState(user);
-
   React.useEffect(() => {
     if (!editar) {
       setData(user);
     }
 
   }, [user])
+
   const mobile = useMediaQuery("(max-width: 750px)");
   const driverOptionsMobile = ["Datos Personales", "Datos del camión", "Documentos Legales", "Historial de cobros"]
   const containerBox = mobile ? { flexGrow: 1, bgcolor: '#e6e6e6', display: 'flex', flexDirection: "column", maxWidth: "100%", height: "100%" } : { flexGrow: 1, bgcolor: '#e6e6e6', display: 'flex', width: "100%", height: "100%" }
@@ -86,51 +87,127 @@ export default function VerticalTabs() {
     }));
   };
 
- const putBasicDataClient = ()=> {
-  if(!data.name ){
-    setErrorValidation({value: true, message: "El campo nombre debe completarse"})
-  }else if(!data.lastname){
-    setErrorValidation({value: true, message: "El campo apellido debe completarse"})
+  const putBasicData = () => {
+    const regexDescription = /^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s.,;:!?()-]*$/;
+    const regex = /^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/;
+    if (!data.name) {
+      setErrorValidation({ value: true, message: "El campo nombre debe completarse" })
+    } else if (!data.lastname) {
+      setErrorValidation({ value: true, message: "El campo apellido debe completarse" })
 
-  }else{
-    const regex = /^[a-zA-Z\s]+$/;
-        if(regex.test(data.name) == false){
-      setErrorValidation({value: true, message: "Su nombre no puede contener carácteres especiales ni números"})
+    } else {
 
-    }else if(regex.test(data.lastname) == false){
-      setErrorValidation({value: true, message: "Su apellido no puede contener carácteres especiales ni números"})
+      if (regex.test(data.name) == false) {
+        setErrorValidation({ value: true, message: "Su nombre no puede contener carácteres especiales ni números" })
 
-    }else{
-      setDataChanged(true)
+      } else if (regex.test(data.lastname) == false) {
+        setErrorValidation({ value: true, message: "Su apellido no puede contener carácteres especiales ni números" })
 
+      } else {
+        if (dataChanged != true) {
+          const regexTel = /^[0-9\s+]+$/;
+          if (data.driver && regexTel.test(data.driver.phone) == false) {
+            setErrorValidation({ value: true, message: "Su número de contacto no puede contener caracteres especiales" })
+          } else if (data.driver && regexDescription.test(data.driver.description) == false) {
+            setErrorValidation({ value: true, message: "Su descripcion no puede contener carácteres especiales ni números" })
+          } else {
+            if (!dataChanged) {
+              if (data.role == "driver" && (data.name.trim() != user.name
+                || data.lastname.trim() != user.lastname
+                || data.driver.description.trim() != user.driver.description
+                || data.driver.phone != user.driver.phone)
+              ) {
+                dispatch(patchDriver(data.id, {
+                  name: data.name,
+                  lastname: data.lastname,
+                  phone: data.driver.phone,
+                  description: data.driver.description
+                }))
+              }
+              if (data.role == "customer" && (
+                data.name.trim() != user.name
+                || data.lastname.trim() != user.lastname)) {
+                dispatch(patchBasicUserData(data.name, data.lastname))
+              }
+              setEditar(false)
+              setDataChanged(true)
+            }
+          }
+        }
+      }
     }
   }
 
- }
- const putCustomerDataClient = ()=> {
-  if(!data.customer.company_name ){
-    setErrorValidation({value: true, message: "El nombre de la empresa debe completarse"})
-  }else if(!data.customer.address){
-    setErrorValidation({value: true, message: "La dirección es obligatoria"})
+  const putCustomerDataClient = () => {
+    if (!data.customer.company_name) {
+      setErrorValidation({ value: true, message: "El nombre de la empresa debe completarse" })
+    } else if (!data.customer.address) {
+      setErrorValidation({ value: true, message: "La dirección es obligatoria" })
 
-  }else{
-    const regex = /^[a-zA-Z0-9.\-'\s]+$/;
-            if(regex.test(data.customer.company_name) == false){
-      setErrorValidation({value: true, message: "El nombre de su empresa no puede contener carácteres especiales "})
+    } else {
+      const regex = /^[0-9a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/;
 
-    }else if(regex.test(data.customer.address) == false){
-      setErrorValidation({value: true, message: "La dirección no puede contener carácteres especiales "})
+      const regexRUC = /^[0-9]+$/;
+      const cleanRuc = data.customer.ruc.toString().trim();
+      if (regex.test(data.customer.company_name) == false) {
+        setErrorValidation({ value: true, message: "El nombre de su empresa no puede contener carácteres especiales " });
+      } else if (regex.test(data.customer.address) == false) {
+        setErrorValidation({ value: true, message: "La dirección no puede contener carácteres especiales " })
 
-    }else{
-      setDataChanged(true)
+      } else if (regexRUC.test(cleanRuc) == false) {
+        setErrorValidation({ value: true, message: "El RUC solamente puede contener números" });
+      }
+      else if (regex.test(data.customer.country) == false) {
+        setErrorValidation({ value: true, message: "El país no puede contener carácteres especiales " })
 
+      } else {
+        if (cleanRuc.length != 10) {
+          setErrorValidation({ value: true, message: "El número RUC debe contener 10 digitos" })
+
+        } else {
+          if (!dataChanged) {
+            dispatch(patchCustomer(data.customer.id, data.customer))
+            setEditar(false)
+            setDataChanged(true)
+          }
+
+
+        }
+
+      }
     }
+
+
   }
 
- }
-  // const putDataDriver = ()=>{
-  // }
+  const putTruckData = () => {
+    const regex = /^[0-9a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/;
+    const regexNum = /^[0-9]+$/;
+    const isTruckObjectNotEmpty = (truck) => Object.values(truck).every(value => value !== "" && value !== null && value !== undefined);
+    const anoActual = new Date().getFullYear();
+    if (!isTruckObjectNotEmpty(data.driver.truck)) {
+      setErrorValidation({ value: true, message: "Ningún campo puede estar vacío" })
+    } else if (regex.test(data.driver.truck.brand) == false) {
+      setErrorValidation({ value: true, message: "El campo marca contiene carácteres inválidos" })
+    } else if (regex.test(data.driver.truck.model) == false) {
+      setErrorValidation({ value: true, message: "El campo modelo contiene carácteres inválidos" })
+    } else if (regex.test(data.driver.truck.charge_capacity) == false) {
+      setErrorValidation({ value: true, message: "El campo capacidad de carga contiene carácteres inválidos" })
+    } else if (regex.test(data.driver.truck.charge_type) == false) {
+      setErrorValidation({ value: true, message: "El campo tipo de carga contiene carácteres inválidos" })
+    } else if (regexNum.test(data.driver.truck.num_plate) == false) {
+      setErrorValidation({ value: true, message: "El campo matrícula tiene que ser un número" })
+    }
+    else if (regexNum.test(data.driver.truck.year) == false || (parseInt(data.driver.truck.year) > anoActual || parseInt(data.driver.truck.year) < 1950)) {
+      setErrorValidation({ value: true, message: "El campo año tiene que ser un año válido" })
+    }
+    else {
+      setDataChanged(true)
+      setEditar(false)
+      dispatch(patchTruck(user.id, data.driver.truck))
+    }
 
+  }
 
   const handleChange = (event, newValue) => {
     setEditar(false);
@@ -241,23 +318,42 @@ export default function VerticalTabs() {
             <InputForm value={data.name} setter={(valor) => handleInputClient(valor, "name")} label="Nombre" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
             <InputForm value={data.lastname} setter={(valor) => handleInputClient(valor, "lastname")} label="Apellido" sizeH='35px' marginB={3} readOnly={!editar} />
 
-            <InputForm value={data.email} setter={(valor) => handleInputClient(valor, "email")} label="Correo electrónico" type='email' sizeH='35px' marginB={3} readOnly={!editar} />
-            <InputForm value={data.name} setter={(valor) => handleInputClient(valor, "name")} label="Número de contacto" sizeH='35px' marginB={3} readOnly={!editar} />
-            <InputForm value={data.name} setter={(valor) => handleInputClient(valor, "name")} label="Descripción" sizeH='150px' marginB={3} readOnly={!editar} sizeXL={true} />
+            <InputForm value={data.email} label="Correo electrónico" type='email' sizeH='35px' marginB={3} readOnly={true} />
+            <InputForm value={data.driver && data.driver.phone} setter={(valor) => {
+              setData(prevState => ({
+                ...prevState,
+                driver: {
+                  ...prevState.driver,
+                  phone: valor
+                }
+              }))
+            }} label="Número de contacto" sizeH='35px' marginB={3} readOnly={!editar} />
+            <InputForm value={data.driver && data.driver.description} setter={(valor) => {
+              setData(prevState => ({
+                ...prevState,
+                driver: {
+                  ...prevState.driver,
+                  description: valor
+                }
+              }))
+            }} label="Descripción" sizeH='150px' marginB={3} readOnly={!editar} sizeXL={true} />
           </>
           }
           {value == 0 && user.role === "customer" && <>
 
             <InputForm value={data.name} setter={(valor) => handleInputClient(valor, "name")} label="Nombre" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
             <InputForm value={data.lastname} setter={(valor) => handleInputClient(valor, "lastname")} label="Apellido" sizeH='35px' marginB={3} readOnly={!editar} />
-            <InputForm value={data.email} setter={(valor) => handleInputClient(valor, "email")} label="Correo electrónico" type='email' sizeH='35px' marginB={3} readOnly={!editar} />
+            <InputForm value={data.email} label="Correo electrónico" type='email' sizeH='35px' marginB={3} readOnly={true} />
 
           </>
           }
 
           {editar ?
             <Button variant="contained" style={{ fontWeight: "bold" }} onClick={() => {
-              putBasicDataClient()}} > Guardar Cambios
+              putBasicData()
+
+
+            }} > Guardar Cambios
             </Button>
             :
             <Button variant="outlined" onClick={() => setEditar(true)} style={{ fontWeight: "bold", width: "80px", alignSelf: "center" }} > Editar
@@ -309,19 +405,19 @@ export default function VerticalTabs() {
                     }
                   }))
                 }} label="Nombre de la empresa" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
-                <InputForm 
-                required={false}
-                value={data.customer && data.customer.ruc} 
-                setter={(valor) => {
-                  setData(prevState => ({
-                    ...prevState,
-                    customer: {
-                      ...prevState.customer,
-                      ruc: valor
-                    }
-                  }))
-                }}
-                label="RUC" sizeH='35px' marginB={3} readOnly={!editar} />
+                <InputForm
+                  required={false}
+                  value={data.customer && data.customer.ruc}
+                  setter={(valor) => {
+                    setData(prevState => ({
+                      ...prevState,
+                      customer: {
+                        ...prevState.customer,
+                        ruc: valor
+                      }
+                    }))
+                  }}
+                  label="RUC" sizeH='35px' marginB={3} readOnly={!editar} />
 
                 <InputForm value={data.customer && data.customer.address}
                   setter={(valor) => {
@@ -334,9 +430,9 @@ export default function VerticalTabs() {
                     }))
                   }}
                   label="Dirección" type='text' sizeH='35px' marginB={3} readOnly={!editar} />
-                <InputForm 
-                required={false}
-                value={data.customer && data.customer.country}
+                <InputForm
+                  required={false}
+                  value={data.customer && data.customer.country}
                   setter={(valor) => {
                     setData(prevState => ({
                       ...prevState,
@@ -351,13 +447,98 @@ export default function VerticalTabs() {
             }
             {user.role == "driver" &&
               <>
-                <InputForm label="Marca" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
-                <InputForm label="Modelo" sizeH='35px' marginB={3} readOnly={!editar} />
+                <InputForm
+                  value={data.driver && data.driver.truck.brand}
+                  setter={(valor) => {
+                    setData(prevState => ({
+                      ...prevState,
+                      driver: {
+                        ...prevState.driver,
+                        truck: {
+                          ...prevState.driver.truck,
+                          brand: valor
+                        }
+                      }
+                    }))
+                  }}
+                  label="Marca"
+                  sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
+                <InputForm
+                  value={data.driver && data.driver.truck.model}
+                  setter={(valor) => {
+                    setData(prevState => ({
+                      ...prevState,
+                      driver: {
+                        ...prevState.driver,
+                        truck: {
+                          ...prevState.driver.truck,
+                          model: valor
+                        }
+                      }
+                    }))
+                  }}
+                  label="Modelo" sizeH='35px' marginB={3} readOnly={!editar} />
 
-                <InputForm label="Año" type='email' sizeH='35px' marginB={3} readOnly={!editar} />
-                <InputForm label="Matrícula" sizeH='35px' marginB={3} readOnly={!editar} />
-                <InputForm label="Capacidad de carga" sizeH='35px' marginB={3} readOnly={!editar} />
-                <InputForm label="Unidad de carga" sizeH='35px' marginB={3} readOnly={!editar} />
+                <InputForm
+                  value={data.driver && data.driver.truck.year}
+                  setter={(valor) => {
+                    setData(prevState => ({
+                      ...prevState,
+                      driver: {
+                        ...prevState.driver,
+                        truck: {
+                          ...prevState.driver.truck,
+                          year: valor
+                        }
+                      }
+                    }))
+                  }}
+                  label="Año" type='text' sizeH='35px' marginB={3} readOnly={!editar} />
+                <InputForm
+                  value={data.driver && data.driver.truck.num_plate}
+                  setter={(valor) => {
+                    setData(prevState => ({
+                      ...prevState,
+                      driver: {
+                        ...prevState.driver,
+                        truck: {
+                          ...prevState.driver.truck,
+                          num_plate: valor
+                        }
+                      }
+                    }))
+                  }}
+                  label="Matrícula" sizeH='35px' marginB={3} readOnly={!editar} />
+                <InputForm
+                  value={data.driver && data.driver.truck.charge_capacity}
+                  setter={(valor) => {
+                    setData(prevState => ({
+                      ...prevState,
+                      driver: {
+                        ...prevState.driver,
+                        truck: {
+                          ...prevState.driver.truck,
+                          charge_capacity: valor
+                        }
+                      }
+                    }))
+                  }}
+                  label="Capacidad de carga" sizeH='35px' marginB={3} readOnly={!editar} />
+                <InputForm
+                  value={data.driver && data.driver.truck.charge_type}
+                  setter={(valor) => {
+                    setData(prevState => ({
+                      ...prevState,
+                      driver: {
+                        ...prevState.driver,
+                        truck: {
+                          ...prevState.driver.truck,
+                          charge_type: valor
+                        }
+                      }
+                    }))
+                  }}
+                  label="Unidad de carga" sizeH='35px' marginB={3} readOnly={!editar} />
               </>
             }
 
@@ -365,8 +546,12 @@ export default function VerticalTabs() {
 
 
             {editar ?
-              <Button variant="contained" style={{ fontWeight: "bold" }} onClick={()=>{
-                putCustomerDataClient()
+              <Button variant="contained" style={{ fontWeight: "bold" }} onClick={() => {
+                switch (user.role) {
+                  case "customer": putCustomerDataClient();
+                  case "driver": putTruckData()
+                }
+
               }}> Guardar Cambios
               </Button>
 
@@ -398,9 +583,7 @@ export default function VerticalTabs() {
                 accept="image/*"
                 style={{ display: 'none' }}
                 id="avatar"
-
                 type="file"
-
               />
             }
 
@@ -621,26 +804,26 @@ export default function VerticalTabs() {
         }
 
       </TabPanel>
-      <Snackbar open={errorValidation.value} anchorOrigin={{ vertical: "top", horizontal: "center" }} autoHideDuration={6000} onClose={()=>setErrorValidation({value: false, message: ""})}>
-  <Alert
-    onClose={()=>setErrorValidation({value: false, message: ""})}
-    severity="error"
-    variant="filled"
-    sx={{ width: '100%' }}
-  >
-    {errorValidation.message}
-  </Alert>
-</Snackbar>
-<Snackbar open={dataChanged} anchorOrigin={{ vertical: "bottom", horizontal: "center" }} autoHideDuration={6000} onClose={()=>setDataChanged(false)}>
-  <Alert
-    onClose={()=>setDataChanged(false)}
-    severity="success"
-    variant="filled"
-    sx={{ width: '100%' }}
-  >
-    Los cambios se guardaron con éxito!
-  </Alert>
-</Snackbar>
+      <Snackbar open={errorValidation.value} anchorOrigin={{ vertical: "top", horizontal: "center" }} autoHideDuration={6000} onClose={() => setErrorValidation({ value: false, message: "" })}>
+        <Alert
+          onClose={() => setErrorValidation({ value: false, message: "" })}
+          severity="error"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          {errorValidation.message}
+        </Alert>
+      </Snackbar>
+      <Snackbar open={dataChanged} anchorOrigin={{ vertical: "bottom", horizontal: "center" }} autoHideDuration={6000} onClose={() => setDataChanged(false)}>
+        <Alert
+          onClose={() => setDataChanged(false)}
+          severity="success"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          Los cambios se guardaron con éxito!
+        </Alert>
+      </Snackbar>
 
     </Box>
   );

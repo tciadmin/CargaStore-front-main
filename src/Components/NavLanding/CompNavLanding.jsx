@@ -20,20 +20,14 @@ import Menu from "@mui/material/Menu";
 import { Colors } from "../../Utils/Colors";
 import { Drawer, Grid, Input, List, ListItem, ListItemButton } from "@mui/material";
 import "./styles.css"
+import { useSelector } from "react-redux";
 export default function CompNavLanding() {
   const mobile = useMediaQuery("(max-width:720px)");
   const [open, setOpen] = useState(false);
-  const [userRol, setUserRol] = useState("cliente")
   const [notificaciones, setNotificaciones] = useState(false)
   const [chat, setChat] = useState(false);
   const [chatear, setChatear] = useState(false)
-  React.useEffect(() => {
-    if (localStorage.getItem("userPrueba")) {
-      setUserRol(localStorage.getItem("userPrueba"));
-    } else {
-      localStorage.setItem("userPrueba", "cliente")
-    }
-  }, [])
+
   const [anchorElUser, setAnchorElUser] = useState(null);
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -62,6 +56,8 @@ export default function CompNavLanding() {
 
 
   }
+  const { user } = useSelector(state => state.user);
+
   const onClickNotificaciones = () => {
     if(mobile){
       navigate("/notificaciones");
@@ -178,7 +174,7 @@ export default function CompNavLanding() {
                 justifyContent={"space-between"}
               >
                 <List>
-                  {userRol == "cliente" &&
+                  { user.role == "customer" &&
                     [
                       { nombre: "Inicio", ruta: "/shipments" },
                       { nombre: "Pendiente", ruta: "/shipments" },
@@ -202,7 +198,7 @@ export default function CompNavLanding() {
                     ))
 
                   }
-                  {userRol == "conductor" && [
+                  {user.role == "driver" && [
                     { nombre: "Mis envíos", ruta: "/shipments" },
                     { nombre: "Marketplace", ruta: "/marketplace" }
 
@@ -218,7 +214,7 @@ export default function CompNavLanding() {
                       </ListItemButton>
                     </ListItem>
                   ))}
-                  {userRol == "admin" && [
+                  {user.role == "admin" && [
                     { nombre: "Inicio", ruta: "/administrador/panel" },
                     { nombre: "Solicitudes de carga", ruta: "/administrador/panel/solicitudes" },
                     { nombre: "Viajes activos", ruta: "/administrador/panel/viajes-activos" },
@@ -328,9 +324,9 @@ export default function CompNavLanding() {
                 }}
                 onClick={() => {
 
-                  if (userRol == "admin") {
+                  if (user.role == "admin") {
                     navigate("/administrador/panel");
-                  } else if (userRol == "conductor") {
+                  } else if (user.role == "driver") {
                     navigate("/marketplace");
                   } else {
                     if (location.pathname == "/landing") {
@@ -345,35 +341,35 @@ export default function CompNavLanding() {
               </Typography>
               {!mobile && location.pathname != "/landing" && (
                 <>
-                  {userRol !== "cliente"
+                  {user.role !== "customer"
                     &&
                     <Typography marginRight={"40px"}
                       fontSize={"16px"}
                       sx={{ cursor: "pointer" }}
-                      onClick={() => navigate(userRol == "admin" ? "/administrador/panel" : "/marketplace")}
+                      onClick={() => navigate(user.role == "admin" ? "/administrador/panel" : "/marketplace")}
                       cursor="pointer"
                       color={
-                        (userRol == "admin" && location.pathname.startsWith("/administrador/panel")) ||
-                          (userRol == "conductor" && location.pathname == "/marketplace")
+                        (user.role == "admin" && location.pathname.startsWith("/administrador/panel")) ||
+                          (user.role == "driver" && location.pathname == "/marketplace")
                           ? "primary"
                           : "secondary"
                       }
                     >
-                      {userRol == "admin" ? "Panel de control" : "Marketplace"}
+                      {user.role == "admin" ? "Panel de control" : "Marketplace"}
                     </Typography>
                   }
                   <Typography mr={"30px"}
                     fontSize={"16px"}
                     sx={{ cursor: "pointer" }}
-                    onClick={() => navigate(userRol == "admin" ? "/payment" : "/shipments")}
+                    onClick={() => navigate(user.role == "admin" ? "/payment" : "/shipments")}
                     color={
-                      (userRol == "admin" && location.pathname.startsWith("/payment")) ||
-                        ((userRol == "conductor" || userRol == "cliente") && location.pathname.startsWith("/shipments"))
+                      (user.role == "admin" && location.pathname.startsWith("/payment")) ||
+                        ((user.role == "driver" || user.role == "customer") && location.pathname.startsWith("/shipments"))
                         ? "primary"
                         : "secondary"
                     }
                   >
-                    {userRol == "admin" ? "Pagos" : "Mis envios"}
+                    {user.role == "admin" ? "Pagos" : "Mis envios"}
                   </Typography>
                 </>
               )}
@@ -476,7 +472,7 @@ export default function CompNavLanding() {
                 <MenuItem key={453} onClick={handleCloseUserMenu}>
                   <Typography
                     textAlign="center"
-                    onClick={() => navigate(userRol == "admin" ? "/administrador/perfil" : "/perfil")}
+                    onClick={() => navigate(user.role == "admin" ? "/administrador/perfil" : "/perfil")}
                   >
                     Ajustes del perfil
                   </Typography>
