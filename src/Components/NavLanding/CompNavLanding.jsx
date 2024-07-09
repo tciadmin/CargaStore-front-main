@@ -490,6 +490,7 @@ export default function CompNavLanding() {
                     Cookies.remove("token")
                     Cookies.remove("id")
                       navigate("/landing")
+                      
 
                     }}
                   >
