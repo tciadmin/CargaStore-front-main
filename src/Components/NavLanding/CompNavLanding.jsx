@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie';
 //? --------------------------------------------- MUI
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -37,7 +38,7 @@ export default function CompNavLanding() {
     setAnchorElUser(null);
   };
   const navigate = useNavigate();
-
+  const admin = "admin";
   const onClickLogin = () => {
     navigate("/login");
   };
@@ -59,15 +60,15 @@ export default function CompNavLanding() {
   const { user } = useSelector(state => state.user);
 
   const onClickNotificaciones = () => {
-    if(mobile){
+    if (mobile) {
       navigate("/notificaciones");
-    }else{
-       setChat(false);
-    setChatear(false);
+    } else {
+      setChat(false);
+      setChatear(false);
 
-    setNotificaciones(!notificaciones);
+      setNotificaciones(!notificaciones);
     }
-   
+
   }
   if (location.pathname == '/home/crearEnvios' && mobile
   ) {
@@ -174,7 +175,7 @@ export default function CompNavLanding() {
                 justifyContent={"space-between"}
               >
                 <List>
-                  { user.role == "customer" &&
+                  {user.role == "customer" &&
                     [
                       { nombre: "Inicio", ruta: "/shipments" },
                       { nombre: "Pendiente", ruta: "/shipments" },
@@ -296,7 +297,12 @@ export default function CompNavLanding() {
                         ml={1}
                         variant="primary"
                         sx={{ fontWeight: 400 }}
-                        onClick={() => navigate("/landing")}
+                        onClick={() => {
+                          Cookies.remove("token")
+                    Cookies.remove("id")
+                      navigate("/landing")
+
+                        }}
                       >
                         Cerrar sesión
                       </Typography>
@@ -480,7 +486,12 @@ export default function CompNavLanding() {
                 <MenuItem key={464} onClick={handleCloseUserMenu}>
                   <Typography
                     textAlign="center"
-                    onClick={() => navigate("/landing")}
+                    onClick={() => {
+                    Cookies.remove("token")
+                    Cookies.remove("id")
+                      navigate("/landing")
+
+                    }}
                   >
                     Cerrar sesión
                   </Typography>

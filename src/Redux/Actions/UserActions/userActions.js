@@ -151,11 +151,6 @@ export const authUser = (user, navigate) => {
         type: AUTH_USER_SUCCESS,
         payload: data,
       });
-      if (data.user.role === 'driver') {
-        navigate('/marketplace');
-      } else if (data.user.role === 'customer') {
-        navigate('/shipments');
-      }
       Cookies.set('token', data.token, {
         expires: 1,
         secure: true,
@@ -168,6 +163,14 @@ export const authUser = (user, navigate) => {
         sameSite: 'Strict',
         path: '/'
       });
+      if (data.user.role === 'driver') {
+        navigate('/marketplace');
+      } else if (data.user.role === 'customer') {
+        navigate('/shipments');
+      }else if(data.user.role === 'admin'){
+        navigate("/administrador/panel")
+      }
+      
     } catch (error) {
       dispatch({ type: AUTH_USER_FAILURE, error: error.message });
     }
