@@ -606,12 +606,58 @@ export default function VerticalTabs() {
           {
             user.role == "driver" && <>
 
-              <InputForm label="Licencia de conducir" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
-              <InputForm label="Afiliación IESS" sizeH='35px' marginB={3} readOnly={!editar} />
+              <InputForm
+                value={data.driver && data.driver.license}
+                setter={(valor) => {
+                  setData(prevState => ({
+                    ...prevState,
+                    driver: {
+                      ...prevState.driver,
+                      license: valor
+                    }
+                  }))
+                }} label="Licencia de conducir" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
+              <InputForm 
+              value={data.driver && data.driver.iess}
+              setter={(valor) => {
+                setData(prevState => ({
+                  ...prevState,
+                  driver: {
+                    ...prevState.driver,
+                    iess: valor
+                  }
+                }))
+              }}
+              
+              label="Afiliación IESS" sizeH='35px' marginB={3} readOnly={!editar} />
 
-              <InputForm label="Permiso de puerto" type='text' sizeH='35px' marginB={3} readOnly={!editar} />
-              <InputForm label="Matrícula" sizeH='35px' marginB={3} readOnly={!editar} />
-              <InputForm label="Póliza de seguro" sizeH='35px' marginB={3} readOnly={!editar} />
+              <InputForm 
+              value={data.driver && data.driver.port_permit}
+              setter={(valor) => {
+                setData(prevState => ({
+                  ...prevState,
+                  driver: {
+                    ...prevState.driver,
+                    port_permit: valor
+                  }
+                }))
+              }}
+              label="Permiso de puerto" type='text' sizeH='35px' marginB={3} readOnly={!editar} />
+              <InputForm 
+              
+              label="Matrícula" sizeH='35px' marginB={3} readOnly={!editar} />
+              <InputForm
+                value={data.driver && data.driver.insurance_policy}
+                setter={(valor) => {
+                  setData(prevState => ({
+                    ...prevState,
+                    driver: {
+                      ...prevState.driver,
+                      insurance_policy: valor
+                    }
+                  }))
+                }}
+              label="Póliza de seguro" sizeH='35px' marginB={3} readOnly={!editar} />
               <InputForm label="Unidad de carga" sizeH='35px' marginB={3} readOnly={!editar} />
               <Box style={{ display: "flex", justifyContent: "space-between " }} mb={3} width="100%">
                 <Typography style={{ display: "inline", color: "#475367", fontWeight: 500 }} width={"50%"}>Foto de licencia de conducir {editar && <span style={{ color: "red" }}>*</span>}</Typography>
