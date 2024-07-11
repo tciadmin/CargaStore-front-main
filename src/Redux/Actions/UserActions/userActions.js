@@ -98,7 +98,7 @@ export const postUser = (userType, userData, navigate) => {
         //userType sea 'driver'
         let { brand, model, year, charge_capacity, charge_type } =
           userData;
-          
+
         //Hacemos la peticion al endpoint de creacion de conductor
         //y le pasamos como id del usuario el de la respuesta de newUser
         const driver = await axiosInstance.post(
@@ -106,7 +106,7 @@ export const postUser = (userType, userData, navigate) => {
           {
             brand,
             model,
-            year:parseInt(year),
+            year: parseInt(year),
             charge_capacity,
             charge_type
           }
@@ -167,10 +167,10 @@ export const authUser = (user, navigate) => {
         navigate('/marketplace');
       } else if (data.user.role === 'customer') {
         navigate('/shipments');
-      }else if(data.user.role === 'admin'){
+      } else if (data.user.role === 'admin') {
         navigate("/administrador/panel")
       }
-      
+
     } catch (error) {
       dispatch({ type: AUTH_USER_FAILURE, error: error.message });
     }
@@ -199,18 +199,23 @@ export const patchCustomer = (id, customer) => {
   };
 };
 
-export const patchDriver = (id, driver) => {
-  console.log(driver)
+export const patchDriver = (id, datos) => {
   return async (dispatch) => {
     dispatch({ type: PATCH_DRIVER_PENDING });
+    const driver = {
+      name: datos.name,
+      lastname: datos.lastname,
+      description: datos.driver.description,
+      phone: datos.driver.phone
+    };
     try {
       const user = await axiosInstance.patch(
         `/driver/patch/${id}`,
-        driver,{headers}
+        driver , { headers }
       );
       return dispatch({
         type: PATCH_DRIVER_SUCCESS,
-        payload: user,
+        payload: data,
       });
     } catch (error) {
       dispatch({ type: PATCH_DRIVER_FAILURE, error: error.message });
@@ -224,7 +229,7 @@ export const patchTruck = (id, truck) => {
     try {
       const user = await axiosInstance.patch(
         `/truck/update/${id}`,
-        truck,{headers}
+        truck, { headers }
       );
       return dispatch({
         type: PATCH_TRUCK_SUCCESS,

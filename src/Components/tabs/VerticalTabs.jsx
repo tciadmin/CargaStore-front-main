@@ -79,13 +79,7 @@ export default function VerticalTabs() {
   const containerBox = mobile ? { flexGrow: 1, bgcolor: '#e6e6e6', display: 'flex', flexDirection: "column", maxWidth: "100%", height: "100%" } : { flexGrow: 1, bgcolor: '#e6e6e6', display: 'flex', width: "100%", height: "100%" }
   const clientOptionsMobile = ["Datos Personales", "Configuración de la cuenta", "Configuración de pagos", "Historial de cobros"]
 
-  const handleInputClient = (value, name) => {
 
-    setData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
 
   const putBasicData = () => {
     const regexDescription = /^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s.,;:!?()-]*$/;
@@ -117,12 +111,7 @@ export default function VerticalTabs() {
                 || data.driver.description.trim() != user.driver.description
                 || data.driver.phone != user.driver.phone)
               ) {
-                dispatch(patchDriver(data.id, {
-                  name: data.name,
-                  lastname: data.lastname,
-                  phone: data.driver.phone,
-                  description: data.driver.description
-                }))
+                dispatch(patchDriver(data.id,data))
               }
               if (data.role == "customer" && (
                 data.name.trim() != user.name
@@ -204,7 +193,7 @@ export default function VerticalTabs() {
     else {
       setDataChanged(true)
       setEditar(false)
-      dispatch(patchTruck(user.id, data.driver.truck))
+      dispatch(patchTruck(user.id, data))
     }
 
   }
@@ -315,8 +304,22 @@ export default function VerticalTabs() {
           </div>
           {value == 0 && user.role === "driver" && <>
 
-            <InputForm value={data.name} setter={(valor) => handleInputClient(valor, "name")} label="Nombre" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
-            <InputForm value={data.lastname} setter={(valor) => handleInputClient(valor, "lastname")} label="Apellido" sizeH='35px' marginB={3} readOnly={!editar} />
+            <InputForm value={data.name} 
+             setter={(valor) => {
+              setData(prevState => ({
+                ...prevState,
+                name: valor
+              }))
+            }}
+            label="Nombre" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
+            <InputForm value={data.lastname} 
+             setter={(valor) => {
+              setData(prevState => ({
+                ...prevState,
+                lastname: valor
+              }))
+            }}
+            label="Apellido" sizeH='35px' marginB={3} readOnly={!editar} />
 
             <InputForm value={data.email} label="Correo electrónico" type='email' sizeH='35px' marginB={3} readOnly={true} />
             <InputForm value={data.driver && data.driver.phone} setter={(valor) => {
@@ -324,7 +327,7 @@ export default function VerticalTabs() {
                 ...prevState,
                 driver: {
                   ...prevState.driver,
-                  phone: valor
+                  phone: valor,
                 }
               }))
             }} label="Número de contacto" sizeH='35px' marginB={3} readOnly={!editar} />
@@ -332,8 +335,8 @@ export default function VerticalTabs() {
               setData(prevState => ({
                 ...prevState,
                 driver: {
-                  ...prevState.driver,
-                  description: valor
+                  ...prevState.driver,                  
+                  description: valor,
                 }
               }))
             }} label="Descripción" sizeH='150px' marginB={3} readOnly={!editar} sizeXL={true} />
@@ -341,8 +344,22 @@ export default function VerticalTabs() {
           }
           {value == 0 && user.role === "customer" && <>
 
-            <InputForm value={data.name} setter={(valor) => handleInputClient(valor, "name")} label="Nombre" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
-            <InputForm value={data.lastname} setter={(valor) => handleInputClient(valor, "lastname")} label="Apellido" sizeH='35px' marginB={3} readOnly={!editar} />
+            <InputForm value={data.name} 
+            setter={(valor) => {
+              setData(prevState => ({
+                ...prevState,
+                name: valor
+              }))
+            }}
+            label="Nombre" sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
+            <InputForm value={data.lastname} 
+             setter={(valor) => {
+              setData(prevState => ({
+                ...prevState,
+                lastname: valor
+              }))
+            }}
+            label="Apellido" sizeH='35px' marginB={3} readOnly={!editar} />
             <InputForm value={data.email} label="Correo electrónico" type='email' sizeH='35px' marginB={3} readOnly={true} />
 
           </>
@@ -448,7 +465,7 @@ export default function VerticalTabs() {
             {user.role == "driver" &&
               <>
                 <InputForm
-                  value={data.driver && data.driver.truck.brand}
+                  value={data.driver && data.driver.truck?.brand}
                   setter={(valor) => {
                     setData(prevState => ({
                       ...prevState,
@@ -464,7 +481,7 @@ export default function VerticalTabs() {
                   label="Marca"
                   sizeH='35px' marginT={3} marginB={3} readOnly={!editar} />
                 <InputForm
-                  value={data.driver && data.driver.truck.model}
+                  value={data.driver && data.driver.truck?.model}
                   setter={(valor) => {
                     setData(prevState => ({
                       ...prevState,
@@ -480,7 +497,7 @@ export default function VerticalTabs() {
                   label="Modelo" sizeH='35px' marginB={3} readOnly={!editar} />
 
                 <InputForm
-                  value={data.driver && data.driver.truck.year}
+                  value={data.driver && data.driver.truck?.year}
                   setter={(valor) => {
                     setData(prevState => ({
                       ...prevState,
@@ -495,7 +512,7 @@ export default function VerticalTabs() {
                   }}
                   label="Año" type='text' sizeH='35px' marginB={3} readOnly={!editar} />
                 <InputForm
-                  value={data.driver && data.driver.truck.num_plate}
+                  value={data.driver && data.driver.truck?.num_plate}
                   setter={(valor) => {
                     setData(prevState => ({
                       ...prevState,
@@ -510,7 +527,7 @@ export default function VerticalTabs() {
                   }}
                   label="Matrícula" sizeH='35px' marginB={3} readOnly={!editar} />
                 <InputForm
-                  value={data.driver && data.driver.truck.charge_capacity}
+                  value={data.driver && data.driver.truck?.charge_capacity}
                   setter={(valor) => {
                     setData(prevState => ({
                       ...prevState,
@@ -525,7 +542,7 @@ export default function VerticalTabs() {
                   }}
                   label="Capacidad de carga" sizeH='35px' marginB={3} readOnly={!editar} />
                 <InputForm
-                  value={data.driver && data.driver.truck.charge_type}
+                  value={data.driver && data.driver.truck?.charge_type}
                   setter={(valor) => {
                     setData(prevState => ({
                       ...prevState,
