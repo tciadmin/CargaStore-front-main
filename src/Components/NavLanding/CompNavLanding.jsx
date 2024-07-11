@@ -299,8 +299,8 @@ export default function CompNavLanding() {
                         sx={{ fontWeight: 400 }}
                         onClick={() => {
                           Cookies.remove("token")
-                    Cookies.remove("id")
-                      navigate("/landing")
+                          Cookies.remove("id")
+                          navigate("/landing")
 
                         }}
                       >
@@ -487,11 +487,9 @@ export default function CompNavLanding() {
                   <Typography
                     textAlign="center"
                     onClick={() => {
-                    Cookies.remove("token")
-                    Cookies.remove("id")
+                      Cookies.remove("token")
+                      Cookies.remove("id")
                       navigate("/landing")
-                      
-
                     }}
                   >
                     Cerrar sesión
