@@ -1,33 +1,41 @@
-import * as React from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import * as React from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 //? --------------------------------------------- MUI
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import Tooltip from "@mui/material/Tooltip";
-import IconButton from "@mui/material/IconButton";
-import Avatar from "@mui/material/Avatar";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import Avatar from '@mui/material/Avatar';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
 
 //? --------------------------------------------- STYLES
-import { Colors } from "../../Utils/Colors";
-import { Drawer, Grid, Input, List, ListItem, ListItemButton } from "@mui/material";
-import "./styles.css"
-import { useSelector } from "react-redux";
+import { Colors } from '../../Utils/Colors';
+import {
+  Drawer,
+  Grid,
+  Input,
+  List,
+  ListItem,
+  ListItemButton,
+} from '@mui/material';
+import './styles.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser } from '../../Redux/Actions/UserActions/userActions';
+
 export default function CompNavLanding() {
-  const mobile = useMediaQuery("(max-width:720px)");
+  const mobile = useMediaQuery('(max-width:720px)');
   const [open, setOpen] = useState(false);
-  const [notificaciones, setNotificaciones] = useState(false)
+  const [notificaciones, setNotificaciones] = useState(false);
   const [chat, setChat] = useState(false);
-  const [chatear, setChatear] = useState(false)
+  const [chatear, setChatear] = useState(false);
 
   const [anchorElUser, setAnchorElUser] = useState(null);
   const handleOpenUserMenu = (event) => {
@@ -38,93 +46,109 @@ export default function CompNavLanding() {
     setAnchorElUser(null);
   };
   const navigate = useNavigate();
-  const admin = "admin";
+  const admin = 'admin';
   const onClickLogin = () => {
-    navigate("/login");
+    navigate('/login');
   };
 
   const onClickRegister = () => {
-    navigate("/register");
+    navigate('/register');
   };
   const onClickChat = () => {
     if (mobile) {
-      navigate("/chat");
+      navigate('/chat');
     } else {
       setChatear(false);
       setNotificaciones(false);
       setChat(!chat);
     }
+  };
 
+  const dispatch = useDispatch();
 
-  }
-  const { user } = useSelector(state => state.user);
+  React.useEffect(() => {
+    dispatch(getUser(Cookies.get('id')));
+  }, [dispatch]);
+
+  const { user } = useSelector((state) => state.user);
 
   const onClickNotificaciones = () => {
     if (mobile) {
-      navigate("/notificaciones");
+      navigate('/notificaciones');
     } else {
       setChat(false);
       setChatear(false);
 
       setNotificaciones(!notificaciones);
     }
+  };
+  if (location.pathname == '/home/crearEnvios' && mobile) {
+    return <></>;
+  } else if (location.pathname == '/landing' && mobile) {
+    return (
+      <Stack
+        direction="row"
+        justifyContent={'space-around'}
+        pt={2}
+        width="100vw"
+        position={'absolute'}
+      >
+        <img
+          src="/imgLanding/LogoCargaStoreBlanco.png"
+          width={'80px'}
+          height={'40px'}
+          alt=""
+        />
 
-  }
-  if (location.pathname == '/home/crearEnvios' && mobile
-  ) {
-    return <></>
-  } else if (location.pathname == "/landing" && mobile) {
-    return <Stack direction="row" justifyContent={"space-around"} pt={2} width="100vw" position={"absolute"}>
-      <img src="/imgLanding/LogoCargaStoreBlanco.png" width={"80px"} height={"40px"} alt="" />
-
-      <Stack spacing={.5} direction="row" >
-        <Button
-          onClick={onClickLogin}
-          variant="terciary"
-          style={{
-            color: Colors.primary.contrastText
-            ,
-            borderColor: "inherit",
-            fontWeight: 600
-          }}
-        >
-          Inicia sesión
-        </Button>
-        <Button
-          variant="contained"
-          style={{
-            color: Colors.primary.contrastText,
-            backgroundColor: Colors.primary.main,
-            fontWeight: 600
-          }}
-          onClick={() => navigate("/register")}
-        >
-          Regístrate
-        </Button>
+        <Stack spacing={0.5} direction="row">
+          <Button
+            onClick={onClickLogin}
+            variant="terciary"
+            style={{
+              color: Colors.primary.contrastText,
+              borderColor: 'inherit',
+              fontWeight: 600,
+            }}
+          >
+            Inicia sesión
+          </Button>
+          <Button
+            variant="contained"
+            style={{
+              color: Colors.primary.contrastText,
+              backgroundColor: Colors.primary.main,
+              fontWeight: 600,
+            }}
+            onClick={() => navigate('/register')}
+          >
+            Regístrate
+          </Button>
+        </Stack>
       </Stack>
-
-    </Stack>
+    );
   } else {
     return (
       <AppBar
         component="nav"
         elevation={0}
         position="sticky"
-        sx={{ width: "100%" }}
+        sx={{ width: '100%' }}
         style={{
           backgroundColor: Colors.primary.contrastText,
-          borderBottom: "1px solid #E4E7EC",
+          borderBottom: '1px solid #E4E7EC',
 
-          display: "flex",
+          display: 'flex',
 
-          justifyContent: "space-between ",
+          justifyContent: 'space-between ',
         }}
       >
-        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Toolbar
+          sx={{ display: 'flex', justifyContent: 'space-between' }}
+        >
           {mobile && (
             <Box
-              display={"inline-block"}
-              style={{ width: "30px", cursor: "pointer" }}
+              display={'inline-block'}
+              style={{ width: '30px', cursor: 'pointer' }}
               onClick={() => {
                 setOpen(true);
               }}
@@ -139,23 +163,23 @@ export default function CompNavLanding() {
                 <path
                   d="M3 12H21"
                   stroke="#007C52"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <path
                   d="M3 6H21"
                   stroke="#007C52"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <path
                   d="M3 18H21"
                   stroke="#007C52"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
             </Box>
@@ -163,82 +187,132 @@ export default function CompNavLanding() {
 
           <Drawer open={open} onClose={() => setOpen(false)}>
             <Box sx={{ width: 250 }} role="presentation">
-              <Stack direction="row" justifyContent={"space-between"} px={2} alignItems={"center"} spacing={2}>
-                <img src="/imgLanding/LogoCargaStore.svg" width={"100px"} />
-                <svg style={{ cursor: "pointer" }} onClick={() => setOpen(false)} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M19.281 18.2194C19.3507 18.289 19.406 18.3718 19.4437 18.4628C19.4814 18.5539 19.5008 18.6514 19.5008 18.75C19.5008 18.8485 19.4814 18.9461 19.4437 19.0372C19.406 19.1282 19.3507 19.2109 19.281 19.2806C19.2114 19.3503 19.1286 19.4056 19.0376 19.4433C18.9465 19.481 18.849 19.5004 18.7504 19.5004C18.6519 19.5004 18.5543 19.481 18.4632 19.4433C18.3722 19.4056 18.2895 19.3503 18.2198 19.2806L12.0004 13.0603L5.78104 19.2806C5.64031 19.4213 5.44944 19.5004 5.25042 19.5004C5.05139 19.5004 4.86052 19.4213 4.71979 19.2806C4.57906 19.1399 4.5 18.949 4.5 18.75C4.5 18.551 4.57906 18.3601 4.71979 18.2194L10.9401 12L4.71979 5.78061C4.57906 5.63988 4.5 5.44901 4.5 5.24999C4.5 5.05097 4.57906 4.8601 4.71979 4.71936C4.86052 4.57863 5.05139 4.49957 5.25042 4.49957C5.44944 4.49957 5.64031 4.57863 5.78104 4.71936L12.0004 10.9397L18.2198 4.71936C18.3605 4.57863 18.5514 4.49957 18.7504 4.49957C18.9494 4.49957 19.1403 4.57863 19.281 4.71936C19.4218 4.8601 19.5008 5.05097 19.5008 5.24999C19.5008 5.44901 19.4218 5.63988 19.281 5.78061L13.0607 12L19.281 18.2194Z" fill="#343330" />
-                </svg>              </Stack>
               <Stack
-                display={"flex"}
-                height={"90vh"}
-                flexDirection={"column"}
-                justifyContent={"space-between"}
+                direction="row"
+                justifyContent={'space-between'}
+                px={2}
+                alignItems={'center'}
+                spacing={2}
+              >
+                <img
+                  src="/imgLanding/LogoCargaStore.svg"
+                  width={'100px'}
+                />
+                <svg
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => setOpen(false)}
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19.281 18.2194C19.3507 18.289 19.406 18.3718 19.4437 18.4628C19.4814 18.5539 19.5008 18.6514 19.5008 18.75C19.5008 18.8485 19.4814 18.9461 19.4437 19.0372C19.406 19.1282 19.3507 19.2109 19.281 19.2806C19.2114 19.3503 19.1286 19.4056 19.0376 19.4433C18.9465 19.481 18.849 19.5004 18.7504 19.5004C18.6519 19.5004 18.5543 19.481 18.4632 19.4433C18.3722 19.4056 18.2895 19.3503 18.2198 19.2806L12.0004 13.0603L5.78104 19.2806C5.64031 19.4213 5.44944 19.5004 5.25042 19.5004C5.05139 19.5004 4.86052 19.4213 4.71979 19.2806C4.57906 19.1399 4.5 18.949 4.5 18.75C4.5 18.551 4.57906 18.3601 4.71979 18.2194L10.9401 12L4.71979 5.78061C4.57906 5.63988 4.5 5.44901 4.5 5.24999C4.5 5.05097 4.57906 4.8601 4.71979 4.71936C4.86052 4.57863 5.05139 4.49957 5.25042 4.49957C5.44944 4.49957 5.64031 4.57863 5.78104 4.71936L12.0004 10.9397L18.2198 4.71936C18.3605 4.57863 18.5514 4.49957 18.7504 4.49957C18.9494 4.49957 19.1403 4.57863 19.281 4.71936C19.4218 4.8601 19.5008 5.05097 19.5008 5.24999C19.5008 5.44901 19.4218 5.63988 19.281 5.78061L13.0607 12L19.281 18.2194Z"
+                    fill="#343330"
+                  />
+                </svg>{' '}
+              </Stack>
+              <Stack
+                display={'flex'}
+                height={'90vh'}
+                flexDirection={'column'}
+                justifyContent={'space-between'}
               >
                 <List>
-                  {user.role == "customer" &&
+                  {user.role == 'customer' &&
                     [
-                      { nombre: "Inicio", ruta: "/shipments" },
-                      { nombre: "Pendiente", ruta: "/shipments" },
-                      { nombre: "En curso", ruta: "/shipments/assigned" },
-                      { nombre: "Asignados", ruta: "/shipments/in-progress" },
-                      { nombre: "Finalizados", ruta: "/shipments/finished" },
+                      { nombre: 'Inicio', ruta: '/shipments' },
+                      { nombre: 'Pendiente', ruta: '/shipments' },
+                      {
+                        nombre: 'En curso',
+                        ruta: '/shipments/assigned',
+                      },
+                      {
+                        nombre: 'Asignados',
+                        ruta: '/shipments/in-progress',
+                      },
+                      {
+                        nombre: 'Finalizados',
+                        ruta: '/shipments/finished',
+                      },
                     ].map((item, index) => (
-                      <ListItem key={item.nombre} onClick={() => {
-                        setOpen(false)
-                        navigate(item.ruta)
-                      }} disablePadding>
+                      <ListItem
+                        key={item.nombre}
+                        onClick={() => {
+                          setOpen(false);
+                          navigate(item.ruta);
+                        }}
+                        disablePadding
+                      >
                         <ListItemButton>
                           <Typography
-                            variant={"primary"}
+                            variant={'primary'}
                             sx={{ fontWeight: 400 }}
                           >
                             {item.nombre}
                           </Typography>
                         </ListItemButton>
                       </ListItem>
-                    ))
-
-                  }
-                  {user.role == "driver" && [
-                    { nombre: "Mis envíos", ruta: "/shipments" },
-                    { nombre: "Marketplace", ruta: "/marketplace" }
-
-                  ].map((item, index) => (
-                    <ListItem key={item.nombre} disablePadding>
-                      <ListItemButton onClick={() => navigate(item.ruta)}>
-                        <Typography
-                          variant={"primary"}
-                          sx={{ fontWeight: 400 }}
+                    ))}
+                  {user.role == 'driver' &&
+                    [
+                      { nombre: 'Mis envíos', ruta: '/shipments' },
+                      { nombre: 'Marketplace', ruta: '/marketplace' },
+                    ].map((item, index) => (
+                      <ListItem key={item.nombre} disablePadding>
+                        <ListItemButton
+                          onClick={() => navigate(item.ruta)}
                         >
-                          {item.nombre}
-                        </Typography>
-                      </ListItemButton>
-                    </ListItem>
-                  ))}
-                  {user.role == "admin" && [
-                    { nombre: "Inicio", ruta: "/administrador/panel" },
-                    { nombre: "Solicitudes de carga", ruta: "/administrador/panel/solicitudes" },
-                    { nombre: "Viajes activos", ruta: "/administrador/panel/viajes-activos" },
-                    { nombre: "Viajes finalizados", ruta: "/administrador/panel/viajes-finalizados" },
-                    { nombre: "Socios Activos", ruta: "/administrador/panel/socios" },
-                    { nombre: "Pagos", ruta: "/payment" }
-
-                  ].map((item, index) => (
-                    <ListItem key={item.ruta} disablePadding>
-                      <ListItemButton onClick={() => {
-                        navigate(item.ruta)
-                        setOpen(false)
-
-                      }}>
-                        <Typography
-                          variant={"primary"}
-                          sx={{ fontWeight: 400 }}
+                          <Typography
+                            variant={'primary'}
+                            sx={{ fontWeight: 400 }}
+                          >
+                            {item.nombre}
+                          </Typography>
+                        </ListItemButton>
+                      </ListItem>
+                    ))}
+                  {user.role == 'admin' &&
+                    [
+                      {
+                        nombre: 'Inicio',
+                        ruta: '/administrador/panel',
+                      },
+                      {
+                        nombre: 'Solicitudes de carga',
+                        ruta: '/administrador/panel/solicitudes',
+                      },
+                      {
+                        nombre: 'Viajes activos',
+                        ruta: '/administrador/panel/viajes-activos',
+                      },
+                      {
+                        nombre: 'Viajes finalizados',
+                        ruta: '/administrador/panel/viajes-finalizados',
+                      },
+                      {
+                        nombre: 'Socios Activos',
+                        ruta: '/administrador/panel/socios',
+                      },
+                      { nombre: 'Pagos', ruta: '/payment' },
+                    ].map((item, index) => (
+                      <ListItem key={item.ruta} disablePadding>
+                        <ListItemButton
+                          onClick={() => {
+                            navigate(item.ruta);
+                            setOpen(false);
+                          }}
                         >
-                          {item.nombre}
-                        </Typography>
-                      </ListItemButton>
-                    </ListItem>
-                  ))}
+                          <Typography
+                            variant={'primary'}
+                            sx={{ fontWeight: 400 }}
+                          >
+                            {item.nombre}
+                          </Typography>
+                        </ListItemButton>
+                      </ListItem>
+                    ))}
                 </List>
                 <List>
                   <ListItem key="about" disablePadding>
@@ -273,23 +347,27 @@ export default function CompNavLanding() {
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                        <g clip-path="url(#clip0_453_10035)">
+                        <g clipPath="url(#clip0_453_10035)">
                           <path
                             d="M12 4.5V12"
                             stroke="black"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                           />
                           <path
                             d="M16.5 5.25C18.7575 6.72187 20.25 9.10406 20.25 12C20.25 14.188 19.3808 16.2865 17.8336 17.8336C16.2865 19.3808 14.188 20.25 12 20.25C9.81196 20.25 7.71354 19.3808 6.16637 17.8336C4.61919 16.2865 3.75 14.188 3.75 12C3.75 9.10406 5.2425 6.72187 7.5 5.25"
                             stroke="black"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                           />
                         </g>
                         <defs>
                           <clipPath id="clip0_453_10035">
-                            <rect width="24" height="24" fill="white" />
+                            <rect
+                              width="24"
+                              height="24"
+                              fill="white"
+                            />
                           </clipPath>
                         </defs>
                       </svg>
@@ -298,10 +376,9 @@ export default function CompNavLanding() {
                         variant="primary"
                         sx={{ fontWeight: 400 }}
                         onClick={() => {
-                          Cookies.remove("token")
-                          Cookies.remove("id")
-                          navigate("/landing")
-
+                          Cookies.remove('token');
+                          Cookies.remove('id');
+                          navigate('/landing');
                         }}
                       >
                         Cerrar sesión
@@ -315,8 +392,8 @@ export default function CompNavLanding() {
           {!mobile && (
             <Stack
               direction="row"
-              justifyContent={"flex-start"}
-              alignItems={"center"}
+              justifyContent={'flex-start'}
+              alignItems={'center'}
             >
               <Typography
                 variant="h6"
@@ -324,64 +401,88 @@ export default function CompNavLanding() {
                 sx={{
                   flexGrow: 1,
                   marginRight: 2,
-                  cursor: "pointer",
-                  gap: "50px",
-                  display: { xs: "none", sm: "block" },
+                  cursor: 'pointer',
+                  gap: '50px',
+                  display: { xs: 'none', sm: 'block' },
                 }}
                 onClick={() => {
-
-                  if (user.role == "admin") {
-                    navigate("/administrador/panel");
-                  } else if (user.role == "driver") {
-                    navigate("/marketplace");
+                  if (user.role == 'admin') {
+                    navigate('/administrador/panel');
+                  } else if (user.role == 'driver') {
+                    navigate('/marketplace');
                   } else {
-                    if (location.pathname == "/landing") {
-                      navigate("/landing")
+                    if (location.pathname == '/landing') {
+                      navigate('/landing');
                     } else {
-                      navigate("/shipments")
+                      navigate('/shipments');
                     }
                   }
                 }}
               >
-                <img src="/imgLanding/LogoCargaStore.svg" style={{ marginRight: "40px" }} />
+                <img
+                  src="/imgLanding/LogoCargaStore.svg"
+                  style={{ marginRight: '40px' }}
+                />
               </Typography>
-              {!mobile && location.pathname != "/landing" && (
+              {!mobile && location.pathname != '/landing' && (
                 <>
-                  {user.role !== "customer"
-                    &&
-                    <Typography marginRight={"40px"}
-                      fontSize={"16px"}
-                      sx={{ cursor: "pointer" }}
-                      onClick={() => navigate(user.role == "admin" ? "/administrador/panel" : "/marketplace")}
+                  {user.role !== 'customer' && (
+                    <Typography
+                      marginRight={'40px'}
+                      fontSize={'16px'}
+                      sx={{ cursor: 'pointer' }}
+                      onClick={() =>
+                        navigate(
+                          user.role == 'admin'
+                            ? '/administrador/panel'
+                            : '/marketplace'
+                        )
+                      }
                       cursor="pointer"
                       color={
-                        (user.role == "admin" && location.pathname.startsWith("/administrador/panel")) ||
-                          (user.role == "driver" && location.pathname == "/marketplace")
-                          ? "primary"
-                          : "secondary"
+                        (user.role == 'admin' &&
+                          location.pathname.startsWith(
+                            '/administrador/panel'
+                          )) ||
+                        (user.role == 'driver' &&
+                          location.pathname == '/marketplace')
+                          ? 'primary'
+                          : 'secondary'
                       }
                     >
-                      {user.role == "admin" ? "Panel de control" : "Marketplace"}
+                      {user.role == 'admin'
+                        ? 'Panel de control'
+                        : 'Marketplace'}
                     </Typography>
-                  }
-                  <Typography mr={"30px"}
-                    fontSize={"16px"}
-                    sx={{ cursor: "pointer" }}
-                    onClick={() => navigate(user.role == "admin" ? "/payment" : "/shipments")}
+                  )}
+                  <Typography
+                    mr={'30px'}
+                    fontSize={'16px'}
+                    sx={{ cursor: 'pointer' }}
+                    onClick={() =>
+                      navigate(
+                        user.role == 'admin'
+                          ? '/payment'
+                          : '/shipments'
+                      )
+                    }
                     color={
-                      (user.role == "admin" && location.pathname.startsWith("/payment")) ||
-                        ((user.role == "driver" || user.role == "customer") && location.pathname.startsWith("/shipments"))
-                        ? "primary"
-                        : "secondary"
+                      (user.role == 'admin' &&
+                        location.pathname.startsWith('/payment')) ||
+                      ((user.role == 'driver' ||
+                        user.role == 'customer') &&
+                        location.pathname.startsWith('/shipments'))
+                        ? 'primary'
+                        : 'secondary'
                     }
                   >
-                    {user.role == "admin" ? "Pagos" : "Mis envios"}
+                    {user.role == 'admin' ? 'Pagos' : 'Mis envios'}
                   </Typography>
                 </>
               )}
             </Stack>
           )}
-          {!mobile && location.pathname == "/landing" && (
+          {!mobile && location.pathname == '/landing' && (
             <Stack spacing={mobile ? 1 : 2} direction="row">
               <Button
                 onClick={onClickLogin}
@@ -390,7 +491,9 @@ export default function CompNavLanding() {
                   color: mobile
                     ? Colors.primary.contrastText
                     : Colors.primary.main,
-                  borderColor: mobile ? "inherit" : Colors.primary.main,
+                  borderColor: mobile
+                    ? 'inherit'
+                    : Colors.primary.main,
                 }}
               >
                 Inicia sesión
@@ -408,7 +511,7 @@ export default function CompNavLanding() {
             </Stack>
           )}
 
-          {location.pathname != "/landing" && (
+          {location.pathname != '/landing' && (
             <Box
               display="flex"
               justifyContent="center"
@@ -416,7 +519,11 @@ export default function CompNavLanding() {
               alignSelf="flex-end"
               sx={{ flexGrow: 0 }}
             >
-              <Tooltip onClick={() => onClickChat()} title="Chat" sx={{ pr: 2 }}>
+              <Tooltip
+                onClick={() => onClickChat()}
+                title="Chat"
+                sx={{ pr: 2 }}
+              >
                 <svg
                   width="29"
                   height="29"
@@ -425,25 +532,29 @@ export default function CompNavLanding() {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
                     d="M21.1011 2.86825C19.721 2.71873 17.9815 2.71874 15.7624 2.71875H13.2363C11.0172 2.71874 9.27767 2.71873 7.89759 2.86825C6.48923 3.02084 5.34811 3.33781 4.3738 4.04568C3.78396 4.47423 3.26524 4.99294 2.8367 5.58278C2.64133 5.85168 2.47403 6.13569 2.33128 6.43796C1.89412 7.36363 1.69912 8.43703 1.60409 9.71703C1.50976 10.9877 1.50976 12.5452 1.50977 14.4656V14.5547C1.50976 16.7738 1.50975 18.5133 1.65927 19.8934C1.81186 21.3018 2.12882 22.4429 2.8367 23.4172C3.26524 24.0071 3.78396 24.5258 4.3738 24.9543C5.34811 25.6622 6.48923 25.9792 7.89759 26.1317C9.27765 26.2813 11.0171 26.2813 13.2362 26.2812H15.7624C17.9815 26.2813 19.7211 26.2813 21.1011 26.1317C22.5095 25.9792 23.6506 25.6622 24.6249 24.9543C25.2147 24.5258 25.7335 24.0071 26.162 23.4172C26.8699 22.4429 27.1868 21.3018 27.3394 19.8934C27.4889 18.5134 27.4889 16.7739 27.4889 14.5548V14.4648C27.4889 12.5313 27.4889 10.9655 27.3926 9.68968C27.2954 8.40403 27.096 7.32708 26.6487 6.39868C26.51 6.11095 26.3488 5.83992 26.162 5.58278C25.7335 4.99294 25.2147 4.47423 24.6249 4.04568C23.6506 3.33781 22.5095 3.02084 21.1011 2.86825ZM5.43916 5.51203C6.053 5.06605 6.83868 4.80609 8.09282 4.67021C9.36392 4.53249 11.0054 4.53125 13.291 4.53125H15.7077C17.9933 4.53125 19.6348 4.53249 20.9059 4.67021C22.16 4.80609 22.9457 5.06605 23.5595 5.51203C23.9953 5.82863 24.3785 6.21181 24.6952 6.64752L22.4027 8.93998C20.3707 10.972 18.9098 12.4302 17.6498 13.3916C16.4106 14.337 15.4728 14.7162 14.4993 14.7162C13.5259 14.7162 12.5881 14.337 11.3489 13.3916C10.0889 12.4302 8.62796 10.972 6.59596 8.93998L4.3035 6.64752C4.62016 6.21181 5.0034 5.82863 5.43916 5.51203ZM25.4194 8.48658C25.4924 8.87352 25.5466 9.31493 25.5852 9.82622C25.6758 11.026 25.6764 12.5242 25.6764 14.5C25.6764 16.7857 25.6752 18.4271 25.5375 19.6982C25.4016 20.9523 25.1416 21.738 24.6957 22.3519C24.3789 22.7878 23.9955 23.1712 23.5595 23.488C22.9457 23.934 22.16 24.1939 20.9059 24.3298C19.6348 24.4675 17.9933 24.4688 15.7077 24.4688H13.291C11.0054 24.4688 9.36392 24.4675 8.09282 24.3298C6.83868 24.1939 6.053 23.934 5.43916 23.488C5.00319 23.1712 4.61979 22.7878 4.30304 22.3519C3.85706 21.738 3.5971 20.9523 3.46123 19.6982C3.32351 18.4271 3.32227 16.7857 3.32227 14.5C3.32227 12.5382 3.32283 11.0471 3.41162 9.85123C3.45036 9.32935 3.5051 8.87987 3.57929 8.48658L5.36335 10.2706C7.33568 12.243 8.88135 13.7887 10.2495 14.8325C11.6499 15.901 12.9703 16.5287 14.4993 16.5287C16.0284 16.5287 17.3488 15.901 18.7492 14.8325C20.1173 13.7887 21.663 12.243 23.6353 10.2707L25.4194 8.48658Z"
                     fill="#007C52"
                   />
                 </svg>
               </Tooltip>
-              <Tooltip title="Notificaciones" onClick={() => onClickNotificaciones()} sx={{ pr: 1 }}>
+              <Tooltip
+                title="Notificaciones"
+                onClick={() => onClickNotificaciones()}
+                sx={{ pr: 1 }}
+              >
                 <svg
                   width="29"
                   height="29"
-                  style={{ marginLeft: "10px" }}
+                  style={{ marginLeft: '10px' }}
                   viewBox="0 0 29 29"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
                     d="M13.4131 1.5105C9.31016 1.5105 6.13565 5.10653 6.64456 9.17781L6.74045 9.94492C6.88076 11.0674 6.47074 12.1886 5.63939 12.9558C3.91669 14.5454 3.43808 17.0756 4.46112 19.1847L4.586 19.4422C5.53958 21.408 7.53248 22.6563 9.71743 22.6563H19.6509C21.5356 22.6563 23.2896 21.6935 24.3015 20.1035C25.7299 17.8591 25.3516 14.9148 23.4022 13.1044L23.3492 13.0552C22.4568 12.2264 22.0174 11.019 22.1685 9.81055L22.2466 9.18593C22.756 5.11034 19.5781 1.5105 15.4708 1.5105H13.4131ZM8.44306 8.953C8.06938 5.96351 10.4004 3.323 13.4131 3.323H15.4708C18.4879 3.323 20.8223 5.96732 20.448 8.96111L20.37 9.58574C20.1466 11.3726 20.7963 13.1579 22.1158 14.3833L22.1688 14.4325C23.4773 15.6477 23.7312 17.6239 22.7724 19.1304C22.0932 20.1976 20.9159 20.8438 19.6509 20.8438H9.71743C8.22686 20.8438 6.8673 19.9922 6.21677 18.6511L6.09189 18.3937C5.41754 17.0035 5.73303 15.3356 6.86857 14.2878C8.12978 13.124 8.75181 11.423 8.53895 9.72011L8.44306 8.953Z"
                     fill="#007C52"
                   />
@@ -455,22 +566,25 @@ export default function CompNavLanding() {
               </Tooltip>
 
               <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ pr: 1 }}>
+                <IconButton
+                  onClick={handleOpenUserMenu}
+                  sx={{ pr: 1 }}
+                >
                   <Avatar alt="Remy Sharp" src="perfil.webp" />
                 </IconButton>
               </Tooltip>
               <Menu
-                sx={{ mt: "45px" }}
+                sx={{ mt: '45px' }}
                 id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
+                  vertical: 'top',
+                  horizontal: 'right',
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
+                  vertical: 'top',
+                  horizontal: 'right',
                 }}
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
@@ -478,7 +592,13 @@ export default function CompNavLanding() {
                 <MenuItem key={453} onClick={handleCloseUserMenu}>
                   <Typography
                     textAlign="center"
-                    onClick={() => navigate(user.role == "admin" ? "/administrador/perfil" : "/perfil")}
+                    onClick={() =>
+                      navigate(
+                        user.role == 'admin'
+                          ? '/administrador/perfil'
+                          : '/perfil'
+                      )
+                    }
                   >
                     Ajustes del perfil
                   </Typography>
@@ -487,9 +607,9 @@ export default function CompNavLanding() {
                   <Typography
                     textAlign="center"
                     onClick={() => {
-                      Cookies.remove("token")
-                      Cookies.remove("id")
-                      navigate("/landing")
+                      Cookies.remove('token');
+                      Cookies.remove('id');
+                      navigate('/landing');
                     }}
                   >
                     Cerrar sesión
@@ -499,228 +619,558 @@ export default function CompNavLanding() {
             </Box>
           )}
         </Toolbar>
-        {
-          chat &&
-          <Box position="fixed" bottom={0} right={0} width="400px" height={"580px"}
+        {chat && (
+          <Box
+            position="fixed"
+            bottom={0}
+            right={0}
+            width="400px"
+            height={'580px'}
             sx={{
-              background: "#fff",
-              boxShadow: " 45px 9px 34px 0px #0000001A",
-              display: "flex",
-              flexDirection: "column",
-              borderRadius: "10px 10px 0px 0px"
-            }}>
-            <Stack direction="row" borderRadius={"10px 10px 0px 0px"} justifyContent="space-between" bgcolor={Colors.terciary.contrastText} alignItems={"center"} p={2}>
-              <Stack direction="row" alignItems={"center"}>
-                {
-                  chatear &&
-                  <Avatar width="40px" src="imagen" height="40px" ></Avatar>
-
-                }
-                <Typography ml={1} color={"#000"} fontSize={"16px"}>{chatear ? "José Luis" : "Chats"}</Typography>
-
+              background: '#fff',
+              boxShadow: ' 45px 9px 34px 0px #0000001A',
+              display: 'flex',
+              flexDirection: 'column',
+              borderRadius: '10px 10px 0px 0px',
+            }}
+          >
+            <Stack
+              direction="row"
+              borderRadius={'10px 10px 0px 0px'}
+              justifyContent="space-between"
+              bgcolor={Colors.terciary.contrastText}
+              alignItems={'center'}
+              p={2}
+            >
+              <Stack direction="row" alignItems={'center'}>
+                {chatear && (
+                  <Avatar
+                    width="40px"
+                    src="imagen"
+                    height="40px"
+                  ></Avatar>
+                )}
+                <Typography ml={1} color={'#000'} fontSize={'16px'}>
+                  {chatear ? 'José Luis' : 'Chats'}
+                </Typography>
               </Stack>
-              <svg style={{ cursor: "pointer" }} onClick={() => setChat(false)} width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="0.5" width="40" height="40" rx="20" fill="#DDF4EC" />
-                <path d="M26.5 14L14.5 26" stroke="#007C52" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M14.5 14L26.5 26" stroke="#007C52" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <svg
+                style={{ cursor: 'pointer' }}
+                onClick={() => setChat(false)}
+                width="41"
+                height="40"
+                viewBox="0 0 41 40"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="0.5"
+                  width="40"
+                  height="40"
+                  rx="20"
+                  fill="#DDF4EC"
+                />
+                <path
+                  d="M26.5 14L14.5 26"
+                  stroke="#007C52"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M14.5 14L26.5 26"
+                  stroke="#007C52"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </Stack>
             <Stack direction="column">
-              {!chatear ?
+              {!chatear ? (
                 <>
-                  <Stack direction={"row"} p={2} sx={{ cursor: "pointer" }} onClick={() => setChatear(true)}>
-                    <Avatar width="40px" src="imagen" height="40px" ></Avatar>
+                  <Stack
+                    direction={'row'}
+                    p={2}
+                    sx={{ cursor: 'pointer' }}
+                    onClick={() => setChatear(true)}
+                  >
+                    <Avatar
+                      width="40px"
+                      src="imagen"
+                      height="40px"
+                    ></Avatar>
                     <Stack direction="column" ml={0.5}>
-                      <Typography fontSize={"12px"} color="#000">José Luis</Typography>
+                      <Typography fontSize={'12px'} color="#000">
+                        José Luis
+                      </Typography>
 
-                      <Grid container xs={12} minWidth={"300px"}>
+                      <Grid container xs={12} minWidth={'300px'}>
                         <Grid item xs={8}>
                           <Typography
-                            fontSize={"12px"}
+                            fontSize={'12px'}
                             fontWeight={600}
-                            color="#000" sx={{
+                            color="#000"
+                            sx={{
                               overflow: 'hidden',
                               textOverflow: 'ellipsis',
                               whiteSpace: 'nowrap',
                               maxWidth: '100%',
-                            }}>Hola,estoy afuera, abrime por favor asi descargamos </Typography>
-
+                            }}
+                          >
+                            Hola,estoy afuera, abrime por favor asi
+                            descargamos{' '}
+                          </Typography>
                         </Grid>
                         <Grid item xs={4}>
-                          <Typography fontSize={"12px"} color={"#8C94A6"}>Hace 1 hora</Typography>
-
+                          <Typography
+                            fontSize={'12px'}
+                            color={'#8C94A6'}
+                          >
+                            Hace 1 hora
+                          </Typography>
                         </Grid>
-
                       </Grid>
                     </Stack>
                   </Stack>
 
-
-                  <Stack direction={"row"} p={2} sx={{ cursor: "pointer" }} onClick={() => setChatear(true)} >
-                    <Avatar width="40px" src="imagen" height="40px" ></Avatar>
+                  <Stack
+                    direction={'row'}
+                    p={2}
+                    sx={{ cursor: 'pointer' }}
+                    onClick={() => setChatear(true)}
+                  >
+                    <Avatar
+                      width="40px"
+                      src="imagen"
+                      height="40px"
+                    ></Avatar>
                     <Stack direction="column" ml={0.5}>
-                      <Typography fontSize={"12px"} color="#000">Ana Luz</Typography>
+                      <Typography fontSize={'12px'} color="#000">
+                        Ana Luz
+                      </Typography>
 
-                      <Grid container xs={12} minWidth={"300px"}>
+                      <Grid container xs={12} minWidth={'300px'}>
                         <Grid item xs={8}>
-                          <Typography fontSize={"12px"} fontWeight={400} color="#000" sx={{
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap',
-                            maxWidth: '100%',
-                          }}>Ya enviamos el pedido! </Typography>
-
+                          <Typography
+                            fontSize={'12px'}
+                            fontWeight={400}
+                            color="#000"
+                            sx={{
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              whiteSpace: 'nowrap',
+                              maxWidth: '100%',
+                            }}
+                          >
+                            Ya enviamos el pedido!{' '}
+                          </Typography>
                         </Grid>
                         <Grid item xs={4}>
-                          <Typography fontSize={"12px"} color={"#8C94A6"}>Hace 2 hora</Typography>
-
+                          <Typography
+                            fontSize={'12px'}
+                            color={'#8C94A6'}
+                          >
+                            Hace 2 hora
+                          </Typography>
                         </Grid>
-
                       </Grid>
                     </Stack>
                   </Stack>
                 </>
-                :
+              ) : (
                 <>
                   {/*Nuestro mensaje */}
-
-                  <Stack direction="column" alignItems={"flex-end"} p={2}>
-                    <Box style={{ backgroundColor: Colors.primary.main, width: "230px", borderRadius: "10px 0px 10px 10px", padding: "10px 15px 10px 15px" }}>
-                      <Typography fontSize={"16px"} fontWeight={400}>Hola! El paquete salió a hora?</Typography>
-
+                  <Stack
+                    direction="column"
+                    alignItems={'flex-end'}
+                    p={2}
+                  >
+                    <Box
+                      style={{
+                        backgroundColor: Colors.primary.main,
+                        width: '230px',
+                        borderRadius: '10px 0px 10px 10px',
+                        padding: '10px 15px 10px 15px',
+                      }}
+                    >
+                      <Typography fontSize={'16px'} fontWeight={400}>
+                        Hola! El paquete salió a hora?
+                      </Typography>
                     </Box>
-                    <Typography fontSize={"14px"} fontWeight={400} width="230px" color={"#0D082C66"}>08:15 AM</Typography>
-
-
+                    <Typography
+                      fontSize={'14px'}
+                      fontWeight={400}
+                      width="230px"
+                      color={'#0D082C66'}
+                    >
+                      08:15 AM
+                    </Typography>
                   </Stack>
                   {/*Respuesta */}
                   <Grid container p={2}>
-
                     <Grid item xs={2}>
                       <Avatar alignSelf="flex-end"></Avatar>
                     </Grid>
                     <Grid item xs={10}>
-                      <Stack direction="column" alignItems={"flex-start"} >
-                        <Typography fontSize="16px" color="#000" >José Luis</Typography>
-                        <Box style={{ backgroundColor: "#F1F7FF", width: "230px", borderRadius: "0px 10px 10px 10px", padding: "10px 15px 10px 15px" }}>
-                          <Typography fontSize={"16px"} color={"#000"} fontWeight={400}>Hola, Mariana, el paquete salió a horario y se entregará en horario.</Typography>
-
+                      <Stack
+                        direction="column"
+                        alignItems={'flex-start'}
+                      >
+                        <Typography fontSize="16px" color="#000">
+                          José Luis
+                        </Typography>
+                        <Box
+                          style={{
+                            backgroundColor: '#F1F7FF',
+                            width: '230px',
+                            borderRadius: '0px 10px 10px 10px',
+                            padding: '10px 15px 10px 15px',
+                          }}
+                        >
+                          <Typography
+                            fontSize={'16px'}
+                            color={'#000'}
+                            fontWeight={400}
+                          >
+                            Hola, Mariana, el paquete salió a horario
+                            y se entregará en horario.
+                          </Typography>
                         </Box>
-                        <Typography fontSize={"14px"} fontWeight={400} width="230px" textAlign="end" color={"#0D082C66"}>08:18 AM</Typography>
-
-
+                        <Typography
+                          fontSize={'14px'}
+                          fontWeight={400}
+                          width="230px"
+                          textAlign="end"
+                          color={'#0D082C66'}
+                        >
+                          08:18 AM
+                        </Typography>
                       </Stack>
                     </Grid>
-
                   </Grid>
-
                   /*Cuando alguien está escribiendo */
                   <Grid container p={2}>
-
                     <Grid item xs={2}>
                       <Avatar alignSelf="flex-end"></Avatar>
                     </Grid>
                     <Grid item xs={10}>
-                      <Stack direction="column" alignItems={"flex-start"} >
-                        <Typography fontSize="16px" color="#000" >José Luis</Typography>
-                        <Stack direction="row" justifyContent={"space-around"} p="10px 15px 10px 15px" borderRadius="0px 10px 10px 10px" width="91px" height="35px" bgcolor={"#F1F7FF"}>
-                          <svg width="16" className="worm" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="8" cy="7.5" r="7.5" fill="#C7DFFF" />
+                      <Stack
+                        direction="column"
+                        alignItems={'flex-start'}
+                      >
+                        <Typography fontSize="16px" color="#000">
+                          José Luis
+                        </Typography>
+                        <Stack
+                          direction="row"
+                          justifyContent={'space-around'}
+                          p="10px 15px 10px 15px"
+                          borderRadius="0px 10px 10px 10px"
+                          width="91px"
+                          height="35px"
+                          bgcolor={'#F1F7FF'}
+                        >
+                          <svg
+                            width="16"
+                            className="worm"
+                            height="15"
+                            viewBox="0 0 16 15"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <circle
+                              cx="8"
+                              cy="7.5"
+                              r="7.5"
+                              fill="#C7DFFF"
+                            />
                           </svg>
-                          <svg width="16" className="worm worm-delay2" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="8" cy="7.5" r="7.5" fill="#C7DFFF" />
+                          <svg
+                            width="16"
+                            className="worm worm-delay2"
+                            height="15"
+                            viewBox="0 0 16 15"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <circle
+                              cx="8"
+                              cy="7.5"
+                              r="7.5"
+                              fill="#C7DFFF"
+                            />
                           </svg>
-                          <svg width="16" className="worm worm-delay3" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="8" cy="7.5" r="7.5" fill="#C7DFFF" />
+                          <svg
+                            width="16"
+                            className="worm worm-delay3"
+                            height="15"
+                            viewBox="0 0 16 15"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <circle
+                              cx="8"
+                              cy="7.5"
+                              r="7.5"
+                              fill="#C7DFFF"
+                            />
                           </svg>
-
                         </Stack>
-
-
                       </Stack>
                     </Grid>
-
                   </Grid>
                   {/*Escribir */}
-                  <Stack direction="row" position="absolute" bottom={0} left={0} justifyContent={"space-between"} width="400px" height="60px" pb={2} px={2}>
-                    <Stack direction="row" alignItems={"center"}>
-                      <svg width="25" style={{ cursor: "pointer" }} height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12.5 22C18.0228 22 22.5 17.5228 22.5 12C22.5 6.47715 18.0228 2 12.5 2C6.97715 2 2.5 6.47715 2.5 12C2.5 17.5228 6.97715 22 12.5 22Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M8.5 14C8.5 14 10 16 12.5 16C15 16 16.5 14 16.5 14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M9.5 9H9.51" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M15.5 9H15.51" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  <Stack
+                    direction="row"
+                    position="absolute"
+                    bottom={0}
+                    left={0}
+                    justifyContent={'space-between'}
+                    width="400px"
+                    height="60px"
+                    pb={2}
+                    px={2}
+                  >
+                    <Stack direction="row" alignItems={'center'}>
+                      <svg
+                        width="25"
+                        style={{ cursor: 'pointer' }}
+                        height="24"
+                        viewBox="0 0 25 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M12.5 22C18.0228 22 22.5 17.5228 22.5 12C22.5 6.47715 18.0228 2 12.5 2C6.97715 2 2.5 6.47715 2.5 12C2.5 17.5228 6.97715 22 12.5 22Z"
+                          stroke="black"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          d="M8.5 14C8.5 14 10 16 12.5 16C15 16 16.5 14 16.5 14"
+                          stroke="black"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          d="M9.5 9H9.51"
+                          stroke="black"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          d="M15.5 9H15.51"
+                          stroke="black"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
                       </svg>
-                      <Input placeholder="Responder" style={{ marginLeft: "5px", border: "none", color: "#0D082C", fontSize: "16px" }}></Input>
+                      <Input
+                        placeholder="Responder"
+                        style={{
+                          marginLeft: '5px',
+                          border: 'none',
+                          color: '#0D082C',
+                          fontSize: '16px',
+                        }}
+                      ></Input>
                     </Stack>
                     <Stack direction="row" alignItems="center">
-                      <svg style={{ cursor: "pointer" }} width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <svg
+                        style={{ cursor: 'pointer' }}
+                        width="25"
+                        height="24"
+                        viewBox="0 0 25 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
                         <svg opacity="0.4">
-                          <path d="M19.5 3H5.5C4.39543 3 3.5 3.89543 3.5 5V19C3.5 20.1046 4.39543 21 5.5 21H19.5C20.6046 21 21.5 20.1046 21.5 19V5C21.5 3.89543 20.6046 3 19.5 3Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                          <path d="M9.5 11C10.6046 11 11.5 10.1046 11.5 9C11.5 7.89543 10.6046 7 9.5 7C8.39543 7 7.5 7.89543 7.5 9C7.5 10.1046 8.39543 11 9.5 11Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                          <path d="M21.5 15.0002L18.414 11.9142C18.0389 11.5392 17.5303 11.3286 17 11.3286C16.4697 11.3286 15.9611 11.5392 15.586 11.9142L6.5 21.0002" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                          <path
+                            d="M19.5 3H5.5C4.39543 3 3.5 3.89543 3.5 5V19C3.5 20.1046 4.39543 21 5.5 21H19.5C20.6046 21 21.5 20.1046 21.5 19V5C21.5 3.89543 20.6046 3 19.5 3Z"
+                            stroke="black"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M9.5 11C10.6046 11 11.5 10.1046 11.5 9C11.5 7.89543 10.6046 7 9.5 7C8.39543 7 7.5 7.89543 7.5 9C7.5 10.1046 8.39543 11 9.5 11Z"
+                            stroke="black"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M21.5 15.0002L18.414 11.9142C18.0389 11.5392 17.5303 11.3286 17 11.3286C16.4697 11.3286 15.9611 11.5392 15.586 11.9142L6.5 21.0002"
+                            stroke="black"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
                         </svg>
                       </svg>
-                      <Stack ml={1} direction="column" justifyContent={"center"} alignItems="center" width="40px" height="40px" borderRadius="100px" sx={{ background: Colors.primary.main, cursor: "pointer" }}>
-                        <svg style={{ cursor: "pointer" }} width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M9.5 18L15.5 12L9.5 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      <Stack
+                        ml={1}
+                        direction="column"
+                        justifyContent={'center'}
+                        alignItems="center"
+                        width="40px"
+                        height="40px"
+                        borderRadius="100px"
+                        sx={{
+                          background: Colors.primary.main,
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <svg
+                          style={{ cursor: 'pointer' }}
+                          width="25"
+                          height="24"
+                          viewBox="0 0 25 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M9.5 18L15.5 12L9.5 6"
+                            stroke="white"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
                         </svg>
                       </Stack>
                     </Stack>
                   </Stack>
                 </>
-              }
-
+              )}
             </Stack>
-
           </Box>
-        }
+        )}
         {/*fin del componente chat */}
-        {
-          notificaciones &&
-          <Box position={"fixed"} top={67} right={85} width="400px" px={4} py={3} maxWidth={"400px"} height="600px" style={{ background: "white", border: "1 solid black", boxShadow: "#007C521A 0 30px 60px 0", borderRadius: "10px", }}>
-            <Stack direction={"column"} justifyContent={"center"} alignItems={"center"} spacing={0}>
-              <Grid container alignItems={"center"} spacing={1} >
+        {notificaciones && (
+          <Box
+            position={'fixed'}
+            top={67}
+            right={85}
+            width="400px"
+            px={4}
+            py={3}
+            maxWidth={'400px'}
+            height="600px"
+            style={{
+              background: 'white',
+              border: '1 solid black',
+              boxShadow: '#007C521A 0 30px 60px 0',
+              borderRadius: '10px',
+            }}
+          >
+            <Stack
+              direction={'column'}
+              justifyContent={'center'}
+              alignItems={'center'}
+              spacing={0}
+            >
+              <Grid container alignItems={'center'} spacing={1}>
                 <Grid item xs={1}>
-                  <Stack direction="row" justifyContent={"flex-end"}>
-                    <Avatar width="60px" height="60px" style={{ alignSelf: "flex-end" }}></Avatar>
+                  <Stack direction="row" justifyContent={'flex-end'}>
+                    <Avatar
+                      width="60px"
+                      height="60px"
+                      style={{ alignSelf: 'flex-end' }}
+                    ></Avatar>
                   </Stack>
-
                 </Grid>
                 <Grid item xs={11}>
-                  <Stack direction="column" alignItems={"flex-start"}>
-                    <p style={{ fontSize: "16px", fontWeight: 400, color: "black", textAlign: "start" }}><span style={{ fontWeight: 500 }}> José Luis</span> ha retirado el paquete.</p>
+                  <Stack direction="column" alignItems={'flex-start'}>
+                    <p
+                      style={{
+                        fontSize: '16px',
+                        fontWeight: 400,
+                        color: 'black',
+                        textAlign: 'start',
+                      }}
+                    >
+                      <span style={{ fontWeight: 500 }}>
+                        {' '}
+                        José Luis
+                      </span>{' '}
+                      ha retirado el paquete.
+                    </p>
                   </Stack>
                 </Grid>
-                <Grid item xs={12} style={{ padding: "0px" }}>
-                  <Stack direction="row" justifyContent={"flex-end"} alignItems={"flex-start"}  >
-                    <p style={{ alignSelf: "flex-end", color: "#8C94A6", fontWeight: 400 }}>Hace 1 hora</p>
+                <Grid item xs={12} style={{ padding: '0px' }}>
+                  <Stack
+                    direction="row"
+                    justifyContent={'flex-end'}
+                    alignItems={'flex-start'}
+                  >
+                    <p
+                      style={{
+                        alignSelf: 'flex-end',
+                        color: '#8C94A6',
+                        fontWeight: 400,
+                      }}
+                    >
+                      Hace 1 hora
+                    </p>
                   </Stack>
                 </Grid>
               </Grid>
 
-              <Grid container alignItems={"center"} spacing={1}>
+              <Grid container alignItems={'center'} spacing={1}>
                 <Grid item xs={1}>
-                  <Stack direction="row" justifyContent={"flex-end"}>
-                    <Avatar width="60px" height="60px" style={{ alignSelf: "flex-end" }}></Avatar>
+                  <Stack direction="row" justifyContent={'flex-end'}>
+                    <Avatar
+                      width="60px"
+                      height="60px"
+                      style={{ alignSelf: 'flex-end' }}
+                    ></Avatar>
                   </Stack>
-
                 </Grid>
                 <Grid item xs={11}>
-                  <Stack direction="column" justifyContent="center" >
-                    <p style={{ fontSize: "16px", fontWeight: 400, color: "black", textAlign: "start" }}>Tu conductor asignado es <span style={{ fontWeight: 500 }}> José Luis.</span></p>
+                  <Stack direction="column" justifyContent="center">
+                    <p
+                      style={{
+                        fontSize: '16px',
+                        fontWeight: 400,
+                        color: 'black',
+                        textAlign: 'start',
+                      }}
+                    >
+                      Tu conductor asignado es{' '}
+                      <span style={{ fontWeight: 500 }}>
+                        {' '}
+                        José Luis.
+                      </span>
+                    </p>
                   </Stack>
                 </Grid>
-                <Grid item xs={12} p={0} style={{ padding: "0px" }}>
-                  <Stack direction="row" justifyContent={"flex-end"} alignItems={"flex-start"} sx={{ padding: "0px" }} >
-                    <p style={{ alignSelf: "flex-end", color: "#8C94A6", fontWeight: 400 }}>Hace 3 horas</p>
+                <Grid item xs={12} p={0} style={{ padding: '0px' }}>
+                  <Stack
+                    direction="row"
+                    justifyContent={'flex-end'}
+                    alignItems={'flex-start'}
+                    sx={{ padding: '0px' }}
+                  >
+                    <p
+                      style={{
+                        alignSelf: 'flex-end',
+                        color: '#8C94A6',
+                        fontWeight: 400,
+                      }}
+                    >
+                      Hace 3 horas
+                    </p>
                   </Stack>
                 </Grid>
               </Grid>
             </Stack>
-
           </Box>
-        }
-
+        )}
       </AppBar>
     );
   }
