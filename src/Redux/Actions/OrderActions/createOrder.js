@@ -30,7 +30,8 @@ export const createOrder = (
     image2,
     image3,
     image4,
-  }
+  },
+  navigate
 ) => {
   console.log('data: ', {
     product_name, //string
@@ -93,6 +94,7 @@ export const createOrder = (
         type: CREATE_ORDER_SUCCESS,
         payload: response.data,
       });
+      navigate('/shipments');
     } catch (error) {
       dispatch({ type: CREATE_ORDER_FAILURE, error: error.message });
     }

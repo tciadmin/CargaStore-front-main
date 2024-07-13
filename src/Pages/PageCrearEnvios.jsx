@@ -28,6 +28,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es'; // Importar configuración de idioma español
 import { TimeField } from '@mui/x-date-pickers';
+import Cookies from 'js-cookie';
 
 dayjs.locale('es'); // Establecer el idioma globalmente para dayjs
 
@@ -195,28 +196,32 @@ const PageCrearEnvios = () => {
         image4,
       } = data;
       dispatch(
-        createOrder('d3f44b64-39e2-4f46-a5a3-7ad1e0f7d713', {
-          product_name, //string
-          quantity, //integer
-          type, // 'Seca' | 'Peligrosa' | 'Refrigerada'
-          weight, //float
-          volume, //integer
-          offered_price, //integer
-          orderType, //'national' | 'international'
-          receiving_company, //string
-          contact_number, //integer
-          receiving_company_RUC, //integer
-          pick_up_date, //date
-          pick_up_time, //string
-          pick_up_address, //string
-          delivery_date, //date
-          delivery_time, //string
-          delivery_address, //string
-          image1,
-          image2,
-          image3,
-          image4,
-        })
+        createOrder(
+          Cookies.get('customerId'),
+          {
+            product_name, //string
+            quantity, //integer
+            type, // 'Seca' | 'Peligrosa' | 'Refrigerada'
+            weight, //float
+            volume, //integer
+            offered_price, //integer
+            orderType, //'national' | 'international'
+            receiving_company, //string
+            contact_number, //integer
+            receiving_company_RUC, //integer
+            pick_up_date, //date
+            pick_up_time, //string
+            pick_up_address, //string
+            delivery_date, //date
+            delivery_time, //string
+            delivery_address, //string
+            image1,
+            image2,
+            image3,
+            image4,
+          },
+          navigate
+        )
       );
     }
   };
@@ -575,9 +580,10 @@ const PageCrearEnvios = () => {
                 >
                   <OutlinedInput
                     {...register('quantity', {
-                      required: {
-                        value: true,
-                        message: 'Este campo es requerido',
+                      required: 'Este campo es requerido',
+                      pattern: {
+                        value: /^\d+$/,
+                        message: 'Ingrese solo números',
                       },
                     })}
                     style={{
@@ -753,7 +759,8 @@ const PageCrearEnvios = () => {
                     {...register('offered_price', {
                       required: 'Este campo es requerido',
                       pattern: {
-                        value: /^[0-9]*[.,]?[0-9]+$/,
+                        value:
+                          /^(\d{1,3}(\.\d{3})*|(\d+))([.,]\d{1,2})?$/,
                         message: 'Ingrese un precio válido',
                       },
                       min: {

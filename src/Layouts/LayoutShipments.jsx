@@ -1,20 +1,20 @@
-import * as React from "react";
-import { Outlet, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import CompNavLanding from "../Components/NavLanding/CompNavLanding";
+import * as React from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import CompNavLanding from '../Components/NavLanding/CompNavLanding';
 //? --------------------------------------------- MUI
-import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import { Button, ButtonGroup, useMediaQuery } from "@mui/material";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import { Button, ButtonGroup, useMediaQuery } from '@mui/material';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 //? --------------------------------------------- STYLES
-import { Colors } from "../Utils/Colors";
-import { useDispatch } from "react-redux";
-import { listOrder } from "../Redux/Actions/OrderActions/listOrder";
+import { Colors } from '../Utils/Colors';
+import { useDispatch } from 'react-redux';
+import { listOrder } from '../Redux/Actions/OrderActions/listOrder';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -45,26 +45,29 @@ CustomTabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
   };
 }
 
 const LayoutShipments = () => {
-  const [userRol, setUserRol] = React.useState("cliente");
+  const [userRol, setUserRol] = React.useState('cliente');
   React.useEffect(() => {
-    if (localStorage.getItem("userPrueba")) {
-      setUserRol(localStorage.getItem("userPrueba"));
+    if (localStorage.getItem('userPrueba')) {
+      setUserRol(localStorage.getItem('userPrueba'));
     } else {
-      localStorage.setItem("userPrueba", "cliente");
+      localStorage.setItem('userPrueba', 'cliente');
     }
   }, []);
-  const mobile = useMediaQuery("(max-width:720px)");
-  const [value, setValue] = React.useState({
-    pendiente: 0,
-    asignado: 1,
-    "en curso": 2,
-    finalizado: 3,
-  });
+  const mobile = useMediaQuery('(max-width:720px)');
+  const [value, setValue] = React.useState(
+    0
+    //   {
+    //   pendiente: 0,
+    //   asignado: 1,
+    //   "en curso": 2,
+    //   finalizado: 3,
+    // }
+  );
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -78,7 +81,7 @@ const LayoutShipments = () => {
   const tabNameToIndex = {
     pendiente: 0,
     asignado: 1,
-    "en curso": 2,
+    'en curso': 2,
     finalizado: 3,
   };
 
@@ -89,36 +92,36 @@ const LayoutShipments = () => {
   const clickPending = () => {
     setAnchorEl(null);
 
-    navigate("/shipments");
+    navigate('/shipments');
   };
   const clickAssigned = () => {
     setAnchorEl(null);
 
-    navigate("/shipments/assigned");
+    navigate('/shipments/assigned');
   };
   const clickProgress = () => {
     setAnchorEl(null);
 
-    navigate("/shipments/in-progress");
+    navigate('/shipments/in-progress');
   };
   const clickDone = () => {
     setAnchorEl(null);
 
-    navigate("/shipments/finished");
+    navigate('/shipments/finished');
   };
 
   useEffect(() => {
     if (value === 0) {
-      navigate("/shipments");
+      navigate('/shipments');
     } else if (value === 1) {
-      navigate("/shipments/assigned");
+      navigate('/shipments/assigned');
     } else if (value === 2) {
-      navigate("/shipments/in-progress");
+      navigate('/shipments/in-progress');
     } else {
-      navigate("/shipments/finished");
+      navigate('/shipments/finished');
     }
-    dispatch(listOrder(value[name]));
-  }, [value]);
+    // dispatch(listOrder(value[name]));
+  }, [value, navigate]);
 
   return (
     <div>
@@ -127,17 +130,17 @@ const LayoutShipments = () => {
         <>
           <Box
             style={{
-              display: "flex",
-              alignItems: "right",
-              justifyContent: "right",
-              padding: "10px",
+              display: 'flex',
+              alignItems: 'right',
+              justifyContent: 'right',
+              padding: '10px',
             }}
           >
             <img
               onClick={handleClick}
               style={{
                 backgroundColor: Colors.primary.constrastText,
-                cursor: "pointer",
+                cursor: 'pointer',
               }}
               src="/imgShipments/ArrowDashboard.svg"
             />
@@ -148,7 +151,7 @@ const LayoutShipments = () => {
               open={open}
               onClose={handleClose}
               MenuListProps={{
-                "aria-labelledby": "basic-button",
+                'aria-labelledby': 'basic-button',
               }}
             >
               <MenuItem
@@ -158,9 +161,9 @@ const LayoutShipments = () => {
                 style={{
                   fontWeight: 500,
                   color:
-                    location.pathname === "/shipments"
+                    location.pathname === '/shipments'
                       ? Colors.primary.main
-                      : "",
+                      : '',
                 }}
               >
                 Envíos pendientes
@@ -172,9 +175,9 @@ const LayoutShipments = () => {
                 style={{
                   fontWeight: 500,
                   color:
-                    location.pathname === "/shipments/assigned"
+                    location.pathname === '/shipments/assigned'
                       ? Colors.primary.main
-                      : "",
+                      : '',
                 }}
               >
                 Envíos asignados
@@ -186,9 +189,9 @@ const LayoutShipments = () => {
                 style={{
                   fontWeight: 500,
                   color:
-                    location.pathname === "/shipments/in-progress"
+                    location.pathname === '/shipments/in-progress'
                       ? Colors.primary.main
-                      : "",
+                      : '',
                 }}
               >
                 Envíos en curso
@@ -200,9 +203,9 @@ const LayoutShipments = () => {
                 style={{
                   fontWeight: 500,
                   color:
-                    location.pathname === "/shipments/finished"
+                    location.pathname === '/shipments/finished'
                       ? Colors.primary.main
-                      : "",
+                      : '',
                 }}
               >
                 Envíos finalizados
@@ -213,54 +216,57 @@ const LayoutShipments = () => {
       ) : (
         <Box
           sx={{
-            minWidth: "100%",
-            height: "100%",
+            minWidth: '100%',
+            height: '100%',
           }}
         >
           <Box
             sx={{
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
               padding: 5,
-              height: "20px",
+              height: '20px',
               backgroundColor: Colors.terciary.contrastText,
             }}
           >
             <Box
               className="slider"
               sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                width: "96%",
-                height: "60px",
-                alignItems: "center",
+                display: 'flex',
+                justifyContent: 'space-between',
+                width: '96%',
+                height: '60px',
+                alignItems: 'center',
               }}
             >
               <div
                 style={{
-                  display: "flex",
-                  justifyContent: "space-around",
-                  height: "34px",
+                  display: 'flex',
+                  justifyContent: 'space-around',
+                  height: '34px',
                   zIndex: 0,
-                  width: "100%",
-                  maxWidth: "780px",
-                  borderBottom: "1px solid #475367",
+                  width: '100%',
+                  maxWidth: '780px',
+                  borderBottom: '1px solid #475367',
                 }}
               >
                 <Button
                   onClick={() => setValue(0)}
                   sx={{
-                    border: "none",
-                    height: "33px",
-                    padding: "0px",
+                    border: 'none',
+                    height: '33px',
+                    padding: '0px',
                     borderBottom:
-                      value == 0 ? "2px solid rgb(0, 124, 82)" : "none",
-                    color: value == 0 ? Colors.primary.main : "#475367",
+                      value == 0
+                        ? '2px solid rgb(0, 124, 82)'
+                        : 'none',
+                    color:
+                      value == 0 ? Colors.primary.main : '#475367',
                     fontWeight: 600,
-                    fontSize: "16px",
-                    borderRadius: "0px",
+                    fontSize: '16px',
+                    borderRadius: '0px',
                   }}
                   zIndex={10}
                   variant="none"
@@ -268,43 +274,46 @@ const LayoutShipments = () => {
                   {value === 0 ? (
                     <img
                       src="/imgShipments/PendingActive.svg"
-                      style={{ marginRight: "5px" }}
+                      style={{ marginRight: '5px' }}
                       width="24px"
                     />
                   ) : (
                     <img
                       src="/imgShipments/PendingInactive.svg"
-                      style={{ marginRight: "5px" }}
+                      style={{ marginRight: '5px' }}
                       width="24px"
                     />
                   )}
-                  Pendientes{" "}
+                  Pendientes{' '}
                 </Button>
                 <Button
                   onClick={() => setValue(1)}
                   sx={{
-                    border: "none",
-                    height: "33px",
-                    padding: "0px",
-                    borderRadius: "0px",
+                    border: 'none',
+                    height: '33px',
+                    padding: '0px',
+                    borderRadius: '0px',
                     borderBottom:
-                      value == 1 ? "2px solid rgb(0, 124, 82)" : "none",
-                    color: value == 1 ? Colors.primary.main : "#475367",
+                      value == 1
+                        ? '2px solid rgb(0, 124, 82)'
+                        : 'none',
+                    color:
+                      value == 1 ? Colors.primary.main : '#475367',
                     fontWeight: 600,
-                    fontSize: "16px",
+                    fontSize: '16px',
                   }}
                   variant="none"
                 >
                   {value === 1 ? (
                     <img
                       src="/imgShipments/AssignedActive.svg"
-                      style={{ marginRight: "5px" }}
+                      style={{ marginRight: '5px' }}
                       width="24px"
                     />
                   ) : (
                     <img
                       src="/imgShipments/AssignedInactive.svg"
-                      style={{ marginRight: "5px" }}
+                      style={{ marginRight: '5px' }}
                       width="24px"
                     />
                   )}
@@ -313,44 +322,50 @@ const LayoutShipments = () => {
                 <Button
                   onClick={() => setValue(2)}
                   sx={{
-                    border: "none",
-                    height: "33px",
-                    padding: "0px",
-                    borderRadius: "0px",
+                    border: 'none',
+                    height: '33px',
+                    padding: '0px',
+                    borderRadius: '0px',
                     borderBottom:
-                      value == 2 ? "2px solid rgb(0, 124, 82)" : "none",
-                    color: value == 2 ? Colors.primary.main : "#475367",
+                      value == 2
+                        ? '2px solid rgb(0, 124, 82)'
+                        : 'none',
+                    color:
+                      value == 2 ? Colors.primary.main : '#475367',
                     fontWeight: 600,
-                    fontSize: "16px",
+                    fontSize: '16px',
                   }}
                   variant="none"
                 >
                   {value === 2 ? (
                     <img
                       src="/imgShipments/InProgressActive.svg"
-                      style={{ marginRight: "5px" }}
+                      style={{ marginRight: '5px' }}
                       width="24px"
                     />
                   ) : (
                     <img
                       src="/imgShipments/InProgressInactive.svg"
-                      style={{ marginRight: "5px" }}
+                      style={{ marginRight: '5px' }}
                       width="24px"
                     />
                   )}
-                  En curso{" "}
+                  En curso{' '}
                 </Button>
                 <Button
                   sx={{
-                    border: "none",
-                    height: "33px",
-                    borderRadius: "0px",
-                    padding: "0px",
+                    border: 'none',
+                    height: '33px',
+                    borderRadius: '0px',
+                    padding: '0px',
                     borderBottom:
-                      value == 3 ? "2px solid rgb(0, 124, 82)" : "none",
-                    color: value == 3 ? Colors.primary.main : "#475367",
+                      value == 3
+                        ? '2px solid rgb(0, 124, 82)'
+                        : 'none',
+                    color:
+                      value == 3 ? Colors.primary.main : '#475367',
                     fontWeight: 600,
-                    fontSize: "16px",
+                    fontSize: '16px',
                   }}
                   onClick={() => setValue(3)}
                   variant="none"
@@ -358,24 +373,24 @@ const LayoutShipments = () => {
                   {value === 3 ? (
                     <img
                       src="/imgShipments/DoneActive.svg"
-                      style={{ marginRight: "5px" }}
+                      style={{ marginRight: '5px' }}
                       width="24px"
                     />
                   ) : (
                     <img
                       src="/imgShipments/DoneInactive.svg"
-                      style={{ marginRight: "5px" }}
+                      style={{ marginRight: '5px' }}
                       width="24px"
                     />
                   )}
                   Finalizados
                 </Button>
               </div>
-              {userRol == "cliente" && (
+              {userRol == 'cliente' && (
                 <Button
                   style={{ margin: 0 }}
                   variant="contained"
-                  onClick={() => navigate("/crearEnvios")}
+                  onClick={() => navigate('/crearEnvios')}
                 >
                   Crear envío
                 </Button>
@@ -388,17 +403,17 @@ const LayoutShipments = () => {
       {mobile ? (
         <Box
           style={{
-            display: "flex",
-            alignItems: "right",
-            justifyContent: "right",
-            padding: "10px",
-            cursor: "pointer",
+            display: 'flex',
+            alignItems: 'right',
+            justifyContent: 'right',
+            padding: '10px',
+            cursor: 'pointer',
           }}
         >
           <img src="/imgShipments/QuestionIcon.svg" />
         </Box>
       ) : (
-        ""
+        ''
       )}
     </div>
   );
