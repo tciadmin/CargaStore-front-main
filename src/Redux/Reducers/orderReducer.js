@@ -43,6 +43,7 @@ const initialState = {
   singleOrderLoading: false,
   orderState: null,
   orderStateLoading: false,
+  duplicating: false,
   error: null,
 };
 
@@ -105,19 +106,19 @@ export const orderReducer = (state = initialState, action) => {
     case CREATE_ORDER_FAILURE:
       return {
         ...state,
-        singleOrderLoading: false,
+        duplicating: false,
         error: action.error,
       };
     case DUPLICATE_ORDER_PENDING:
       return {
         ...state,
-        singleOrderLoading: true,
+        duplicating: true,
         error: null,
       };
     case DUPLICATE_ORDER_SUCCESS:
       return {
         ...state,
-        singleOrderLoading: false,
+        duplicating: false,
       };
     case DUPLICATE_ORDER_FAILURE:
       return {
