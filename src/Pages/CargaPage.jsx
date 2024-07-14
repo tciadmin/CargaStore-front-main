@@ -22,6 +22,7 @@ import { format, isValid, parseISO } from 'date-fns';
 import Loading from '../Components/Loading/Loading';
 import { duplicateOrder } from '../Redux/Actions/OrderActions/duplicateorder';
 import { applicForOrder } from '../Redux/Actions/ApplicationActions/applyForOrder';
+import { getOrderState } from '../Redux/Actions/OrderActions/getOrderState';
 
 const GreenCircle = () => {
   return (
@@ -50,12 +51,18 @@ const CargaPage = () => {
     dispatch(orderDetail(id));
   }, [dispatch, id]);
 
-  const { singleOrder, singleOrderLoading, duplicating } =
+  const { singleOrder, singleOrderLoading, duplicating, orderState } =
     useSelector((state) => state.orders);
   const { user } = useSelector((state) => state.user);
   const { applicationLoading } = useSelector(
     (state) => state.application
   );
+
+  React.useEffect(() => {
+    (singleOrder?.status === 'en curso' ||
+      singleOrder?.status === 'finalizado') &&
+      dispatch(getOrderState(id));
+  }, [singleOrder?.status, dispatch, id]);
 
   const mobile = useMediaQuery('(max-width:750px)');
   const [postular, setPostular] = useState(false);
@@ -385,15 +392,16 @@ const CargaPage = () => {
                   </Typography>
                 </Grid>
               </Grid>
-              {user.role == 'driver' && (
-                <Button
-                  disabled={applicationLoading}
-                  sx={{ marginTop: '20px', width: '100%' }}
-                  onClick={applyForOrder}
-                >
-                  Postularse
-                </Button>
-              )}
+              {user.role === 'driver' &&
+                singleOrder?.status === 'pendiente' && (
+                  <Button
+                    disabled={applicationLoading}
+                    sx={{ marginTop: '20px', width: '100%' }}
+                    onClick={applyForOrder}
+                  >
+                    Postularse
+                  </Button>
+                )}
             </Grid>
           </Grid>
           <Container>
@@ -433,13 +441,13 @@ const CargaPage = () => {
                 </>
               )}
 
-            {singleOrder?.status === 'asignado' &&
-              user.role !== 'driver' && (
-                <Grid
-                  direction={mobile ? 'column' : 'row'}
-                  my={5}
-                  container
-                >
+            <Grid
+              direction={mobile ? 'column' : 'row'}
+              my={5}
+              container
+            >
+              {singleOrder?.status !== 'pendiente' &&
+                user?.role !== 'driver' && (
                   <Grid item xs={6}>
                     <Box width="100%">
                       <ConductorAsignadoCard
@@ -464,60 +472,20 @@ const CargaPage = () => {
                       ></ConductorAsignadoCard>
                     </Box>
                   </Grid>
-                  {singleOrder?.status !== 'pendiente' ||
-                    (singleOrder?.status !== 'asignado' && (
-                      <Grid item xs={6}>
-                        <VerticalGreenStepper
-                          steps={[
-                            'En preparación',
-                            'Preparado',
-                            'En camino',
-                            'Retirado',
-                          ]}
-                        ></VerticalGreenStepper>
-                      </Grid>
-                    ))}
-                </Grid>
-              )}
-            {/* {user.role !== 'admin' && (
-              <Grid
-                direction={mobile ? 'column' : 'row'}
-                my={5}
-                container
-              >
-                <Grid item xs={6}>
-                  <Box width="100%">
-                    <ConductorAsignadoCard
-                      nombre={`${singleOrder?.assignedDriver?.user_driver.name} ${singleOrder?.assignedDriver?.user_driver.lastname}`}
-                      estrellas={singleOrder?.assignedDriver?.rating}
-                      marca={singleOrder?.assignedDriver?.truck.brand}
-                      modelo={
-                        singleOrder?.assignedDriver?.truck.model
+                )}
+              {(singleOrder?.status === 'en curso' ||
+                singleOrder?.status === 'finalizado') &&
+                orderState && (
+                  <Grid item xs={6}>
+                    <VerticalGreenStepper
+                      steps={orderState}
+                      driverName={
+                        singleOrder?.assignedDriver?.user_driver.name
                       }
-                      capacidad={
-                        singleOrder?.assignedDriver?.truck
-                          .charge_capacity
-                      }
-                      carga={
-                        singleOrder?.assignedDriver?.truck.charge_type
-                      }
-                    ></ConductorAsignadoCard>
-                  </Box>
-                </Grid> */}
-            {singleOrder.status === 'en camino' && (
-              <Grid item xs={6}>
-                <VerticalGreenStepper
-                  steps={[
-                    'En preparación',
-                    'Preparado',
-                    'En camino',
-                    'Retirado',
-                  ]}
-                ></VerticalGreenStepper>
-              </Grid>
-            )}
-            {/* </Grid>
-            )} */}
+                    />
+                  </Grid>
+                )}
+            </Grid>
           </Container>
           <Modal
             open={postular}
