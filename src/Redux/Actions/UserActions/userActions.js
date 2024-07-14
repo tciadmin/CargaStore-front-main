@@ -162,10 +162,8 @@ export const authUser = (user, navigate) => {
         path: '/',
       });
       if (data.user.role === 'driver') {
-        Cookies.set('driverId', data.user.driver.id);
         navigate('/marketplace');
       } else if (data.user.role === 'customer') {
-        Cookies.set('customerId', data.user.customer.id);
         navigate('/shipments');
       } else if (data.user.role === 'admin') {
         navigate('/administrador/panel');

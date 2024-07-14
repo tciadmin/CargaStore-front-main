@@ -10,7 +10,6 @@ import { listOrder } from '../../../Redux/Actions/OrderActions/listOrder';
 import { clearOrdersList } from '../../../Redux/Actions/OrderActions/clearOrdersList';
 import ShipmentsItem from '../Items/ShipmentsItem/ShipmentsItem';
 import MobileShipmentItem from '../Items/MobileShipmentsItem/MobileShipmentItem';
-import Cookies from 'js-cookie';
 import Loading from '../../Loading/Loading';
 import ShipmentsMessage from '../ShipmentsMessage/ShipmentsMessage';
 
@@ -18,18 +17,21 @@ export default function CompInProgress() {
   const dispatch = useDispatch();
   const mobile = useMediaQuery('(max-width:720px)');
 
+  const { user } = useSelector((state) => state.user);
+
   React.useEffect(() => {
-    dispatch(
-      listOrder(
-        'en curso', //status
-        '', //orderType
-        Cookies.get('customerId') //customerId
-      )
-    );
+    user?.role === 'customer' &&
+      dispatch(
+        listOrder(
+          'en curso', //status
+          '', //orderType
+          user?.customer?.id //customerId
+        )
+      );
     return () => {
       dispatch(clearOrdersList());
     };
-  }, [dispatch]);
+  }, [dispatch, user?.customer?.id, user]);
 
   const { orders, ordersLoading } = useSelector(
     (state) => state.orders

@@ -15,12 +15,13 @@ import ChargeRequestCard from '../Components/cards/ChargeRequestCard';
 import ConductorAsignadoCard from '../Components/cards/ConductorAsignadoCard';
 import VerticalGreenStepper from '../Components/steppers/VerticalGreenStepper';
 import CompNavLanding from '../Components/NavLanding/CompNavLanding';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { orderDetail } from '../Redux/Actions/OrderActions/orderDetail';
 import { format, isValid, parseISO } from 'date-fns';
 import Loading from '../Components/Loading/Loading';
 import { duplicateOrder } from '../Redux/Actions/OrderActions/duplicateorder';
+import { applicForOrder } from '../Redux/Actions/ApplicationActions/applyForOrder';
 
 const GreenCircle = () => {
   return (
@@ -52,12 +53,12 @@ const CargaPage = () => {
   const { singleOrder, singleOrderLoading, duplicating } =
     useSelector((state) => state.orders);
   const { user } = useSelector((state) => state.user);
+  const { applicationLoading } = useSelector(
+    (state) => state.application
+  );
 
   const mobile = useMediaQuery('(max-width:750px)');
-  const [asignado, setAsignado] = useState(false);
   const [postular, setPostular] = useState(false);
-  const userRol = localStorage.getItem('userPrueba');
-  const navigate = useNavigate();
 
   const formatDate = (dateString) => {
     const date = parseISO(dateString);
@@ -67,6 +68,14 @@ const CargaPage = () => {
   const duplcateOrder = () => {
     dispatch(duplicateOrder(id));
   };
+
+  const applyForOrder = () => {
+    dispatch(applicForOrder(user?.driver?.id, id));
+  };
+
+  // const assignToOrder = (driverId) => {
+  //   dispatch(assingDriverToOrder(driverId, id));
+  // };
 
   //adaptarlo para que una vez que esten los datos se pueda obtener id de carga por url params y de ahi hacer llamado a la api
   return (
@@ -378,8 +387,9 @@ const CargaPage = () => {
               </Grid>
               {user.role == 'driver' && (
                 <Button
+                  disabled={applicationLoading}
                   sx={{ marginTop: '20px', width: '100%' }}
-                  onClick={() => setPostular(true)}
+                  onClick={applyForOrder}
                 >
                   Postularse
                 </Button>
@@ -389,7 +399,7 @@ const CargaPage = () => {
           <Container>
             {!mobile &&
               user.role == 'admin' &&
-              singleOrder?.status !== 'asignado' && (
+              singleOrder?.status === 'pendiente' && (
                 <>
                   <Typography fontSize="16px" fontWeight={600}>
                     Solicitudes de conductores
@@ -400,42 +410,25 @@ const CargaPage = () => {
                     alignItems={'center'}
                     spacing={3}
                   >
-                    <ChargeRequestCard
-                      nombre={'Juan perez'}
-                      marca={'ford'}
-                      modelo={'taunus'}
-                      capacidad={'2 toneladas'}
-                      carga="seca"
-                      estrellas={2.5}
-                      asignar={() => setAsignado(true)}
-                    ></ChargeRequestCard>
-                    <ChargeRequestCard
-                      nombre={'Juan perez'}
-                      marca={'ford'}
-                      modelo={'taunus'}
-                      capacidad={'2 toneladas'}
-                      carga="seca"
-                      estrellas={4.5}
-                      asignar={() => setAsignado(true)}
-                    ></ChargeRequestCard>
-                    <ChargeRequestCard
-                      nombre={'Juan perez'}
-                      marca={'ford'}
-                      modelo={'taunus'}
-                      capacidad={'2 toneladas'}
-                      carga="seca"
-                      estrellas={5}
-                      asignar={() => setAsignado(true)}
-                    ></ChargeRequestCard>
-                    <ChargeRequestCard
-                      nombre={'Juan perez'}
-                      marca={'ford'}
-                      modelo={'taunus'}
-                      capacidad={'2 toneladas'}
-                      carga="seca"
-                      estrellas={0.5}
-                      asignar={() => setAsignado(true)}
-                    ></ChargeRequestCard>
+                    {singleOrder?.applications.map((element) => (
+                      <ChargeRequestCard
+                        key={element.id}
+                        perfilImg={
+                          element.driver.user_driver.profile_image
+                        }
+                        nombre={element.driver.user_driver.name}
+                        apellido={element.driver.user_driver.lastname}
+                        marca={element.driver.truck.brand}
+                        modelo={element.driver.truck.model}
+                        capacidad={
+                          element.driver.truck.charge_capacity
+                        }
+                        carga={element.driver.truck.charge_type}
+                        estrellas={element.driver.rating}
+                        driverId={element.driverId}
+                        orderId={id}
+                      />
+                    ))}
                   </Stack>
                 </>
               )}
