@@ -11,26 +11,28 @@ import { listOrder } from '../../../Redux/Actions/OrderActions/listOrder';
 import ShipmentsItem from '../Items/ShipmentsItem/ShipmentsItem';
 import { clearOrdersList } from '../../../Redux/Actions/OrderActions/clearOrdersList';
 import MobileShipmentItem from '../Items/MobileShipmentsItem/MobileShipmentItem';
-import Cookies from 'js-cookie';
 import ShipmentsMessage from '../ShipmentsMessage/ShipmentsMessage';
 import Loading from '../../Loading/Loading';
 
 export default function CompPending() {
   const dispatch = useDispatch();
-  console.log('customerId: ', Cookies.get('customerId'));
+
+  const { user } = useSelector((state) => state.user);
 
   React.useEffect(() => {
-    dispatch(
-      listOrder(
-        'pendiente', //status
-        '', //orderType
-        Cookies.get('customerId') //customerId
-      )
-    );
+    user?.role === 'customer' &&
+      dispatch(
+        listOrder(
+          'pendiente', //status
+          '', //orderType
+          user?.customer?.id //customerId
+        )
+      );
     return () => {
       dispatch(clearOrdersList());
     };
-  }, [dispatch]);
+  }, [dispatch, user?.customer?.id, user]);
+
   const mobile = useMediaQuery('(max-width:720px)');
 
   const { orders, ordersLoading } = useSelector(

@@ -10,25 +10,28 @@ import { listOrder } from '../../../Redux/Actions/OrderActions/listOrder';
 import ShipmentsItem from '../Items/ShipmentsItem/ShipmentsItem';
 import { clearOrdersList } from '../../../Redux/Actions/OrderActions/clearOrdersList';
 import MobileShipmentItem from '../Items/MobileShipmentsItem/MobileShipmentItem';
-import Cookies from 'js-cookie';
 import Loading from '../../Loading/Loading';
 import ShipmentsMessage from '../ShipmentsMessage/ShipmentsMessage';
 
 export default function CompSent() {
   const dispatch = useDispatch();
 
+  const { user } = useSelector((state) => state.user);
+
   React.useEffect(() => {
-    dispatch(
-      listOrder(
-        'finalizado', //status
-        '', //orderType
-        Cookies.get('customerId') //customerId
-      )
-    );
+    user?.role === 'customer' &&
+      dispatch(
+        listOrder(
+          'finalizado', //status
+          '', //orderType
+          user?.customer?.id //customerId
+        )
+      );
     return () => {
       dispatch(clearOrdersList());
     };
-  }, [dispatch]);
+  }, [dispatch, user?.customer?.id, user]);
+
   const mobile = useMediaQuery('(max-width:720px)');
   const { orders, ordersLoading } = useSelector(
     (state) => state.orders

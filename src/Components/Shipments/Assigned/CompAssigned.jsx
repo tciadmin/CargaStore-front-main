@@ -11,7 +11,6 @@ import { listOrder } from '../../../Redux/Actions/OrderActions/listOrder';
 import ShipmentsItem from '../Items/ShipmentsItem/ShipmentsItem';
 import { clearOrdersList } from '../../../Redux/Actions/OrderActions/clearOrdersList';
 import MobileShipmentItem from '../Items/MobileShipmentsItem/MobileShipmentItem';
-import Cookies from 'js-cookie';
 import ShipmentsMessage from '../ShipmentsMessage/ShipmentsMessage';
 import Loading from '../../Loading/Loading';
 
@@ -19,18 +18,21 @@ export default function CompAssigned() {
   const dispatch = useDispatch();
   const mobile = useMediaQuery('(max-width:720px)');
 
+  const { user } = useSelector((state) => state.user);
+
   React.useEffect(() => {
-    dispatch(
-      listOrder(
-        'asignado', //status
-        '', //orderType
-        Cookies.get('customerId') //customerId
-      )
-    );
+    user?.role === 'customer' &&
+      dispatch(
+        listOrder(
+          'asignado', //status
+          '', //orderType
+          user?.customer?.id //customerId
+        )
+      );
     return () => {
       dispatch(clearOrdersList());
     };
-  }, [dispatch]);
+  }, [dispatch, user?.customer?.id, user]);
 
   const { orders, ordersLoading } = useSelector(
     (state) => state.orders
