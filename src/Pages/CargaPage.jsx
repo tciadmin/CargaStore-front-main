@@ -23,6 +23,8 @@ import Loading from '../Components/Loading/Loading';
 import { duplicateOrder } from '../Redux/Actions/OrderActions/duplicateorder';
 import { applicForOrder } from '../Redux/Actions/ApplicationActions/applyForOrder';
 import { getOrderState } from '../Redux/Actions/OrderActions/getOrderState';
+import { aceptOrder } from '../Redux/Actions/ApplicationActions/aceptOrder';
+import { declineOrder } from '../Redux/Actions/ApplicationActions/declineOrder';
 
 const GreenCircle = () => {
   return (
@@ -80,9 +82,13 @@ const CargaPage = () => {
     dispatch(applicForOrder(user?.driver?.id, id));
   };
 
-  // const assignToOrder = (driverId) => {
-  //   dispatch(assingDriverToOrder(driverId, id));
-  // };
+  const handleAceptOrder = () => {
+    dispatch(aceptOrder(id));
+  };
+
+  const handleDeclineOrder = () => {
+    dispatch(declineOrder(id));
+  };
 
   //adaptarlo para que una vez que esten los datos se pueda obtener id de carga por url params y de ahi hacer llamado a la api
   return (
@@ -393,7 +399,8 @@ const CargaPage = () => {
                 </Grid>
               </Grid>
               {user.role === 'driver' &&
-                singleOrder?.status === 'pendiente' && (
+                singleOrder?.status === 'pendiente' &&
+                !singleOrder?.pendingAssignedDriverId && (
                   <Button
                     disabled={applicationLoading}
                     sx={{ marginTop: '20px', width: '100%' }}
@@ -401,6 +408,61 @@ const CargaPage = () => {
                   >
                     Postularse
                   </Button>
+                )}
+              {singleOrder?.status === 'pendiente' &&
+                singleOrder?.pendingAssignedDriverId ===
+                  user?.driver?.id && (
+                  <Grid
+                    display={'flex'}
+                    height={'39px'}
+                    flexDirection={'row'}
+                    alignItems={'center'}
+                    justifyContent={'center'}
+                    gap={'34px'}
+                    marginTop={'20px'}
+                  >
+                    <Button
+                      disabled={applicationLoading}
+                      style={{
+                        fontFamily: 'Inter',
+                        fontWeight: '600',
+                        lineHeight: '23.2px',
+                        textAlign: 'center',
+                        color: '#fff',
+                        borderRadius: '8px',
+                        fontSize: '16px',
+                        width: 'Hug (121px)px',
+                        height: 'Fixed (39px)px',
+                        padding: '16px 24px 16px 24px',
+                        gap: '10px',
+                      }}
+                      onClick={handleAceptOrder}
+                    >
+                      Aceptar
+                    </Button>
+                    <Button
+                      disabled={applicationLoading}
+                      sx={{ width: '110px' }}
+                      style={{
+                        fontFamily: 'Inter',
+                        fontWeight: '600',
+                        lineHeight: '23.2px',
+                        textAlign: 'center',
+                        color: '#007C52',
+                        border: 'solid 1px #007C52',
+                        borderRadius: '8px',
+                        fontSize: '16px',
+                        backgroundColor: 'transparent',
+                        width: 'Hug (121px)px',
+                        height: 'Fixed (39px)px',
+                        padding: '16px 24px 16px 24px',
+                        gap: '10px',
+                      }}
+                      onClick={handleDeclineOrder}
+                    >
+                      Rechazar
+                    </Button>
+                  </Grid>
                 )}
             </Grid>
           </Grid>
