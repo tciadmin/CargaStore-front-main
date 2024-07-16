@@ -6,10 +6,12 @@ import { truckReducer } from './truckReducer';
 import { applicationReducer } from './applicationReducer';
 import { paymentReducer } from './paymentReducer';
 import { formDataReducer } from './formsDataReducer';
+import { driverReducer } from './driverReducer';
 
 const rootReducer = combineReducers({
   forms: formDataReducer,
   user: userReducer,
+  driver: driverReducer,
   orders: orderReducer,
   feedback: feedbackReducer,
   truck: truckReducer,
