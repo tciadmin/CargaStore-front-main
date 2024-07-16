@@ -27,7 +27,7 @@ const OrderState = ({ orderState }) => {
         alternativeLabel
         orientation="vertical"
       >
-        {Object.entries(orderState).map(([key, value]) => (
+        {Object.entries(orderState)?.map(([key, value]) => (
           <Box
             key={key}
             sx={{
@@ -61,7 +61,8 @@ const OrderState = ({ orderState }) => {
                     fontWeight: 500,
                   }}
                 >
-                  {`${format(new Date(value ?? ''), 'dd/MM/yy')}`}
+                  {value &&
+                    `${format(new Date(value ?? ''), 'dd/MM/yy')}`}
                 </p>
               </StepLabel>
             </StepButton>
