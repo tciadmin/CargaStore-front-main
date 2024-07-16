@@ -29,6 +29,7 @@ const ShipmentsItem = ({
   type,
   price,
   driverName,
+  driver_user_id,
   license,
   rating,
   num_plate,
@@ -428,7 +429,10 @@ const ShipmentsItem = ({
                 />
               )}
               {status === 'finalizado' && (
-                <FinishMessage driverName={driverName} />
+                <FinishMessage
+                  driverName={driverName}
+                  driver_user_id={driver_user_id}
+                />
               )}
             </Box>
           </Box>

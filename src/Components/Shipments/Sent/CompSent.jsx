@@ -321,7 +321,7 @@ export default function CompSent() {
                         gap: '20px',
                       }}
                     >
-                      {orders.map((row) => (
+                      {orders?.map((row) => (
                         <ShipmentsItem
                           key={row.id}
                           status={row.status}
@@ -341,6 +341,9 @@ export default function CompSent() {
                           price={row.package.offered_price}
                           driverName={
                             row.assignedDriver?.user_driver.name
+                          }
+                          driver_user_id={
+                            row.assignedDriver?.user_driver.id
                           }
                           license={row.assignedDriver?.num_license}
                           rating={row.assignedDriver?.rating}

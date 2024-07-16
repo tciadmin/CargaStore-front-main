@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-const FinishMessage = ({ driverName }) => {
+const FinishMessage = ({ driverName, driver_user_id }) => {
   const navigate = useNavigate();
   return (
     <>
@@ -23,7 +23,7 @@ const FinishMessage = ({ driverName }) => {
           fontWeight: 600,
         }}
         onClick={() => {
-          navigate('/conductor');
+          navigate(`/conductor/${driver_user_id}`);
         }}
       >
         Calificar

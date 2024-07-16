@@ -70,7 +70,7 @@ export default function CompInProgress() {
                   gap: '18px',
                 }}
               >
-                {orders.map((row) => (
+                {orders?.map((row) => (
                   <MobileShipmentItem
                     key={row.id}
                     status={row.status}
@@ -320,7 +320,7 @@ export default function CompInProgress() {
                         gap: '20px',
                       }}
                     >
-                      {orders.map((row) => (
+                      {orders?.map((row) => (
                         <ShipmentsItem
                           key={row.id}
                           status={row.status}
