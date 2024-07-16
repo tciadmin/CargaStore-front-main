@@ -266,23 +266,27 @@ export const CompProfile = () => {
                   <Typography fontSize="16px" fontWeight={600}>
                     Nombre:{' '}
                     <span style={{ fontWeight: 400 }}>
-                      José Luis Alvarez{' '}
+                      {`${singleDriver?.user?.name} ${singleDriver?.user?.lastname}`}{' '}
                     </span>
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
                     Número de documento:{' '}
                     <span style={{ fontWeight: 400 }}>
-                      conductor@gmail.com
+                      indefinido
                     </span>
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
                     Correo electrónico:{' '}
-                    <span style={{ fontWeight: 400 }}>40993893</span>
+                    <span style={{ fontWeight: 400 }}>
+                      {singleDriver?.user?.email}
+                    </span>
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
                     Número de contacto:{' '}
                     <span style={{ fontWeight: 400 }}>
-                      +54 35353535
+                      {singleDriver?.driver?.phone
+                        ? singleDriver?.driver?.phone
+                        : 'indefinido'}
                     </span>
                   </Typography>
 
@@ -291,23 +295,35 @@ export const CompProfile = () => {
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
                     Marca:{' '}
-                    <span style={{ fontWeight: 400 }}>Toyota </span>
+                    <span style={{ fontWeight: 400 }}>
+                      {singleDriver?.driver?.truck?.brand}{' '}
+                    </span>
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
                     Modelo:{' '}
-                    <span style={{ fontWeight: 400 }}>Dyna 300</span>
+                    <span style={{ fontWeight: 400 }}>
+                      {singleDriver?.driver?.truck?.model}
+                    </span>
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
-                    Año: <span style={{ fontWeight: 400 }}>2020</span>
+                    Año:{' '}
+                    <span style={{ fontWeight: 400 }}>
+                      {singleDriver?.driver?.truck?.year}
+                    </span>
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
                     Matrícula:{' '}
-                    <span style={{ fontWeight: 400 }}>1245553</span>
+                    <span style={{ fontWeight: 400 }}>
+                      {' '}
+                      {singleDriver?.driver?.truck?.num_plate
+                        ? singleDriver?.driver?.truck?.num_plate
+                        : 'indefinido'}
+                    </span>
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
                     Capacidad de carga:{' '}
                     <span style={{ fontWeight: 400 }}>
-                      1 tonelada
+                      {singleDriver?.driver?.truck?.charge_capacity}
                     </span>
                   </Typography>
 
@@ -316,19 +332,33 @@ export const CompProfile = () => {
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
                     Licencia de conducir:{' '}
-                    <span style={{ fontWeight: 400 }}>12345 </span>
+                    <span style={{ fontWeight: 400 }}>
+                      {singleDriver?.driver?.num_license
+                        ? singleDriver?.driver?.num_license
+                        : 'indefinido'}{' '}
+                    </span>
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
                     Afiliación IESS:{' '}
-                    <span style={{ fontWeight: 400 }}>si</span>
+                    <span style={{ fontWeight: 400 }}>
+                      {singleDriver?.driver?.iess ? 'si' : 'no'}
+                    </span>
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
                     Póliza de seguro:{' '}
-                    <span style={{ fontWeight: 400 }}>2344893</span>
+                    <span style={{ fontWeight: 400 }}>
+                      {singleDriver?.driver?.insurance_policy
+                        ? 'si'
+                        : 'no'}
+                    </span>
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
                     Permiso de puerto:{' '}
-                    <span style={{ fontWeight: 400 }}>no</span>
+                    <span style={{ fontWeight: 400 }}>
+                      {singleDriver?.driver?.port_permit
+                        ? 'si'
+                        : 'no'}
+                    </span>
                   </Typography>
 
                   <Typography fontSize="20px" fontWeight={600} my={5}>
@@ -336,19 +366,27 @@ export const CompProfile = () => {
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
                     Internacional:{' '}
-                    <span style={{ fontWeight: 400 }}>no</span>
+                    <span style={{ fontWeight: 400 }}>
+                      indefinido
+                    </span>
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
                     Carga:{' '}
-                    <span style={{ fontWeight: 400 }}>seca</span>
+                    <span style={{ fontWeight: 400 }}>
+                      {singleDriver?.driver?.truck?.charge_type}
+                    </span>
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
                     Ciudad:{' '}
-                    <span style={{ fontWeight: 400 }}>Quito</span>
+                    <span style={{ fontWeight: 400 }}>
+                      indefinido
+                    </span>
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
                     Día en ruta:{' '}
-                    <span style={{ fontWeight: 400 }}>5</span>
+                    <span style={{ fontWeight: 400 }}>
+                      indefinido
+                    </span>
                   </Typography>
                 </Stack>
               )}
@@ -525,23 +563,25 @@ export const CompProfile = () => {
                 <Typography fontSize="16px" fontWeight={600}>
                   Nombre:{' '}
                   <span style={{ fontWeight: 400 }}>
-                    José Luis Alvarez{' '}
+                    {`${singleDriver?.user?.name} ${singleDriver?.user?.lastname}`}{' '}
                   </span>
                 </Typography>
                 <Typography fontSize="16px" fontWeight={600}>
                   Número de documento:{' '}
-                  <span style={{ fontWeight: 400 }}>
-                    conductor@gmail.com
-                  </span>
+                  <span style={{ fontWeight: 400 }}>indefinido</span>
                 </Typography>
                 <Typography fontSize="16px" fontWeight={600}>
                   Correo electrónico:{' '}
-                  <span style={{ fontWeight: 400 }}>40993893</span>
+                  <span style={{ fontWeight: 400 }}>
+                    {singleDriver?.user?.email}
+                  </span>
                 </Typography>
                 <Typography fontSize="16px" fontWeight={600}>
                   Número de contacto:{' '}
                   <span style={{ fontWeight: 400 }}>
-                    +54 35353535
+                    {singleDriver?.driver?.phone
+                      ? singleDriver?.driver?.phone
+                      : 'indefinido'}
                   </span>
                 </Typography>
 
@@ -550,22 +590,35 @@ export const CompProfile = () => {
                 </Typography>
                 <Typography fontSize="16px" fontWeight={600}>
                   Marca:{' '}
-                  <span style={{ fontWeight: 400 }}>Toyota </span>
+                  <span style={{ fontWeight: 400 }}>
+                    {singleDriver?.driver?.truck?.brand}
+                  </span>
                 </Typography>
                 <Typography fontSize="16px" fontWeight={600}>
                   Modelo:{' '}
-                  <span style={{ fontWeight: 400 }}>Dyna 300</span>
+                  <span style={{ fontWeight: 400 }}>
+                    {singleDriver?.driver?.truck?.model}
+                  </span>
                 </Typography>
                 <Typography fontSize="16px" fontWeight={600}>
-                  Año: <span style={{ fontWeight: 400 }}>2020</span>
+                  Año:{' '}
+                  <span style={{ fontWeight: 400 }}>
+                    {singleDriver?.driver?.truck?.year}
+                  </span>
                 </Typography>
                 <Typography fontSize="16px" fontWeight={600}>
                   Matrícula:{' '}
-                  <span style={{ fontWeight: 400 }}>1245553</span>
+                  <span style={{ fontWeight: 400 }}>
+                    {singleDriver?.driver?.truck?.num_plate
+                      ? singleDriver?.driver?.truck?.num_plate
+                      : 'indefinido'}
+                  </span>
                 </Typography>
                 <Typography fontSize="16px" fontWeight={600}>
                   Capacidad de carga:{' '}
-                  <span style={{ fontWeight: 400 }}>1 tonelada</span>
+                  <span style={{ fontWeight: 400 }}>
+                    {singleDriver?.driver?.truck?.charge_capacity}
+                  </span>
                 </Typography>
 
                 <Typography fontSize="20px" fontWeight={600} my={5}>
@@ -573,19 +626,31 @@ export const CompProfile = () => {
                 </Typography>
                 <Typography fontSize="16px" fontWeight={600}>
                   Licencia de conducir:{' '}
-                  <span style={{ fontWeight: 400 }}>12345 </span>
+                  <span style={{ fontWeight: 400 }}>
+                    {singleDriver?.driver?.num_license
+                      ? singleDriver?.driver?.num_license
+                      : 'indefinido'}
+                  </span>
                 </Typography>
                 <Typography fontSize="16px" fontWeight={600}>
                   Afiliación IESS:{' '}
-                  <span style={{ fontWeight: 400 }}>si</span>
+                  <span style={{ fontWeight: 400 }}>
+                    {singleDriver?.driver?.iess ? 'si' : 'no'}
+                  </span>
                 </Typography>
                 <Typography fontSize="16px" fontWeight={600}>
                   Póliza de seguro:{' '}
-                  <span style={{ fontWeight: 400 }}>2344893</span>
+                  <span style={{ fontWeight: 400 }}>
+                    {singleDriver?.driver?.insurance_policy
+                      ? 'si'
+                      : 'no'}
+                  </span>
                 </Typography>
                 <Typography fontSize="16px" fontWeight={600}>
                   Permiso de puerto:{' '}
-                  <span style={{ fontWeight: 400 }}>no</span>
+                  <span style={{ fontWeight: 400 }}>
+                    {singleDriver?.driver?.port_permit ? 'si' : 'no'}
+                  </span>
                 </Typography>
 
                 <Typography fontSize="20px" fontWeight={600} my={5}>
@@ -593,18 +658,21 @@ export const CompProfile = () => {
                 </Typography>
                 <Typography fontSize="16px" fontWeight={600}>
                   Internacional:{' '}
-                  <span style={{ fontWeight: 400 }}>no</span>
+                  <span style={{ fontWeight: 400 }}>indefinido</span>
                 </Typography>
                 <Typography fontSize="16px" fontWeight={600}>
-                  Carga: <span style={{ fontWeight: 400 }}>seca</span>
+                  Carga:{' '}
+                  <span style={{ fontWeight: 400 }}>
+                    {singleDriver?.driver?.truck?.charge_type}
+                  </span>
                 </Typography>
                 <Typography fontSize="16px" fontWeight={600}>
                   Ciudad:{' '}
-                  <span style={{ fontWeight: 400 }}>Quito</span>
+                  <span style={{ fontWeight: 400 }}>indefinido</span>
                 </Typography>
                 <Typography fontSize="16px" fontWeight={600}>
                   Día en ruta:{' '}
-                  <span style={{ fontWeight: 400 }}>5</span>
+                  <span style={{ fontWeight: 400 }}>indefinido</span>
                 </Typography>
               </Stack>
             )}
