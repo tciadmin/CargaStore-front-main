@@ -13,6 +13,7 @@ const MobileShipmentItem = ({
   pick_up_date,
   delivery_date,
   driverName,
+  driver_user_id,
 }) => {
   const style = {
     position: 'absolute',
@@ -158,7 +159,10 @@ const MobileShipmentItem = ({
           }}
         >
           {status === 'finalizado' && (
-            <FinishMessage driverName={driverName} />
+            <FinishMessage
+              driverName={driverName}
+              driver_user_id={driver_user_id}
+            />
           )}
         </Box>
       </Modal>

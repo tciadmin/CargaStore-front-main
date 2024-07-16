@@ -82,6 +82,9 @@ export default function CompSent() {
                     type={row.package.type}
                     pick_up_address={row.pick_up_address}
                     driverName={row.assignedDriver?.user_driver.name}
+                    driver_user_id={
+                      row.assignedDriver?.user_driver.id
+                    }
                   />
                 ))}
               </Box>
