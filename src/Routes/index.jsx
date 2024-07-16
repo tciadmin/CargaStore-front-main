@@ -158,7 +158,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: '/conductor',
+    path: '/conductor/:userId',
     element: <CompProfile />,
   },
   {
