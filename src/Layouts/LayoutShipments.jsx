@@ -4,17 +4,11 @@ import { useEffect } from 'react';
 import CompNavLanding from '../Components/NavLanding/CompNavLanding';
 //? --------------------------------------------- MUI
 import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { Button, ButtonGroup, useMediaQuery } from '@mui/material';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import { Button, useMediaQuery } from '@mui/material';
 //? --------------------------------------------- STYLES
 import { Colors } from '../Utils/Colors';
-import { useDispatch } from 'react-redux';
-import { listOrder } from '../Redux/Actions/OrderActions/listOrder';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -42,13 +36,6 @@ CustomTabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
-
 const LayoutShipments = () => {
   const [userRol, setUserRol] = React.useState('cliente');
   React.useEffect(() => {
@@ -59,56 +46,8 @@ const LayoutShipments = () => {
     }
   }, []);
   const mobile = useMediaQuery('(max-width:720px)');
-  const [value, setValue] = React.useState(
-    0
-    //   {
-    //   pendiente: 0,
-    //   asignado: 1,
-    //   "en curso": 2,
-    //   finalizado: 3,
-    // }
-  );
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [value, setValue] = React.useState(0);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const open = Boolean(anchorEl);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-    dispatch(listOrder(event.target.name));
-  };
-  const tabNameToIndex = {
-    pendiente: 0,
-    asignado: 1,
-    'en curso': 2,
-    finalizado: 3,
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const clickPending = () => {
-    setAnchorEl(null);
-
-    navigate('/shipments');
-  };
-  const clickAssigned = () => {
-    setAnchorEl(null);
-
-    navigate('/shipments/assigned');
-  };
-  const clickProgress = () => {
-    setAnchorEl(null);
-
-    navigate('/shipments/in-progress');
-  };
-  const clickDone = () => {
-    setAnchorEl(null);
-
-    navigate('/shipments/finished');
-  };
 
   useEffect(() => {
     if (value === 0) {
@@ -120,100 +59,12 @@ const LayoutShipments = () => {
     } else {
       navigate('/shipments/finished');
     }
-    // dispatch(listOrder(value[name]));
   }, [value, navigate]);
 
   return (
     <div>
       <CompNavLanding />
-      {mobile ? (
-        <>
-          <Box
-            style={{
-              display: 'flex',
-              alignItems: 'right',
-              justifyContent: 'right',
-              padding: '10px',
-            }}
-          >
-            <img
-              onClick={handleClick}
-              style={{
-                backgroundColor: Colors.primary.constrastText,
-                cursor: 'pointer',
-              }}
-              src="/imgShipments/ArrowDashboard.svg"
-            />
-            <Menu
-              value={value}
-              id="basic-menu"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              MenuListProps={{
-                'aria-labelledby': 'basic-button',
-              }}
-            >
-              <MenuItem
-                name="pendiente"
-                value="0"
-                onClick={clickPending}
-                style={{
-                  fontWeight: 500,
-                  color:
-                    location.pathname === '/shipments'
-                      ? Colors.primary.main
-                      : '',
-                }}
-              >
-                Envíos pendientes
-              </MenuItem>
-              <MenuItem
-                name="asignado"
-                value="1"
-                onClick={clickAssigned}
-                style={{
-                  fontWeight: 500,
-                  color:
-                    location.pathname === '/shipments/assigned'
-                      ? Colors.primary.main
-                      : '',
-                }}
-              >
-                Envíos asignados
-              </MenuItem>
-              <MenuItem
-                name="en curso"
-                value="2"
-                onClick={clickProgress}
-                style={{
-                  fontWeight: 500,
-                  color:
-                    location.pathname === '/shipments/in-progress'
-                      ? Colors.primary.main
-                      : '',
-                }}
-              >
-                Envíos en curso
-              </MenuItem>
-              <MenuItem
-                name="finalizado"
-                value="3"
-                onClick={clickDone}
-                style={{
-                  fontWeight: 500,
-                  color:
-                    location.pathname === '/shipments/finished'
-                      ? Colors.primary.main
-                      : '',
-                }}
-              >
-                Envíos finalizados
-              </MenuItem>
-            </Menu>
-          </Box>
-        </>
-      ) : (
+      {!mobile && (
         <Box
           sx={{
             minWidth: '100%',
