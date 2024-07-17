@@ -33,7 +33,7 @@ export default function CompSent() {
   }, [dispatch, user?.customer?.id, user]);
 
   const mobile = useMediaQuery('(max-width:720px)');
-  const { orders, ordersLoading } = useSelector(
+  const { orders, ordersLoading, message } = useSelector(
     (state) => state.orders
   );
 
@@ -50,8 +50,8 @@ export default function CompSent() {
         >
           <Loading color="#333" />
         </Box>
-      ) : orders.length === 0 && !ordersLoading ? (
-        <ShipmentsMessage message="Aun no tienes envíos finalizados" />
+      ) : orders.length === 0 && !ordersLoading && message ? (
+        <ShipmentsMessage message={message} />
       ) : (
         <>
           {mobile ? (

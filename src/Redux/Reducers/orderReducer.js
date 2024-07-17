@@ -39,6 +39,8 @@ import {
 const initialState = {
   orders: [],
   ordersLoading: false,
+  message: null,
+  status: null,
   singleOrder: null,
   singleOrderLoading: false,
   orderState: null,
@@ -53,6 +55,8 @@ export const orderReducer = (state = initialState, action) => {
       return {
         ...state,
         orders: action.payload,
+        message: null,
+        status: null,
       };
     case CLEAR_ORDER_STATE:
       return {
@@ -70,6 +74,8 @@ export const orderReducer = (state = initialState, action) => {
         ...state,
         ordersLoading: false,
         orders: action.payload.orders,
+        message: action.message,
+        status: action.status,
       };
     case LIST_ORDER_FAILURE:
       return {

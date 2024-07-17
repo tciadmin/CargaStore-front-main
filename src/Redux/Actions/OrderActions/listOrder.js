@@ -11,7 +11,26 @@ export const listOrder = (status, orderType, customerId) => {
       const response = await axiosInstance.get(
         `/order/list_order?status=${status}&orderType=${orderType}&customerId=${customerId}`
       );
-      dispatch({ type: LIST_ORDER_SUCCESS, payload: response.data });
+      let message = '';
+      if (customerId) {
+        if (!response.data.orders.length) {
+          if (status === 'pendiente') {
+            message = 'Aun no tienes envíos generados';
+          } else if (status === 'asignado') {
+            message = 'Aun no tienes envíos asignados';
+          } else if (status === 'en curso') {
+            message = 'Aun no tienes envíos en curso';
+          } else if (status === 'finalizado') {
+            message = 'Aun no tienes envíos finalizados';
+          }
+        }
+      }
+      dispatch({
+        type: LIST_ORDER_SUCCESS,
+        payload: response.data,
+        message,
+        status,
+      });
     } catch (error) {
       dispatch({ type: LIST_ORDER_FAILURE, error: error.message });
     }

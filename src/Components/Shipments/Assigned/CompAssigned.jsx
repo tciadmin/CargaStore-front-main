@@ -34,7 +34,7 @@ export default function CompAssigned() {
     };
   }, [dispatch, user?.customer?.id, user]);
 
-  const { orders, ordersLoading } = useSelector(
+  const { orders, ordersLoading, message } = useSelector(
     (state) => state.orders
   );
 
@@ -51,10 +51,8 @@ export default function CompAssigned() {
         >
           <Loading color="#333" />
         </Box>
-      ) : orders.length === 0 && !ordersLoading ? (
-        <ShipmentsMessage
-          message={'Aun no tienes envíos asignados'}
-        />
+      ) : orders.length === 0 && !ordersLoading && message ? (
+        <ShipmentsMessage message={message} />
       ) : (
         <>
           {mobile ? (

@@ -3,7 +3,7 @@ import { useMediaQuery } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-const ShipmentsMessage = ({ message }) => {
+const ShipmentsMessage = ({ message, status }) => {
   const mobile = useMediaQuery('(max-width:720px)');
   return (
     <Box
@@ -130,6 +130,18 @@ const ShipmentsMessage = ({ message }) => {
       <Typography variant="h4" fontSize={mobile ? '16px' : '24px'}>
         {' '}
         {message}
+      </Typography>
+      <Typography
+        style={{
+          fontSize: '20px',
+          fontWeight: 500,
+          lineHeight: '29px',
+          textAlign: 'center',
+        }}
+      >
+        {!mobile &&
+          status === 'pendiente' &&
+          'Para crear un nuevo envio haz clic en el boton de “Crear envío”'}
       </Typography>
     </Box>
   );
