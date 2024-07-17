@@ -33,7 +33,7 @@ export default function CompInProgress() {
     };
   }, [dispatch, user?.customer?.id, user]);
 
-  const { orders, ordersLoading } = useSelector(
+  const { orders, ordersLoading, message } = useSelector(
     (state) => state.orders
   );
 
@@ -50,8 +50,8 @@ export default function CompInProgress() {
         >
           <Loading color="#333" />
         </Box>
-      ) : orders.length === 0 && !ordersLoading ? (
-        <ShipmentsMessage message="Aun no tienes envíos en curso" />
+      ) : orders.length === 0 && !ordersLoading && message ? (
+        <ShipmentsMessage message={message} />
       ) : (
         <>
           {mobile ? (

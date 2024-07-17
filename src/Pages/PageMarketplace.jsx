@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
@@ -12,14 +11,14 @@ import CompNavLanding from '../Components/NavLanding/CompNavLanding';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { listOrder } from '../Redux/Actions/OrderActions/listOrder';
+import Loading from '../Components/Loading/Loading';
 
 export default function PageMarketplace() {
   const mobile = useMediaQuery('(max-width:720px)');
   const [anchorEl, setAnchorEl] = React.useState(null);
   const dispatch = useDispatch();
-  const { orders } = useSelector((state) => state.orders) || [];
-  // const [national, setNational] = useState();
-  // const [international, setInternational] = useState(null);
+  const { orders, ordersLoading } =
+    useSelector((state) => state.orders) || [];
 
   const [orderType, setOrderType] = useState('nacional');
 
@@ -33,33 +32,11 @@ export default function PageMarketplace() {
     setAnchorEl(null);
   };
 
-  // const clickPending = () => {
-  //   setAnchorEl(null);
-  //   setNational(order.filter((item) => item.orderType == national));
-  //   setInternational(null);
-  // };
-  // const clickAccredited = () => {
-  //   setAnchorEl(null);
-  //   setNational(null);
-  // setInternational(
-  //   order.filter((item) => item.orderType == international)
-  // );
-  // };
-
-  // const enviosNacionales = enviosFake.filter(
-  //   (item) => item.international == false
-  // );
-  // const enviosInternacionales = enviosFake.filter(
-  //   (item) => item.international == true
-  // );
-
   const handleChange = (event, newValue) => {
-    console.log('handleChange ejecutado', orderType);
     setOrderType(newValue);
   };
 
   useEffect(() => {
-    // const orderType = order.orderType || "national";
     dispatch(listOrder('', orderType, ''));
   }, [dispatch, orderType]);
 
@@ -91,7 +68,6 @@ export default function PageMarketplace() {
               />
 
               <Menu
-                // value={value}
                 id="basic-menu"
                 anchorEl={anchorEl}
                 open={open}
@@ -145,40 +121,54 @@ export default function PageMarketplace() {
                 padding: '20px',
               }}
             >
-              {orders?.map((item) => (
+              {ordersLoading ? (
                 <Box
-                  key={item.id}
                   style={{
-                    gap: '5px',
                     display: 'flex',
-                    width: '152px',
-                    heigth: '307px',
-                    flexDirection: 'column',
-                    justyfyContent: 'center',
+                    height: '80vh',
+                    width: '90vw',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}
                 >
-                  <img
-                    style={{ height: 200, width: '100%' }}
-                    src={
-                      item.package?.image1
-                        ? `http://localhost:3000/api/${item.package?.image1}`
-                        : ''
-                    }
-                  />
-                  <p>{`#${item.id}`}</p>
-                  <span style={{ fontWeight: 600 }}>
-                    {' '}
-                    Valor ofertado:{' '}
-                    <p style={{ fontWeight: 400 }}>
-                      {' '}
-                      {item.package?.offered_price}
-                    </p>
-                  </span>
-                  <p> {item.package?.product_name}</p>
-                  <p> {item.package?.weight}</p>
-                  <p>{`Tipo de carga: ${item.package?.type}`}</p>
+                  <Loading color="#333" />
                 </Box>
-              ))}
+              ) : (
+                orders?.map((item) => (
+                  <Box
+                    key={item.id}
+                    style={{
+                      gap: '5px',
+                      display: 'flex',
+                      width: '152px',
+                      heigth: '307px',
+                      flexDirection: 'column',
+                      justyfyContent: 'center',
+                    }}
+                  >
+                    <img
+                      style={{ height: 200, width: '100%' }}
+                      src={
+                        item.package?.image1
+                          ? `http://localhost:3000/api/${item.package?.image1}`
+                          : ''
+                      }
+                    />
+                    <p>{`#${item.id}`}</p>
+                    <span style={{ fontWeight: 600 }}>
+                      {' '}
+                      Valor ofertado:{' '}
+                      <p style={{ fontWeight: 400 }}>
+                        {' '}
+                        {item.package?.offered_price}
+                      </p>
+                    </span>
+                    <p> {item.package?.product_name}</p>
+                    <p> {item.package?.weight}</p>
+                    <p>{`Tipo de carga: ${item.package?.type}`}</p>
+                  </Box>
+                ))
+              )}
             </Box>
           </>
         ) : (
@@ -231,31 +221,60 @@ export default function PageMarketplace() {
                 />
               </Tabs>
             </Box>
-            <Grid container spacing={3}>
-              {orders?.map((item) => (
-                <Grid
-                  item
-                  xs={6}
-                  sm={4}
-                  md={3}
-                  lg={2.4}
-                  key={item.id}
+            {ordersLoading ? (
+              <Box
+                style={{
+                  display: 'flex',
+                  height: '80vh',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Loading color="#333" />
+              </Box>
+            ) : (
+              <>
+                <h1
+                  style={{
+                    color: '#1A1A21',
+                    margin: '20px 0px',
+                    fontFamily: 'Montserrat',
+                    fontSize: '24px',
+                    fontWeight: 600,
+                    lineHeight: '28.8px',
+                    letterSpacing: '-0.02em',
+                    textAlign: 'left',
+                  }}
                 >
-                  <MarketplaceCard
-                    image={
-                      item.package?.image1
-                        ? `http://localhost:3000/api/${item.package?.image1}`
-                        : ''
-                    }
-                    title={item.package?.product_name}
-                    weight={item.package?.weight}
-                    price={item.package?.offered_price}
-                    typeCharge={item.package?.type}
-                    id={item.id}
-                  ></MarketplaceCard>
+                  Recientes
+                </h1>
+                <Grid container spacing={3}>
+                  {orders?.map((item) => (
+                    <Grid
+                      item
+                      xs={6}
+                      sm={4}
+                      md={3}
+                      lg={2.4}
+                      key={item.id}
+                    >
+                      <MarketplaceCard
+                        image={
+                          item.package?.image1
+                            ? `http://localhost:3000/api/${item.package?.image1}`
+                            : ''
+                        }
+                        title={item.package?.product_name}
+                        weight={item.package?.weight}
+                        price={item.package?.offered_price}
+                        typeCharge={item.package?.type}
+                        id={item.id}
+                      ></MarketplaceCard>
+                    </Grid>
+                  ))}
                 </Grid>
-              ))}
-            </Grid>
+              </>
+            )}
           </Box>
         )}
         {mobile && (
