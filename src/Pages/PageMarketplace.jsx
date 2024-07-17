@@ -1,176 +1,27 @@
-import * as React from "react";
-import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import { useState } from "react";
-import { Grid, useMediaQuery, Menu, MenuItem } from "@mui/material";
-import MarketplaceCard from "../Components/cards/MarketplaceCard";
-import { Colors } from "../Utils/Colors";
-import CompNavLanding from "../Components/NavLanding/CompNavLanding";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { listOrder } from "../Redux/Actions/OrderActions/listOrder";
-
-function CustomTabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography> {children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-const enviosFake = [
-  {
-    title: "bobinas de papel",
-    price: 12000,
-    weight: "1 tonelada",
-    typeCharge: "seca",
-    image: "/marketplace/10.png",
-    international: false,
-  },
-  {
-    title: "Gas botano",
-    price: 2000,
-    weight: "123m3",
-    typeCharge: "peligrosa",
-    image: "/marketplace/9.png",
-    international: true,
-  },
-  {
-    title: "Maíz",
-    price: 15000,
-    weight: "2 tonelada",
-    typeCharge: "seca",
-    image: "/marketplace/8.png",
-    international: false,
-  },
-  {
-    title: "Libros",
-    price: 2000,
-    weight: "100 kilos",
-    typeCharge: "seca",
-    image: "/marketplace/7.png",
-    international: false,
-  },
-  {
-    title: "Remedio para niños",
-    price: 1000,
-    weight: "640 kilos",
-    typeCharge: "refrigerada",
-    image: "/marketplace/10.png",
-    international: false,
-  },
-  {
-    title: "Disolvente universal",
-    price: 8000,
-    weight: "300 kilos",
-    typeCharge: "líquido",
-    image: "/marketplace/6.png",
-    international: true,
-  },
-  {
-    title: "Leña",
-    price: 10000,
-    weight: "10 kilos",
-    typeCharge: "seco",
-    image: "/marketplace/9.png",
-    international: false,
-  },
-  {
-    title: "Alimento para perro",
-    price: 13000,
-    weight: "13 kilos",
-    typeCharge: "seco",
-    image: "/marketplace/6.png",
-    international: true,
-  },
-  {
-    title: "Tierra orgánica",
-    price: 70000,
-    weight: "1 tonelada",
-    typeCharge: "seco",
-    image: "/marketplace/6.png",
-    international: true,
-  },
-  {
-    title: "bobinas de papel",
-    price: 12000,
-    weight: "1 tonelada",
-    typeCharge: "seca",
-    image: "/marketplace/10.png",
-    international: false,
-  },
-  {
-    title: "Gas botano",
-    price: 2000,
-    weight: "123m3",
-    typeCharge: "peligrosa",
-    image: "/marketplace/9.png",
-    international: true,
-  },
-  {
-    title: "Maíz",
-    price: 15000,
-    weight: "2 tonelada",
-    typeCharge: "seca",
-    image: "/marketplace/8.png",
-    international: false,
-  },
-  {
-    title: "Libros",
-    price: 2000,
-    weight: "100 kilos",
-    typeCharge: "seca",
-    image: "/marketplace/7.png",
-    international: false,
-  },
-
-  {
-    title: "Disolvente universal",
-    price: 8000,
-    weight: "300 kilos",
-    typeCharge: "líquido",
-    image: "/marketplace/6.png",
-    international: true,
-  },
-];
-
-CustomTabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
+import * as React from 'react';
+// import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import { useState } from 'react';
+import { Grid, useMediaQuery, Menu, MenuItem } from '@mui/material';
+import MarketplaceCard from '../Components/cards/MarketplaceCard';
+import { Colors } from '../Utils/Colors';
+import CompNavLanding from '../Components/NavLanding/CompNavLanding';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { listOrder } from '../Redux/Actions/OrderActions/listOrder';
 
 export default function PageMarketplace() {
-  const [value, setValue] = useState(0);
-  const mobile = useMediaQuery("(max-width:720px)");
+  const mobile = useMediaQuery('(max-width:720px)');
   const [anchorEl, setAnchorEl] = React.useState(null);
   const dispatch = useDispatch();
-  const order = useSelector((state) => state.orders) || [];
-  const [national, setNational] = useState(
-    order.filter((item) => item.orderType == national)
-  );
-  const [international, setInternational] = useState(null);
+  const { orders } = useSelector((state) => state.orders) || [];
+  // const [national, setNational] = useState();
+  // const [international, setInternational] = useState(null);
+
+  const [orderType, setOrderType] = useState('nacional');
 
   const open = Boolean(anchorEl);
 
@@ -182,47 +33,50 @@ export default function PageMarketplace() {
     setAnchorEl(null);
   };
 
-  const clickPending = () => {
-    setAnchorEl(null);
-    setNational(order.filter((item) => item.orderType == national));
-    setInternational(null);
-  };
-  const clickAccredited = () => {
-    setAnchorEl(null);
-    setNational(null);
-    setInternational(order.filter((item) => item.orderType == international));
-  };
+  // const clickPending = () => {
+  //   setAnchorEl(null);
+  //   setNational(order.filter((item) => item.orderType == national));
+  //   setInternational(null);
+  // };
+  // const clickAccredited = () => {
+  //   setAnchorEl(null);
+  //   setNational(null);
+  // setInternational(
+  //   order.filter((item) => item.orderType == international)
+  // );
+  // };
 
-  const enviosNacionales = enviosFake.filter(
-    (item) => item.international == false
-  );
-  const enviosInternacionales = enviosFake.filter(
-    (item) => item.international == true
-  );
+  // const enviosNacionales = enviosFake.filter(
+  //   (item) => item.international == false
+  // );
+  // const enviosInternacionales = enviosFake.filter(
+  //   (item) => item.international == true
+  // );
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    console.log('handleChange ejecutado', orderType);
+    setOrderType(newValue);
   };
 
   useEffect(() => {
-    const orderType = order.orderType || "national";
-    dispatch(listOrder(orderType));
-  }, [dispatch]);
+    // const orderType = order.orderType || "national";
+    dispatch(listOrder('', orderType, ''));
+  }, [dispatch, orderType]);
 
   return (
     <>
-      <CompNavLanding></CompNavLanding>
+      <CompNavLanding />
       <Box>
         {mobile ? (
           <>
             <Box
               style={{
-                display: "flex",
-                justifyContent: "space-between",
-                padding: "20px",
+                display: 'flex',
+                justifyContent: 'space-between',
+                padding: '20px',
               }}
             >
-              {national !== null ? (
+              {orderType === 'nacional' ? (
                 <h2>Envíos nacionales</h2>
               ) : (
                 <h2>Envíos internacionales</h2>
@@ -231,209 +85,191 @@ export default function PageMarketplace() {
                 onClick={handleClick}
                 style={{
                   backgroundColor: Colors.primary.constrastText,
-                  cursor: "pointer",
+                  cursor: 'pointer',
                 }}
                 src="/imgShipments/ArrowDashboard.svg"
               />
 
               <Menu
-                value={value}
+                // value={value}
                 id="basic-menu"
                 anchorEl={anchorEl}
                 open={open}
                 onClose={handleClose}
                 MenuListProps={{
-                  "aria-labelledby": "basic-button",
+                  'aria-labelledby': 'basic-button',
                 }}
               >
                 <MenuItem
                   name="Pendientes"
-                  value="0"
-                  onClick={clickPending}
+                  value="nacional"
+                  onClick={() => {
+                    setOrderType('nacional');
+                    handleClose();
+                  }}
                   style={{
                     fontWeight: 500,
-                    color: national !== null ? Colors.primary.main : "",
+                    color:
+                      orderType === 'nacional'
+                        ? Colors.primary.main
+                        : '',
                   }}
                 >
                   Envíos nacionales
                 </MenuItem>
                 <MenuItem
                   name="Asignado"
-                  value="1"
-                  onClick={clickAccredited}
+                  value="internacional"
+                  onClick={() => {
+                    setOrderType('internacional');
+                    handleClose();
+                  }}
                   style={{
                     fontWeight: 500,
-                    color: international !== null ? Colors.primary.main : "",
+                    color:
+                      orderType === 'internacional'
+                        ? Colors.primary.main
+                        : '',
                   }}
                 >
                   Envíos internacionales
                 </MenuItem>
               </Menu>
             </Box>
-            {national !== null ? (
-              <Box
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(2, 1fr)",
-                  padding: "20px",
-                }}
-              >
-                {order.map((item) => (
-                  <Box
-                    style={{
-                      padding: "10px",
-                      display: "flex",
-                      flexDirection: "column",
-                      justyfyContent: "center",
-                      gap: "5px",
-                    }}
-                  >
-                    <img
-                      style={{ height: 200, width: 200 }}
-                      src={item.image1}
-                    />
-                    <span style={{ fontWeight: 600 }}>
-                      {" "}
-                      Valor ofertado:{" "}
-                      <p style={{ fontWeight: 400 }}> {item.offered_price}</p>
-                    </span>
-                    <p> {item.product_name}</p>
-                    <p> {item.weight}</p>
-                    <p>{item.type}</p>
-                  </Box>
-                ))}
-              </Box>
-            ) : (
-              <Box
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(2, 1fr)",
-                  padding: "20px",
-                }}
-              >
-                {enviosInternacionales.map((item) => (
-                  <Box
-                    style={{
-                      padding: "10px",
-                      display: "flex",
-                      flexDirection: "column",
-                      justyfyContent: "center",
-                      gap: "5px",
-                    }}
-                  >
-                    <img
-                      style={{ height: 200, width: 200 }}
-                      src={item.image1}
-                    />
-                    <span style={{ fontWeight: 600 }}>
-                      {" "}
-                      Valor ofertado:{" "}
-                      <p style={{ fontWeight: 400 }}> {item.offered_price}</p>
-                    </span>
-                    <p> {item.product_name}</p>
-                    <p> {item.weight}</p>
-                    <p>{item.type}</p>
-                  </Box>
-                ))}
-              </Box>
-            )}
+            <Box
+              style={{
+                display: 'grid',
+                width: '100%',
+                gap: '10px',
+                gridTemplateColumns: 'repeat(2, 1fr)',
+                padding: '20px',
+              }}
+            >
+              {orders?.map((item) => (
+                <Box
+                  key={item.id}
+                  style={{
+                    gap: '5px',
+                    display: 'flex',
+                    width: '152px',
+                    heigth: '307px',
+                    flexDirection: 'column',
+                    justyfyContent: 'center',
+                  }}
+                >
+                  <img
+                    style={{ height: 200, width: '100%' }}
+                    src={
+                      item.package?.image1
+                        ? `http://localhost:3000/api/${item.package?.image1}`
+                        : ''
+                    }
+                  />
+                  <p>{`#${item.id}`}</p>
+                  <span style={{ fontWeight: 600 }}>
+                    {' '}
+                    Valor ofertado:{' '}
+                    <p style={{ fontWeight: 400 }}>
+                      {' '}
+                      {item.package?.offered_price}
+                    </p>
+                  </span>
+                  <p> {item.package?.product_name}</p>
+                  <p> {item.package?.weight}</p>
+                  <p>{`Tipo de carga: ${item.package?.type}`}</p>
+                </Box>
+              ))}
+            </Box>
           </>
         ) : (
-          <Box sx={{ width: "90%", margin: "30px auto" }}>
-            <Box display={"flex"} justifyContent={"space-between"}>
+          <Box sx={{ width: '90%', margin: '30px auto' }}>
+            <Box display={'flex'} justifyContent={'space-between'}>
               <Tabs
                 variant="secondary"
-                value={value}
+                value={orderType}
                 onChange={handleChange}
                 aria-label="envios tabs"
               >
                 <Tab
+                  value="nacional"
                   label={
                     <Box
-                      display={"flex"}
-                      justifyContent={"space-around"}
+                      display={'flex'}
+                      justifyContent={'space-around'}
                       alignItems="center"
                     >
                       <Typography
                         variant="p"
                         marginLeft={1}
-                        textTransform={"none"}
+                        textTransform={'none'}
                       >
                         Envios nacionales
                       </Typography>
                     </Box>
                   }
-                  {...a11yProps(0)}
                   color="secondary"
                 />
 
                 <Tab
+                  value="internacional"
                   label={
                     <Box
-                      display={"flex"}
-                      justifyContent={"space-around"}
+                      display={'flex'}
+                      justifyContent={'space-around'}
                       alignItems="center"
                     >
                       <Typography
                         variant="p"
                         marginLeft={1}
-                        textTransform={"none"}
+                        textTransform={'none'}
                       >
                         Envios internacionales
                       </Typography>
                     </Box>
                   }
-                  {...a11yProps(1)}
                   color="secondary"
                 />
               </Tabs>
             </Box>
-            <CustomTabPanel value={value} index={0}>
-              <Grid container spacing={3}>
-                {enviosNacionales.map((item) => (
-                  <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                    <MarketplaceCard
-                      image={item.image1}
-                      title={item.product_name}
-                      weight={item.weight}
-                      price={item.offered_price}
-                      typeCharge={item.type}
-                    ></MarketplaceCard>
-                  </Grid>
-                ))}
-              </Grid>
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={1}>
-              <Grid container spacing={3}>
-                {enviosInternacionales.map((item) => (
-                  <Grid item xs={6} sm={4} md={3} lg={2.4}>
-                    <MarketplaceCard
-                      image={item.image1}
-                      title={item.product_name}
-                      weight={item.weight}
-                      price={item.offered_price}
-                      typeCharge={item.type}
-                    ></MarketplaceCard>
-                  </Grid>
-                ))}
-              </Grid>
-            </CustomTabPanel>
+            <Grid container spacing={3}>
+              {orders?.map((item) => (
+                <Grid
+                  item
+                  xs={6}
+                  sm={4}
+                  md={3}
+                  lg={2.4}
+                  key={item.id}
+                >
+                  <MarketplaceCard
+                    image={
+                      item.package?.image1
+                        ? `http://localhost:3000/api/${item.package?.image1}`
+                        : ''
+                    }
+                    title={item.package?.product_name}
+                    weight={item.package?.weight}
+                    price={item.package?.offered_price}
+                    typeCharge={item.package?.type}
+                    id={item.id}
+                  ></MarketplaceCard>
+                </Grid>
+              ))}
+            </Grid>
           </Box>
         )}
-        {mobile ? (
+        {mobile && (
           <Box
             style={{
-              display: "flex",
-              alignItems: "right",
-              justifyContent: "right",
-              padding: "10px",
-              cursor: "pointer",
+              display: 'flex',
+              alignItems: 'right',
+              justifyContent: 'right',
+              padding: '10px',
+              cursor: 'pointer',
             }}
           >
             <img src="/imgShipments/QuestionIcon.svg" />
           </Box>
-        ) : (
-          ""
         )}
       </Box>
     </>
