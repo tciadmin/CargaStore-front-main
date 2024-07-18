@@ -241,11 +241,11 @@ export default function CompNavLanding() {
                       { nombre: 'Pendiente', ruta: '/shipments' },
                       {
                         nombre: 'En curso',
-                        ruta: '/shipments/assigned',
+                        ruta: '/shipments/in-progress',
                       },
                       {
                         nombre: 'Asignados',
-                        ruta: '/shipments/in-progress',
+                        ruta: '/shipments/assigned',
                       },
                       {
                         nombre: 'Finalizados',
@@ -253,7 +253,7 @@ export default function CompNavLanding() {
                       },
                     ].map((item, index) => (
                       <ListItem
-                        key={item.nombre}
+                        key={index}
                         onClick={() => {
                           setOpen(false);
                           navigate(item.ruta);
@@ -275,7 +275,7 @@ export default function CompNavLanding() {
                       { nombre: 'Mis envíos', ruta: '/shipments' },
                       { nombre: 'Marketplace', ruta: '/marketplace' },
                     ].map((item, index) => (
-                      <ListItem key={item.nombre} disablePadding>
+                      <ListItem key={index} disablePadding>
                         <ListItemButton
                           onClick={() => navigate(item.ruta)}
                         >
@@ -312,7 +312,7 @@ export default function CompNavLanding() {
                       },
                       { nombre: 'Pagos', ruta: '/payment' },
                     ].map((item, index) => (
-                      <ListItem key={item.ruta} disablePadding>
+                      <ListItem key={index} disablePadding>
                         <ListItemButton
                           onClick={() => {
                             navigate(item.ruta);

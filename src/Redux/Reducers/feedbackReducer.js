@@ -5,11 +5,11 @@ import {
   POST_FEEDBACK_SUCCESS,
   POST_FEEDBACK_PENDING,
   POST_FEEDBACK_FAILURE,
-} from "../Actions/FeedbackActions/feedbackActions";
+} from '../Actions/FeedbackActions/feedbackActions';
 
 const initialState = {
   allFeedback: [],
-  feedback: [],
+  singleFeedBackLoading: false,
   feedbackLoading: false,
   error: null,
 };
@@ -23,11 +23,15 @@ export const feedbackReducer = (state = initialState, action) => {
         error: null,
       };
     case GET_FEEDBACK_FAILURE:
-      return { ...state, feedbackLoading: false, error: action.error };
+      return {
+        ...state,
+        feedbackLoading: false,
+        error: action.error,
+      };
     case GET_FEEDBACK_SUCCESS:
       return {
         ...state,
-        feedback: action.payload,
+        allFeedback: action.payload,
         feedbackLoading: false,
         error: null,
       };
@@ -35,16 +39,20 @@ export const feedbackReducer = (state = initialState, action) => {
     case POST_FEEDBACK_PENDING:
       return {
         ...state,
-        feedbackLoading: true,
+        singleFeedBackLoading: true,
         error: null,
       };
     case POST_FEEDBACK_FAILURE:
-      return { ...state, feedbackLoading: false, error: action.error };
+      return {
+        ...state,
+        singleFeedBackLoading: false,
+        error: action.error,
+      };
     case POST_FEEDBACK_SUCCESS:
       return {
         ...state,
-        allFeedback: [...state.allFeedback, action.payload],
-        feedbackLoading: false,
+        allFeedback: [action.payload, ...state.allFeedback],
+        singleFeedBackLoading: false,
         error: null,
       };
 

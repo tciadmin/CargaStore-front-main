@@ -33,7 +33,7 @@ export default function CompInProgress() {
     };
   }, [dispatch, user?.customer?.id, user]);
 
-  const { orders, ordersLoading } = useSelector(
+  const { orders, ordersLoading, message } = useSelector(
     (state) => state.orders
   );
 
@@ -50,8 +50,8 @@ export default function CompInProgress() {
         >
           <Loading color="#333" />
         </Box>
-      ) : orders.length === 0 && !ordersLoading ? (
-        <ShipmentsMessage message="Aun no tienes envíos en curso" />
+      ) : orders.length === 0 && !ordersLoading && message ? (
+        <ShipmentsMessage message={message} />
       ) : (
         <>
           {mobile ? (
@@ -70,7 +70,7 @@ export default function CompInProgress() {
                   gap: '18px',
                 }}
               >
-                {orders.map((row) => (
+                {orders?.map((row) => (
                   <MobileShipmentItem
                     key={row.id}
                     status={row.status}
@@ -320,7 +320,7 @@ export default function CompInProgress() {
                         gap: '20px',
                       }}
                     >
-                      {orders.map((row) => (
+                      {orders?.map((row) => (
                         <ShipmentsItem
                           key={row.id}
                           status={row.status}

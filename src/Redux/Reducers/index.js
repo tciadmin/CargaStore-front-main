@@ -11,6 +11,7 @@ import { chatReducer } from './chatReducer';
 const rootReducer = combineReducers({
   forms: formDataReducer,
   user: userReducer,
+  driver: driverReducer,
   orders: orderReducer,
   feedback: feedbackReducer,
   truck: truckReducer,

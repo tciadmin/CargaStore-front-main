@@ -35,7 +35,7 @@ export default function CompPending() {
 
   const mobile = useMediaQuery('(max-width:720px)');
 
-  const { orders, ordersLoading } = useSelector(
+  const { orders, ordersLoading, message, status } = useSelector(
     (state) => state.orders
   );
   return (
@@ -51,8 +51,8 @@ export default function CompPending() {
         >
           <Loading color="#333" />
         </Box>
-      ) : orders.length === 0 && !ordersLoading ? (
-        <ShipmentsMessage message="Para crear un nuevo envio haz clic en el boton de “Crear envío”" />
+      ) : !orders.length && !ordersLoading && message ? (
+        <ShipmentsMessage message={message} status={status} />
       ) : (
         <>
           {mobile ? (

@@ -33,7 +33,7 @@ export default function CompSent() {
   }, [dispatch, user?.customer?.id, user]);
 
   const mobile = useMediaQuery('(max-width:720px)');
-  const { orders, ordersLoading } = useSelector(
+  const { orders, ordersLoading, message } = useSelector(
     (state) => state.orders
   );
 
@@ -50,8 +50,8 @@ export default function CompSent() {
         >
           <Loading color="#333" />
         </Box>
-      ) : orders.length === 0 && !ordersLoading ? (
-        <ShipmentsMessage message="Aun no tienes envíos finalizados" />
+      ) : orders.length === 0 && !ordersLoading && message ? (
+        <ShipmentsMessage message={message} />
       ) : (
         <>
           {mobile ? (
@@ -82,6 +82,9 @@ export default function CompSent() {
                     type={row.package.type}
                     pick_up_address={row.pick_up_address}
                     driverName={row.assignedDriver?.user_driver.name}
+                    driver_user_id={
+                      row.assignedDriver?.user_driver.id
+                    }
                   />
                 ))}
               </Box>
@@ -321,7 +324,7 @@ export default function CompSent() {
                         gap: '20px',
                       }}
                     >
-                      {orders.map((row) => (
+                      {orders?.map((row) => (
                         <ShipmentsItem
                           key={row.id}
                           status={row.status}
@@ -341,6 +344,9 @@ export default function CompSent() {
                           price={row.package.offered_price}
                           driverName={
                             row.assignedDriver?.user_driver.name
+                          }
+                          driver_user_id={
+                            row.assignedDriver?.user_driver.id
                           }
                           license={row.assignedDriver?.num_license}
                           rating={row.assignedDriver?.rating}

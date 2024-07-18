@@ -334,16 +334,15 @@ const CargaPage = () => {
                   <Typography fontSize="16px" fontWeight={600}>
                     <GreenCircle></GreenCircle>
                     Fecha de retiro:{' '}
-                    <span style={{ fontWeight: '400' }}>{`${format(
-                      new Date(singleOrder?.pick_up_date),
-                      'dd/MM/yy'
-                    )}`}</span>
+                    <span style={{ fontWeight: '400' }}>
+                      {formatDate(singleOrder?.pick_up_date)}
+                    </span>
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
                     <GreenCircle></GreenCircle>
                     Hora de retiro:{' '}
                     <span style={{ fontWeight: '400' }}>
-                      {formatDate(singleOrder?.pick_up_time)}
+                      {`${singleOrder?.pick_up_time}hs`}
                     </span>
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
