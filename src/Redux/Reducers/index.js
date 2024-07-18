@@ -6,7 +6,7 @@ import { truckReducer } from './truckReducer';
 import { applicationReducer } from './applicationReducer';
 import { paymentReducer } from './paymentReducer';
 import { formDataReducer } from './formsDataReducer';
-import { driverReducer } from './driverReducer';
+import { chatReducer } from './chatReducer';
 
 const rootReducer = combineReducers({
   forms: formDataReducer,
@@ -17,6 +17,7 @@ const rootReducer = combineReducers({
   truck: truckReducer,
   application: applicationReducer,
   payment: paymentReducer,
+  chats: chatReducer
 });
 
 export default rootReducer;

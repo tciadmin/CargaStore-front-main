@@ -5,49 +5,55 @@ const headers = {
   Authorization: `Bearer ${token}`,
 };
 //?------------------------------------------USER
-export const GET_ALL_USERS_PENDING = 'GET_ALL_USERS_PENDING';
-export const GET_ALL_USERS_SUCCESS = 'GET_ALL_USERS_SUCCESS';
-export const GET_ALL_USERS_FAILURE = 'GET_ALL_USERS_FAILURE';
+export const GET_ALL_CHAT_PENDING = 'GET_ALL_CHAT_PENDING';
+export const GET_ALL_CHAT_SUCCESS = 'GET_ALL_CHAT_SUCCESS';
+export const GET_ALL_CHAT_FAILURE = 'GET_ALL_CHAT_FAILURE';
 
-export const GET_USER_PENDING = 'GET_USER_PENDING';
-export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
-export const GET_USER_FAILURE = 'GET_USER_FAILURE';
+export const GET_ALL_MESSAGES_PENDING = 'GET_ALL_MESSAGES_PENDING';
+export const GET_ALL_MESSAGES_SUCCESS = 'GET_ALL_MESSAGES_SUCCESS';
+export const GET_ALL_MESSAGES_FAILURE = 'GET_ALL_MESSAGES_FAILURE';
 
-export const POST_USER_PENDING = 'POST_USER_PENDING';
-export const POST_USER_SUCCESS = 'POST_USER_SUCCESS';
-export const POST_USER_FAILURE = 'POST_USER_FAILURE';
+export const GET_LAST_MESSAGE_PENDING = 'GET_LAST_MESSAGE_PENDING';
+export const GET_LAST_MESSAGE_SUCCESS = 'GET_LAST_MESSAGE_SUCCESS';
+export const GET_LAST_MESSAGE_FAILURE = 'GET_LAST_MESSAGE_FAILURE';
 
-export const AUTH_USER_PENDING = 'AUTH_USERR_PENDING';
-export const AUTH_USER_SUCCESS = 'AUTH_USER_SUCCESS';
-export const AUTH_USER_FAILURE = 'AUTH_USER_FAILURE';
+export const POST_CHAT_PENDING = 'POST_CHAT_PENDING';
+export const POST_CHAT_SUCCESS = 'POST_CHAT_SUCCESS';
+export const POST_CHAT_FAILURE = 'POST_CHAT_FAILURE';
 
-export const PATCH_BASIC_USER_PENDING = 'PATCH_BASIC_USER_PENDING';
-export const PATCH_BASIC_USER_SUCCESS = 'PATCH_BASIC_USER_SUCCESS';
-export const PATCH_BASIC_USER_FAILURE = 'PATCH_BASIC_USER_FAILURE';
+export const POST_MESSAGE_PENDING = 'POST_MESSAGE_PENDING';
+export const POST_MESSAGE_SUCCESS = 'POST_MESSAGE_SUCCESS';
+export const POST_MESSAGE_FAILURE = 'POST_MESSAGE_FAILURE';
 
-export const PUT_CUSTOMER_PENDING = 'PUT_CUSTOMER_PENDING';
-export const PUT_CUSTOMER_SUCCESS = 'PUT_CUSTOMER_SUCCESS';
-export const PUT_CUSTOMER_FAILURE = 'PUT_CUSTOMER_FAILURE';
 
-export const PATCH_TRUCK_PENDING = 'PATCH_TRUCK_PENDING';
-export const PATCH_TRUCK_SUCCESS = 'PATCH_TRUCK_SUCCESS';
-export const PATCH_TRUCK_FAILURE = 'PATCH_TRUCK_FAILURE';
 
-export const PATCH_DRIVER_PENDING = 'PATCH_DRIVER_PENDING';
-export const PATCH_DRIVER_SUCCESS = 'PATCH_DRIVER_SUCCESS';
-export const PATCH_DRIVER_FAILURE = 'PATCH_DRIVER_FAILURE';
 
-export const getAllUsers = () => {
+export const getAllChats = () => {
   return async (dispatch) => {
-    dispatch({ type: GET_ALL_USERS_PENDING });
+    dispatch({ type: GET_ALL_CHAT_PENDING });
     try {
-      const allUsers = await axiosInstance('/users/all');
+      const allMessages = await axiosInstance.get('/chat/getAll',{headers});
       return dispatch({
-        type: GET_ALL_USERS_SUCCESS,
-        payload: allUsers,
+        type: GET_ALL_CHAT_SUCCESS,
+        payload: allMessages.data,
       });
     } catch (error) {
-      dispatch({ type: GET_ALL_USERS_FAILURE, error: error.message });
+      dispatch({ type: GET_ALL_CHAT_FAILURE, error: error.message });
+    }
+  };
+};
+export const getAllMessages = (chatID) => {
+  return async (dispatch) => {
+    dispatch({ type: GET_ALL_MESSAGES_PENDING });
+    try {
+    
+      const allMessages = await axiosInstance.get('/message/getAll/'+chatID,{headers});
+      return dispatch({
+        type: GET_ALL_MESSAGES_SUCCESS,
+        payload: allMessages.data,
+      });
+    } catch (error) {
+      dispatch({ type: GET_ALL_MESSAGES_FAILURE, error: error.message });
     }
   };
 };
@@ -162,8 +168,10 @@ export const authUser = (user, navigate) => {
         path: '/',
       });
       if (data.user.role === 'driver') {
+        Cookies.set('driverId', data.user.driver.id);
         navigate('/marketplace');
       } else if (data.user.role === 'customer') {
+        Cookies.set('customerId', data.user.customer.id);
         navigate('/shipments');
       } else if (data.user.role === 'admin') {
         navigate('/administrador/panel');
@@ -201,7 +209,7 @@ export const patchDriver = (id, datos) => {
       phone: datos.driver.phone,
     };
     try {
-       await axiosInstance.patch(
+      const user = await axiosInstance.patch(
         `/driver/patch/${id}`,
         driver,
         { headers }
