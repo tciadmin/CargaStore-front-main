@@ -29,6 +29,9 @@ import {
 import './styles.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../../Redux/Actions/UserActions/userActions';
+import { getAllChats, getAllMessages } from '../../Redux/Actions/ChatActions/chatActions';
+import getTimeDifference from '../../helpers/diferenciaHoraria';
+
 
 export default function CompNavLanding() {
   const mobile = useMediaQuery('(max-width:720px)');
@@ -36,7 +39,6 @@ export default function CompNavLanding() {
   const [notificaciones, setNotificaciones] = useState(false);
   const [chat, setChat] = useState(false);
   const [chatear, setChatear] = useState(false);
-
   const [anchorElUser, setAnchorElUser] = useState(null);
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -46,7 +48,6 @@ export default function CompNavLanding() {
     setAnchorElUser(null);
   };
   const navigate = useNavigate();
-  const admin = 'admin';
   const onClickLogin = () => {
     navigate('/login');
   };
@@ -65,13 +66,27 @@ export default function CompNavLanding() {
   };
 
   const dispatch = useDispatch();
+  const [arrayChat, setArrayChat] = useState([]);
+  const [indexReceptor, setIndexReceptor] = useState(null);
 
-  React.useEffect(() => {
-    dispatch(getUser(Cookies.get('id')));
-  }, [dispatch]);
 
+  const { chats } = useSelector((state) => state.chats);
+  const { messages } = useSelector((state) => state.chats);
   const { user } = useSelector((state) => state.user);
+  React.useEffect(() => {
+    if (location.pathname != '/landing' && Cookies.get('id')) {
+      dispatch(getUser(Cookies.get('id')));
+      dispatch(getAllChats());
+    }
 
+
+  }, [dispatch]);
+  React.useEffect(() => {
+    if (chats) {
+      setArrayChat(Object.entries(chats))
+
+    }
+  }, [chats && Cookies.get("token")])
   const onClickNotificaciones = () => {
     if (mobile) {
       navigate('/notificaciones');
@@ -444,8 +459,8 @@ export default function CompNavLanding() {
                           location.pathname.startsWith(
                             '/administrador/panel'
                           )) ||
-                        (user.role == 'driver' &&
-                          location.pathname == '/marketplace')
+                          (user.role == 'driver' &&
+                            location.pathname == '/marketplace')
                           ? 'primary'
                           : 'secondary'
                       }
@@ -469,9 +484,9 @@ export default function CompNavLanding() {
                     color={
                       (user.role == 'admin' &&
                         location.pathname.startsWith('/payment')) ||
-                      ((user.role == 'driver' ||
-                        user.role == 'customer') &&
-                        location.pathname.startsWith('/shipments'))
+                        ((user.role == 'driver' ||
+                          user.role == 'customer') &&
+                          location.pathname.startsWith('/shipments'))
                         ? 'primary'
                         : 'secondary'
                     }
@@ -651,7 +666,7 @@ export default function CompNavLanding() {
                   ></Avatar>
                 )}
                 <Typography ml={1} color={'#000'} fontSize={'16px'}>
-                  {chatear ? 'José Luis' : 'Chats'}
+                  {chatear ? chats[indexReceptor].personWithChat.name + "  " + chats[indexReceptor].personWithChat.lastname : 'Chats'}
                 </Typography>
               </Stack>
               <svg
@@ -689,343 +704,279 @@ export default function CompNavLanding() {
             <Stack direction="column">
               {!chatear ? (
                 <>
-                  <Stack
-                    direction={'row'}
-                    p={2}
-                    sx={{ cursor: 'pointer' }}
-                    onClick={() => setChatear(true)}
-                  >
-                    <Avatar
-                      width="40px"
-                      src="imagen"
-                      height="40px"
-                    ></Avatar>
-                    <Stack direction="column" ml={0.5}>
-                      <Typography fontSize={'12px'} color="#000">
-                        José Luis
-                      </Typography>
+                  {chats ? (
 
-                      <Grid container xs={12} minWidth={'300px'}>
-                        <Grid item xs={8}>
-                          <Typography
-                            fontSize={'12px'}
-                            fontWeight={600}
-                            color="#000"
-                            sx={{
-                              overflow: 'hidden',
-                              textOverflow: 'ellipsis',
-                              whiteSpace: 'nowrap',
-                              maxWidth: '100%',
-                            }}
-                          >
-                            Hola,estoy afuera, abrime por favor asi
-                            descargamos{' '}
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <Typography
-                            fontSize={'12px'}
-                            color={'#8C94A6'}
-                          >
-                            Hace 1 hora
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    </Stack>
-                  </Stack>
+                    arrayChat.map((e, index) => {
+                      return <>
+                        <Stack key={index}
+                          direction={'row'}
+                          p={2}
+                          sx={{ cursor: 'pointer' }}
+                          onClick={() => {
+                            dispatch(getAllMessages(e[1].chatID))
+                            setChatear(true)
+                            setIndexReceptor(index);
+                          }
+                          }
+                        >
+                          <Avatar
+                            width="40px"
+                            src="imagen"
+                            height="40px"
+                          ></Avatar>
+                          <Stack direction="column" ml={0.5}>
+                            <Typography fontSize={'12px'} color="#000">
+                              {e[1].personWithChat.name + " " + e[1].personWithChat.lastname}
+                            </Typography>
 
-                  <Stack
-                    direction={'row'}
-                    p={2}
-                    sx={{ cursor: 'pointer' }}
-                    onClick={() => setChatear(true)}
-                  >
-                    <Avatar
-                      width="40px"
-                      src="imagen"
-                      height="40px"
-                    ></Avatar>
-                    <Stack direction="column" ml={0.5}>
-                      <Typography fontSize={'12px'} color="#000">
-                        Ana Luz
-                      </Typography>
+                            <Grid container xs={12} minWidth={'300px'}>
+                              <Grid item xs={8}>
+                                <Typography
+                                  fontSize={'12px'}
+                                  fontWeight={600}
+                                  color="#000"
+                                  sx={{
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                    whiteSpace: 'nowrap',
+                                    maxWidth: '100%',
+                                  }}
+                                >
+                                  {e[1].message}{' '}
+                                </Typography>
+                              </Grid>
+                              <Grid item xs={4}>
+                                <Typography
+                                  fontSize={'12px'}
+                                  color={'#8C94A6'}
+                                >
+                                  {
+                                    getTimeDifference(e[1].createdAt)
+                                  }
+                                </Typography>
+                              </Grid>
+                            </Grid>
+                          </Stack>
+                        </Stack>
 
-                      <Grid container xs={12} minWidth={'300px'}>
-                        <Grid item xs={8}>
-                          <Typography
-                            fontSize={'12px'}
-                            fontWeight={400}
-                            color="#000"
-                            sx={{
-                              overflow: 'hidden',
-                              textOverflow: 'ellipsis',
-                              whiteSpace: 'nowrap',
-                              maxWidth: '100%',
-                            }}
-                          >
-                            Ya enviamos el pedido!{' '}
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <Typography
-                            fontSize={'12px'}
-                            color={'#8C94A6'}
-                          >
-                            Hace 2 hora
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    </Stack>
-                  </Stack>
+
+                      </>
+                    })
+                  ) :
+                    <Typography color={"secondary"} textAlign={"center"}>No tienes mensajes en tu chat</Typography>
+                  }
+
+
+
                 </>
               ) : (
                 <>
-                  {/*Nuestro mensaje */}
-                  <Stack
-                    direction="column"
-                    alignItems={'flex-end'}
-                    p={2}
-                  >
-                    <Box
-                      style={{
-                        backgroundColor: Colors.primary.main,
-                        width: '230px',
-                        borderRadius: '10px 0px 10px 10px',
-                        padding: '10px 15px 10px 15px',
-                      }}
-                    >
-                      <Typography fontSize={'16px'} fontWeight={400}>
-                        Hola! El paquete salió a hora?
-                      </Typography>
-                    </Box>
-                    <Typography
-                      fontSize={'14px'}
-                      fontWeight={400}
-                      width="230px"
-                      color={'#0D082C66'}
-                    >
-                      08:15 AM
-                    </Typography>
-                  </Stack>
-                  {/*Respuesta */}
-                  <Grid container p={2}>
-                    <Grid item xs={2}>
-                      <Avatar alignSelf="flex-end"></Avatar>
-                    </Grid>
-                    <Grid item xs={10}>
+                  <div style={{ width: "95%", maxHeight: "390px", overflowY: "auto" }}>
+                    {messages ? 
+                     (messages.map(e => e.emisorID != Cookies.get('userId') ?
                       <Stack
                         direction="column"
-                        alignItems={'flex-start'}
+                        alignItems={'flex-end'}
+                        p={2}
                       >
-                        <Typography fontSize="16px" color="#000">
-                          José Luis
-                        </Typography>
                         <Box
                           style={{
-                            backgroundColor: '#F1F7FF',
+                            backgroundColor: Colors.primary.main,
                             width: '230px',
-                            borderRadius: '0px 10px 10px 10px',
+                            borderRadius: '10px 0px 10px 10px',
                             padding: '10px 15px 10px 15px',
                           }}
                         >
-                          <Typography
-                            fontSize={'16px'}
-                            color={'#000'}
-                            fontWeight={400}
-                          >
-                            Hola, Mariana, el paquete salió a horario
-                            y se entregará en horario.
+                          <Typography fontSize={'16px'} fontWeight={400}>
+                            {e.message}
                           </Typography>
                         </Box>
                         <Typography
                           fontSize={'14px'}
                           fontWeight={400}
                           width="230px"
-                          textAlign="end"
                           color={'#0D082C66'}
                         >
-                          08:18 AM
+                          {getTimeDifference(e.createdAt)}
                         </Typography>
-                      </Stack>
-                    </Grid>
-                  </Grid>
-                  /*Cuando alguien está escribiendo */
-                  <Grid container p={2}>
-                    <Grid item xs={2}>
-                      <Avatar alignSelf="flex-end"></Avatar>
-                    </Grid>
-                    <Grid item xs={10}>
-                      <Stack
-                        direction="column"
-                        alignItems={'flex-start'}
-                      >
-                        <Typography fontSize="16px" color="#000">
-                          José Luis
-                        </Typography>
-                        <Stack
-                          direction="row"
-                          justifyContent={'space-around'}
-                          p="10px 15px 10px 15px"
-                          borderRadius="0px 10px 10px 10px"
-                          width="91px"
-                          height="35px"
-                          bgcolor={'#F1F7FF'}
-                        >
-                          <svg
-                            width="16"
-                            className="worm"
-                            height="15"
-                            viewBox="0 0 16 15"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
+                      </Stack> :
+                      <Grid container p={2}>
+                        <Grid item xs={2}>
+                          <Avatar alignSelf="flex-end"></Avatar>
+                        </Grid>
+                        <Grid item xs={10}>
+                          <Stack
+                            direction="column"
+                            alignItems={'flex-start'}
                           >
-                            <circle
-                              cx="8"
-                              cy="7.5"
-                              r="7.5"
-                              fill="#C7DFFF"
-                            />
-                          </svg>
-                          <svg
-                            width="16"
-                            className="worm worm-delay2"
-                            height="15"
-                            viewBox="0 0 16 15"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <circle
-                              cx="8"
-                              cy="7.5"
-                              r="7.5"
-                              fill="#C7DFFF"
-                            />
-                          </svg>
-                          <svg
-                            width="16"
-                            className="worm worm-delay3"
-                            height="15"
-                            viewBox="0 0 16 15"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <circle
-                              cx="8"
-                              cy="7.5"
-                              r="7.5"
-                              fill="#C7DFFF"
-                            />
-                          </svg>
-                        </Stack>
-                      </Stack>
-                    </Grid>
-                  </Grid>
-                  {/*Escribir */}
-                  <Stack
-                    direction="row"
+                            <Typography fontSize="16px" color="#000">
+                            </Typography>
+                            <Box
+                              style={{
+                                backgroundColor: '#F1F7FF',
+                                width: '230px',
+                                borderRadius: '0px 10px 10px 10px',
+                                padding: '10px 15px 10px 15px',
+                              }}
+                            >
+                              <Typography
+                                fontSize={'16px'}
+                                color={'#000'}
+                                fontWeight={400}
+                              >
+                                {e.message}
+                              </Typography>
+                            </Box>
+                            <Typography
+                              fontSize={'14px'}
+                              fontWeight={400}
+                              width="230px"
+                              textAlign="end"
+                              color={'#0D082C66'}
+                            >
+                              {getTimeDifference(e.createdAt)}     </Typography>
+                          </Stack>
+                        </Grid>
+                      </Grid>
+                    )):
+                    <Typography color="secondary"> No se cargaron los mensajes</Typography>
+                  }
+                   
+                  </div>
+
+
+                  <Stack direction="column"
                     position="absolute"
                     bottom={0}
                     left={0}
-                    justifyContent={'space-between'}
                     width="400px"
-                    height="60px"
                     pb={2}
                     px={2}
                   >
-                    <Stack direction="row" alignItems={'center'}>
-                      <svg
-                        width="25"
-                        style={{ cursor: 'pointer' }}
-                        height="24"
-                        viewBox="0 0 25 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M12.5 22C18.0228 22 22.5 17.5228 22.5 12C22.5 6.47715 18.0228 2 12.5 2C6.97715 2 2.5 6.47715 2.5 12C2.5 17.5228 6.97715 22 12.5 22Z"
-                          stroke="black"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                        <path
-                          d="M8.5 14C8.5 14 10 16 12.5 16C15 16 16.5 14 16.5 14"
-                          stroke="black"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                        <path
-                          d="M9.5 9H9.51"
-                          stroke="black"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                        <path
-                          d="M15.5 9H15.51"
-                          stroke="black"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      <Input
-                        placeholder="Responder"
-                        style={{
-                          marginLeft: '5px',
-                          border: 'none',
-                          color: '#0D082C',
-                          fontSize: '16px',
-                        }}
-                      ></Input>
-                    </Stack>
-                    <Stack direction="row" alignItems="center">
-                      <svg
-                        style={{ cursor: 'pointer' }}
-                        width="25"
-                        height="24"
-                        viewBox="0 0 25 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <svg opacity="0.4">
+                    <Grid container p={0} >
+                      <Grid item xs={2}>
+                        <Avatar alignSelf="flex-end"></Avatar>
+                      </Grid>
+                      <Grid item xs={10}>
+                        <Stack
+                          direction="column"
+                          alignItems={'flex-start'}
+                        >
+                          <Typography fontSize="16px" color="#000">
+                          {chats[indexReceptor].personWithChat.name + "  " + chats[indexReceptor].personWithChat.lastname}                          </Typography>
+                          <Stack
+                            direction="row"
+                            justifyContent={'space-around'}
+                            p="10px 15px 10px 15px"
+                            borderRadius="0px 10px 10px 10px"
+                            width="91px"
+                            height="35px"
+                            bgcolor={'#F1F7FF'}
+                          >
+                            <svg
+                              width="16"
+                              className="worm"
+                              height="15"
+                              viewBox="0 0 16 15"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <circle
+                                cx="8"
+                                cy="7.5"
+                                r="7.5"
+                                fill="#C7DFFF"
+                              />
+                            </svg>
+                            <svg
+                              width="16"
+                              className="worm worm-delay2"
+                              height="15"
+                              viewBox="0 0 16 15"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <circle
+                                cx="8"
+                                cy="7.5"
+                                r="7.5"
+                                fill="#C7DFFF"
+                              />
+                            </svg>
+                            <svg
+                              width="16"
+                              className="worm worm-delay3"
+                              height="15"
+                              viewBox="0 0 16 15"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <circle
+                                cx="8"
+                                cy="7.5"
+                                r="7.5"
+                                fill="#C7DFFF"
+                              />
+                            </svg>
+                          </Stack>
+                        </Stack>
+                      </Grid>
+                    </Grid>
+                    <Stack
+                      direction="row"
+
+                      justifyContent={'space-between'}
+
+                    >
+                      <Stack direction="row" alignItems={'center'}>
+                        <svg
+                          width="25"
+                          style={{ cursor: 'pointer' }}
+                          height="24"
+                          viewBox="0 0 25 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
                           <path
-                            d="M19.5 3H5.5C4.39543 3 3.5 3.89543 3.5 5V19C3.5 20.1046 4.39543 21 5.5 21H19.5C20.6046 21 21.5 20.1046 21.5 19V5C21.5 3.89543 20.6046 3 19.5 3Z"
+                            d="M12.5 22C18.0228 22 22.5 17.5228 22.5 12C22.5 6.47715 18.0228 2 12.5 2C6.97715 2 2.5 6.47715 2.5 12C2.5 17.5228 6.97715 22 12.5 22Z"
                             stroke="black"
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           />
                           <path
-                            d="M9.5 11C10.6046 11 11.5 10.1046 11.5 9C11.5 7.89543 10.6046 7 9.5 7C8.39543 7 7.5 7.89543 7.5 9C7.5 10.1046 8.39543 11 9.5 11Z"
+                            d="M8.5 14C8.5 14 10 16 12.5 16C15 16 16.5 14 16.5 14"
                             stroke="black"
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           />
                           <path
-                            d="M21.5 15.0002L18.414 11.9142C18.0389 11.5392 17.5303 11.3286 17 11.3286C16.4697 11.3286 15.9611 11.5392 15.586 11.9142L6.5 21.0002"
+                            d="M9.5 9H9.51"
+                            stroke="black"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M15.5 9H15.51"
                             stroke="black"
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           />
                         </svg>
-                      </svg>
-                      <Stack
-                        ml={1}
-                        direction="column"
-                        justifyContent={'center'}
-                        alignItems="center"
-                        width="40px"
-                        height="40px"
-                        borderRadius="100px"
-                        sx={{
-                          background: Colors.primary.main,
-                          cursor: 'pointer',
-                        }}
-                      >
+                        <Input
+                          placeholder="Responder"
+                          style={{
+                            marginLeft: '5px',
+                            border: 'none',
+                            color: '#0D082C',
+                            fontSize: '16px',
+                          }}
+                        ></Input>
+                      </Stack>
+                      <Stack direction="row" alignItems="center">
                         <svg
                           style={{ cursor: 'pointer' }}
                           width="25"
@@ -1034,17 +985,64 @@ export default function CompNavLanding() {
                           fill="none"
                           xmlns="http://www.w3.org/2000/svg"
                         >
-                          <path
-                            d="M9.5 18L15.5 12L9.5 6"
-                            stroke="white"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
+                          <svg opacity="0.4">
+                            <path
+                              d="M19.5 3H5.5C4.39543 3 3.5 3.89543 3.5 5V19C3.5 20.1046 4.39543 21 5.5 21H19.5C20.6046 21 21.5 20.1046 21.5 19V5C21.5 3.89543 20.6046 3 19.5 3Z"
+                              stroke="black"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M9.5 11C10.6046 11 11.5 10.1046 11.5 9C11.5 7.89543 10.6046 7 9.5 7C8.39543 7 7.5 7.89543 7.5 9C7.5 10.1046 8.39543 11 9.5 11Z"
+                              stroke="black"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M21.5 15.0002L18.414 11.9142C18.0389 11.5392 17.5303 11.3286 17 11.3286C16.4697 11.3286 15.9611 11.5392 15.586 11.9142L6.5 21.0002"
+                              stroke="black"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
                         </svg>
+                        <Stack
+                          ml={1}
+                          direction="column"
+                          justifyContent={'center'}
+                          alignItems="center"
+                          width="40px"
+                          height="40px"
+                          borderRadius="100px"
+                          sx={{
+                            background: Colors.primary.main,
+                            cursor: 'pointer',
+                          }}
+                        >
+                          <svg
+                            style={{ cursor: 'pointer' }}
+                            width="25"
+                            height="24"
+                            viewBox="0 0 25 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M9.5 18L15.5 12L9.5 6"
+                              stroke="white"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </Stack>
                       </Stack>
                     </Stack>
                   </Stack>
+
                 </>
               )}
             </Stack>
