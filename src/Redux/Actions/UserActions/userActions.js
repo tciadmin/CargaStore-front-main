@@ -201,11 +201,9 @@ export const patchDriver = (id, datos) => {
       phone: datos.driver.phone,
     };
     try {
-       await axiosInstance.patch(
-        `/driver/patch/${id}`,
-        driver,
-        { headers }
-      );
+      await axiosInstance.patch(`/driver/patch/${id}`, driver, {
+        headers,
+      });
       return dispatch({
         type: PATCH_DRIVER_SUCCESS,
         payload: data,

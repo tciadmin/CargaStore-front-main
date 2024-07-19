@@ -112,6 +112,7 @@ export const orderReducer = (state = initialState, action) => {
     case CREATE_ORDER_FAILURE:
       return {
         ...state,
+        singleOrderLoading: false,
         duplicating: false,
         error: action.error,
       };

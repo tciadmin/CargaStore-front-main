@@ -26,13 +26,14 @@ import {
   ListItemButton,
 } from '@mui/material';
 import './styles.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Chat from '../Chat/Chat';
 import Notificaciones from '../Notificaciones/Notificaciones';
-
+import { getUser } from '../../Redux/Actions/UserActions/userActions';
 
 export default function CompNavLanding() {
   const mobile = useMediaQuery('(max-width:720px)');
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [notificaciones, setNotificaciones] = useState(false);
   const [chat, setChat] = useState(false);
@@ -40,6 +41,10 @@ export default function CompNavLanding() {
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
+
+  React.useEffect(() => {
+    dispatch(getUser(Cookies.get('id')));
+  }, [dispatch]);
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -62,7 +67,6 @@ export default function CompNavLanding() {
   };
 
   const { user } = useSelector((state) => state.user);
- 
 
   const onClickNotificaciones = () => {
     if (mobile) {
@@ -434,8 +438,8 @@ export default function CompNavLanding() {
                           location.pathname.startsWith(
                             '/administrador/panel'
                           )) ||
-                          (user.role == 'driver' &&
-                            location.pathname == '/marketplace')
+                        (user.role == 'driver' &&
+                          location.pathname == '/marketplace')
                           ? 'primary'
                           : 'secondary'
                       }
@@ -459,9 +463,9 @@ export default function CompNavLanding() {
                     color={
                       (user.role == 'admin' &&
                         location.pathname.startsWith('/payment')) ||
-                        ((user.role == 'driver' ||
-                          user.role == 'customer') &&
-                          location.pathname.startsWith('/shipments'))
+                      ((user.role == 'driver' ||
+                        user.role == 'customer') &&
+                        location.pathname.startsWith('/shipments'))
                         ? 'primary'
                         : 'secondary'
                     }
@@ -609,13 +613,9 @@ export default function CompNavLanding() {
             </Box>
           )}
         </Toolbar>
-        {chat && (
-         <Chat cerrarChat={()=>setChat(false)}></Chat>
-        )}
+        {chat && <Chat cerrarChat={() => setChat(false)}></Chat>}
         {/*fin del componente chat */}
-        {notificaciones && (
-        <Notificaciones></Notificaciones>
-        )}
+        {notificaciones && <Notificaciones></Notificaciones>}
       </AppBar>
     );
   }
