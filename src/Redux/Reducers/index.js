@@ -7,6 +7,7 @@ import { applicationReducer } from './applicationReducer';
 import { paymentReducer } from './paymentReducer';
 import { formDataReducer } from './formsDataReducer';
 import { chatReducer } from './chatReducer';
+import {driverReducer} from './driverReducer';
 
 const rootReducer = combineReducers({
   forms: formDataReducer,
