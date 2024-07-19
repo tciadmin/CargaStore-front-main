@@ -28,7 +28,6 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es'; // Importar configuración de idioma español
 import { TimeField } from '@mui/x-date-pickers';
-import Cookies from 'js-cookie';
 
 dayjs.locale('es'); // Establecer el idioma globalmente para dayjs
 
@@ -107,6 +106,7 @@ const PageCrearEnvios = () => {
   });
 
   const { singleOrderLoading } = useSelector((state) => state.orders);
+  const { user } = useSelector((state) => state.user);
 
   const [showImage1, setShowImage1] = React.useState('');
   const [showImage2, setShowImage2] = React.useState('');
@@ -197,7 +197,7 @@ const PageCrearEnvios = () => {
       } = data;
       dispatch(
         createOrder(
-          Cookies.get('customerId'),
+          user?.customer?.id,
           {
             product_name, //string
             quantity, //integer
