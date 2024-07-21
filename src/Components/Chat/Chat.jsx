@@ -18,6 +18,7 @@ import ReceptorWriting from './ReceptorWriting';
 const Chat = ({ cerrarChat }) => {
     const [arrayChat, setArrayChat] = useState([]);
     const [chatear, setChatear] = useState(false);
+    const [nuevoMensaje, setNuevoMensaje] = useState("");
     const [indexReceptor, setIndexReceptor] = useState(null);
 
 
@@ -43,6 +44,12 @@ const Chat = ({ cerrarChat }) => {
         <>
 
             <Box
+            style={{
+                transition:'all 0.3s ease'
+                
+
+
+            }}
                 position="fixed"
                 bottom={0}
                 right={0}
@@ -182,7 +189,7 @@ const Chat = ({ cerrarChat }) => {
                         </>
                     ) : (
                         <>
-                            <div style={{ width: "95%", maxHeight: "390px", overflowY: "auto" }}>
+                            <div style={{ width: "95%", maxHeight: "390px", overflowY: "auto", overflowX: "none" }}>
                                 {messages ?
                                     (messages.slice().reverse().map((e, index) => {                                       
                                         
@@ -199,6 +206,7 @@ const Chat = ({ cerrarChat }) => {
                                     })):
                                 <Typography color="secondary"> No se cargaron los mensajes</Typography>
                                 }
+                                <EmisorMessage message={nuevoMensaje} date={ Date.now()}></EmisorMessage>
 
                             </div>
 
@@ -265,6 +273,8 @@ const Chat = ({ cerrarChat }) => {
                                                 color: '#0D082C',
                                                 fontSize: '16px',
                                             }}
+                                            value={nuevoMensaje}
+                                            onChange={(e)=>setNuevoMensaje(e.target.value)}
                                         ></Input>
                                     </Stack>
                                     <Stack direction="row" alignItems="center">

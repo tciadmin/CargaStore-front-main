@@ -18,7 +18,13 @@ const EmisorMessage = ({ date, message }) => {
                     padding: '10px 15px 10px 15px',
                 }}
             >
-                <Typography fontSize={'16px'} fontWeight={400}>
+                <Typography 
+                sx={{
+                    overflowWrap: 'break-word',
+                    wordWrap: 'break-word',
+                    hyphens: 'auto',
+                }}
+                fontSize={'16px'} fontWeight={400}>
                     {message}
                 </Typography>
             </Box>
