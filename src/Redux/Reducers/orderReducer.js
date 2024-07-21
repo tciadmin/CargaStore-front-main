@@ -1,8 +1,12 @@
+import { ACEPT_ORDER_SUCCESS } from '../Actions/ApplicationActions/aceptOrder';
+import { APPLY_FOR_ORDER_SUCCESS } from '../Actions/ApplicationActions/applyForOrder';
+import { ASSING_DRIVER_SUCCESS } from '../Actions/ApplicationActions/assignDriverToOrder';
 import {
   CHANGE_ORDER_STATE_FAILURE,
   CHANGE_ORDER_STATE_PENDING,
   CHANGE_ORDER_STATE_SUCCESS,
 } from '../Actions/OrderActions/changeOrderState';
+import { CLEAR_ORDER_DETAIL } from '../Actions/OrderActions/clearOrderDetail';
 import { CLEAR_ORDER_STATE } from '../Actions/OrderActions/clearOrderState';
 import { CLEAR_ORDERS_LIST } from '../Actions/OrderActions/clearOrdersList';
 import {
@@ -51,6 +55,11 @@ const initialState = {
 
 export const orderReducer = (state = initialState, action) => {
   switch (action.type) {
+    case CLEAR_ORDER_DETAIL:
+      return {
+        ...state,
+        singleOrder: null,
+      };
     case CLEAR_ORDERS_LIST:
       return {
         ...state,
@@ -185,6 +194,41 @@ export const orderReducer = (state = initialState, action) => {
         ...state,
         orderStateLoading: false,
         error: action.error,
+      };
+
+    //POSTULACIONES
+
+    case APPLY_FOR_ORDER_SUCCESS:
+      return {
+        ...state,
+        singleOrder: {
+          ...state.singleOrder,
+          applications: [
+            action.payload,
+            ...state.singleOrder.applications,
+          ],
+        },
+      };
+
+    case ASSING_DRIVER_SUCCESS:
+      return {
+        ...state,
+        singleOrder: {
+          ...state.singleOrder,
+          pendingAssignedDriverId:
+            action.payload.pendingAssignedDriverId,
+        },
+      };
+
+    case ACEPT_ORDER_SUCCESS:
+      return {
+        ...state,
+        singleOrder: {
+          ...state.singleOrder,
+          status: action.payload.orderStatus,
+          pendingAssignedDriverId:
+            action.payload.pendingAssignedDriverId,
+        },
       };
     default:
       return { ...state };
