@@ -123,6 +123,7 @@ const LayoutRegister = () => {
       style={{
         overflow: mobile ? "" : "hidden",
         flexDirection: mobile ? "column" : "",
+        
       }}
     >
       {mobile ? (
@@ -139,7 +140,7 @@ const LayoutRegister = () => {
           <Box>
             <svg
               width="24"
-              style={{ marginLeft: "15px", cursor: "pointer" }}
+              style={{ marginLeft: "15px", cursor: "pointer"}}
               onClick={onClick}
               height="24"
               viewBox="0 0 24 24"

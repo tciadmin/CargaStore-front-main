@@ -227,7 +227,7 @@ const PageCrearEnvios = () => {
   };
 
   return (
-    <>
+    <Box style={{fontFamily: "Montserrat, sans-serif"}}>
       <CompNavLanding></CompNavLanding>
       <section
         style={{ background: '#F6F6F6', height: '100%' }}
@@ -300,35 +300,35 @@ const PageCrearEnvios = () => {
               />
             </>
           )}
-          <Typography variant="h5" textAlign={'center'} mt={5}>
+          <h1 style={{textAlign: 'center', padding: 10, marginTop: 20}}>
             Crear envío
-          </Typography>
-          <Typography
-            variant="h6"
-            sx={{
+          </h1>
+          <h5
+            
+            style={{
               fontSize: '16px',
-              marginBottom: 5,
+              marginBottom: 10,
               color: '#8C94A6',
               textAlign: 'center',
               fontWeight: 400,
             }}
           >
             {descripciones[stepIndex]}
-          </Typography>
-          <Stack direction="column" alignItems={'center'}>
+          </h5>
+          <Stack direction="column" alignItems={'center'}  textAlign={'left'} sx={{p: 4,}} >
             {stepIndex === 0 && (
-              <>
+              <Box style={{display: 'flex', textAlign: 'left', flexDirection: 'column', gap: 5, justifyContent: 'center'}}>
                 <p
                   style={{
-                    fontWeight: 400,
-                    color: Colors.secondary.main,
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
                     textAlign: 'left',
                   }}
                 >
                   Usuario o empresa que envía
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '300px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
                   variant="outlined"
                 >
                   <OutlinedInput
@@ -351,15 +351,15 @@ const PageCrearEnvios = () => {
                 </FormControl>
                 <p
                   style={{
-                    fontWeight: 400,
-                    color: Colors.secondary.main,
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
                     textAlign: 'left',
                   }}
                 >
                   Número de teléfono
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '300px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
                   variant="outlined"
                 >
                   <OutlinedInput
@@ -393,15 +393,15 @@ const PageCrearEnvios = () => {
                 </FormControl>
                 <p
                   style={{
-                    fontWeight: 400,
-                    color: Colors.secondary.main,
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
                     textAlign: 'left',
                   }}
                 >
                   RUC
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '300px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
                   variant="outlined"
                 >
                   <OutlinedInput
@@ -425,15 +425,15 @@ const PageCrearEnvios = () => {
 
                 <p
                   style={{
-                    fontWeight: 400,
-                    color: Colors.secondary.main,
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
                     textAlign: 'left',
                   }}
                 >
                   Empresa que recibe
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '300px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
                   variant="outlined"
                 >
                   <OutlinedInput
@@ -457,15 +457,15 @@ const PageCrearEnvios = () => {
 
                 <p
                   style={{
-                    fontWeight: 400,
-                    color: Colors.secondary.main,
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
                     textAlign: 'left',
                   }}
                 >
                   Número de contacto
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '300px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
                   variant="outlined"
                 >
                   <OutlinedInput
@@ -500,15 +500,15 @@ const PageCrearEnvios = () => {
 
                 <p
                   style={{
-                    fontWeight: 400,
-                    color: Colors.secondary.main,
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
                     textAlign: 'left',
                   }}
                 >
                   RUC
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '300px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
                   variant="outlined"
                 >
                   <OutlinedInput
@@ -529,21 +529,21 @@ const PageCrearEnvios = () => {
                     </p>
                   )}
                 </FormControl>
-              </>
+              </Box>
             )}
             {stepIndex === 1 && (
-              <>
+              <Box style={{display: 'flex', textAlign: 'left', flexDirection: 'column', gap: 5, justifyContent: 'center'}}>
                 <p
                   style={{
-                    fontWeight: 400,
-                    color: Colors.secondary.main,
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
                     textAlign: 'left',
                   }}
                 >
                   Nombre del producto
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '300px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
                   variant="outlined"
                 >
                   <OutlinedInput
@@ -567,15 +567,15 @@ const PageCrearEnvios = () => {
 
                 <p
                   style={{
-                    fontWeight: 400,
-                    color: Colors.secondary.main,
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
                     textAlign: 'left',
                   }}
                 >
                   Cantidad de unidades
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '300px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
                   variant="outlined"
                 >
                   <OutlinedInput
@@ -600,15 +600,15 @@ const PageCrearEnvios = () => {
 
                 <p
                   style={{
-                    fontWeight: 400,
-                    color: Colors.secondary.main,
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
                     textAlign: 'left',
                   }}
                 >
                   Tipo de carga
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '300px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
                   variant="outlined"
                 >
                   <Select
@@ -638,15 +638,15 @@ const PageCrearEnvios = () => {
 
                 <p
                   style={{
-                    fontWeight: 400,
-                    color: Colors.secondary.main,
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
                     textAlign: 'left',
                   }}
                 >
                   Tipo de envío
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '300px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
                   variant="outlined"
                 >
                   <Select
@@ -676,15 +676,15 @@ const PageCrearEnvios = () => {
 
                 <p
                   style={{
-                    fontWeight: 400,
-                    color: Colors.secondary.main,
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
                     textAlign: 'left',
                   }}
                 >
                   Peso total
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '300px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
                   variant="outlined"
                 >
                   <OutlinedInput
@@ -708,15 +708,15 @@ const PageCrearEnvios = () => {
 
                 <p
                   style={{
-                    fontWeight: 400,
-                    color: Colors.secondary.main,
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
                     textAlign: 'left',
                   }}
                 >
                   Volumen del paquete
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '300px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
                   variant="outlined"
                 >
                   <OutlinedInput
@@ -740,8 +740,8 @@ const PageCrearEnvios = () => {
 
                 <p
                   style={{
-                    fontWeight: 400,
-                    color: Colors.secondary.main,
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
                     textAlign: 'left',
                   }}
                 >
@@ -750,12 +750,13 @@ const PageCrearEnvios = () => {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? '300px' : '666px',
+                    width: mobile ? '370px' : '666px',
                   }}
                   variant="outlined"
                 >
                   <OutlinedInput
                     type="text"
+                    style={{borderRadius: '10px',}}
                     {...register('offered_price', {
                       required: 'Este campo es requerido',
                       pattern: {
@@ -778,7 +779,7 @@ const PageCrearEnvios = () => {
                     inputProps={{
                       style: {
                         height: mobile ? '40px' : '50px',
-                        borderRadius: '8px',
+                        padding: 1
                       },
                     }}
                     aria-describedby="outlined-price-helper-text"
@@ -815,7 +816,7 @@ const PageCrearEnvios = () => {
                 <Grid
                   container
                   margin="0 auto"
-                  width="100%"
+                  width= {mobile ? '370px' : '666px'} 
                   my={2}
                   mb={2}
                   justifyContent={'flex-start'}
@@ -829,6 +830,8 @@ const PageCrearEnvios = () => {
                     direction="row"
                     justifyContent={'center'}
                     style={imageStyles}
+                    width= {mobile ? '370px' : '666px'} 
+
                   >
                     <input
                       type="file"
@@ -866,17 +869,22 @@ const PageCrearEnvios = () => {
                     direction="row"
                     justifyContent={'center'}
                     style={imageStyles}
+                    width= {mobile ? '370px' : '666px'} 
+
+
                   >
                     <input
                       type="file"
                       accept="image/*"
                       style={inputFileStyles}
-                      {...register('image2', {
+                      {...register('image2', 
+                        {
                         required: {
                           value: true,
                           message: 'Image is required',
                         },
-                      })}
+                      }
+                    )}
                       onChange={(ev) => {
                         handleFileChange(ev, 2);
                       }}
@@ -903,6 +911,9 @@ const PageCrearEnvios = () => {
                     direction="row"
                     justifyContent={'center'}
                     style={imageStyles}
+                    width= {mobile ? '370px' : '666px'} 
+
+
                   >
                     <input
                       type="file"
@@ -940,6 +951,9 @@ const PageCrearEnvios = () => {
                     direction="row"
                     justifyContent={'center'}
                     style={imageStyles}
+                    width= {mobile ? '370px' : '666px'} 
+
+
                   >
                     <input
                       type="file"
@@ -976,21 +990,21 @@ const PageCrearEnvios = () => {
                   errors.image4) && (
                   <p style={{ color: 'red' }}>imagen requerida</p>
                 )}
-              </>
+              </Box>
             )}
             {stepIndex === 2 && (
-              <>
+              <Box style={{display: 'flex', textAlign: 'left', flexDirection: 'column', gap: 5}}>
                 <p
                   style={{
-                    fontWeight: 400,
-                    color: Colors.secondary.main,
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
                     textAlign: 'left',
                   }}
                 >
                   Fecha de retiro
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '300px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
                   variant="outlined"
                 >
                   <LocalizationProvider
@@ -1024,15 +1038,15 @@ const PageCrearEnvios = () => {
 
                 <p
                   style={{
-                    fontWeight: 400,
-                    color: Colors.secondary.main,
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
                     textAlign: 'left',
                   }}
                 >
                   Hora de retiro
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '300px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
                   variant="outlined"
                 >
                   <LocalizationProvider
@@ -1070,15 +1084,15 @@ const PageCrearEnvios = () => {
 
                 <p
                   style={{
-                    fontWeight: 400,
-                    color: Colors.secondary.main,
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
                     textAlign: 'left',
                   }}
                 >
                   Dirección de retiro
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '300px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
                   variant="outlined"
                 >
                   <OutlinedInput
@@ -1102,15 +1116,15 @@ const PageCrearEnvios = () => {
 
                 <p
                   style={{
-                    fontWeight: 400,
-                    color: Colors.secondary.main,
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
                     textAlign: 'left',
                   }}
                 >
                   Fecha de entrega
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '300px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
                   variant="outlined"
                 >
                   <LocalizationProvider
@@ -1144,15 +1158,15 @@ const PageCrearEnvios = () => {
 
                 <p
                   style={{
-                    fontWeight: 400,
-                    color: Colors.secondary.main,
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
                     textAlign: 'left',
                   }}
                 >
                   Hora de entrega
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '300px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
                   variant="outlined"
                 >
                   <LocalizationProvider
@@ -1190,15 +1204,15 @@ const PageCrearEnvios = () => {
 
                 <p
                   style={{
-                    fontWeight: 400,
-                    color: Colors.secondary.main,
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
                     textAlign: 'left',
                   }}
                 >
                   Dirección de entrega
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '300px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
                   variant="outlined"
                 >
                   <OutlinedInput
@@ -1219,21 +1233,21 @@ const PageCrearEnvios = () => {
                     </p>
                   )}
                 </FormControl>
-              </>
+              </Box>
             )}
             {stepIndex === 3 && (
-              <>
+              <Box style={{display: 'flex', textAlign: 'left', flexDirection: 'column', gap: 5}}>
                 <p
                   style={{
-                    fontWeight: 400,
-                    color: Colors.secondary.main,
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
                     textAlign: 'left',
                   }}
                 >
                   Nombre
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '300px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
                   variant="outlined"
                 >
                   <OutlinedInput
@@ -1257,15 +1271,15 @@ const PageCrearEnvios = () => {
 
                 <p
                   style={{
-                    fontWeight: 400,
-                    color: Colors.secondary.main,
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
                     textAlign: 'left',
                   }}
                 >
                   Número de tarjeta
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '300px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
                   variant="outlined"
                 >
                   <OutlinedInput
@@ -1289,15 +1303,15 @@ const PageCrearEnvios = () => {
 
                 <p
                   style={{
-                    fontWeight: 400,
-                    color: Colors.secondary.main,
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
                     textAlign: 'left',
                   }}
                 >
                   Fecha de vencimiento
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '300px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
                   variant="outlined"
                 >
                   <LocalizationProvider
@@ -1329,15 +1343,15 @@ const PageCrearEnvios = () => {
 
                 <p
                   style={{
-                    fontWeight: 400,
-                    color: Colors.secondary.main,
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
                     textAlign: 'left',
                   }}
                 >
                   Monto a pagar
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '300px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
                   variant="outlined"
                 >
                   <OutlinedInput
@@ -1374,14 +1388,17 @@ const PageCrearEnvios = () => {
                     </p>
                   )}
                 </FormControl>
-              </>
+              </Box>
             )}
             <Button
               sx={{
-                width: mobile ? '300px' : '666px',
+                width: mobile ? '370px' : '666px',
                 padding: mobile ? '' : '18px 0',
-                fontWeight: 'bold',
-                fontSize: '1rem',
+                fontFamily: "Montserrat , sans-serif",
+                backgroundColor: Colors.primary.main,
+                color: Colors.primary.contrastText,
+                height: mobile ? '40px' : '50px',
+                marginTop: 3
               }}
               disabled={singleOrderLoading}
               onClick={handleSubmit(onClick)}
@@ -1396,7 +1413,7 @@ const PageCrearEnvios = () => {
           </Stack>
         </Container>
       </section>
-    </>
+    </Box>
   );
 };
 
