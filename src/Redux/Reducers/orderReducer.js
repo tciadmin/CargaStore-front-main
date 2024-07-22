@@ -1,6 +1,7 @@
 import { ACEPT_ORDER_SUCCESS } from '../Actions/ApplicationActions/aceptOrder';
 import { APPLY_FOR_ORDER_SUCCESS } from '../Actions/ApplicationActions/applyForOrder';
 import { ASSING_DRIVER_SUCCESS } from '../Actions/ApplicationActions/assignDriverToOrder';
+import { DECLINE_ORDER_SUCCESS } from '../Actions/ApplicationActions/declineOrder';
 import {
   CHANGE_ORDER_STATE_FAILURE,
   CHANGE_ORDER_STATE_PENDING,
@@ -204,7 +205,7 @@ export const orderReducer = (state = initialState, action) => {
         singleOrder: {
           ...state.singleOrder,
           applications: [
-            action.payload,
+            action.payload.application,
             ...state.singleOrder.applications,
           ],
         },
@@ -228,6 +229,20 @@ export const orderReducer = (state = initialState, action) => {
           status: action.payload.orderStatus,
           pendingAssignedDriverId:
             action.payload.pendingAssignedDriverId,
+        },
+      };
+
+    case DECLINE_ORDER_SUCCESS:
+      return {
+        ...state,
+        singleOrder: {
+          ...state.singleOrder,
+          pendingAssignedDriverId:
+            action.payload.pendingAssignedDriverId,
+          applications: state.singleOrder.applications.filter(
+            (application) =>
+              application.id !== action.payload.deletedApplication.id
+          ),
         },
       };
     default:
