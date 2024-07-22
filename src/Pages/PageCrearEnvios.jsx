@@ -315,7 +315,7 @@ const PageCrearEnvios = () => {
           >
             {descripciones[stepIndex]}
           </h5>
-          <Stack direction="column" alignItems={'center'}  textAlign={'left'} sx={{p: 4, justifyContent: 'center'}} >
+          <Stack direction="column" alignItems={'center'}  textAlign={'left'} sx={{p: 4,}} >
             {stepIndex === 0 && (
               <Box style={{display: 'flex', textAlign: 'left', flexDirection: 'column', gap: 5, justifyContent: 'center'}}>
                 <p
@@ -816,7 +816,7 @@ const PageCrearEnvios = () => {
                 <Grid
                   container
                   margin="0 auto"
-                  width="100%"
+                  width= {mobile ? '370px' : '666px'} 
                   my={2}
                   mb={2}
                   justifyContent={'flex-start'}
@@ -830,6 +830,8 @@ const PageCrearEnvios = () => {
                     direction="row"
                     justifyContent={'center'}
                     style={imageStyles}
+                    width= {mobile ? '370px' : '666px'} 
+
                   >
                     <input
                       type="file"
@@ -867,17 +869,22 @@ const PageCrearEnvios = () => {
                     direction="row"
                     justifyContent={'center'}
                     style={imageStyles}
+                    width= {mobile ? '370px' : '666px'} 
+
+
                   >
                     <input
                       type="file"
                       accept="image/*"
                       style={inputFileStyles}
-                      {...register('image2', {
+                      {...register('image2', 
+                        {
                         required: {
                           value: true,
                           message: 'Image is required',
                         },
-                      })}
+                      }
+                    )}
                       onChange={(ev) => {
                         handleFileChange(ev, 2);
                       }}
@@ -904,6 +911,9 @@ const PageCrearEnvios = () => {
                     direction="row"
                     justifyContent={'center'}
                     style={imageStyles}
+                    width= {mobile ? '370px' : '666px'} 
+
+
                   >
                     <input
                       type="file"
@@ -941,6 +951,9 @@ const PageCrearEnvios = () => {
                     direction="row"
                     justifyContent={'center'}
                     style={imageStyles}
+                    width= {mobile ? '370px' : '666px'} 
+
+
                   >
                     <input
                       type="file"
