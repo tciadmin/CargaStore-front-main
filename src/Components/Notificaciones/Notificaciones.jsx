@@ -17,6 +17,7 @@ const Notificaciones = () => {
     maxWidth={'400px'}
     height="600px"
     style={{
+      transition:'all 9s ease',
       background: 'white',
       border: '1 solid black',
       boxShadow: '#007C521A 0 30px 60px 0',
