@@ -19,13 +19,21 @@ import {
   DECLINE_ORDER_SUCCESS,
 } from '../Actions/ApplicationActions/declineOrder';
 
+import { CLEAR_APPLICATION_MESSAGE } from '../Actions/ApplicationActions/clearApplicationMessage.js';
+
 const initialState = {
   applicationLoading: false,
+  applicationMessage: null,
   error: null,
 };
 
 export const applicationReducer = (state = initialState, action) => {
   switch (action.type) {
+    case CLEAR_APPLICATION_MESSAGE:
+      return {
+        ...state,
+        applicationMessage: null,
+      };
     case APPLY_FOR_ORDER_PENDING:
       return {
         ...state,
@@ -35,6 +43,7 @@ export const applicationReducer = (state = initialState, action) => {
     case APPLY_FOR_ORDER_SUCCESS:
       return {
         ...state,
+        applicationMessage: action.payload.msg,
         applicationLoading: false,
       };
     case APPLY_FOR_ORDER_FAILURE:

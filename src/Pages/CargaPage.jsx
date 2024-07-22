@@ -26,6 +26,7 @@ import { getOrderState } from '../Redux/Actions/OrderActions/getOrderState';
 import { aceptOrder } from '../Redux/Actions/ApplicationActions/aceptOrder';
 import { declineOrder } from '../Redux/Actions/ApplicationActions/declineOrder';
 import { clearOrderDetail } from '../Redux/Actions/OrderActions/clearOrderDetail';
+import { clearApplicationMessage } from '../Redux/Actions/ApplicationActions/clearApplicationMessage';
 
 const GreenCircle = () => {
   return (
@@ -60,7 +61,7 @@ const CargaPage = () => {
   const { singleOrder, singleOrderLoading, duplicating, orderState } =
     useSelector((state) => state.orders);
   const { user } = useSelector((state) => state.user);
-  const { applicationLoading } = useSelector(
+  const { applicationLoading, applicationMessage } = useSelector(
     (state) => state.application
   );
 
@@ -70,7 +71,11 @@ const CargaPage = () => {
   }, [singleOrder?.status, dispatch, id]);
 
   const mobile = useMediaQuery('(max-width:750px)');
-  const [postular, setPostular] = useState(false);
+  // const [postular, setPostular] = useState(false);
+
+  const handleCloseModal = () => {
+    dispatch(clearApplicationMessage());
+  };
 
   const [applyed, setApplyed] = useState(false);
 
@@ -587,8 +592,8 @@ const CargaPage = () => {
             </Grid>
           </Container>
           <Modal
-            open={postular}
-            onClose={() => setPostular(false)}
+            open={applicationMessage}
+            onClose={handleCloseModal}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
@@ -628,7 +633,7 @@ const CargaPage = () => {
                   }}
                 >
                   <img
-                    onClick={() => setPostular(false)}
+                    onClick={handleCloseModal}
                     style={{
                       display: 'flex',
                       justifyContent: 'right',
@@ -645,14 +650,14 @@ const CargaPage = () => {
                   variant="h6"
                   component="h2"
                 >
-                  Postulación enviada
+                  {applicationMessage?.msg1}
                 </Typography>
 
                 <Typography
                   id="modal-modal-description"
                   style={{ marginBottom: '30px' }}
                 >
-                  Si te asignan el envío recibirás una notificación
+                  {applicationMessage?.msg2}
                 </Typography>
               </Box>
             </Box>
