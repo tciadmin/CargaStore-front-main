@@ -227,7 +227,7 @@ const PageCrearEnvios = () => {
   };
 
   return (
-    <>
+    <Box style={{fontFamily: "Montserrat, sans-serif"}}>
       <CompNavLanding></CompNavLanding>
       <section
         style={{ background: '#F6F6F6', height: '100%' }}
@@ -300,24 +300,24 @@ const PageCrearEnvios = () => {
               />
             </>
           )}
-          <Typography variant="h5" textAlign={'center'} mt={5}>
+          <h1 style={{textAlign: 'center', padding: 10, marginTop: 10}}>
             Crear envío
-          </Typography>
-          <Typography
-            variant="h6"
-            sx={{
+          </h1>
+          <h5
+            
+            style={{
               fontSize: '16px',
-              marginBottom: 5,
+              marginBottom: 10,
               color: '#8C94A6',
               textAlign: 'center',
               fontWeight: 400,
             }}
           >
             {descripciones[stepIndex]}
-          </Typography>
-          <Stack direction="column" alignItems={'center'}>
+          </h5>
+          <Stack direction="column" alignItems={'center'}  textAlign={'left'} sx={{p: 5}} >
             {stepIndex === 0 && (
-              <>
+              <Box style={{display: 'flex', textAlign: 'left', flexDirection: 'column', gap: 5}}>
                 <p
                   style={{
                     fontWeight: 400,
@@ -529,10 +529,10 @@ const PageCrearEnvios = () => {
                     </p>
                   )}
                 </FormControl>
-              </>
+              </Box>
             )}
             {stepIndex === 1 && (
-              <>
+              <Box style={{display: 'flex', textAlign: 'left', flexDirection: 'column'}}>
                 <p
                   style={{
                     fontWeight: 400,
@@ -976,10 +976,10 @@ const PageCrearEnvios = () => {
                   errors.image4) && (
                   <p style={{ color: 'red' }}>imagen requerida</p>
                 )}
-              </>
+              </Box>
             )}
             {stepIndex === 2 && (
-              <>
+              <Box style={{display: 'flex', textAlign: 'left', flexDirection: 'column'}}>
                 <p
                   style={{
                     fontWeight: 400,
@@ -1219,10 +1219,10 @@ const PageCrearEnvios = () => {
                     </p>
                   )}
                 </FormControl>
-              </>
+              </Box>
             )}
             {stepIndex === 3 && (
-              <>
+              <Box style={{display: 'flex', textAlign: 'left', flexDirection: 'column'}}>
                 <p
                   style={{
                     fontWeight: 400,
@@ -1374,14 +1374,17 @@ const PageCrearEnvios = () => {
                     </p>
                   )}
                 </FormControl>
-              </>
+              </Box>
             )}
             <Button
               sx={{
                 width: mobile ? '300px' : '666px',
                 padding: mobile ? '' : '18px 0',
-                fontWeight: 'bold',
-                fontSize: '1rem',
+                fontFamily: "Montserrat , sans-serif",
+                backgroundColor: Colors.primary.main,
+                color: Colors.primary.contrastText,
+                height: mobile ? '40px' : '50px',
+                marginTop: 3
               }}
               disabled={singleOrderLoading}
               onClick={handleSubmit(onClick)}
@@ -1396,7 +1399,7 @@ const PageCrearEnvios = () => {
           </Stack>
         </Container>
       </section>
-    </>
+    </Box>
   );
 };
 
