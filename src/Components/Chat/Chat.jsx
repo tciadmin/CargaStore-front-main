@@ -10,7 +10,7 @@ import {
     Stack,
     Typography,
 } from '@mui/material';
-import { getAllChats, getAllMessages } from '../../Redux/Actions/ChatActions/chatActions';
+import { createMessage, getAllChats, getAllMessages } from '../../Redux/Actions/ChatActions/chatActions';
 import getTimeDifference from '../../helpers/diferenciaHoraria';
 import EmisorMessage from './EmisorMessage';
 import ReceptorMessage from './ReceptorMessage';
@@ -18,6 +18,7 @@ import ReceptorWriting from './ReceptorWriting';
 const Chat = ({ cerrarChat }) => {
     const [arrayChat, setArrayChat] = useState([]);
     const [chatear, setChatear] = useState(false);
+    const [nuevoMensaje, setNuevoMensaje] = useState("");
     const [indexReceptor, setIndexReceptor] = useState(null);
 
 
@@ -25,7 +26,6 @@ const Chat = ({ cerrarChat }) => {
     const dispatch = useDispatch();
     useEffect(() => {
         if (location.pathname != '/landing' && Cookies.get('id')) {
-            console.log('im here')
             dispatch(getAllChats());
         }
 
@@ -37,12 +37,22 @@ const Chat = ({ cerrarChat }) => {
             setArrayChat(Object.entries(chats));
         }
     }, [chats && Cookies.get("token")]);
-
+const enviarMensaje = ()=>{
+    
+     dispatch(createMessage(arrayChat[indexReceptor][1].chatID,nuevoMensaje))
+     dispatch(getAllChats())
+}
 
     return (
         <>
 
             <Box
+            style={{
+                transition:'all 0.3s ease'
+                
+
+
+            }}
                 position="fixed"
                 bottom={0}
                 right={0}
@@ -182,7 +192,7 @@ const Chat = ({ cerrarChat }) => {
                         </>
                     ) : (
                         <>
-                            <div style={{ width: "95%", maxHeight: "390px", overflowY: "auto" }}>
+                            <div style={{ width: "95%", maxHeight: "390px", overflowY: "auto", overflowX: "none" }}>
                                 {messages ?
                                     (messages.slice().reverse().map((e, index) => {                                       
                                         
@@ -265,6 +275,8 @@ const Chat = ({ cerrarChat }) => {
                                                 color: '#0D082C',
                                                 fontSize: '16px',
                                             }}
+                                            value={nuevoMensaje}
+                                            onChange={(e)=>setNuevoMensaje(e.target.value)}
                                         ></Input>
                                     </Stack>
                                     <Stack direction="row" alignItems="center">
@@ -312,6 +324,7 @@ const Chat = ({ cerrarChat }) => {
                                                 background: Colors.primary.main,
                                                 cursor: 'pointer',
                                             }}
+                                            onClick={()=>enviarMensaje()}
                                         >
                                             <svg
                                                 style={{ cursor: 'pointer' }}

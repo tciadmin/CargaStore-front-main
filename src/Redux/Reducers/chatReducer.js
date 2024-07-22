@@ -3,11 +3,13 @@
     
     GET_ALL_MESSAGES_FAILURE,
     GET_ALL_MESSAGES_SUCCESS,
-    GET_ALL_MESSAGES_PENDING,
-   
+    GET_ALL_MESSAGES_PENDING,   
     GET_ALL_CHAT_SUCCESS,
     GET_ALL_CHAT_PENDING,
-    GET_ALL_CHAT_FAILURE
+    GET_ALL_CHAT_FAILURE,
+    CREATE_MESSAGE_FAILURE,
+    CREATE_MESSAGE_SUCCESS,
+    CREATE_MESSAGE_PENDING
 
   } from '../Actions/ChatActions/chatActions';
   
@@ -63,6 +65,26 @@
           chatLoading: false,
           error: null,
         };
+        case CREATE_MESSAGE_FAILURE:
+          return {
+            ...state,
+            chatLoading: false,
+            error: action.error,
+          };
+        case CREATE_MESSAGE_PENDING:
+          return {
+            ...state,
+            chatLoading: true,
+            error: null,
+          };
+
+    case CREATE_MESSAGE_SUCCESS:
+      return {
+        ...state,
+        chats: {...action.payload},
+        chatLoading: false,
+        error: null,
+      };
     
   
       default:
