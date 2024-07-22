@@ -22,12 +22,16 @@ const ChargeRequestCard = ({
   estrellas,
   driverId,
   orderId,
+  pending,
+  assigned,
 }) => {
   const dispatch = useDispatch();
   const [ocultar, setOcultar] = useState(false);
   const { applicationLoading } = useSelector(
     (state) => state.application
   );
+
+  const { singleOrder } = useSelector((state) => state.orders);
 
   const assignDriver = () => {
     dispatch(assingDriverToOrder(driverId, orderId));
@@ -99,31 +103,71 @@ const ChargeRequestCard = ({
         alignItems={'center'}
         xs={2}
       >
-        <Stack
-          direction="row"
-          justifyContent={'center'}
-          alignItems={'center'}
-        >
-          <Button
-            disabled={applicationLoading}
-            style={{ fontWeight: 600, marginRight: '4px' }}
-            variant="outlined"
-            onClick={assignDriver}
+        {pending ? (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
           >
-            Asignar
-          </Button>
-          <Button variant="sf">
-            <Typography
-              fontSize={'16px'}
-              fontWeight={600}
-              color="secondary"
-              onClick={() => setOcultar(true)}
+            <p
+              style={{
+                color: '#007C52',
+                fontFamily: 'Montserrat',
+                fontSize: '16px',
+                fontWeight: 500,
+                lineHeight: '23.2px',
+                textAlign: 'left',
+              }}
             >
-              {' '}
-              Ignorar
-            </Typography>
-          </Button>
-        </Stack>
+              Conductor pendiente
+            </p>
+          </div>
+        ) : (
+          <Stack
+            direction="row"
+            justifyContent={'center'}
+            alignItems={'center'}
+          >
+            <Button
+              disabled={
+                singleOrder?.pendingAssignedDriverId ||
+                applicationLoading ||
+                assigned ||
+                pending
+              }
+              style={{ fontWeight: 600, marginRight: '4px' }}
+              variant="outlined"
+              onClick={assignDriver}
+            >
+              {assigned
+                ? 'Asignado'
+                : pending
+                ? 'pendiente'
+                : 'Asignar'}
+            </Button>
+            <Button
+              disabled={
+                singleOrder?.pendingAssignedDriverId ||
+                applicationLoading ||
+                assigned ||
+                pending
+              }
+              variant="sf"
+            >
+              <Typography
+                fontSize={'16px'}
+                fontWeight={600}
+                color="secondary"
+                onClick={() => setOcultar(true)}
+              >
+                {' '}
+                Ignorar
+              </Typography>
+            </Button>
+          </Stack>
+        )}
       </Grid>
     </Grid>
   );
