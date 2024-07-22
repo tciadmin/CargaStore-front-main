@@ -21,9 +21,9 @@ export const POST_CHAT_PENDING = 'POST_CHAT_PENDING';
 export const POST_CHAT_SUCCESS = 'POST_CHAT_SUCCESS';
 export const POST_CHAT_FAILURE = 'POST_CHAT_FAILURE';
 
-export const POST_MESSAGE_PENDING = 'POST_MESSAGE_PENDING';
-export const POST_MESSAGE_SUCCESS = 'POST_MESSAGE_SUCCESS';
-export const POST_MESSAGE_FAILURE = 'POST_MESSAGE_FAILURE';
+export const CREATE_MESSAGE_PENDING = 'CREATE_MESSAGE_PENDING';
+export const CREATE_MESSAGE_SUCCESS = 'CREATE_MESSAGE_SUCCESS';
+export const CREATE_MESSAGE_FAILURE = 'CREATE_MESSAGE_FAILURE';
 
 
 
@@ -56,6 +56,23 @@ export const getAllMessages = (chatID) => {
       dispatch({ type: GET_ALL_MESSAGES_FAILURE, error: error.message });
     }
   };
+};
+export const createMessage = (chatID, message)=>{
+  return async(dispatch) =>{
+    dispatch({ type: CREATE_MESSAGE_PENDING });
+
+    try{
+      if(!chatID){
+        dispatch({ type: CREATE_MESSAGE_FAILURE, error: "Debe enviar el id del chat" });
+      }else if (!message){
+        dispatch({ type: CREATE_MESSAGE_FAILURE, error: "Debe enviar el mensaje" });
+      }
+      await axiosInstance.post('/message/create',{chatID,message},{headers})
+    }catch(e){
+      dispatch({ type: CREATE_MESSAGE_FAILURE, error: e.message });
+
+    }
+  }
 };
 
 

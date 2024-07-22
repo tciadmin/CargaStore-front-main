@@ -10,7 +10,7 @@ import {
     Stack,
     Typography,
 } from '@mui/material';
-import { getAllChats, getAllMessages } from '../../Redux/Actions/ChatActions/chatActions';
+import { createMessage, getAllChats, getAllMessages } from '../../Redux/Actions/ChatActions/chatActions';
 import getTimeDifference from '../../helpers/diferenciaHoraria';
 import EmisorMessage from './EmisorMessage';
 import ReceptorMessage from './ReceptorMessage';
@@ -26,7 +26,6 @@ const Chat = ({ cerrarChat }) => {
     const dispatch = useDispatch();
     useEffect(() => {
         if (location.pathname != '/landing' && Cookies.get('id')) {
-            console.log('im here')
             dispatch(getAllChats());
         }
 
@@ -38,7 +37,11 @@ const Chat = ({ cerrarChat }) => {
             setArrayChat(Object.entries(chats));
         }
     }, [chats && Cookies.get("token")]);
-
+const enviarMensaje = ()=>{
+    
+     dispatch(createMessage(arrayChat[indexReceptor][1].chatID,nuevoMensaje))
+     dispatch(getAllChats())
+}
 
     return (
         <>
@@ -206,7 +209,6 @@ const Chat = ({ cerrarChat }) => {
                                     })):
                                 <Typography color="secondary"> No se cargaron los mensajes</Typography>
                                 }
-                                <EmisorMessage message={nuevoMensaje} date={ Date.now()}></EmisorMessage>
 
                             </div>
 
@@ -322,6 +324,7 @@ const Chat = ({ cerrarChat }) => {
                                                 background: Colors.primary.main,
                                                 cursor: 'pointer',
                                             }}
+                                            onClick={()=>enviarMensaje()}
                                         >
                                             <svg
                                                 style={{ cursor: 'pointer' }}
