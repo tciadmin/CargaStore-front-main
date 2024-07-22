@@ -44,6 +44,7 @@ import { CompDashboard } from '../Components/Dashboard/CompDashboard';
 import CompPayDriver from '../Components/PayDriver/CompPayDriver';
 import PageChatMobile from '../Pages/PageChatMobile';
 import PageNotificacionesMobile from '../Pages/PageNotificacionesMobile';
+import CompRegister from '../Components/Register/CompRegister';
 
 export const router = createBrowserRouter([
   {
@@ -72,7 +73,7 @@ export const router = createBrowserRouter([
     path: '/register',
     element: <LayoutRegister />,
     children: [
-      { index: true, element: <PageRegister /> },
+      { index: true, element: <CompRegister /> },
       { path: 'driver', element: <CompRegDriver /> },
       { path: 'driver/vehicle-info', element: <CompVehicleInfo /> },
       { path: 'user', element: <CompRegUser /> },

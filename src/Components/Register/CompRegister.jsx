@@ -34,7 +34,7 @@ export default function CompRegister() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        width: mobile ? "100vh" : "100%",
+        width: mobile ? "" : "100%",
         height: "100vh",
         justifyContent: "center",
       }}
