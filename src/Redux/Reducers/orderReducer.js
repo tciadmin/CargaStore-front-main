@@ -239,6 +239,10 @@ export const orderReducer = (state = initialState, action) => {
           ...state.singleOrder,
           pendingAssignedDriverId:
             action.payload.pendingAssignedDriverId,
+          applications: state.singleOrder.applications.filter(
+            (application) =>
+              application.id !== action.payload.deletedApplication.id
+          ),
         },
       };
     default:

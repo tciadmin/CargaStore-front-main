@@ -71,7 +71,6 @@ const CargaPage = () => {
   }, [singleOrder?.status, dispatch, id]);
 
   const mobile = useMediaQuery('(max-width:750px)');
-  // const [postular, setPostular] = useState(false);
 
   const handleCloseModal = () => {
     dispatch(clearApplicationMessage());
@@ -80,11 +79,19 @@ const CargaPage = () => {
   const [applyed, setApplyed] = useState(false);
 
   React.useEffect(() => {
-    singleOrder?.applications?.length !== 0 &&
-      singleOrder?.applications?.map((el) => {
-        el.driverId === user?.driver?.id && setApplyed(true);
-      });
-  }, [singleOrder?.applications, user?.driver?.id]);
+    singleOrder?.applications.map((el) => {
+      el.driverId === user?.driver?.id
+        ? setApplyed(true)
+        : setApplyed(false);
+    });
+    !singleOrder?.applications?.length && setApplyed(false);
+    console.log('applyed: ', applyed);
+  }, [
+    applyed,
+    singleOrder?.applications,
+    singleOrder?.applications.length,
+    user?.driver?.id,
+  ]);
 
   const formatDate = (dateString) => {
     const date = parseISO(dateString);
