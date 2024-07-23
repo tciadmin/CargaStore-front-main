@@ -240,12 +240,12 @@ export default function CompNavLanding() {
                         disablePadding
                       >
                         <ListItemButton>
-                          <Typography
-                            variant={'primary'}
-                            sx={{ fontWeight: 400 }}
+                          <h3
+                            // variant={'primary'}
+                            style={{ fontWeight: 500, color: Colors.primary.main }}
                           >
                             {item.nombre}
-                          </Typography>
+                          </h3>
                         </ListItemButton>
                       </ListItem>
                     ))}
@@ -254,16 +254,17 @@ export default function CompNavLanding() {
                       { nombre: 'Mis envíos', ruta: '/shipments' },
                       { nombre: 'Marketplace', ruta: '/marketplace' },
                     ].map((item, index) => (
-                      <ListItem key={index} disablePadding>
+                      <ListItem key={index} disablePadding style={{ fontWeight: 500, color: Colors.primary.main }}>
                         <ListItemButton
+                        style={{ fontWeight: 500, color: Colors.primary.main }}
                           onClick={() => navigate(item.ruta)}
                         >
-                          <Typography
-                            variant={'primary'}
-                            sx={{ fontWeight: 400 }}
+                          <h3
+                            // variant={'primary'}
+                            style={{ fontWeight: 500, color: item.nombre === 'Mis envíos' && item.ruta === '/shipments' || item.nombre === 'Marketplace' && item.ruta === '/marketplace' ? Colors.primary.main : ''}}
                           >
                             {item.nombre}
-                          </Typography>
+                          </h3>
                         </ListItemButton>
                       </ListItem>
                     ))}

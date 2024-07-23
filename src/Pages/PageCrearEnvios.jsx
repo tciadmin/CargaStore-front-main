@@ -33,7 +33,7 @@ import './styles.css'
 dayjs.locale('es'); // Establecer el idioma globalmente para dayjs
 
 const PageCrearEnvios = () => {
-  const [stepIndex, setStepIndex] = useState(1);
+  const [stepIndex, setStepIndex] = useState(0);
   const mobile = useMediaQuery('(max-width:750px)');
 
   const steps = ['Datos personales', 'Producto', 'Envío', 'Pago'];
@@ -228,10 +228,10 @@ const PageCrearEnvios = () => {
   };
 
   return (
-    <Box style={{fontFamily: "Montserrat, sans-serif"}}>
+    <Box style={{fontFamily: "Montserrat, sans-serif" , minHeight: '100vh',  background: '#F6F6F6'}}>
       <CompNavLanding></CompNavLanding>
       <section
-        style={{ background: '#F6F6F6', height: '100%' }}
+        style={{ background: '#F6F6F6', minHeight: '100vh'}}
         id="arriba"
       >
         <Container maxWidth={'md'} sx={{ padding: '20px 0' }}>
@@ -1060,7 +1060,7 @@ const PageCrearEnvios = () => {
                   Hora de retiro
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px', height: mobile ? '40px' : '50px', }}
                   variant="outlined"
                 >
                   <LocalizationProvider
@@ -1106,7 +1106,7 @@ const PageCrearEnvios = () => {
                   Dirección de retiro
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px', height: mobile ? '40px' : '50px', }}
                   variant="outlined"
                 >
                   <OutlinedInput
@@ -1138,7 +1138,7 @@ const PageCrearEnvios = () => {
                   Fecha de entrega
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px', height: mobile ? '40px' : '50px', }}
                   variant="outlined"
                 >
                   <LocalizationProvider
@@ -1180,7 +1180,7 @@ const PageCrearEnvios = () => {
                   Hora de entrega
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' , height: mobile ? '40px' : '50px',}}
                   variant="outlined"
                 >
                   <LocalizationProvider
@@ -1295,6 +1295,7 @@ const PageCrearEnvios = () => {
                   sx={{
                     m: 1,
                     width: mobile ? '370px' : '666px',
+                    height: mobile ? '40px' : '50px',
                   }}
                   variant="outlined"
                 >
