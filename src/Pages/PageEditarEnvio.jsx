@@ -34,7 +34,7 @@ dayjs.locale('es'); // Establecer el idioma globalmente para dayjs
 
 const PageEditarEnvio = () => {
   const { orderId } = useParams();
-  const [stepIndex, setStepIndex] = useState(1);
+  const [stepIndex, setStepIndex] = useState(0);
   const selectChargeType = ['Seca', 'Peligrosa', 'Refrigerada'];
   const selectOrderType = ['nacional', 'internacional'];
   const steps = ["Datos personales", "Producto", "Envío"];
