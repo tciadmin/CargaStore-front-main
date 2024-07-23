@@ -27,6 +27,7 @@ import { aceptOrder } from '../Redux/Actions/ApplicationActions/aceptOrder';
 import { declineOrder } from '../Redux/Actions/ApplicationActions/declineOrder';
 import { clearOrderDetail } from '../Redux/Actions/OrderActions/clearOrderDetail';
 import { clearApplicationMessage } from '../Redux/Actions/ApplicationActions/clearApplicationMessage';
+import { changeOrderState } from '../Redux/Actions/OrderActions/changeOrderState';
 
 const GreenCircle = () => {
   return (
@@ -58,8 +59,13 @@ const CargaPage = () => {
     };
   }, [dispatch, id]);
 
-  const { singleOrder, singleOrderLoading, duplicating, orderState } =
-    useSelector((state) => state.orders);
+  const {
+    singleOrder,
+    singleOrderLoading,
+    duplicating,
+    orderState,
+    changingOrderState,
+  } = useSelector((state) => state.orders);
   const { user } = useSelector((state) => state.user);
   const { applicationLoading, applicationMessage } = useSelector(
     (state) => state.application
@@ -112,6 +118,10 @@ const CargaPage = () => {
 
   const handleDeclineOrder = () => {
     dispatch(declineOrder(id));
+  };
+
+  const handleChangeOrderState = () => {
+    dispatch(changeOrderState(id));
   };
 
   //adaptarlo para que una vez que esten los datos se pueda obtener id de carga por url params y de ahi hacer llamado a la api
@@ -588,6 +598,64 @@ const CargaPage = () => {
                 )}
               {singleOrder?.status !== 'pendiente' && orderState && (
                 <Grid item xs={6}>
+                  {user?.role === 'customer' &&
+                    (!orderState.enPreparacion ||
+                      !orderState.preparado) && (
+                      <Button
+                        disabled={changingOrderState}
+                        style={{
+                          fontFamily: 'Inter',
+                          fontWeight: '600',
+                          lineHeight: !mobile ? '23.2px' : '10px',
+                          textAlign: 'center',
+                          color: '#fff',
+                          borderRadius: '8px',
+                          fontSize: '16px',
+                          width: 'Hug (121px)px',
+                          height: 'Fixed (39px)px',
+                          padding: '16px 24px 16px 24px',
+                          gap: '10px',
+                          marginBottom: '10px',
+                          marginTop: mobile && '10px',
+                        }}
+                        onClick={handleChangeOrderState}
+                      >
+                        {!orderState.enPreparacion
+                          ? 'Orden en preparación'
+                          : orderState.enPreparacion &&
+                            !orderState.preparado &&
+                            'Orden preparada'}
+                      </Button>
+                    )}
+                  {user?.role === 'driver' &&
+                    orderState.enPreparacion &&
+                    orderState.preparado &&
+                    (!orderState.retirado ||
+                      !orderState.enCamino) && (
+                      <Button
+                        disabled={changingOrderState}
+                        style={{
+                          fontFamily: 'Inter',
+                          fontWeight: '600',
+                          lineHeight: !mobile ? '23.2px' : '10px',
+                          textAlign: 'center',
+                          color: '#fff',
+                          borderRadius: '8px',
+                          fontSize: '16px',
+                          width: 'Hug (121px)px',
+                          height: 'Fixed (39px)px',
+                          padding: '16px 24px 16px 24px',
+                          gap: '10px',
+                          marginBottom: '10px',
+                          marginTop: mobile && '10px',
+                        }}
+                        onClick={handleChangeOrderState}
+                      >
+                        {!orderState.retirado
+                          ? 'Orden retirada'
+                          : !orderState.enCamino && 'Orden en camino'}
+                      </Button>
+                    )}
                   <VerticalGreenStepper
                     steps={orderState}
                     driverName={
@@ -598,6 +666,9 @@ const CargaPage = () => {
               )}
             </Grid>
           </Container>
+
+          {/* MODAL  */}
+
           <Modal
             open={applicationMessage}
             onClose={handleCloseModal}

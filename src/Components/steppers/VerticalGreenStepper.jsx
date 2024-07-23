@@ -92,6 +92,7 @@ const VerticalStepItem = ({
 };
 
 const VerticalGreenStepper = ({ steps, driverName }) => {
+  console.log('steps: ', steps);
   return (
     <Box
       sx={{ width: '90%' }}
@@ -100,18 +101,19 @@ const VerticalGreenStepper = ({ steps, driverName }) => {
       alignItems={'start'}
       justifyContent="space-evenly "
     >
-      {Object.entries(steps)?.map(([key, value], index, array) => {
-        console.log({ key, value });
-        return (
-          <VerticalStepItem
-            description={key}
-            active={value}
-            date={value}
-            driverName={driverName}
-            ultimo={array.length - 1 === index}
-          />
-        );
-      })}
+      {steps &&
+        Object.entries(steps)?.map(([key, value], index, array) => {
+          return (
+            <VerticalStepItem
+              key={index}
+              description={key}
+              active={value}
+              date={value}
+              driverName={driverName}
+              ultimo={array.length - 1 === index}
+            />
+          );
+        })}
     </Box>
   );
 };
