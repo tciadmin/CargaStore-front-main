@@ -17,3 +17,10 @@
     }
   }
   
+  .MuiStack-root.css-1exe7k-MuiStack-root {
+    font-weight: 500;
+  }
+  .MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation0.MuiAppBar-root.MuiAppBar-colorPrimary.MuiAppBar-positionSticky.css-fjcl5a-MuiPaper-root-MuiAppBar-root{
+    font-weight: 500; 
+    color: green;
+  }
