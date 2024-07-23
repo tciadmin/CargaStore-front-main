@@ -28,6 +28,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es'; // Importar configuración de idioma español
 import { TimeField } from '@mui/x-date-pickers';
+import './styles.css'
 
 dayjs.locale('es'); // Establecer el idioma globalmente para dayjs
 
