@@ -730,6 +730,11 @@ const PageCrearEnvios = () => {
                         value: true,
                         message: 'Este campo es requerido',
                       },
+                      pattern: {
+                        value:
+                          /\b\d{1,2}\sx\s\d{1,3}/,
+                        message: 'Ingrese un volumen válido (5 x 5 m, 50 x 20 cm)',
+                      },
                     })}
                     style={{
                       height: mobile ? '40px' : '50px',
