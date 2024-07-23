@@ -28,6 +28,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es'; // Importar configuración de idioma español
 import { TimeField } from '@mui/x-date-pickers';
+import './styles.css'
 
 dayjs.locale('es'); // Establecer el idioma globalmente para dayjs
 
@@ -227,10 +228,10 @@ const PageCrearEnvios = () => {
   };
 
   return (
-    <Box style={{fontFamily: "Montserrat, sans-serif"}}>
+    <Box style={{fontFamily: "Montserrat, sans-serif" , minHeight: '100vh',  background: '#F6F6F6'}}>
       <CompNavLanding></CompNavLanding>
       <section
-        style={{ background: '#F6F6F6', height: '100%' }}
+        style={{ background: '#F6F6F6', minHeight: '100vh'}}
         id="arriba"
       >
         <Container maxWidth={'md'} sx={{ padding: '20px 0' }}>
@@ -378,7 +379,7 @@ const PageCrearEnvios = () => {
                         value: 15,
                         message:
                           'El número no debe tener más de 15 dígitos',
-                      },
+                      }
                     })}
                     style={{
                       height: mobile ? '40px' : '50px',
@@ -693,6 +694,11 @@ const PageCrearEnvios = () => {
                         value: true,
                         message: 'Este campo es requerido',
                       },
+                      validate: (value) =>
+                        value.includes('toneladas') ||
+                        value.includes('kilos') ||
+                        value.includes('gramos') ||
+                        'Debe ingresar un valor de toneladas, kilos o gramos',
                     })}
                     style={{
                       height: mobile ? '40px' : '50px',
@@ -724,6 +730,11 @@ const PageCrearEnvios = () => {
                       required: {
                         value: true,
                         message: 'Este campo es requerido',
+                      },
+                      pattern: {
+                        value:
+                          /\b\d{1,2}\sx\s\d{1,3}/,
+                        message: 'Ingrese un volumen válido (5 x 5 m, 50 x 20 cm)',
                       },
                     })}
                     style={{
@@ -1004,12 +1015,15 @@ const PageCrearEnvios = () => {
                   Fecha de retiro
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px', borderRadius: '10px' }}
                   variant="outlined"
+                  style={{ borderRadius: '10px'}}
+
                 >
                   <LocalizationProvider
                     dateAdapter={AdapterDayjs}
                     adapterLocale="es"
+                    style={{ borderRadius: '10px'}}
                   >
                     <DatePicker
                       {...register('pick_up_date', {
@@ -1021,11 +1035,11 @@ const PageCrearEnvios = () => {
                       }
                       inputFormat="DD/MM/YYYY" // Formato día, mes, año
                       renderInput={(params) => (
-                        <TextField {...params} />
+                        <TextField style={{ borderRadius: '10px'}} {...params} />
                       )}
                       style={{
                         height: mobile ? '40px' : '50px',
-                        borderRadius: '8px',
+                        borderRadius: '10px',
                       }}
                     />
                     {errors.pick_up_date && (
@@ -1046,7 +1060,7 @@ const PageCrearEnvios = () => {
                   Hora de retiro
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px', height: mobile ? '40px' : '50px', }}
                   variant="outlined"
                 >
                   <LocalizationProvider
@@ -1092,7 +1106,7 @@ const PageCrearEnvios = () => {
                   Dirección de retiro
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px', height: mobile ? '40px' : '50px', }}
                   variant="outlined"
                 >
                   <OutlinedInput
@@ -1124,7 +1138,7 @@ const PageCrearEnvios = () => {
                   Fecha de entrega
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px', height: mobile ? '40px' : '50px', }}
                   variant="outlined"
                 >
                   <LocalizationProvider
@@ -1166,7 +1180,7 @@ const PageCrearEnvios = () => {
                   Hora de entrega
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' , height: mobile ? '40px' : '50px',}}
                   variant="outlined"
                 >
                   <LocalizationProvider
@@ -1268,79 +1282,6 @@ const PageCrearEnvios = () => {
                     </p>
                   )}
                 </FormControl>
-
-                <p
-                  style={{
-                    fontWeight: 500,
-                    color: Colors.secondary.contrastText,
-                    textAlign: 'left',
-                  }}
-                >
-                  Número de tarjeta
-                </p>
-                <FormControl
-                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
-                  variant="outlined"
-                >
-                  <OutlinedInput
-                    {...register('card', {
-                      required: {
-                        value: true,
-                        message: 'Este campo es requerido',
-                      },
-                    })}
-                    style={{
-                      height: mobile ? '40px' : '50px',
-                      borderRadius: '8px',
-                    }}
-                  />
-                  {errors.card && (
-                    <p style={{ color: 'red' }}>
-                      {errors.card.message}
-                    </p>
-                  )}
-                </FormControl>
-
-                <p
-                  style={{
-                    fontWeight: 500,
-                    color: Colors.secondary.contrastText,
-                    textAlign: 'left',
-                  }}
-                >
-                  Fecha de vencimiento
-                </p>
-                <FormControl
-                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
-                  variant="outlined"
-                >
-                  <LocalizationProvider
-                    dateAdapter={AdapterDayjs}
-                    adapterLocale="es"
-                  >
-                    <DatePicker
-                      {...register('expire', {
-                        required: 'Este campo es requerido',
-                      })}
-                      value={null} // Debes establecer el valor de DatePicker, puedes usar null o una fecha inicial
-                      onChange={(date) => setValue('expire', date)}
-                      inputFormat="DD/MM/YYYY" // Formato día, mes, año
-                      renderInput={(params) => (
-                        <TextField {...params} />
-                      )}
-                      style={{
-                        height: mobile ? '40px' : '50px',
-                        borderRadius: '8px',
-                      }}
-                    />
-                    {errors.expire && (
-                      <p style={{ color: 'red' }}>
-                        {errors.expire.message}
-                      </p>
-                    )}
-                  </LocalizationProvider>
-                </FormControl>
-
                 <p
                   style={{
                     fontWeight: 500,
@@ -1351,15 +1292,21 @@ const PageCrearEnvios = () => {
                   Monto a pagar
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
+                  sx={{
+                    m: 1,
+                    width: mobile ? '370px' : '666px',
+                    height: mobile ? '40px' : '50px',
+                  }}
                   variant="outlined"
                 >
                   <OutlinedInput
                     type="text"
-                    {...register('payment', {
+                    style={{borderRadius: '10px',}}
+                    {...register('offered_price', {
                       required: 'Este campo es requerido',
                       pattern: {
-                        value: /^[0-9]*[.,]?[0-9]+$/,
+                        value:
+                          /^(\d{1,3}(\.\d{3})*|(\d+))([.,]\d{1,2})?$/,
                         message: 'Ingrese un precio válido',
                       },
                       min: {
@@ -1367,8 +1314,8 @@ const PageCrearEnvios = () => {
                         message: 'El precio debe ser mayor que 0',
                       },
                     })}
-                    onChange={formatPayment} // Llama a formatPrice en cada cambio
-                    value={watch('payment')}
+                    onChange={formatPrice} // Llama a formatPrice en cada cambio
+                    value={watch('offered_price')}
                     startAdornment={
                       <InputAdornment position="start">
                         $
@@ -1377,14 +1324,14 @@ const PageCrearEnvios = () => {
                     inputProps={{
                       style: {
                         height: mobile ? '40px' : '50px',
-                        borderRadius: '8px',
+                        padding: 1
                       },
                     }}
                     aria-describedby="outlined-price-helper-text"
                   />
-                  {errors.payment && (
+                  {errors.offered_price && (
                     <p style={{ color: 'red' }}>
-                      {errors.payment.message}
+                      {errors.offered_price.message}
                     </p>
                   )}
                 </FormControl>
@@ -1407,7 +1354,7 @@ const PageCrearEnvios = () => {
               {singleOrderLoading
                 ? 'Cargando'
                 : stepIndex == steps.length - 1
-                ? 'Pagar '
+                ? 'Crear envío'
                 : 'Siguiente paso'}
             </Button>
           </Stack>
