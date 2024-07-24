@@ -11,6 +11,7 @@ import OrderState from './OrderState';
 import { clearOrderState } from '../../../../Redux/Actions/OrderActions/clearOrderState';
 import DriverInfo from './DriverInfo';
 import FinishMessage from './FinishMessage';
+import { useNavigate } from 'react-router-dom';
 
 const ShipmentsItem = ({
   status,
@@ -35,15 +36,24 @@ const ShipmentsItem = ({
   num_plate,
   charge_capacity,
 }) => {
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
+
   const { orderState, orderStateLoading } = useSelector(
     (state) => state.orders
   );
+
+  const { user } = useSelector((state) => state.user);
+
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => {
+
+  const handleOpen = (event) => {
+    event.stopPropagation();
     status === 'en curso' && dispatch(getOrderState(code));
     setOpen(true);
   };
+
   const handleClose = () => {
     dispatch(clearOrderState());
     setOpen(false);
@@ -60,15 +70,21 @@ const ShipmentsItem = ({
     p: 2,
   };
 
+  const handleRedirect = () => {
+    user?.role === 'customer' && navigate(`/carga/${code}`);
+  };
+
   return (
     <>
       <Box
+        onClick={handleRedirect}
         style={{
           display: 'flex',
           flexDirection: 'row',
           width: '100%',
           background: 'white',
           color: 'black',
+          cursor: user?.role === 'customer' && 'pointer',
         }}
       >
         <Grid
