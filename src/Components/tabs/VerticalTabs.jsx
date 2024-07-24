@@ -308,7 +308,7 @@ export default function VerticalTabs() {
   };
 
   return (
-    <Box pb={5} sx={containerBox } >
+    <Box pb={5} sx={containerBox}>
       {mobile && (
         <Container>
           <Stack
@@ -518,7 +518,7 @@ export default function VerticalTabs() {
           width: value == 0 ? "100%" : "0",
           display: "flex",
           justifyContent: "center",
-          gap: 20
+          gap: 20,
         }}
         index={0}
       >
@@ -562,139 +562,13 @@ export default function VerticalTabs() {
           </div>
           {value == 0 && user.role === "driver" && (
             <Box
-            style={{
-              display: "flex",
-              textAlign: "left",
-              flexDirection: "column",
-              gap: 3,
-              justifyContent: "center",
-              padding: 5
-            }}>
-             <p
-                style={{
-                  fontWeight: 500,
-                  color: Colors.secondary.contrastText,
-                  textAlign: "left",
-                }}
-              >
-                Nombre
-              </p>
-              <FormControl
-                sx={{
-                  m: 1,
-                  width: mobile ? "370px" : "666px",
-                }}
-                variant="outlined"
-              >
-                <OutlinedInput 
-                sx={{
-                    backgroundColor: Colors.primary.contrastText,
-                    borderRadius: "8px",
-                  }}
-                  value={data.name} readOnly={!editar} />
-              </FormControl>
-              <p
-                style={{
-                  fontWeight: 500,
-                  color: Colors.secondary.contrastText,
-                  textAlign: "left",
-                }}
-              >
-                Apellido
-              </p>
-              <FormControl
-                sx={{ m: 1, width: mobile ? "370px" : "666px" }}
-                variant="outlined"
-              >
-                <OutlinedInput
-                  sx={{
-                    backgroundColor: Colors.primary.contrastText,
-                    borderRadius: "8px",
-                  }}
-                  value={data.lastname}
-                  readOnly={!editar}
-                />
-              </FormControl>
-
-              <p
-                style={{
-                  fontWeight: 500,
-                  color: Colors.secondary.contrastText,
-                  textAlign: "left",
-                }}
-              >
-                Correo electrónico
-              </p>
-              <FormControl
-                sx={{
-                  m: 1,
-                  width: mobile ? "370px" : "666px",
-                }}
-                variant="outlined"
-              >
-                <OutlinedInput 
-                sx={{
-                    backgroundColor: Colors.primary.contrastText,
-                    borderRadius: "8px",
-                  }} value={data.email} readOnly={!editar} />
-              </FormControl>
-
-              <p
-                style={{
-                  fontWeight: 500,
-                  color: Colors.secondary.contrastText,
-                  textAlign: "left",
-                }}
-              >
-               Número de contacto
-              </p>
-              <FormControl
-                sx={{
-                  m: 1,
-                  width: mobile ? "370px" : "666px",
-                }}
-                variant="outlined"
-              >
-                <OutlinedInput 
-                sx={{
-                    backgroundColor: Colors.primary.contrastText,
-                    borderRadius: "8px",
-                  }} value={data.driver && data.driver.phone} readOnly={!editar} />
-              </FormControl>
-
-              <p
-                style={{
-                  fontWeight: 500,
-                  color: Colors.secondary.contrastText,
-                  textAlign: "left",
-                }}
-              >
-               Descripción
-              </p>
-              <FormControl
-                sx={{
-                  m: 1,
-                  width: mobile ? "370px" : "666px",
-                }}
-                variant="outlined"
-              >
-                <OutlinedInput 
-                sx={{
-                    backgroundColor: Colors.primary.contrastText,
-                    borderRadius: "8px",
-                  }} value={data.driver && data.driver.description} readOnly={!editar} />
-              </FormControl>
-            </Box>
-          )}
-          {value == 0 && user.role === "customer" && (
-            <Box
               style={{
                 display: "flex",
                 textAlign: "left",
                 flexDirection: "column",
                 gap: 3,
                 justifyContent: "center",
-                padding: 5
+                padding: 5,
               }}
             >
               <p
@@ -713,12 +587,14 @@ export default function VerticalTabs() {
                 }}
                 variant="outlined"
               >
-                <OutlinedInput 
-                sx={{
+                <OutlinedInput
+                  sx={{
                     backgroundColor: Colors.primary.contrastText,
                     borderRadius: "8px",
                   }}
-                  value={data.name} readOnly={!editar} />
+                  value={data.name}
+                  readOnly={!editar}
+                />
               </FormControl>
               <p
                 style={{
@@ -759,11 +635,152 @@ export default function VerticalTabs() {
                 }}
                 variant="outlined"
               >
-                <OutlinedInput 
-                sx={{
+                <OutlinedInput
+                  sx={{
                     backgroundColor: Colors.primary.contrastText,
                     borderRadius: "8px",
-                  }} value={data.email} readOnly={!editar} />
+                  }}
+                  value={data.email}
+                  readOnly={!editar}
+                />
+              </FormControl>
+
+              <p
+                style={{
+                  fontWeight: 500,
+                  color: Colors.secondary.contrastText,
+                  textAlign: "left",
+                }}
+              >
+                Número de contacto
+              </p>
+              <FormControl
+                sx={{
+                  m: 1,
+                  width: mobile ? "370px" : "666px",
+                }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  sx={{
+                    backgroundColor: Colors.primary.contrastText,
+                    borderRadius: "8px",
+                  }}
+                  value={data.driver && data.driver.phone}
+                  readOnly={!editar}
+                />
+              </FormControl>
+
+              <p
+                style={{
+                  fontWeight: 500,
+                  color: Colors.secondary.contrastText,
+                  textAlign: "left",
+                }}
+              >
+                Descripción
+              </p>
+              <FormControl
+                sx={{
+                  m: 1,
+                  width: mobile ? "370px" : "666px",
+                }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  sx={{
+                    backgroundColor: Colors.primary.contrastText,
+                    borderRadius: "8px",
+                  }}
+                  value={data.driver && data.driver.description}
+                  readOnly={!editar}
+                />
+              </FormControl>
+            </Box>
+          )}
+          {value == 0 && user.role === "customer" && (
+            <Box
+              style={{
+                display: "flex",
+                textAlign: "left",
+                flexDirection: "column",
+                gap: 3,
+                justifyContent: "center",
+                padding: 5,
+              }}
+            >
+              <p
+                style={{
+                  fontWeight: 500,
+                  color: Colors.secondary.contrastText,
+                  textAlign: "left",
+                }}
+              >
+                Nombre
+              </p>
+              <FormControl
+                sx={{
+                  m: 1,
+                  width: mobile ? "370px" : "666px",
+                }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  sx={{
+                    backgroundColor: Colors.primary.contrastText,
+                    borderRadius: "8px",
+                  }}
+                  value={data.name}
+                  readOnly={!editar}
+                />
+              </FormControl>
+              <p
+                style={{
+                  fontWeight: 500,
+                  color: Colors.secondary.contrastText,
+                  textAlign: "left",
+                }}
+              >
+                Apellido
+              </p>
+              <FormControl
+                sx={{ m: 1, width: mobile ? "370px" : "666px" }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  sx={{
+                    backgroundColor: Colors.primary.contrastText,
+                    borderRadius: "8px",
+                  }}
+                  value={data.lastname}
+                  readOnly={!editar}
+                />
+              </FormControl>
+
+              <p
+                style={{
+                  fontWeight: 500,
+                  color: Colors.secondary.contrastText,
+                  textAlign: "left",
+                }}
+              >
+                Correo electrónico
+              </p>
+              <FormControl
+                sx={{
+                  m: 1,
+                  width: mobile ? "370px" : "666px",
+                }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  sx={{
+                    backgroundColor: Colors.primary.contrastText,
+                    borderRadius: "8px",
+                  }}
+                  value={data.email}
+                  readOnly={!editar}
+                />
               </FormControl>
             </Box>
           )}
@@ -771,10 +788,11 @@ export default function VerticalTabs() {
           {editar ? (
             <Button
               variant="contained"
-              style={{  fontWeight: 600,
+              style={{
+                fontWeight: 600,
                 alignSelf: "center",
-                marginTop: '20px'
-               }}
+                marginTop: "20px",
+              }}
               onClick={() => {
                 putBasicData();
               }}
@@ -789,10 +807,9 @@ export default function VerticalTabs() {
               style={{
                 fontWeight: 600,
                 alignSelf: "center",
-                border: '2px solid',
+                border: "2px solid",
                 backgroundColor: Colors.primary.contrastText,
-                marginTop: '20px'
-
+                marginTop: "20px",
               }}
             >
               {" "}
@@ -846,236 +863,296 @@ export default function VerticalTabs() {
               />
             </label>
           </div>
-          <form>
+          <form style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
             {user.role == "customer" && (
               <Box
-              style={{
-                display: "flex",
-                textAlign: "left",
-                flexDirection: "column",
-                gap: 3,
-                justifyContent: "center",
-                padding: 5
-              }}>
-               <p
                 style={{
-                  fontWeight: 500,
-                  color: Colors.secondary.contrastText,
+                  display: "flex",
                   textAlign: "left",
+                  flexDirection: "column",
+                  gap: 3,
+                  justifyContent: "center",
+                  padding: 5,
                 }}
               >
-                Nombre de la empresa
-              </p>
-              <FormControl
-                sx={{
-                  m: 1,
-                  width: mobile ? "370px" : "666px",
-                }}
-                variant="outlined"
-              >
-                <OutlinedInput 
-                sx={{
-                    backgroundColor: Colors.primary.contrastText,
-                    borderRadius: "8px",
-                  }} value={data.customer && data.customer.company_name} readOnly={!editar} />
-              </FormControl>
+                <p
+                  style={{
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
+                    textAlign: "left",
+                  }}
+                >
+                  Nombre de la empresa
+                </p>
+                <FormControl
+                  sx={{
+                    m: 1,
+                    width: mobile ? "370px" : "666px",
+                  }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    sx={{
+                      backgroundColor: Colors.primary.contrastText,
+                      borderRadius: "8px",
+                    }}
+                    value={data.customer && data.customer.company_name}
+                    readOnly={!editar}
+                  />
+                </FormControl>
 
-              <p
-                style={{
-                  fontWeight: 500,
-                  color: Colors.secondary.contrastText,
-                  textAlign: "left",
-                }}
-              >
-               RUC
-              </p>
-              <FormControl
-                sx={{
-                  m: 1,
-                  width: mobile ? "370px" : "666px",
-                }}
-                variant="outlined"
-              >
-                <OutlinedInput 
-                sx={{
-                    backgroundColor: Colors.primary.contrastText,
-                    borderRadius: "8px",
-                  }} value={data.customer && data.customer.ruc} readOnly={!editar} />
-              </FormControl>
+                <p
+                  style={{
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
+                    textAlign: "left",
+                  }}
+                >
+                  RUC
+                </p>
+                <FormControl
+                  sx={{
+                    m: 1,
+                    width: mobile ? "370px" : "666px",
+                  }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    sx={{
+                      backgroundColor: Colors.primary.contrastText,
+                      borderRadius: "8px",
+                    }}
+                    value={data.customer && data.customer.ruc}
+                    readOnly={!editar}
+                  />
+                </FormControl>
 
-              <p
-                style={{
-                  fontWeight: 500,
-                  color: Colors.secondary.contrastText,
-                  textAlign: "left",
-                }}
-              >
-               Dirección
-              </p>
-              <FormControl
-                sx={{
-                  m: 1,
-                  width: mobile ? "370px" : "666px",
-                }}
-                variant="outlined"
-              >
-                <OutlinedInput 
-                sx={{
-                    backgroundColor: Colors.primary.contrastText,
-                    borderRadius: "8px",
-                  }} value={data.customer && data.customer.address} readOnly={!editar} />
-              </FormControl>
+                <p
+                  style={{
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
+                    textAlign: "left",
+                  }}
+                >
+                  Dirección
+                </p>
+                <FormControl
+                  sx={{
+                    m: 1,
+                    width: mobile ? "370px" : "666px",
+                  }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    sx={{
+                      backgroundColor: Colors.primary.contrastText,
+                      borderRadius: "8px",
+                    }}
+                    value={data.customer && data.customer.address}
+                    readOnly={!editar}
+                  />
+                </FormControl>
 
-              <p
-                style={{
-                  fontWeight: 500,
-                  color: Colors.secondary.contrastText,
-                  textAlign: "left",
-                }}
-              >
-               País
-              </p>
-              <FormControl
-                sx={{
-                  m: 1,
-                  width: mobile ? "370px" : "666px",
-                }}
-                variant="outlined"
-              >
-                <OutlinedInput 
-                sx={{
-                    backgroundColor: Colors.primary.contrastText,
-                    borderRadius: "8px",
-                  }} value={data.customer && data.customer.country} readOnly={!editar} />
-              </FormControl>
+                <p
+                  style={{
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
+                    textAlign: "left",
+                  }}
+                >
+                  País
+                </p>
+                <FormControl
+                  sx={{
+                    m: 1,
+                    width: mobile ? "370px" : "666px",
+                  }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    sx={{
+                      backgroundColor: Colors.primary.contrastText,
+                      borderRadius: "8px",
+                    }}
+                    value={data.customer && data.customer.country}
+                    readOnly={!editar}
+                  />
+                </FormControl>
               </Box>
             )}
             {user.role == "driver" && (
-              <>
-                <InputForm
-                  value={data.driver && data.driver.truck?.brand}
-                  setter={(valor) => {
-                    setData((prevState) => ({
-                      ...prevState,
-                      driver: {
-                        ...prevState.driver,
-                        truck: {
-                          ...prevState.driver.truck,
-                          brand: valor,
-                        },
-                      },
-                    }));
+              <Box
+                style={{
+                  display: "flex",
+                  textAlign: "left",
+                  flexDirection: "column",
+                  gap: 3,
+                  justifyContent: "center",
+                  padding: 5,
+                }}
+              >
+                <p
+                  style={{
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
+                    textAlign: "left",
                   }}
-                  label="Marca"
-                  sizeH="35px"
-                  marginT={3}
-                  marginB={3}
-                  readOnly={!editar}
-                />
-                <InputForm
-                  value={data.driver && data.driver.truck?.model}
-                  setter={(valor) => {
-                    setData((prevState) => ({
-                      ...prevState,
-                      driver: {
-                        ...prevState.driver,
-                        truck: {
-                          ...prevState.driver.truck,
-                          model: valor,
-                        },
-                      },
-                    }));
+                >
+                  Marca
+                </p>
+                <FormControl
+                  sx={{
+                    m: 1,
+                    width: mobile ? "370px" : "666px",
                   }}
-                  label="Modelo"
-                  sizeH="35px"
-                  marginB={3}
-                  readOnly={!editar}
-                />
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    sx={{
+                      backgroundColor: Colors.primary.contrastText,
+                      borderRadius: "8px",
+                    }}
+                    value={data.driver && data.driver.truck?.brand}
+                    readOnly={!editar}
+                  />
+                </FormControl>
 
-                <InputForm
-                  value={data.driver && data.driver.truck?.year}
-                  setter={(valor) => {
-                    setData((prevState) => ({
-                      ...prevState,
-                      driver: {
-                        ...prevState.driver,
-                        truck: {
-                          ...prevState.driver.truck,
-                          year: valor,
-                        },
-                      },
-                    }));
+                <p
+                  style={{
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
+                    textAlign: "left",
                   }}
-                  label="Año"
-                  type="text"
-                  sizeH="35px"
-                  marginB={3}
-                  readOnly={!editar}
-                />
-                <InputForm
-                  value={data.driver && data.driver.truck?.num_plate}
-                  setter={(valor) => {
-                    setData((prevState) => ({
-                      ...prevState,
-                      driver: {
-                        ...prevState.driver,
-                        truck: {
-                          ...prevState.driver.truck,
-                          num_plate: valor,
-                        },
-                      },
-                    }));
+                >
+                  Modelo
+                </p>
+                <FormControl
+                  sx={{
+                    m: 1,
+                    width: mobile ? "370px" : "666px",
                   }}
-                  label="Matrícula"
-                  sizeH="35px"
-                  marginB={3}
-                  readOnly={!editar}
-                />
-                <InputForm
-                  value={data.driver && data.driver.truck?.charge_capacity}
-                  setter={(valor) => {
-                    setData((prevState) => ({
-                      ...prevState,
-                      driver: {
-                        ...prevState.driver,
-                        truck: {
-                          ...prevState.driver.truck,
-                          charge_capacity: valor,
-                        },
-                      },
-                    }));
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    sx={{
+                      backgroundColor: Colors.primary.contrastText,
+                      borderRadius: "8px",
+                    }}
+                    value={data.driver && data.driver.truck?.model}
+                    readOnly={!editar}
+                  />
+                </FormControl>
+                <p
+                  style={{
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
+                    textAlign: "left",
                   }}
-                  label="Capacidad de carga"
-                  sizeH="35px"
-                  marginB={3}
-                  readOnly={!editar}
-                />
-                <InputForm
-                  value={data.driver && data.driver.truck?.charge_type}
-                  setter={(valor) => {
-                    setData((prevState) => ({
-                      ...prevState,
-                      driver: {
-                        ...prevState.driver,
-                        truck: {
-                          ...prevState.driver.truck,
-                          charge_type: valor,
-                        },
-                      },
-                    }));
+                >
+                  Año
+                </p>
+                <FormControl
+                  sx={{
+                    m: 1,
+                    width: mobile ? "370px" : "666px",
                   }}
-                  label="Unidad de carga"
-                  sizeH="35px"
-                  marginB={3}
-                  readOnly={!editar}
-                />
-              </>
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    sx={{
+                      backgroundColor: Colors.primary.contrastText,
+                      borderRadius: "8px",
+                    }}
+                    value={data.driver && data.driver.truck?.year}
+                    readOnly={!editar}
+                  />
+                </FormControl>
+                <p
+                  style={{
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
+                    textAlign: "left",
+                  }}
+                >
+                  Matrícula
+                </p>
+                <FormControl
+                  sx={{
+                    m: 1,
+                    width: mobile ? "370px" : "666px",
+                  }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    sx={{
+                      backgroundColor: Colors.primary.contrastText,
+                      borderRadius: "8px",
+                    }}
+                    value={data.driver && data.driver.truck?.num_plate}
+                    readOnly={!editar}
+                  />
+                </FormControl>
+                <p
+                  style={{
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
+                    textAlign: "left",
+                  }}
+                >
+                  Capacidad de carga
+                </p>
+                <FormControl
+                  sx={{
+                    m: 1,
+                    width: mobile ? "370px" : "666px",
+                  }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    sx={{
+                      backgroundColor: Colors.primary.contrastText,
+                      borderRadius: "8px",
+                    }}
+                    value={data.driver && data.driver.truck?.charge_capacity}
+                    readOnly={!editar}
+                  />
+                </FormControl>
+                <p
+                  style={{
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
+                    textAlign: "left",
+                  }}
+                >
+                  Unidad de carga
+                </p>
+                <FormControl
+                  sx={{
+                    m: 1,
+                    width: mobile ? "370px" : "666px",
+                  }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    sx={{
+                      backgroundColor: Colors.primary.contrastText,
+                      borderRadius: "8px",
+                    }}
+                    value={data.driver && data.driver.truck?.charge_type}
+                    readOnly={!editar}
+                  />
+                </FormControl>
+              </Box>
             )}
 
             {editar ? (
               <Button
                 variant="contained"
-                style={{ fontWeight: "bold" }}
+                style={{
+                  fontWeight: 600,
+                  alignSelf: "center",
+                  marginTop: "20px",
+                }}
                 onClick={() => {
                   switch (user.role) {
                     case "customer":
@@ -1093,13 +1170,18 @@ export default function VerticalTabs() {
                 variant="outlined"
                 onClick={() => setEditar(true)}
                 style={{
-                  fontWeight: "bold",
-                  width: "80px",
+                  fontWeight: 600,
                   alignSelf: "center",
+                  border: "2px solid",
+                  backgroundColor: Colors.primary.contrastText,
+                  marginTop: "20px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent:'center'
                 }}
               >
                 {" "}
-                Editar
+                Editar datos
               </Button>
             )}
           </form>
@@ -1180,86 +1262,168 @@ export default function VerticalTabs() {
             </label>
           </div>
           {user.role == "driver" && (
-            <>
-              <InputForm
-                value={data.driver && data.driver.license}
-                setter={(valor) => {
-                  setData((prevState) => ({
-                    ...prevState,
-                    driver: {
-                      ...prevState.driver,
-                      license: valor,
-                    },
-                  }));
+            <Box
+              style={{
+                display: "flex",
+                textAlign: "left",
+                flexDirection: "column",
+                gap: 3,
+                justifyContent: "center",
+                padding: 5,
+              }}
+            >
+              <p
+                style={{
+                  fontWeight: 500,
+                  color: Colors.secondary.contrastText,
+                  textAlign: "left",
                 }}
-                label="Licencia de conducir"
-                sizeH="35px"
-                marginT={3}
-                marginB={3}
-                readOnly={!editar}
-              />
-              <InputForm
-                value={data.driver && data.driver.iess}
-                setter={(valor) => {
-                  setData((prevState) => ({
-                    ...prevState,
-                    driver: {
-                      ...prevState.driver,
-                      iess: valor,
-                    },
-                  }));
+              >
+                Licencia de conducir
+              </p>
+              <FormControl
+                sx={{
+                  m: 1,
+                  width: mobile ? "370px" : "666px",
                 }}
-                label="Afiliación IESS"
-                sizeH="35px"
-                marginB={3}
-                readOnly={!editar}
-              />
+                variant="outlined"
+              >
+                <OutlinedInput
+                  sx={{
+                    backgroundColor: Colors.primary.contrastText,
+                    borderRadius: "8px",
+                  }}
+                  value={data.driver && data.driver.license}
+                  readOnly={!editar}
+                />
+              </FormControl>
+              <p
+                style={{
+                  fontWeight: 500,
+                  color: Colors.secondary.contrastText,
+                  textAlign: "left",
+                }}
+              >
+                Afiliación IESS
+              </p>
+              <FormControl
+                sx={{
+                  m: 1,
+                  width: mobile ? "370px" : "666px",
+                }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  sx={{
+                    backgroundColor: Colors.primary.contrastText,
+                    borderRadius: "8px",
+                  }}
+                  value={data.driver && data.driver.iess}
+                  readOnly={!editar}
+                />
+              </FormControl>
 
-              <InputForm
-                value={data.driver && data.driver.port_permit}
-                setter={(valor) => {
-                  setData((prevState) => ({
-                    ...prevState,
-                    driver: {
-                      ...prevState.driver,
-                      port_permit: valor,
-                    },
-                  }));
+              <p
+                style={{
+                  fontWeight: 500,
+                  color: Colors.secondary.contrastText,
+                  textAlign: "left",
                 }}
-                label="Permiso de puerto"
-                type="text"
-                sizeH="35px"
-                marginB={3}
-                readOnly={!editar}
-              />
-              <InputForm
-                label="Matrícula"
-                sizeH="35px"
-                marginB={3}
-                readOnly={!editar}
-              />
-              <InputForm
-                value={data.driver && data.driver.insurance_policy}
-                setter={(valor) => {
-                  setData((prevState) => ({
-                    ...prevState,
-                    driver: {
-                      ...prevState.driver,
-                      insurance_policy: valor,
-                    },
-                  }));
+              >
+                Permiso de puerto
+              </p>
+              <FormControl
+                sx={{
+                  m: 1,
+                  width: mobile ? "370px" : "666px",
                 }}
-                label="Póliza de seguro"
-                sizeH="35px"
-                marginB={3}
-                readOnly={!editar}
-              />
-              <InputForm
-                label="Unidad de carga"
-                sizeH="35px"
-                marginB={3}
-                readOnly={!editar}
-              />
+                variant="outlined"
+              >
+                <OutlinedInput
+                  sx={{
+                    backgroundColor: Colors.primary.contrastText,
+                    borderRadius: "8px",
+                  }}
+                  value={data.driver && data.driver.port_permit}
+                  readOnly={!editar}
+                />
+              </FormControl>
+
+              <p
+                style={{
+                  fontWeight: 500,
+                  color: Colors.secondary.contrastText,
+                  textAlign: "left",
+                }}
+              >
+                Matrícula
+              </p>
+              <FormControl
+                sx={{
+                  m: 1,
+                  width: mobile ? "370px" : "666px",
+                }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  sx={{
+                    backgroundColor: Colors.primary.contrastText,
+                    borderRadius: "8px",
+                  }}
+                  readOnly={!editar}
+                />
+              </FormControl>
+
+              <p
+                style={{
+                  fontWeight: 500,
+                  color: Colors.secondary.contrastText,
+                  textAlign: "left",
+                }}
+              >
+                Póliza de seguro
+              </p>
+              <FormControl
+                sx={{
+                  m: 1,
+                  width: mobile ? "370px" : "666px",
+                }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  sx={{
+                    backgroundColor: Colors.primary.contrastText,
+                    borderRadius: "8px",
+                  }}
+                  value={data.driver && data.driver.insurance_policy}
+                  readOnly={!editar}
+                />
+              </FormControl>
+              <p
+                style={{
+                  fontWeight: 500,
+                  color: Colors.secondary.contrastText,
+                  textAlign: "left",
+                }}
+              >
+                Unidad de carga
+              </p>
+              <FormControl
+                sx={{
+                  m: 1,
+                  width: mobile ? "370px" : "666px",
+                }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  sx={{
+                    backgroundColor: Colors.primary.contrastText,
+                    borderRadius: "8px",
+                  }}
+                  readOnly={!editar}
+                />
+              </FormControl>
+
               <Box
                 style={{
                   display: "flex",
@@ -1428,7 +1592,7 @@ export default function VerticalTabs() {
                   </>
                 )}
               </Box>
-            </>
+            </Box>
           )}
           {user.role == "customer" && (
             <>
