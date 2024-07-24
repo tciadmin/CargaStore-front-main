@@ -308,7 +308,7 @@ export default function VerticalTabs() {
   };
 
   return (
-    <Box pb={5} sx={containerBox}>
+    <Box pb={5} sx={containerBox} height={'100vh'}>
       {mobile && (
         <Container>
           <Stack
@@ -529,6 +529,7 @@ export default function VerticalTabs() {
           justifyContent={"center"}
           alignContent={"center"}
           p={5}
+          style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}
         >
           <div
             style={{
@@ -560,6 +561,8 @@ export default function VerticalTabs() {
               />
             </label>
           </div>
+          <form style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
+
           {value == 0 && user.role === "driver" && (
             <Box
               style={{
@@ -784,6 +787,7 @@ export default function VerticalTabs() {
               </FormControl>
             </Box>
           )}
+          </form>
 
           {editar ? (
             <Button
@@ -1185,9 +1189,12 @@ export default function VerticalTabs() {
               </Button>
             )}
           </form>
+          <form style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
+
           {user.role == "customer" && (
-            <Stack direction="column" mt={5}>
+            <Stack   >
               <svg
+              // style={{marginLeft: '10px', marginTop: 10}}
                 width="665"
                 height="2"
                 viewBox="0 0 665 2"
@@ -1202,18 +1209,37 @@ export default function VerticalTabs() {
                   stroke="#D0D5DD"
                 />
               </svg>
-
-              <InputForm
-                label="Contraseña"
-                cambiar={true}
-                type="password"
-                sizeH="35px"
-                marginT={3}
-                marginB={3}
-                readOnly={!editar}
-              />
+              <p
+                style={{
+                  fontWeight: 500,
+                  color: Colors.secondary.contrastText,
+                  textAlign: "left",
+                }}
+              >
+                Contraseña
+              </p>
+              <FormControl
+                sx={{
+                  m: 1,
+                  width: mobile ? "370px" : "666px",
+                }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  sx={{
+                    backgroundColor: Colors.primary.contrastText,
+                    borderRadius: "8px",
+                    color: Colors.primary.main,
+                    fontWeight: 600
+                  }}
+                  readOnly={!editar}
+                  endAdornment='Cambiar'
+                />
+              </FormControl>
             </Stack>
           )}
+          </form>
+
         </Stack>
       </TabPanel>
       <TabPanel
@@ -1261,6 +1287,8 @@ export default function VerticalTabs() {
               />
             </label>
           </div>
+          <form style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
+
           {user.role == "driver" && (
             <Box
               style={{
@@ -1595,47 +1623,145 @@ export default function VerticalTabs() {
             </Box>
           )}
           {user.role == "customer" && (
-            <>
-              <InputForm
-                label="Nombre"
-                sizeH="35px"
-                marginT={3}
-                marginB={3}
-                readOnly={!editar}
-              />
-              <InputForm
-                label="Banco"
-                sizeH="35px"
-                marginB={3}
-                readOnly={!editar}
-              />
+            <Box style={{
+              display: "flex",
+              textAlign: "left",
+              flexDirection: "column",
+              gap: 3,
+              justifyContent: "center",
+              padding: 5,
+            }}>
+            <p
+                style={{
+                  fontWeight: 500,
+                  color: Colors.secondary.contrastText,
+                  textAlign: "left",
+                }}
+              >
+                Nombre
+              </p>
+              <FormControl
+                sx={{
+                  m: 1,
+                  width: mobile ? "370px" : "666px",
+                }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  sx={{
+                    backgroundColor: Colors.primary.contrastText,
+                    borderRadius: "8px",
+                  }}
+                  readOnly={!editar}
+                />
+              </FormControl>
+              <p
+                style={{
+                  fontWeight: 500,
+                  color: Colors.secondary.contrastText,
+                  textAlign: "left",
+                }}
+              >
+                Banco
+              </p>
+              <FormControl
+                sx={{
+                  m: 1,
+                  width: mobile ? "370px" : "666px",
+                }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  sx={{
+                    backgroundColor: Colors.primary.contrastText,
+                    borderRadius: "8px",
+                  }}
+                  readOnly={!editar}
+                />
+              </FormControl>
+              <p
+                style={{
+                  fontWeight: 500,
+                  color: Colors.secondary.contrastText,
+                  textAlign: "left",
+                }}
+              >
+               Tipo de cuenta
+              </p>
+              <FormControl
+                sx={{
+                  m: 1,
+                  width: mobile ? "370px" : "666px",
+                }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  sx={{
+                    backgroundColor: Colors.primary.contrastText,
+                    borderRadius: "8px",
+                  }}
+                  readOnly={!editar}
+                />
+              </FormControl>
 
-              <InputForm
-                label="Tipo de cuenta"
-                type="number"
-                sizeH="35px"
-                marginB={3}
-                readOnly={!editar}
-              />
-              <InputForm
-                label="Número de cuenta"
-                type="number"
-                sizeH="35px"
-                marginB={3}
-                readOnly={!editar}
-              />
-
-              <InputForm
-                label="País"
-                sizeH="35px"
-                marginB={3}
-                readOnly={!editar}
-              />
-            </>
+              <p
+                style={{
+                  fontWeight: 500,
+                  color: Colors.secondary.contrastText,
+                  textAlign: "left",
+                }}
+              >
+                Numero de cuenta
+              </p>
+              <FormControl
+                sx={{
+                  m: 1,
+                  width: mobile ? "370px" : "666px",
+                }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  sx={{
+                    backgroundColor: Colors.primary.contrastText,
+                    borderRadius: "8px",
+                  }}
+                  readOnly={!editar}
+                />
+              </FormControl>
+              <p
+                style={{
+                  fontWeight: 500,
+                  color: Colors.secondary.contrastText,
+                  textAlign: "left",
+                }}
+              >
+                País
+              </p>
+              <FormControl
+                sx={{
+                  m: 1,
+                  width: mobile ? "370px" : "666px",
+                }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  sx={{
+                    backgroundColor: Colors.primary.contrastText,
+                    borderRadius: "8px",
+                  }}
+                  readOnly={!editar}
+                />
+              </FormControl>
+            </Box>
           )}
+          </form>
 
           {editar ? (
-            <Button variant="contained" style={{ fontWeight: "bold" }}>
+            <Button variant="contained" style={{
+              fontWeight: 600,
+              alignSelf: "center",
+              marginTop: "20px",
+            }}>
               {" "}
               Guardar Cambios
             </Button>
@@ -1644,13 +1770,15 @@ export default function VerticalTabs() {
               variant="outlined"
               onClick={() => setEditar(true)}
               style={{
-                fontWeight: "bold",
-                width: "80px",
+                fontWeight: 600,
                 alignSelf: "center",
+                border: "2px solid",
+                backgroundColor: Colors.primary.contrastText,
+                marginTop: "20px",
               }}
             >
               {" "}
-              Editar
+              Editar datos
             </Button>
           )}
         </Stack>
