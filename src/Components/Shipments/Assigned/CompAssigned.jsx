@@ -74,6 +74,7 @@ export default function CompAssigned() {
                 {orders.map((row) => (
                   <MobileShipmentItem
                     key={row.id}
+                    id={row.id}
                     status={row.status}
                     image={row.package.image1}
                     price={row.package.offered_price}
