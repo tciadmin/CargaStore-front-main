@@ -11,7 +11,7 @@ const ShipmentsMessage = ({ message, status }) => {
       display="flex"
       flexDirection={'column'}
       alignItems={'center'}
-      minHeight="82vh"
+      minHeight= {mobile ? '80vh' : "82vh"}
       justifyContent={'center'}
       style={{gap: '20px', backgroundColor: '#f5f5f5ff', padding: 5, overflow: mobile ? '': 'hidden'}}
     >

@@ -39,7 +39,7 @@ export default function CompAssigned() {
   );
 
   return (
-    <Box style={{ background: '#FFF' }}>
+    <Box style={{backgroundColor: Colors.terciary.contrastText,}}>
       {ordersLoading ? (
         <Box
           style={{
