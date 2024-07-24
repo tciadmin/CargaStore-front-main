@@ -4,8 +4,10 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { format } from 'date-fns';
 import FinishMessage from '../ShipmentsItem/FinishMessage';
+import { useNavigate } from 'react-router-dom';
 
 const MobileShipmentItem = ({
+  id,
   status,
   image,
   price,
@@ -15,6 +17,8 @@ const MobileShipmentItem = ({
   driverName,
   driver_user_id,
 }) => {
+  const navigate = useNavigate();
+
   const style = {
     position: 'absolute',
     top: '50%',
@@ -28,12 +32,16 @@ const MobileShipmentItem = ({
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
-    status === 'finalizado' && setOpen(true);
+    status === 'finalizado'
+      ? setOpen(true)
+      : navigate(`/carga/${id}`);
   };
 
   const handleClose = () => {
     setOpen(false);
   };
+
+  const urlBack = import.meta.env.VITE_URL_BACKEND;
 
   return (
     <>
@@ -64,7 +72,7 @@ const MobileShipmentItem = ({
           }}
         >
           <img
-            src={`http://localhost:3000/api/${image}`}
+            src={`${urlBack}/${image}`}
             alt="undefined"
             style={{
               width: '100%',
