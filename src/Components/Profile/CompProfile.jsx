@@ -93,6 +93,8 @@ export const CompProfile = () => {
     }
   };
 
+  const urlBack = import.meta.env.VITE_URL_BACKEND;
+
   return (
     <Stack
       sx={{
@@ -143,7 +145,7 @@ export const CompProfile = () => {
                   <Avatar
                     src={
                       singleDriver?.user?.profile_image
-                        ? `http://localhost:3000/api/${singleDriver?.user?.profile_image}`
+                        ? `${urlBack}/${singleDriver?.user?.profile_image}`
                         : '/imgShipments/DriverDetails.jpg'
                     }
                     sx={{ width: '150px', height: '150px' }}

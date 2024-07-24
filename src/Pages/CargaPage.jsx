@@ -124,6 +124,8 @@ const CargaPage = () => {
     dispatch(changeOrderState(id));
   };
 
+  const urlBack = import.meta.env.VITE_URL_BACKEND;
+
   //adaptarlo para que una vez que esten los datos se pueda obtener id de carga por url params y de ahi hacer llamado a la api
   return (
     <>
@@ -177,17 +179,17 @@ const CargaPage = () => {
                   <ResponsiveImageBox
                     w="140px"
                     h="140px"
-                    url={`http://localhost:3000/api/${singleOrder.package.image1}`}
+                    url={`${urlBack}/${singleOrder.package.image1}`}
                   />
                   <ResponsiveImageBox
                     w="140px"
                     h="140px"
-                    url={`http://localhost:3000/api/${singleOrder.package.image2}`}
+                    url={`${urlBack}/${singleOrder.package.image2}`}
                   />
                   <ResponsiveImageBox
                     w="140px"
                     h="140px"
-                    url={`http://localhost:3000/api/${singleOrder.package.image3}`}
+                    url={`${urlBack}/${singleOrder.package.image3}`}
                   />
                 </Grid>
                 <Grid
@@ -197,7 +199,7 @@ const CargaPage = () => {
                   xs={8}
                 >
                   <ResponsiveImageBox
-                    url={`http://localhost:3000/api/${singleOrder.package.image4}`}
+                    url={`${urlBack}/${singleOrder.package.image4}`}
                   />
                 </Grid>
               </Grid>
@@ -297,7 +299,7 @@ const CargaPage = () => {
                   }}
                 >
                   <img
-                    src={`http://localhost:3000/api/${singleOrder.package.image1}`}
+                    src={`${urlBack}/${singleOrder.package.image1}`}
                     width="130px"
                     style={{
                       flex: '0 0 auto',
@@ -306,17 +308,17 @@ const CargaPage = () => {
                     }}
                   />
                   <img
-                    src={`http://localhost:3000/api/${singleOrder.package.image2}`}
+                    src={`${urlBack}/${singleOrder.package.image2}`}
                     width="130px"
                     style={{ flex: '0 0 auto', marginRight: '5px' }}
                   />
                   <img
-                    src={`http://localhost:3000/api/${singleOrder.package.image3}`}
+                    src={`${urlBack}/${singleOrder.package.image3}`}
                     width="130px"
                     style={{ flex: '0 0 auto', marginRight: '5px' }}
                   />
                   <img
-                    src={`http://localhost:3000/api/${singleOrder.package.image4}`}
+                    src={`${urlBack}/${singleOrder.package.image4}`}
                     width="130px"
                     style={{ flex: '0 0 auto', marginRight: '5px' }}
                   />

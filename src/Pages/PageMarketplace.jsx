@@ -40,6 +40,8 @@ export default function PageMarketplace() {
     dispatch(listOrder('', orderType, ''));
   }, [dispatch, orderType]);
 
+  const urlBack = import.meta.env.VITE_URL_BACKEND;
+
   return (
     <>
       <CompNavLanding />
@@ -150,7 +152,7 @@ export default function PageMarketplace() {
                       style={{ height: 200, width: '100%' }}
                       src={
                         item.package?.image1
-                          ? `http://localhost:3000/api/${item.package?.image1}`
+                          ? `${urlBack}/${item.package?.image1}`
                           : ''
                       }
                     />
@@ -261,7 +263,7 @@ export default function PageMarketplace() {
                       <MarketplaceCard
                         image={
                           item.package?.image1
-                            ? `http://localhost:3000/api/${item.package?.image1}`
+                            ? `${urlBack}/${item.package?.image1}`
                             : ''
                         }
                         title={item.package?.product_name}

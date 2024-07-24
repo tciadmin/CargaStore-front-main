@@ -35,6 +35,8 @@ const MobileShipmentItem = ({
     setOpen(false);
   };
 
+  const urlBack = import.meta.env.VITE_URL_BACKEND;
+
   return (
     <>
       <Box
@@ -64,7 +66,7 @@ const MobileShipmentItem = ({
           }}
         >
           <img
-            src={`http://localhost:3000/api/${image}`}
+            src={`${urlBack}/${image}`}
             alt="undefined"
             style={{
               width: '100%',
