@@ -180,7 +180,7 @@ export default function CompNavLanding() {
           )}
 
           <Drawer open={open} onClose={() => setOpen(false)}>
-            <Box sx={{ width: 250 }} role="presentation">
+            <Box sx={{ width: 250 }}>
               <Stack
                 direction="row"
                 justifyContent={'space-between'}
@@ -214,7 +214,7 @@ export default function CompNavLanding() {
                 justifyContent={'space-between'}
               >
                 <List>
-                  {user.role == 'customer' &&
+                  {user?.role == 'customer' &&
                     [
                       { nombre: 'Inicio', ruta: '/shipments' },
                       { nombre: 'Pendiente', ruta: '/shipments' },

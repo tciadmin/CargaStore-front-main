@@ -1156,6 +1156,8 @@ export default function VerticalTabs() {
                   fontWeight: 600,
                   alignSelf: "center",
                   marginTop: "20px",
+                  marginBottom: "20px",
+
                 }}
                 onClick={() => {
                   switch (user.role) {
@@ -1181,7 +1183,8 @@ export default function VerticalTabs() {
                   marginTop: "20px",
                   display: "flex",
                   alignItems: "center",
-                  justifyContent:'center'
+                  justifyContent:'center',
+                  marginBottom: "20px",
                 }}
               >
                 {" "}
