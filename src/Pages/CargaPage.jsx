@@ -8,27 +8,26 @@ import {
   Stack,
   Typography,
   useMediaQuery,
-} from "@mui/material";
-import React, { useState } from "react";
-import ResponsiveImageBox from "../Components/imageComponents/ResponsiveImageBox";
-import ChargeRequestCard from "../Components/cards/ChargeRequestCard";
-import ConductorAsignadoCard from "../Components/cards/ConductorAsignadoCard";
-import VerticalGreenStepper from "../Components/steppers/VerticalGreenStepper";
-import CompNavLanding from "../Components/NavLanding/CompNavLanding";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { orderDetail } from "../Redux/Actions/OrderActions/orderDetail";
-import { format, isValid, parseISO } from "date-fns";
-import Loading from "../Components/Loading/Loading";
-import { duplicateOrder } from "../Redux/Actions/OrderActions/duplicateorder";
-import { applicForOrder } from "../Redux/Actions/ApplicationActions/applyForOrder";
-import { getOrderState } from "../Redux/Actions/OrderActions/getOrderState";
-import { aceptOrder } from "../Redux/Actions/ApplicationActions/aceptOrder";
-import { declineOrder } from "../Redux/Actions/ApplicationActions/declineOrder";
-import { clearOrderDetail } from "../Redux/Actions/OrderActions/clearOrderDetail";
-import { clearApplicationMessage } from "../Redux/Actions/ApplicationActions/clearApplicationMessage";
-import { changeOrderState } from "../Redux/Actions/OrderActions/changeOrderState";
-import { Colors } from "../Utils/Colors";
+} from '@mui/material';
+import React, { useState } from 'react';
+import ResponsiveImageBox from '../Components/imageComponents/ResponsiveImageBox';
+import ChargeRequestCard from '../Components/cards/ChargeRequestCard';
+import ConductorAsignadoCard from '../Components/cards/ConductorAsignadoCard';
+import VerticalGreenStepper from '../Components/steppers/VerticalGreenStepper';
+import CompNavLanding from '../Components/NavLanding/CompNavLanding';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { orderDetail } from '../Redux/Actions/OrderActions/orderDetail';
+import { format, isValid, parseISO } from 'date-fns';
+import Loading from '../Components/Loading/Loading';
+import { duplicateOrder } from '../Redux/Actions/OrderActions/duplicateorder';
+import { applicForOrder } from '../Redux/Actions/ApplicationActions/applyForOrder';
+import { getOrderState } from '../Redux/Actions/OrderActions/getOrderState';
+import { aceptOrder } from '../Redux/Actions/ApplicationActions/aceptOrder';
+import { declineOrder } from '../Redux/Actions/ApplicationActions/declineOrder';
+import { clearOrderDetail } from '../Redux/Actions/OrderActions/clearOrderDetail';
+import { clearApplicationMessage } from '../Redux/Actions/ApplicationActions/clearApplicationMessage';
+import { changeOrderState } from '../Redux/Actions/OrderActions/changeOrderState';
 
 const GreenCircle = () => {
   return (
@@ -36,9 +35,9 @@ const GreenCircle = () => {
       width="9"
       height="9"
       style={{
-        verticalAlign: "center",
-        padding: "auto 0px",
-        marginRight: "5px",
+        verticalAlign: 'center',
+        padding: 'auto 0px',
+        marginRight: '5px',
       }}
       viewBox="0 0 9 9"
       fill="none"
@@ -73,10 +72,11 @@ const CargaPage = () => {
   );
 
   React.useEffect(() => {
-    singleOrder?.status !== "pendiente" && dispatch(getOrderState(id));
+    singleOrder?.status !== 'pendiente' &&
+      dispatch(getOrderState(id));
   }, [singleOrder?.status, dispatch, id]);
 
-  const mobile = useMediaQuery("(max-width:750px)");
+  const mobile = useMediaQuery('(max-width:750px)');
 
   const handleCloseModal = () => {
     dispatch(clearApplicationMessage());
@@ -86,10 +86,12 @@ const CargaPage = () => {
 
   React.useEffect(() => {
     singleOrder?.applications.map((el) => {
-      el.driverId === user?.driver?.id ? setApplyed(true) : setApplyed(false);
+      el.driverId === user?.driver?.id
+        ? setApplyed(true)
+        : setApplyed(false);
     });
     !singleOrder?.applications?.length && setApplyed(false);
-    console.log("applyed: ", applyed);
+    console.log('applyed: ', applyed);
   }, [
     applyed,
     singleOrder?.applications,
@@ -99,7 +101,7 @@ const CargaPage = () => {
 
   const formatDate = (dateString) => {
     const date = parseISO(dateString);
-    return isValid(date) ? format(date, "dd/MM/yy") : "Invalid date";
+    return isValid(date) ? format(date, 'dd/MM/yy') : 'Invalid date';
   };
 
   const duplcateOrder = () => {
@@ -128,21 +130,20 @@ const CargaPage = () => {
   return (
     <Box
       style={{
-        display: "flex",
-        height: "100%",
-        // alignItems: 'center',
-        justifyContent: "center",
-        flexDirection: "column",
+        display: 'flex',
+        height: '100%',
+        justifyContent: 'center',
+        flexDirection: 'column',
       }}
     >
       <CompNavLanding />
       {singleOrderLoading && (
         <Box
           style={{
-            display: "flex",
-            height: "100%",
-            alignItems: "center",
-            justifyContent: "center",
+            display: 'flex',
+            height: '80vh',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
           <Loading color="#333" />
@@ -154,16 +155,16 @@ const CargaPage = () => {
             mb={3}
             ml={5}
             fontSize="16px"
-            color={"secondary"}
+            color={'secondary'}
             fontWeight={600}
           >
             {`#${singleOrder?.id}`}
           </Typography>
           <Grid
             container
-            direction={mobile ? "column" : "row"}
-            alignItems={mobile ? "center" : "flex-start"}
-            justifyContent={"center"}
+            direction={mobile ? 'column' : 'row'}
+            alignItems={mobile ? 'center' : 'flex-start'}
+            justifyContent={'center'}
             mt={2}
             gap={3}
           >
@@ -171,15 +172,15 @@ const CargaPage = () => {
               <Grid
                 item
                 container
-                style={{ height: "450px", maxWidth: "450px" }}
+                style={{ height: '450px', maxWidth: '450px' }}
                 xs={5}
               >
                 <Grid
                   item
                   container
                   gap={1}
-                  pt={"6px"}
-                  alignContent={"center"}
+                  pt={'6px'}
+                  alignContent={'center'}
                   xs={4}
                 >
                   <ResponsiveImageBox
@@ -198,18 +199,28 @@ const CargaPage = () => {
                     url={`${urlBack}/${singleOrder.package.image3}`}
                   />
                 </Grid>
-                <Grid item direction={"row"} alignItems={"flex-start"} xs={8}>
+                <Grid
+                  item
+                  direction={'row'}
+                  alignItems={'flex-start'}
+                  xs={8}
+                >
                   <ResponsiveImageBox
                     url={`${urlBack}/${singleOrder.package.image4}`}
                   />
                 </Grid>
               </Grid>
             )}
-            <Grid item maxWidth="100%" justifyContent={"center"} xs={4}>
-              <Grid container flexDirection={"column"} p={3}>
+            <Grid
+              item
+              maxWidth="100%"
+              justifyContent={'center'}
+              xs={4}
+            >
+              <Grid container flexDirection={'column'} p={3}>
                 <Typography fontSize="16px" fontWeight={600}>
-                  Valor ofertado:{" "}
-                  <span style={{ fontWeight: "400" }}>
+                  Valor ofertado:{' '}
+                  <span style={{ fontWeight: '400' }}>
                     {`$${singleOrder?.package.offered_price}`}
                   </span>
                 </Typography>
@@ -218,8 +229,8 @@ const CargaPage = () => {
                 </Typography>
                 <Typography fontSize="16px" fontWeight={600}>
                   <GreenCircle></GreenCircle>
-                  Producto:{" "}
-                  <span style={{ fontWeight: "400" }}>
+                  Producto:{' '}
+                  <span style={{ fontWeight: '400' }}>
                     {singleOrder?.package.product_name}
                   </span>
                 </Typography>
@@ -229,27 +240,27 @@ const CargaPage = () => {
                   verticalAlign="center"
                 >
                   <GreenCircle></GreenCircle>
-                  Cantidad de unidades:{" "}
-                  <span style={{ fontWeight: "400" }}>
+                  Cantidad de unidades:{' '}
+                  <span style={{ fontWeight: '400' }}>
                     {singleOrder?.package.quantity}
                   </span>
                 </Typography>
                 <Typography fontSize="16px" fontWeight={600}>
                   <GreenCircle></GreenCircle>
-                  Volumen:{" "}
-                  <span style={{ fontWeight: "400" }}>
+                  Volumen:{' '}
+                  <span style={{ fontWeight: '400' }}>
                     {singleOrder?.package.weight}
                   </span>
                 </Typography>
                 <Typography fontSize="16px" fontWeight={600}>
                   <GreenCircle></GreenCircle>
-                  Tipo de carga:{" "}
-                  <span style={{ fontWeight: "400" }}>
+                  Tipo de carga:{' '}
+                  <span style={{ fontWeight: '400' }}>
                     {singleOrder?.package.type}
                   </span>
                 </Typography>
                 {!singleOrder?.adittional_information ? (
-                  ""
+                  ''
                 ) : (
                   <Typography mt={5} fontSize="16px" fontWeight={600}>
                     Información adicional
@@ -258,22 +269,26 @@ const CargaPage = () => {
 
                 <Typography fontSize="16px" fontWeight={400}>
                   {!singleOrder?.adittional_information
-                    ? ""
-                    : `${singleOrder?.adittional_information}`}{" "}
+                    ? ''
+                    : `${singleOrder?.adittional_information}`}{' '}
                 </Typography>
-                {user.role === "customer" && (
-                  <Stack direction="row" justifyContent={"center"} mt={3}>
+                {user.role === 'customer' && (
+                  <Stack
+                    direction="row"
+                    justifyContent={'center'}
+                    mt={3}
+                  >
                     <Button
                       disabled={duplicating}
                       variant="outlined"
                       sx={{
                         fontWeight: 600,
-                        width: "150px",
-                        height: "40px",
+                        width: '150px',
+                        height: '40px',
                       }}
                       onClick={duplcateOrder}
                     >
-                      {duplicating ? "cargando" : " Duplicar envío"}
+                      {duplicating ? 'cargando' : ' Duplicar envío'}
                     </Button>
                   </Stack>
                 )}
@@ -282,156 +297,156 @@ const CargaPage = () => {
                 item
                 container
                 maxWidth="100%"
-                style={{ overflowX: "auto", overflowY: "hidden" }}
+                style={{ overflowX: 'auto', overflowY: 'hidden' }}
               ></Grid>
               {mobile && (
                 <div
                   style={{
-                    display: "flex",
-                    alignSelf: "flex-end",
-                    overflowX: "scroll",
-                    overflowY: "hidden",
-                    position: "relative",
-                    maxWidth: "100vw",
+                    display: 'flex',
+                    alignSelf: 'flex-end',
+                    overflowX: 'scroll',
+                    overflowY: 'hidden',
+                    position: 'relative',
+                    maxWidth: '100vw',
                   }}
                 >
                   <img
                     src={`${urlBack}/${singleOrder.package.image1}`}
                     width="130px"
                     style={{
-                      flex: "0 0 auto",
-                      marginRight: "5px",
-                      marginLeft: "5px",
+                      flex: '0 0 auto',
+                      marginRight: '5px',
+                      marginLeft: '5px',
                     }}
                   />
                   <img
                     src={`${urlBack}/${singleOrder.package.image2}`}
                     width="130px"
-                    style={{ flex: "0 0 auto", marginRight: "5px" }}
+                    style={{ flex: '0 0 auto', marginRight: '5px' }}
                   />
                   <img
                     src={`${urlBack}/${singleOrder.package.image3}`}
                     width="130px"
-                    style={{ flex: "0 0 auto", marginRight: "5px" }}
+                    style={{ flex: '0 0 auto', marginRight: '5px' }}
                   />
                   <img
                     src={`${urlBack}/${singleOrder.package.image4}`}
                     width="130px"
-                    style={{ flex: "0 0 auto", marginRight: "5px" }}
+                    style={{ flex: '0 0 auto', marginRight: '5px' }}
                   />
                 </div>
               )}
             </Grid>
             <Grid
               item
-              direction={"column"}
+              direction={'column'}
               maxWidth="100%"
-              justifyContent={"center"}
+              justifyContent={'center'}
               xs={3}
             >
               <Grid
                 item
                 maxWidth="100%"
-                justifyContent={"center"}
+                justifyContent={'center'}
                 border="1px solid lightgrey"
-                borderRadius={"5px"}
+                borderRadius={'5px'}
                 p={3}
                 xs={3}
               >
-                <Grid container flexDirection={"column"}>
+                <Grid container flexDirection={'column'}>
                   <Typography mb={3} fontSize="20px" fontWeight={600}>
                     Información del cliente
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
-                    Nombre:{" "}
-                    <span style={{ fontWeight: "400" }}>
-                      {" "}
+                    Nombre:{' '}
+                    <span style={{ fontWeight: '400' }}>
+                      {' '}
                       {`${singleOrder?.customer.user.name} ${singleOrder?.customer.user.lastname}`}
                     </span>
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
-                    Ciudad de orígen:{" "}
-                    <span style={{ fontWeight: "400" }}>
+                    Ciudad de orígen:{' '}
+                    <span style={{ fontWeight: '400' }}>
                       {singleOrder?.customer.city}
                     </span>
                   </Typography>
                   <Typography mb={3} fontSize="16px" fontWeight={600}>
-                    Empresa:{" "}
-                    <span style={{ fontWeight: "400" }}>
+                    Empresa:{' '}
+                    <span style={{ fontWeight: '400' }}>
                       {singleOrder?.customer.company_name}
                     </span>
                   </Typography>
                   <Typography mb={3} fontSize="20px" fontWeight={600}>
-                    Información del envío{" "}
+                    Información del envío{' '}
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
                     <GreenCircle></GreenCircle>
-                    Fecha de retiro:{" "}
-                    <span style={{ fontWeight: "400" }}>
+                    Fecha de retiro:{' '}
+                    <span style={{ fontWeight: '400' }}>
                       {formatDate(singleOrder?.pick_up_date)}
                     </span>
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
                     <GreenCircle></GreenCircle>
-                    Hora de retiro:{" "}
-                    <span style={{ fontWeight: "400" }}>
+                    Hora de retiro:{' '}
+                    <span style={{ fontWeight: '400' }}>
                       {`${singleOrder?.pick_up_time}hs`}
                     </span>
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
                     <GreenCircle></GreenCircle>
-                    Dirección de retiro:{" "}
-                    <span style={{ fontWeight: "400" }}>
+                    Dirección de retiro:{' '}
+                    <span style={{ fontWeight: '400' }}>
                       {singleOrder?.pick_up_address}
                     </span>
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
                     <GreenCircle></GreenCircle>
-                    Teléfono:{" "}
-                    <span style={{ fontWeight: "400" }}>
+                    Teléfono:{' '}
+                    <span style={{ fontWeight: '400' }}>
                       {singleOrder?.customer.company_phone}
                     </span>
                   </Typography>
                   <Divider />
                   <Typography fontSize="16px" fontWeight={600}>
                     <GreenCircle></GreenCircle>
-                    Fecha de entrega:{" "}
-                    <span style={{ fontWeight: "400" }}>
+                    Fecha de entrega:{' '}
+                    <span style={{ fontWeight: '400' }}>
                       {formatDate(singleOrder?.delivery_date)}
                     </span>
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
                     <GreenCircle></GreenCircle>
-                    Hora de entrega:{" "}
+                    Hora de entrega:{' '}
                     <span
-                      style={{ fontWeight: "400" }}
+                      style={{ fontWeight: '400' }}
                     >{`${singleOrder?.delivery_time}hs`}</span>
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
                     <GreenCircle></GreenCircle>
-                    Dirección de entrega:{" "}
-                    <span style={{ fontWeight: "400" }}>
+                    Dirección de entrega:{' '}
+                    <span style={{ fontWeight: '400' }}>
                       {singleOrder?.delivery_address}
                     </span>
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
                     <GreenCircle></GreenCircle>
-                    Teléfono:{" "}
-                    <span style={{ fontWeight: "400" }}>
+                    Teléfono:{' '}
+                    <span style={{ fontWeight: '400' }}>
                       {singleOrder?.contact_number}
                     </span>
                   </Typography>
                   <Typography fontSize="16px" fontWeight={600}>
                     <GreenCircle></GreenCircle>
-                    Destinatario:{" "}
-                    <span style={{ fontWeight: "400" }}>
+                    Destinatario:{' '}
+                    <span style={{ fontWeight: '400' }}>
                       {singleOrder?.receiving_company}
                     </span>
                   </Typography>
                 </Grid>
               </Grid>
-              {user.role === "driver" &&
-                singleOrder?.status === "pendiente" &&
+              {user.role === 'driver' &&
+                singleOrder?.status === 'pendiente' &&
                 !singleOrder?.pendingAssignedDriverId &&
                 !applyed && (
                   <Button
@@ -449,47 +464,50 @@ const CargaPage = () => {
                   </Button>
                 )}
               {applyed &&
-                user.role === "driver" &&
-                singleOrder?.pendingAssignedDriverId !== user?.driver?.id &&
-                singleOrder?.assignedDriverId !== user?.driver?.id && (
+                user.role === 'driver' &&
+                singleOrder?.pendingAssignedDriverId !==
+                  user?.driver?.id &&
+                singleOrder?.assignedDriverId !==
+                  user?.driver?.id && (
                   <p
                     style={{
-                      color: "#007C52",
-                      fontFamily: "Montserrat",
-                      fontSize: "16px",
+                      color: '#007C52',
+                      fontFamily: 'Montserrat',
+                      fontSize: '16px',
                       fontWeight: 500,
-                      lineHeight: "23.2px",
-                      textAlign: "left",
+                      lineHeight: '23.2px',
+                      textAlign: 'left',
                     }}
                   >
-                    {"Te postulaste a este envío"}
+                    {'Te postulaste a este envío'}
                   </p>
                 )}
-              {singleOrder?.status === "pendiente" &&
-                singleOrder?.pendingAssignedDriverId === user?.driver?.id && (
+              {singleOrder?.status === 'pendiente' &&
+                singleOrder?.pendingAssignedDriverId ===
+                  user?.driver?.id && (
                   <Grid
-                    display={"flex"}
-                    height={"39px"}
-                    flexDirection={"row"}
-                    alignItems={"center"}
-                    justifyContent={"center"}
-                    gap={"34px"}
-                    marginTop={"20px"}
+                    display={'flex'}
+                    height={'39px'}
+                    flexDirection={'row'}
+                    alignItems={'center'}
+                    justifyContent={'center'}
+                    gap={'34px'}
+                    marginTop={'20px'}
                   >
                     <Button
                       disabled={applicationLoading}
                       style={{
-                        fontFamily: "Inter",
-                        fontWeight: "600",
-                        lineHeight: "23.2px",
-                        textAlign: "center",
-                        color: "#fff",
-                        borderRadius: "8px",
-                        fontSize: "16px",
-                        width: "Hug (121px)px",
-                        height: "Fixed (39px)px",
-                        padding: "16px 24px 16px 24px",
-                        gap: "10px",
+                        fontFamily: 'Inter',
+                        fontWeight: '600',
+                        lineHeight: '23.2px',
+                        textAlign: 'center',
+                        color: '#fff',
+                        borderRadius: '8px',
+                        fontSize: '16px',
+                        width: 'Hug (121px)px',
+                        height: 'Fixed (39px)px',
+                        padding: '16px 24px 16px 24px',
+                        gap: '10px',
                       }}
                       onClick={handleAceptOrder}
                     >
@@ -497,21 +515,21 @@ const CargaPage = () => {
                     </Button>
                     <Button
                       disabled={applicationLoading}
-                      sx={{ width: "110px" }}
+                      sx={{ width: '110px' }}
                       style={{
-                        fontFamily: "Inter",
-                        fontWeight: "600",
-                        lineHeight: "23.2px",
-                        textAlign: "center",
-                        color: "#007C52",
-                        border: "solid 1px #007C52",
-                        borderRadius: "8px",
-                        fontSize: "16px",
-                        backgroundColor: "transparent",
-                        width: "Hug (121px)px",
-                        height: "Fixed (39px)px",
-                        padding: "16px 24px 16px 24px",
-                        gap: "10px",
+                        fontFamily: 'Inter',
+                        fontWeight: '600',
+                        lineHeight: '23.2px',
+                        textAlign: 'center',
+                        color: '#007C52',
+                        border: 'solid 1px #007C52',
+                        borderRadius: '8px',
+                        fontSize: '16px',
+                        backgroundColor: 'transparent',
+                        width: 'Hug (121px)px',
+                        height: 'Fixed (39px)px',
+                        padding: '16px 24px 16px 24px',
+                        gap: '10px',
                       }}
                       onClick={handleDeclineOrder}
                     >
@@ -530,20 +548,24 @@ const CargaPage = () => {
                     Solicitudes de conductores
                   </Typography>
                   <Stack
-                    direction={"column"}
-                    justifyContent={"center"}
-                    alignItems={"center"}
+                    direction={'column'}
+                    justifyContent={'center'}
+                    alignItems={'center'}
                     spacing={3}
                   >
                     {singleOrder?.applications.map((element) => (
                       <ChargeRequestCard
                         key={element.id}
-                        perfilImg={element.driver.user_driver.profile_image}
+                        perfilImg={
+                          element.driver.user_driver.profile_image
+                        }
                         nombre={element.driver.user_driver.name}
                         apellido={element.driver.user_driver.lastname}
                         marca={element.driver.truck.brand}
                         modelo={element.driver.truck.model}
-                        capacidad={element.driver.truck.charge_capacity}
+                        capacidad={
+                          element.driver.truck.charge_capacity
+                        }
                         carga={element.driver.truck.charge_type}
                         estrellas={element.driver.rating}
                         driverId={element.driverId}
@@ -553,7 +575,8 @@ const CargaPage = () => {
                           element?.driverId
                         }
                         assigned={
-                          singleOrder?.assignedDriverId === element?.driverId
+                          singleOrder?.assignedDriverId ===
+                          element?.driverId
                         }
                       />
                     ))}
@@ -561,25 +584,39 @@ const CargaPage = () => {
                 </>
               )}
 
-            <Grid direction={mobile ? "column" : "row"} my={5} container>
-              {singleOrder?.status !== "pendiente" &&
-                user?.role !== "driver" && (
+            <Grid
+              direction={mobile ? 'column' : 'row'}
+              my={5}
+              container
+            >
+              {singleOrder?.status !== 'pendiente' &&
+                user?.role !== 'driver' && (
                   <Grid item xs={6}>
                     <Box width="100%">
                       <ConductorAsignadoCard
                         nombre={`${singleOrder?.assignedDriver?.user_driver.name} ${singleOrder?.assignedDriver?.user_driver.lastname}`}
-                        estrellas={singleOrder?.assignedDriver?.rating}
-                        marca={singleOrder?.assignedDriver?.truck.brand}
-                        modelo={singleOrder?.assignedDriver?.truck.model}
-                        capacidad={
-                          singleOrder?.assignedDriver?.truck.charge_capacity
+                        estrellas={
+                          singleOrder?.assignedDriver?.rating
                         }
-                        carga={singleOrder?.assignedDriver?.truck.charge_type}
+                        marca={
+                          singleOrder?.assignedDriver?.truck.brand
+                        }
+                        modelo={
+                          singleOrder?.assignedDriver?.truck.model
+                        }
+                        capacidad={
+                          singleOrder?.assignedDriver?.truck
+                            .charge_capacity
+                        }
+                        carga={
+                          singleOrder?.assignedDriver?.truck
+                            .charge_type
+                        }
                       />
                     </Box>
                   </Grid>
                 )}
-              {singleOrder?.status !== "pendiente" && orderState && (
+              {singleOrder?.status !== 'pendiente' && orderState && (
                 <Grid item xs={6}>
                   {user?.role === 'customer' &&
                     (!orderState?.enPreparacion ||
@@ -587,19 +624,19 @@ const CargaPage = () => {
                       <Button
                         disabled={changingOrderState}
                         style={{
-                          fontFamily: "Inter",
-                          fontWeight: "600",
-                          lineHeight: !mobile ? "23.2px" : "10px",
-                          textAlign: "center",
-                          color: "#fff",
-                          borderRadius: "8px",
-                          fontSize: "16px",
-                          width: "Hug (121px)px",
-                          height: "Fixed (39px)px",
-                          padding: "16px 24px 16px 24px",
-                          gap: "10px",
-                          marginBottom: "10px",
-                          marginTop: mobile && "10px",
+                          fontFamily: 'Inter',
+                          fontWeight: '600',
+                          lineHeight: !mobile ? '23.2px' : '10px',
+                          textAlign: 'center',
+                          color: '#fff',
+                          borderRadius: '8px',
+                          fontSize: '16px',
+                          width: 'Hug (121px)px',
+                          height: 'Fixed (39px)px',
+                          padding: '16px 24px 16px 24px',
+                          gap: '10px',
+                          marginBottom: '10px',
+                          marginTop: mobile && '10px',
                         }}
                         onClick={handleChangeOrderState}
                       >
@@ -618,30 +655,32 @@ const CargaPage = () => {
                       <Button
                         disabled={changingOrderState}
                         style={{
-                          fontFamily: "Inter",
-                          fontWeight: "600",
-                          lineHeight: !mobile ? "23.2px" : "10px",
-                          textAlign: "center",
-                          color: "#fff",
-                          borderRadius: "8px",
-                          fontSize: "16px",
-                          width: "Hug (121px)px",
-                          height: "Fixed (39px)px",
-                          padding: "16px 24px 16px 24px",
-                          gap: "10px",
-                          marginBottom: "10px",
-                          marginTop: mobile && "10px",
+                          fontFamily: 'Inter',
+                          fontWeight: '600',
+                          lineHeight: !mobile ? '23.2px' : '10px',
+                          textAlign: 'center',
+                          color: '#fff',
+                          borderRadius: '8px',
+                          fontSize: '16px',
+                          width: 'Hug (121px)px',
+                          height: 'Fixed (39px)px',
+                          padding: '16px 24px 16px 24px',
+                          gap: '10px',
+                          marginBottom: '10px',
+                          marginTop: mobile && '10px',
                         }}
                         onClick={handleChangeOrderState}
                       >
                         {!orderState.retirado
-                          ? "Orden retirada"
-                          : !orderState.enCamino && "Orden en camino"}
+                          ? 'Orden retirada'
+                          : !orderState.enCamino && 'Orden en camino'}
                       </Button>
                     )}
                   <VerticalGreenStepper
                     steps={orderState}
-                    driverName={singleOrder?.assignedDriver?.user_driver.name}
+                    driverName={
+                      singleOrder?.assignedDriver?.user_driver.name
+                    }
                   />
                 </Grid>
               )}
@@ -658,45 +697,45 @@ const CargaPage = () => {
           >
             <Box
               sx={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
                 width: 500,
-                bgcolor: "background.paper",
+                bgcolor: 'background.paper',
                 boxShadow: 24,
                 p: 2,
               }}
               style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
               }}
             >
               <Box
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "column",
-                  gap: "10px",
-                  width: "100%",
+                  display: 'flex',
+                  alignItems: 'center',
+                  flexDirection: 'column',
+                  gap: '10px',
+                  width: '100%',
                 }}
               >
                 <Box
                   style={{
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "right",
-                    alignItems: "right",
-                    cursor: "pointer",
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'right',
+                    alignItems: 'right',
+                    cursor: 'pointer',
                   }}
                 >
                   <img
                     onClick={handleCloseModal}
                     style={{
-                      display: "flex",
-                      justifyContent: "right",
-                      alignContent: "right",
+                      display: 'flex',
+                      justifyContent: 'right',
+                      alignContent: 'right',
                     }}
                     src="/public/imgShipments/CloseButton.svg"
                   />
@@ -704,13 +743,17 @@ const CargaPage = () => {
 
                 <img src="/imgMarketplace/PostulationSent.jpg" />
 
-                <Typography id="modal-modal-title" variant="h6" component="h2">
+                <Typography
+                  id="modal-modal-title"
+                  variant="h6"
+                  component="h2"
+                >
                   {applicationMessage?.msg1}
                 </Typography>
 
                 <Typography
                   id="modal-modal-description"
-                  style={{ marginBottom: "30px" }}
+                  style={{ marginBottom: '30px' }}
                 >
                   {applicationMessage?.msg2}
                 </Typography>
@@ -719,10 +762,10 @@ const CargaPage = () => {
           </Modal>
           <Box
             style={{
-              display: "flex",
-              alignItems: "right",
-              justifyContent: "right",
-              cursor: "pointer",
+              display: 'flex',
+              alignItems: 'right',
+              justifyContent: 'right',
+              cursor: 'pointer',
             }}
           >
             <img src="/imgShipments/QuestionIcon.svg" />
