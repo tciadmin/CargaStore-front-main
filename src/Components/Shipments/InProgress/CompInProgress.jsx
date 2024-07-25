@@ -161,6 +161,22 @@ export default function CompInProgress() {
                             marginLeft: '3px',
                           }}
                         >
+                          Código
+                        </p>
+                      </Grid>
+                      <Grid
+                        container
+                        direction="row"
+                        justifyContent="center"
+                        alignItems="center"
+                      >
+                        <p
+                          style={{
+                            fontSize: '12px',
+                            fontWeight: 600,
+                            marginLeft: '3px',
+                          }}
+                        >
                           Producto
                         </p>
                       </Grid>
