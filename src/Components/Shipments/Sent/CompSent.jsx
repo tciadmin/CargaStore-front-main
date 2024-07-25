@@ -19,14 +19,24 @@ export default function CompSent() {
   const { user } = useSelector((state) => state.user);
 
   React.useEffect(() => {
-    user?.role === 'customer' &&
-      dispatch(
-        listOrder(
-          'finalizado', //status
-          '', //orderType
-          user?.customer?.id //customerId
+    user?.role === 'customer'
+      ? dispatch(
+          listOrder(
+            'finalizado', //status
+            '', //orderType
+            user?.customer?.id //customerId
+          )
         )
-      );
+      : user?.role === 'driver' &&
+        dispatch(
+          listOrder(
+            'finalizado', //status
+            '', //orderType
+            '', //customerId
+            '', //pendingAssignedDriverId
+            user?.driver?.id //assignedDriverId
+          )
+        );
     return () => {
       dispatch(clearOrdersList());
     };
