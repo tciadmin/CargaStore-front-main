@@ -136,40 +136,31 @@ export default function PageMarketplace() {
                   <Loading color="#333" />
                 </Box>
               ) : (
-                orders?.map((item) => (
-                  <Box
-                    key={item.id}
-                    style={{
-                      gap: '5px',
-                      display: 'flex',
-                      width: '287px',
-                      heigth: '500px',
-                      flexDirection: 'column',
-                      justyfyContent: 'center',
-                    }}
-                  >
-                    <img
-                      style={{ height: '100%', width: '100%' }}
-                      src={
-                        item.package?.image1
-                          ? `${urlBack}/${item.package?.image1}`
-                          : ''
-                      }
-                    />
-                    <p>{`#${item.id}`}</p>
-                    <span style={{ fontWeight: 600 }}>
-                      {' '}
-                      Valor ofertado:{' '}
-                      <p style={{ fontWeight: 400 }}>
-                        {' '}
-                        {item.package?.offered_price}
-                      </p>
-                    </span>
-                    <p> {item.package?.product_name}</p>
-                    <p> {item.package?.weight}</p>
-                    <p>{`Tipo de carga: ${item.package?.type}`}</p>
-                  </Box>
-                ))
+                <Grid container spacing={3} style={{display: 'flex', gap: 30}}>
+                {orders?.map((item) => (
+                  <Grid
+                  item
+                  xs={6}
+                  sm={4}
+                  md={3}
+                  lg={2.4}
+                  key={item.id}
+                >
+                  <MarketplaceCard
+                    image={
+                      item.package?.image1
+                        ? `${urlBack}/${item.package?.image1}`
+                        : ''
+                    }
+                    title={item.package?.product_name}
+                    weight={item.package?.weight}
+                    price={item.package?.offered_price}
+                    typeCharge={item.package?.type}
+                    id={item.id}
+                  ></MarketplaceCard>
+                </Grid>
+                ))}
+                </Grid>
               )}
             </Box>
           </>
@@ -252,7 +243,6 @@ export default function PageMarketplace() {
                 </h1>
                 <Grid container spacing={3} style={{display: 'flex', gap: 30}}>
                   {orders?.map((item) => (
-                  
                     <Grid
                       item
                       xs={6}
