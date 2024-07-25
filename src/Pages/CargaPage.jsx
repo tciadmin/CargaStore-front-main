@@ -501,6 +501,7 @@ const CargaPage = () => {
                         fontWeight: '600',
                         lineHeight: '23.2px',
                         textAlign: 'center',
+                        backgroundColor: '#007C52',
                         color: '#fff',
                         borderRadius: '8px',
                         fontSize: '16px',
@@ -628,6 +629,7 @@ const CargaPage = () => {
                           fontWeight: '600',
                           lineHeight: !mobile ? '23.2px' : '10px',
                           textAlign: 'center',
+                          backgroundColor: '#007C52',
                           color: '#fff',
                           borderRadius: '8px',
                           fontSize: '16px',
@@ -640,7 +642,9 @@ const CargaPage = () => {
                         }}
                         onClick={handleChangeOrderState}
                       >
-                        {!orderState?.enPreparacion
+                        {changingOrderState
+                          ? 'Cargando...'
+                          : !orderState?.enPreparacion
                           ? 'Orden en preparación'
                           : orderState?.enPreparacion &&
                             !orderState?.preparado &&

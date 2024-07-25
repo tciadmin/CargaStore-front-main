@@ -336,6 +336,7 @@ export default function CompAssigned() {
                       {orders.map((row) => (
                         <ShipmentsItem
                           key={row.id}
+                          userRole={user?.role}
                           status={row.status}
                           code={row.id}
                           productName={row.package.product_name}

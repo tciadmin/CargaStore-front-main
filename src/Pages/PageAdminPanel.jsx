@@ -56,7 +56,7 @@ export default function PageAdminPanel({ seccion = 0 }) {
       : value === 3
       ? (status = 'finalizado')
       : null;
-    dispatch(listOrder(status, '', ''));
+    dispatch(listOrder(status, '', '', '', ''));
   }, [dispatch, value]);
 
   const clickSocios = (value) => {
