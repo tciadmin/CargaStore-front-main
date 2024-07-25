@@ -695,9 +695,9 @@ const PageCrearEnvios = () => {
                         message: 'Este campo es requerido',
                       },
                       validate: (value) =>
-                        value.includes('toneladas') ||
-                        value.includes('kilos') ||
-                        value.includes('gramos') ||
+                        value.includes('tonelada') ||
+                        value.includes('kilo') ||
+                        value.includes('gramo') ||
                         'Debe ingresar un valor de toneladas, kilos o gramos',
                     })}
                     style={{

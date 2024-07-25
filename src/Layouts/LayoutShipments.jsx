@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import { Button, useMediaQuery } from '@mui/material';
 //? --------------------------------------------- STYLES
 import { Colors } from '../Utils/Colors';
+import { useSelector } from 'react-redux';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -37,12 +38,13 @@ CustomTabPanel.propTypes = {
 };
 
 const LayoutShipments = () => {
-  const [userRol, setUserRol] = React.useState('cliente');
+  const { user }= useSelector((state) => state.user)
+  const [userRol, setUserRol] = React.useState('');
   React.useEffect(() => {
-    if (localStorage.getItem('userPrueba')) {
-      setUserRol(localStorage.getItem('userPrueba'));
+    if (localStorage.getItem(user)) {
+      setUserRol(localStorage.getItem(user.role));
     } else {
-      localStorage.setItem('userPrueba', 'cliente');
+      localStorage.setItem(user, user.role);
     }
   }, []);
   const mobile = useMediaQuery('(max-width:720px)');
@@ -237,7 +239,7 @@ const LayoutShipments = () => {
                   Finalizados
                 </Button>
               </div>
-              {userRol == 'cliente' && (
+              {user.role == 'customer' && (
                 <Button
                   style={{ margin: 0 }}
                   variant="contained"

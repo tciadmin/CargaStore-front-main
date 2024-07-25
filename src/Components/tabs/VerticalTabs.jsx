@@ -1469,13 +1469,11 @@ export default function VerticalTabs() {
                     color: "#475367",
                     fontWeight: 500,
                   }}
-                  width={"50%"}
                 >
                   Foto de licencia de conducir{" "}
                   {editar && <span style={{ color: "red" }}>*</span>}
                 </Typography>
-              </Box>
-              {editar && (
+                {editar && (
                 <>
                   <input
                     accept="image/*"
@@ -1491,13 +1489,14 @@ export default function VerticalTabs() {
                         cursor: "pointer",
                         fontWeight: "bold",
                       }}
-                      width={"50%"}
                     >
                       Subir
                     </Typography>
                   </label>
                 </>
               )}
+              </Box>
+              
 
               <Box
                 style={{

@@ -1,38 +1,32 @@
-import * as React from 'react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
+import * as React from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 //? --------------------------------------------- MUI
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
-import Avatar from '@mui/material/Avatar';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
+import Avatar from "@mui/material/Avatar";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
 
 //? --------------------------------------------- STYLES
-import { Colors } from '../../Utils/Colors';
-import {
-  Drawer,
-  Grid,
-  List,
-  ListItem,
-  ListItemButton,
-} from '@mui/material';
-import './styles.css';
-import { useDispatch, useSelector } from 'react-redux';
-import Chat from '../Chat/Chat';
-import Notificaciones from '../Notificaciones/Notificaciones';
-import { getUser } from '../../Redux/Actions/UserActions/userActions';
+import { Colors } from "../../Utils/Colors";
+import { Drawer, Grid, List, ListItem, ListItemButton } from "@mui/material";
+import "./styles.css";
+import { useDispatch, useSelector } from "react-redux";
+import Chat from "../Chat/Chat";
+import Notificaciones from "../Notificaciones/Notificaciones";
+import { getUser } from "../../Redux/Actions/UserActions/userActions";
 
 export default function CompNavLanding() {
-  const mobile = useMediaQuery('(max-width:720px)');
+  const mobile = useMediaQuery("(max-width:720px)");
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [notificaciones, setNotificaciones] = useState(false);
@@ -43,7 +37,7 @@ export default function CompNavLanding() {
   };
 
   React.useEffect(() => {
-    dispatch(getUser(Cookies.get('id')));
+    dispatch(getUser(Cookies.get("id")));
   }, [dispatch]);
 
   const handleCloseUserMenu = () => {
@@ -51,15 +45,15 @@ export default function CompNavLanding() {
   };
   const navigate = useNavigate();
   const onClickLogin = () => {
-    navigate('/login');
+    navigate("/login");
   };
 
   const onClickRegister = () => {
-    navigate('/register');
+    navigate("/register");
   };
   const onClickChat = () => {
     if (mobile) {
-      navigate('/chat');
+      navigate("/chat");
     } else {
       setNotificaciones(false);
       setChat(!chat);
@@ -70,27 +64,27 @@ export default function CompNavLanding() {
 
   const onClickNotificaciones = () => {
     if (mobile) {
-      navigate('/notificaciones');
+      navigate("/notificaciones");
     } else {
       setChat(false);
       setNotificaciones(!notificaciones);
     }
   };
-  if (location.pathname == '/home/crearEnvios' && mobile) {
+  if (location.pathname == "/home/crearEnvios" && mobile) {
     return <></>;
-  } else if (location.pathname == '/landing' && mobile) {
+  } else if (location.pathname == "/landing" && mobile) {
     return (
       <Stack
         direction="row"
-        justifyContent={'space-around'}
+        justifyContent={"space-around"}
         pt={2}
         width="100vw"
-        position={'absolute'}
+        position={"absolute"}
       >
         <img
           src="/imgLanding/LogoCargaStoreBlanco.png"
-          width={'80px'}
-          height={'40px'}
+          width={"80px"}
+          height={"40px"}
           alt=""
         />
 
@@ -100,7 +94,7 @@ export default function CompNavLanding() {
             variant="terciary"
             style={{
               color: Colors.primary.contrastText,
-              borderColor: 'inherit',
+              borderColor: "inherit",
               fontWeight: 600,
             }}
           >
@@ -113,7 +107,7 @@ export default function CompNavLanding() {
               backgroundColor: Colors.primary.main,
               fontWeight: 600,
             }}
-            onClick={() => navigate('/register')}
+            onClick={() => navigate("/register")}
           >
             Regístrate
           </Button>
@@ -126,23 +120,22 @@ export default function CompNavLanding() {
         component="nav"
         elevation={0}
         position="sticky"
-        sx={{ width: '100%' }}
+        sx={{ width: "100%" }}
         style={{
           backgroundColor: Colors.primary.contrastText,
-          borderBottom: '1px solid #E4E7EC',
-
-          display: 'flex',
-
-          justifyContent: 'space-between ',
+          borderBottom: "1px solid #E4E7EC",
+          display: "flex",
+          justifyContent: "space-between ",
+          fontWeight: 600,
+          color: Colors.primary.main,
+          fontFamily: "Montserrat, sans-serif",
         }}
       >
-        <Toolbar
-          sx={{ display: 'flex', justifyContent: 'space-between' }}
-        >
+        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           {mobile && (
             <Box
-              display={'inline-block'}
-              style={{ width: '30px', cursor: 'pointer' }}
+              display={"inline-block"}
+              style={{ width: "30px", cursor: "pointer" }}
               onClick={() => {
                 setOpen(true);
               }}
@@ -183,17 +176,14 @@ export default function CompNavLanding() {
             <Box sx={{ width: 250 }}>
               <Stack
                 direction="row"
-                justifyContent={'space-between'}
+                justifyContent={"space-between"}
                 px={2}
-                alignItems={'center'}
+                alignItems={"center"}
                 spacing={2}
               >
-                <img
-                  src="/imgLanding/LogoCargaStore.svg"
-                  width={'100px'}
-                />
+                <img src="/imgLanding/LogoCargaStore.svg" width={"100px"} />
                 <svg
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: "pointer" }}
                   onClick={() => setOpen(false)}
                   width="24"
                   height="24"
@@ -205,30 +195,30 @@ export default function CompNavLanding() {
                     d="M19.281 18.2194C19.3507 18.289 19.406 18.3718 19.4437 18.4628C19.4814 18.5539 19.5008 18.6514 19.5008 18.75C19.5008 18.8485 19.4814 18.9461 19.4437 19.0372C19.406 19.1282 19.3507 19.2109 19.281 19.2806C19.2114 19.3503 19.1286 19.4056 19.0376 19.4433C18.9465 19.481 18.849 19.5004 18.7504 19.5004C18.6519 19.5004 18.5543 19.481 18.4632 19.4433C18.3722 19.4056 18.2895 19.3503 18.2198 19.2806L12.0004 13.0603L5.78104 19.2806C5.64031 19.4213 5.44944 19.5004 5.25042 19.5004C5.05139 19.5004 4.86052 19.4213 4.71979 19.2806C4.57906 19.1399 4.5 18.949 4.5 18.75C4.5 18.551 4.57906 18.3601 4.71979 18.2194L10.9401 12L4.71979 5.78061C4.57906 5.63988 4.5 5.44901 4.5 5.24999C4.5 5.05097 4.57906 4.8601 4.71979 4.71936C4.86052 4.57863 5.05139 4.49957 5.25042 4.49957C5.44944 4.49957 5.64031 4.57863 5.78104 4.71936L12.0004 10.9397L18.2198 4.71936C18.3605 4.57863 18.5514 4.49957 18.7504 4.49957C18.9494 4.49957 19.1403 4.57863 19.281 4.71936C19.4218 4.8601 19.5008 5.05097 19.5008 5.24999C19.5008 5.44901 19.4218 5.63988 19.281 5.78061L13.0607 12L19.281 18.2194Z"
                     fill="#343330"
                   />
-                </svg>{' '}
+                </svg>{" "}
               </Stack>
               <Stack
-                display={'flex'}
-                height={'90vh'}
-                flexDirection={'column'}
-                justifyContent={'space-between'}
+                display={"flex"}
+                height={"90vh"}
+                flexDirection={"column"}
+                justifyContent={"space-between"}
               >
                 <List>
-                  {user?.role == 'customer' &&
+                  {user?.role == "customer" &&
                     [
-                      { nombre: 'Inicio', ruta: '/shipments' },
-                      { nombre: 'Pendiente', ruta: '/shipments' },
+                      { nombre: "Inicio", ruta: "/shipments" },
+                      { nombre: "Pendiente", ruta: "/shipments" },
                       {
-                        nombre: 'En curso',
-                        ruta: '/shipments/in-progress',
+                        nombre: "En curso",
+                        ruta: "/shipments/in-progress",
                       },
                       {
-                        nombre: 'Asignados',
-                        ruta: '/shipments/assigned',
+                        nombre: "Asignados",
+                        ruta: "/shipments/assigned",
                       },
                       {
-                        nombre: 'Finalizados',
-                        ruta: '/shipments/finished',
+                        nombre: "Finalizados",
+                        ruta: "/shipments/finished",
                       },
                     ].map((item, index) => (
                       <ListItem
@@ -238,59 +228,90 @@ export default function CompNavLanding() {
                           navigate(item.ruta);
                         }}
                         disablePadding
+                        style={{
+                          fontWeight: 600,
+                          color: Colors.primary.main,
+                          fontFamily: "Montserrat, sans-serif",
+                        }}
                       >
-                        <ListItemButton>
-                          <h3
-                            // variant={'primary'}
-                            style={{ fontWeight: 500, color: Colors.primary.main }}
+                        <ListItemButton
+                          style={{
+                            fontWeight: 600,
+                            color: Colors.primary.main,
+                            fontFamily: "Montserrat, sans-serif",
+                          }}
+                        >
+                          <h2
+                            style={{
+                              fontWeight: 600,
+                              color: Colors.primary.main,
+                              fontFamily: "Montserrat, sans-serif",
+                            }}
                           >
                             {item.nombre}
-                          </h3>
+                          </h2>
                         </ListItemButton>
                       </ListItem>
                     ))}
-                  {user.role == 'driver' &&
+                  {user.role == "driver" &&
                     [
-                      { nombre: 'Mis envíos', ruta: '/shipments' },
-                      { nombre: 'Marketplace', ruta: '/marketplace' },
+                      { nombre: "Mis envíos", ruta: "/shipments" },
+                      { nombre: "Marketplace", ruta: "/marketplace" },
                     ].map((item, index) => (
-                      <ListItem key={index} disablePadding style={{ fontWeight: 500, color: Colors.primary.main }}>
+                      <ListItem
+                        key={index}
+                        disablePadding
+                        style={{ fontWeight: 500, color: Colors.primary.main, fontFamily: "Montserrat, sans-serif",}}
+                      >
                         <ListItemButton
-                        style={{ fontWeight: 500, color: Colors.primary.main }}
+                          style={{
+                            fontWeight: 500,
+                            color: Colors.primary.main,
+                            fontFamily: "Montserrat, sans-serif",
+                          }}
                           onClick={() => navigate(item.ruta)}
                         >
-                          <h3
-                            // variant={'primary'}
-                            style={{ fontWeight: 500, color: item.nombre === 'Mis envíos' && item.ruta === '/shipments' || item.nombre === 'Marketplace' && item.ruta === '/marketplace' ? Colors.primary.main : ''}}
+                          <h2
+                            style={{
+                              fontWeight: 600,
+                              color:
+                                (item.nombre === "Mis envíos" &&
+                                  item.ruta === "/shipments") ||
+                                (item.nombre === "Marketplace" &&
+                                  item.ruta === "/marketplace")
+                                  ? Colors.primary.main
+                                  : "",
+                                  fontFamily: "Montserrat, sans-serif",
+                            }}
                           >
                             {item.nombre}
-                          </h3>
+                          </h2>
                         </ListItemButton>
                       </ListItem>
                     ))}
-                  {user.role == 'admin' &&
+                  {user.role == "admin" &&
                     [
                       {
-                        nombre: 'Inicio',
-                        ruta: '/administrador/panel',
+                        nombre: "Inicio",
+                        ruta: "/administrador/panel",
                       },
                       {
-                        nombre: 'Solicitudes de carga',
-                        ruta: '/administrador/panel/solicitudes',
+                        nombre: "Solicitudes de carga",
+                        ruta: "/administrador/panel/solicitudes",
                       },
                       {
-                        nombre: 'Viajes activos',
-                        ruta: '/administrador/panel/viajes-activos',
+                        nombre: "Viajes activos",
+                        ruta: "/administrador/panel/viajes-activos",
                       },
                       {
-                        nombre: 'Viajes finalizados',
-                        ruta: '/administrador/panel/viajes-finalizados',
+                        nombre: "Viajes finalizados",
+                        ruta: "/administrador/panel/viajes-finalizados",
                       },
                       {
-                        nombre: 'Socios Activos',
-                        ruta: '/administrador/panel/socios',
+                        nombre: "Socios Activos",
+                        ruta: "/administrador/panel/socios",
                       },
-                      { nombre: 'Pagos', ruta: '/payment' },
+                      { nombre: "Pagos", ruta: "/payment" },
                     ].map((item, index) => (
                       <ListItem key={index} disablePadding>
                         <ListItemButton
@@ -300,7 +321,7 @@ export default function CompNavLanding() {
                           }}
                         >
                           <Typography
-                            variant={'primary'}
+                            variant={"primary"}
                             sx={{ fontWeight: 400 }}
                           >
                             {item.nombre}
@@ -358,11 +379,7 @@ export default function CompNavLanding() {
                         </g>
                         <defs>
                           <clipPath id="clip0_453_10035">
-                            <rect
-                              width="24"
-                              height="24"
-                              fill="white"
-                            />
+                            <rect width="24" height="24" fill="white" />
                           </clipPath>
                         </defs>
                       </svg>
@@ -371,9 +388,9 @@ export default function CompNavLanding() {
                         variant="primary"
                         sx={{ fontWeight: 400 }}
                         onClick={() => {
-                          Cookies.remove('token');
-                          Cookies.remove('id');
-                          navigate('/landing');
+                          Cookies.remove("token");
+                          Cookies.remove("id");
+                          navigate("/landing");
                         }}
                       >
                         Cerrar sesión
@@ -387,8 +404,8 @@ export default function CompNavLanding() {
           {!mobile && (
             <Stack
               direction="row"
-              justifyContent={'flex-start'}
-              alignItems={'center'}
+              justifyContent={"flex-start"}
+              alignItems={"center"}
             >
               <Typography
                 variant="h6"
@@ -396,88 +413,83 @@ export default function CompNavLanding() {
                 sx={{
                   flexGrow: 1,
                   marginRight: 2,
-                  cursor: 'pointer',
-                  gap: '50px',
-                  display: { xs: 'none', sm: 'block' },
+                  cursor: "pointer",
+                  gap: "50px",
+                  display: { xs: "none", sm: "block" },
                 }}
                 onClick={() => {
-                  if (user.role == 'admin') {
-                    navigate('/administrador/panel');
-                  } else if (user.role == 'driver') {
-                    navigate('/marketplace');
+                  if (user.role == "admin") {
+                    navigate("/administrador/panel");
+                  } else if (user.role == "driver") {
+                    navigate("/marketplace");
                   } else {
-                    if (location.pathname == '/landing') {
-                      navigate('/landing');
+                    if (location.pathname == "/landing") {
+                      navigate("/landing");
                     } else {
-                      navigate('/shipments');
+                      navigate("/shipments");
                     }
                   }
                 }}
               >
                 <img
                   src="/imgLanding/LogoCargaStore.svg"
-                  style={{ marginRight: '40px' }}
+                  style={{ marginRight: "40px" }}
                 />
               </Typography>
-              {!mobile && location.pathname != '/landing' && (
+              {!mobile && location.pathname != "/landing" && (
                 <>
-                  {user.role !== 'customer' && (
+                  {user.role !== "customer" && (
                     <Typography
-                      marginRight={'40px'}
-                      fontSize={'16px'}
-                      sx={{ cursor: 'pointer' }}
+                      marginRight={"40px"}
+                      fontSize={"16px"}
+                      sx={{ cursor: "pointer" }}
                       onClick={() =>
                         navigate(
-                          user.role == 'admin'
-                            ? '/administrador/panel'
-                            : '/marketplace'
+                          user.role == "admin"
+                            ? "/administrador/panel"
+                            : "/marketplace"
                         )
                       }
                       cursor="pointer"
                       color={
-                        (user.role == 'admin' &&
+                        (user.role == "admin" &&
                           location.pathname.startsWith(
-                            '/administrador/panel'
+                            "/administrador/panel"
                           )) ||
-                        (user.role == 'driver' &&
-                          location.pathname == '/marketplace')
-                          ? 'primary'
-                          : 'secondary'
+                        (user.role == "driver" &&
+                          location.pathname == "/marketplace")
+                          ? "primary"
+                          : "secondary"
                       }
                     >
-                      {user.role == 'admin'
-                        ? 'Panel de control'
-                        : 'Marketplace'}
+                      {user.role == "admin"
+                        ? "Panel de control"
+                        : "Marketplace"}
                     </Typography>
                   )}
                   <Typography
-                    mr={'30px'}
-                    fontSize={'16px'}
-                    sx={{ cursor: 'pointer' }}
+                    mr={"30px"}
+                    fontSize={"16px"}
+                    sx={{ cursor: "pointer" }}
                     onClick={() =>
-                      navigate(
-                        user.role == 'admin'
-                          ? '/payment'
-                          : '/shipments'
-                      )
+                      navigate(user.role == "admin" ? "/payment" : "/shipments")
                     }
                     color={
-                      (user.role == 'admin' &&
-                        location.pathname.startsWith('/payment')) ||
-                      ((user.role == 'driver' ||
-                        user.role == 'customer') &&
-                        location.pathname.startsWith('/shipments'))
-                        ? 'primary'
-                        : 'secondary'
+                      (user.role == "admin" &&
+                        location.pathname.startsWith("/payment")) ||
+                      ((user.role == "driver" || user.role == "customer") &&
+                        location.pathname.startsWith("/shipments"))
+                        ? "primary"
+                        : "secondary"
                     }
                   >
-                    {user.role == 'admin' ? 'Pagos' : 'Mis envios'}
+                    {user.role == "admin" ? "Pagos" : "Mis envios"}
                   </Typography>
                 </>
               )}
             </Stack>
           )}
-          {!mobile && location.pathname == '/landing' && (
+          {!mobile && location.pathname == "/landing" && (
             <Stack spacing={mobile ? 1 : 2} direction="row">
               <Button
                 onClick={onClickLogin}
@@ -486,9 +498,7 @@ export default function CompNavLanding() {
                   color: mobile
                     ? Colors.primary.contrastText
                     : Colors.primary.main,
-                  borderColor: mobile
-                    ? 'inherit'
-                    : Colors.primary.main,
+                  borderColor: mobile ? "inherit" : Colors.primary.main,
                 }}
               >
                 Inicia sesión
@@ -506,7 +516,7 @@ export default function CompNavLanding() {
             </Stack>
           )}
 
-          {location.pathname != '/landing' && (
+          {location.pathname != "/landing" && (
             <Box
               display="flex"
               justifyContent="center"
@@ -542,7 +552,7 @@ export default function CompNavLanding() {
                 <svg
                   width="29"
                   height="29"
-                  style={{ marginLeft: '10px' }}
+                  style={{ marginLeft: "10px" }}
                   viewBox="0 0 29 29"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -561,25 +571,22 @@ export default function CompNavLanding() {
               </Tooltip>
 
               <Tooltip title="Open settings">
-                <IconButton
-                  onClick={handleOpenUserMenu}
-                  sx={{ pr: 1 }}
-                >
+                <IconButton onClick={handleOpenUserMenu} sx={{ pr: 1 }}>
                   <Avatar alt="Remy Sharp" src="perfil.webp" />
                 </IconButton>
               </Tooltip>
               <Menu
-                sx={{ mt: '45px' }}
+                sx={{ mt: "45px" }}
                 id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: "top",
+                  horizontal: "right",
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: "top",
+                  horizontal: "right",
                 }}
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
@@ -589,9 +596,9 @@ export default function CompNavLanding() {
                     textAlign="center"
                     onClick={() =>
                       navigate(
-                        user.role == 'admin'
-                          ? '/administrador/perfil'
-                          : '/perfil'
+                        user.role == "admin"
+                          ? "/administrador/perfil"
+                          : "/perfil"
                       )
                     }
                   >
@@ -602,9 +609,9 @@ export default function CompNavLanding() {
                   <Typography
                     textAlign="center"
                     onClick={() => {
-                      Cookies.remove('token');
-                      Cookies.remove('id');
-                      navigate('/landing');
+                      Cookies.remove("token");
+                      Cookies.remove("id");
+                      navigate("/landing");
                     }}
                   >
                     Cerrar sesión
