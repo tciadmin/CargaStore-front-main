@@ -37,7 +37,7 @@ export default function PageMarketplace() {
   };
 
   useEffect(() => {
-    dispatch(listOrder('', orderType, ''));
+    dispatch(listOrder('', orderType, '', '', ''));
   }, [dispatch, orderType]);
 
   const urlBack = import.meta.env.VITE_URL_BACKEND;

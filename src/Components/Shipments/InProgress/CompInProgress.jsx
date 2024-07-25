@@ -20,14 +20,26 @@ export default function CompInProgress() {
   const { user } = useSelector((state) => state.user);
 
   React.useEffect(() => {
-    user?.role === 'customer' &&
-      dispatch(
-        listOrder(
-          'en curso', //status
-          '', //orderType
-          user?.customer?.id //customerId
+    user?.role === 'customer'
+      ? dispatch(
+          listOrder(
+            'en curso', //status
+            '', //orderType
+            user?.customer?.id, //customerId
+            '', //pendingAssignedDriverId
+            '' //assignedDriverId
+          )
         )
-      );
+      : user?.role === 'driver' &&
+        dispatch(
+          listOrder(
+            'en curso', //status
+            '', //orderType
+            '', //customerId
+            '', //pendingAssignedDriverId
+            user?.driver?.id //assignedDriverId
+          )
+        );
     return () => {
       dispatch(clearOrdersList());
     };
@@ -324,6 +336,7 @@ export default function CompInProgress() {
                       {orders?.map((row) => (
                         <ShipmentsItem
                           key={row.id}
+                          userRole={user?.role}
                           status={row.status}
                           code={row.id}
                           productName={row.package.product_name}

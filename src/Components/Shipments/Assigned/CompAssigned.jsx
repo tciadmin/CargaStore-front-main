@@ -21,14 +21,26 @@ export default function CompAssigned() {
   const { user } = useSelector((state) => state.user);
 
   React.useEffect(() => {
-    user?.role === 'customer' &&
-      dispatch(
-        listOrder(
-          'asignado', //status
-          '', //orderType
-          user?.customer?.id //customerId
+    user?.role === 'customer'
+      ? dispatch(
+          listOrder(
+            'asignado', //status
+            '', //orderType
+            user?.customer?.id, //customerId
+            '', //pendingAssignedDriverId
+            '' //assignedDriverId
+          )
         )
-      );
+      : user?.role === 'driver' &&
+        dispatch(
+          listOrder(
+            'asignado', //status
+            '', //orderType
+            '', //customerId
+            '', //pendingAssignedDriverId
+            user?.driver?.id //assignedDriverId
+          )
+        );
     return () => {
       dispatch(clearOrdersList());
     };
@@ -39,7 +51,7 @@ export default function CompAssigned() {
   );
 
   return (
-    <Box style={{backgroundColor: Colors.terciary.contrastText,}}>
+    <Box style={{ backgroundColor: Colors.terciary.contrastText }}>
       {ordersLoading ? (
         <Box
           style={{

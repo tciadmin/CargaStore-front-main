@@ -20,18 +20,30 @@ export default function CompPending() {
   const { user } = useSelector((state) => state.user);
 
   React.useEffect(() => {
-    user?.role === 'customer' &&
-      dispatch(
-        listOrder(
-          'pendiente', //status
-          '', //orderType
-          user?.customer?.id //customerId
+    user?.role === 'customer'
+      ? dispatch(
+          listOrder(
+            'pendiente', //status
+            '', //orderType
+            user?.customer?.id, //customerId
+            '', //pendingAssignedDriverId
+            '' //assignedDriverId
+          )
         )
-      );
+      : user?.role === 'driver' &&
+        dispatch(
+          listOrder(
+            'pendiente', //status
+            '', //orderType
+            '', //customerId
+            user?.driver?.id, //pendingAssignedDriverId
+            '' //assignedDriverId
+          )
+        );
     return () => {
       dispatch(clearOrdersList());
     };
-  }, [dispatch, user?.customer?.id, user]);
+  }, [dispatch, user?.customer?.id, user?.driver?.id, user]);
 
   const mobile = useMediaQuery('(max-width:720px)');
 
@@ -52,7 +64,11 @@ export default function CompPending() {
           <Loading color="#333" />
         </Box>
       ) : !orders.length && !ordersLoading && message ? (
-        <ShipmentsMessage message={message} status={status} />
+        <ShipmentsMessage
+          message={message}
+          status={status}
+          userRole={user?.role}
+        />
       ) : (
         <>
           {mobile ? (
@@ -322,6 +338,7 @@ export default function CompPending() {
                       {orders.map((row) => (
                         <ShipmentsItem
                           key={row.id}
+                          userRole={user?.role}
                           status={row.status}
                           code={row.id}
                           productName={row.package.product_name}

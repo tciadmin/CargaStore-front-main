@@ -92,7 +92,7 @@ const LayoutShipments = () => {
                 width: '96%',
                 height: '60px',
                 alignItems: 'center',
-              backgroundColor: Colors.terciary.contrastText,
+                backgroundColor: Colors.terciary.contrastText,
               }}
             >
               <div
@@ -261,7 +261,7 @@ const LayoutShipments = () => {
             justifyContent: 'right',
             padding: '10px',
             cursor: 'pointer',
-            backgroundColor: '#f5f5f5ff'
+            backgroundColor: '#f5f5f5ff',
           }}
         >
           <img src="/imgShipments/QuestionIcon.svg" />

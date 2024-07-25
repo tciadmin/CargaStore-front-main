@@ -438,9 +438,10 @@ const CargaPage = () => {
                     variant="contained"
                     disabled={applicationLoading}
                     sx={{
-                      marginTop: "20px",
-                      width: "100%",
-                      backgroundColor: Colors.primary.main,
+                      backgroundColor: '#007C52',
+                      color: '#fff',
+                      marginTop: '20px',
+                      width: '100%',
                     }}
                     onClick={applyForOrder}
                   >
@@ -522,8 +523,8 @@ const CargaPage = () => {
           </Grid>
           <Container>
             {!mobile &&
-              user.role === "admin" &&
-              singleOrder?.status === "pendiente" && (
+              user?.role === 'admin' &&
+              singleOrder?.status === 'pendiente' && (
                 <>
                   <Typography fontSize="16px" fontWeight={600}>
                     Solicitudes de conductores
@@ -580,8 +581,9 @@ const CargaPage = () => {
                 )}
               {singleOrder?.status !== "pendiente" && orderState && (
                 <Grid item xs={6}>
-                  {user?.role === "customer" &&
-                    (!orderState.enPreparacion || !orderState.preparado) && (
+                  {user?.role === 'customer' &&
+                    (!orderState?.enPreparacion ||
+                      !orderState?.preparado) && (
                       <Button
                         disabled={changingOrderState}
                         style={{
@@ -601,17 +603,18 @@ const CargaPage = () => {
                         }}
                         onClick={handleChangeOrderState}
                       >
-                        {!orderState.enPreparacion
-                          ? "Orden en preparación"
-                          : orderState.enPreparacion &&
-                            !orderState.preparado &&
-                            "Orden preparada"}
+                        {!orderState?.enPreparacion
+                          ? 'Orden en preparación'
+                          : orderState?.enPreparacion &&
+                            !orderState?.preparado &&
+                            'Orden preparada'}
                       </Button>
                     )}
-                  {user?.role === "driver" &&
-                    orderState.enPreparacion &&
-                    orderState.preparado &&
-                    (!orderState.retirado || !orderState.enCamino) && (
+                  {user?.role === 'driver' &&
+                    orderState?.enPreparacion &&
+                    orderState?.preparado &&
+                    (!orderState?.retirado ||
+                      !orderState?.enCamino) && (
                       <Button
                         disabled={changingOrderState}
                         style={{
