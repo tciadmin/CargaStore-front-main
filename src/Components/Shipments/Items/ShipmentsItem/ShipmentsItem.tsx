@@ -14,6 +14,7 @@ import FinishMessage from './FinishMessage';
 import { useNavigate } from 'react-router-dom';
 
 const ShipmentsItem = ({
+  userRole,
   status,
   code,
   productName,
@@ -359,29 +360,65 @@ const ShipmentsItem = ({
           <Grid
             item
             container
+            onClick={() =>
+              userRole === 'driver' && navigate(`/carga/${code}`)
+            }
             width={'9%'}
+            sx={{
+              cursor: userRole === 'driver' ? 'pointer' : 'default',
+            }}
             direction="row"
             justifyContent="center"
             alignItems="center"
           >
-            <Box className="flexTable">
-              <Button
-                onClick={handleOpen}
-                variant="outlined"
-                style={
-                  status === 'pendiente'
-                    ? {
-                        cursor: 'not allowed',
-                        pointerEvents: 'none',
-                        color: Colors.secondary.contrastText,
-                        borderColor: Colors.secondary.contrastText,
-                      }
-                    : {}
-                }
+            {userRole === 'driver' && (
+              <svg
+                width="21"
+                height="14"
+                viewBox="0 0 21 14"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                Ver
-              </Button>
-            </Box>
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M20.2018 7C20.2018 10.3133 16.0232 13 10.8685 13C5.71382 13 1.53516 10.3133 1.53516 7C1.53516 3.68667 5.71382 1 10.8685 1C16.0232 1 20.2018 3.68667 20.2018 7Z"
+                  stroke="#007C52"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M13.2032 7.00047C13.232 7.8529 12.7937 8.65321 12.0599 9.08797C11.3261 9.52272 10.4136 9.52272 9.67979 9.08797C8.94599 8.65321 8.50767 7.8529 8.5365 7.00047C8.50767 6.14804 8.94599 5.34773 9.67979 4.91298C10.4136 4.47823 11.3261 4.47823 12.0599 4.91298C12.7937 5.34773 13.232 6.14804 13.2032 7.00047V7.00047Z"
+                  stroke="#007C52"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            )}
+            {userRole === 'customer' && (
+              <Box className="flexTable">
+                <Button
+                  onClick={handleOpen}
+                  variant="outlined"
+                  style={
+                    status === 'pendiente'
+                      ? {
+                          cursor: 'not allowed',
+                          pointerEvents: 'none',
+                          color: Colors.secondary.contrastText,
+                          borderColor: Colors.secondary.contrastText,
+                        }
+                      : {}
+                  }
+                >
+                  Ver
+                </Button>
+              </Box>
+            )}
           </Grid>
         </Grid>
       </Box>

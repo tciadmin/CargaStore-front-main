@@ -439,14 +439,19 @@ const CargaPage = () => {
                 !applyed && (
                   <Button
                     disabled={applicationLoading}
-                    sx={{ marginTop: '20px', width: '100%' }}
+                    sx={{
+                      backgroundColor: '#007C52',
+                      color: '#fff',
+                      marginTop: '20px',
+                      width: '100%',
+                    }}
                     onClick={applyForOrder}
                   >
                     Postularse
                   </Button>
                 )}
               {applyed &&
-                user.role === 'driver' &&
+                user?.role === 'driver' &&
                 singleOrder?.pendingAssignedDriverId !==
                   user?.driver?.id &&
                 singleOrder?.assignedDriverId !==
@@ -523,7 +528,7 @@ const CargaPage = () => {
           </Grid>
           <Container>
             {!mobile &&
-              user.role === 'admin' &&
+              user?.role === 'admin' &&
               singleOrder?.status === 'pendiente' && (
                 <>
                   <Typography fontSize="16px" fontWeight={600}>
@@ -601,8 +606,8 @@ const CargaPage = () => {
               {singleOrder?.status !== 'pendiente' && orderState && (
                 <Grid item xs={6}>
                   {user?.role === 'customer' &&
-                    (!orderState.enPreparacion ||
-                      !orderState.preparado) && (
+                    (!orderState?.enPreparacion ||
+                      !orderState?.preparado) && (
                       <Button
                         disabled={changingOrderState}
                         style={{
@@ -610,6 +615,7 @@ const CargaPage = () => {
                           fontWeight: '600',
                           lineHeight: !mobile ? '23.2px' : '10px',
                           textAlign: 'center',
+                          backgroundColor: '#007C52',
                           color: '#fff',
                           borderRadius: '8px',
                           fontSize: '16px',
@@ -622,18 +628,18 @@ const CargaPage = () => {
                         }}
                         onClick={handleChangeOrderState}
                       >
-                        {!orderState.enPreparacion
+                        {!orderState?.enPreparacion
                           ? 'Orden en preparación'
-                          : orderState.enPreparacion &&
-                            !orderState.preparado &&
+                          : orderState?.enPreparacion &&
+                            !orderState?.preparado &&
                             'Orden preparada'}
                       </Button>
                     )}
                   {user?.role === 'driver' &&
-                    orderState.enPreparacion &&
-                    orderState.preparado &&
-                    (!orderState.retirado ||
-                      !orderState.enCamino) && (
+                    orderState?.enPreparacion &&
+                    orderState?.preparado &&
+                    (!orderState?.retirado ||
+                      !orderState?.enCamino) && (
                       <Button
                         disabled={changingOrderState}
                         style={{
@@ -641,6 +647,7 @@ const CargaPage = () => {
                           fontWeight: '600',
                           lineHeight: !mobile ? '23.2px' : '10px',
                           textAlign: 'center',
+                          backgroundColor: '#007C52',
                           color: '#fff',
                           borderRadius: '8px',
                           fontSize: '16px',
@@ -653,9 +660,10 @@ const CargaPage = () => {
                         }}
                         onClick={handleChangeOrderState}
                       >
-                        {!orderState.retirado
+                        {!orderState?.retirado
                           ? 'Orden retirada'
-                          : !orderState.enCamino && 'Orden en camino'}
+                          : !orderState?.enCamino &&
+                            'Orden en camino'}
                       </Button>
                     )}
                   <VerticalGreenStepper
