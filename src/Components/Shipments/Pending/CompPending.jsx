@@ -51,7 +51,7 @@ export default function CompPending() {
     (state) => state.orders
   );
   return (
-    <Box style={{ background: '#FFF' }}>
+    <Box style={{ background: '#FFF', width: '100%'}}>
       {ordersLoading ? (
         <Box
           style={{

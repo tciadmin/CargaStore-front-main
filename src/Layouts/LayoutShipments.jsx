@@ -38,15 +38,15 @@ CustomTabPanel.propTypes = {
 };
 
 const LayoutShipments = () => {
-  // const [userRol, setUserRol] = React.useState('cliente');
-  const { user } = useSelector((state) => state.user);
-  // React.useEffect(() => {
-  //   if (localStorage.getItem('userPrueba')) {
-  //     setUserRol(localStorage.getItem('userPrueba'));
-  //   } else {
-  //     localStorage.setItem('userPrueba', 'cliente');
-  //   }
-  // }, []);
+  const { user }= useSelector((state) => state.user)
+  const [userRol, setUserRol] = React.useState('');
+  React.useEffect(() => {
+    if (localStorage.getItem(user)) {
+      setUserRol(localStorage.getItem(user.role));
+    } else {
+      localStorage.setItem(user, user.role);
+    }
+  }, []);
   const mobile = useMediaQuery('(max-width:720px)');
   const [value, setValue] = React.useState(0);
   const navigate = useNavigate();
@@ -239,7 +239,7 @@ const LayoutShipments = () => {
                   Finalizados
                 </Button>
               </div>
-              {user?.role === 'customer' && (
+              {user.role == 'customer' && (
                 <Button
                   style={{ margin: 0 }}
                   variant="contained"
