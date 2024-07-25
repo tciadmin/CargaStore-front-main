@@ -6,7 +6,7 @@ import CompNavLanding from '../Components/NavLanding/CompNavLanding';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { Button, useMediaQuery } from '@mui/material';
+import { Button, Menu, MenuItem, useMediaQuery } from '@mui/material';
 //? --------------------------------------------- STYLES
 import { Colors } from '../Utils/Colors';
 import { useSelector } from 'react-redux';
@@ -38,27 +38,43 @@ CustomTabPanel.propTypes = {
 };
 
 const LayoutShipments = () => {
-  const { user }= useSelector((state) => state.user)
-  const [userRol, setUserRol] = React.useState('');
-  React.useEffect(() => {
-    if (localStorage.getItem(user)) {
-      setUserRol(localStorage.getItem(user.role));
-    } else {
-      localStorage.setItem(user, user.role);
-    }
-  }, []);
+  const { user } = useSelector((state) => state.user);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  // const [userRol, setUserRol] = React.useState('');
+  // React.useEffect(() => {
+  //   if (localStorage.getItem(user)) {
+  //     setUserRol(localStorage.getItem(user.role));
+  //   } else {
+  //     localStorage.setItem(user, user.role);
+  //   }
+  // }, []);
   const mobile = useMediaQuery('(max-width:720px)');
   const [value, setValue] = React.useState(0);
+  const [title, setTitle] = React.useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
     if (value === 0) {
+      setTitle('Envíos pendiente');
       navigate('/shipments');
     } else if (value === 1) {
+      setTitle('Envíos asignados');
       navigate('/shipments/assigned');
     } else if (value === 2) {
+      setTitle('Envíos en curso');
       navigate('/shipments/in-progress');
     } else {
+      setTitle('Envíos finalizados');
       navigate('/shipments/finished');
     }
   }, [value, navigate]);
@@ -66,6 +82,103 @@ const LayoutShipments = () => {
   return (
     <div>
       <CompNavLanding />
+      {mobile && user?.role === 'driver' && (
+        <Box
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            padding: '20px',
+          }}
+        >
+          <h2
+            style={{
+              fontFamily: 'Montserrat',
+              fontSize: '20px',
+              fontWeight: 600,
+              lineHeight: '24px',
+              letterSpacing: '-0.02em',
+              textAlign: 'center',
+            }}
+          >
+            {title}
+          </h2>
+          <img
+            onClick={handleClick}
+            style={{
+              backgroundColor: Colors.primary.constrastText,
+              cursor: 'pointer',
+            }}
+            src="/imgShipments/ArrowDashboard.svg"
+          />
+
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              'aria-labelledby': 'basic-button',
+            }}
+          >
+            <MenuItem
+              name="Pendientes"
+              value="pendiente"
+              onClick={() => {
+                setValue(0);
+                handleClose();
+              }}
+              style={{
+                fontWeight: 500,
+                color: value === 0 ? Colors.primary.main : '',
+              }}
+            >
+              Envíos pendientes
+            </MenuItem>
+            <MenuItem
+              name="Asignado"
+              value="asignado"
+              onClick={() => {
+                setValue(1);
+                handleClose();
+              }}
+              style={{
+                fontWeight: 500,
+                color: value === 1 ? Colors.primary.main : '',
+              }}
+            >
+              Envíos asignados
+            </MenuItem>
+            <MenuItem
+              name="en curso"
+              value="en curso"
+              onClick={() => {
+                setValue(2);
+                handleClose();
+              }}
+              style={{
+                fontWeight: 500,
+                color: value === 2 ? Colors.primary.main : '',
+              }}
+            >
+              Envíos en curso
+            </MenuItem>
+            <MenuItem
+              name="finalizado"
+              value="finalizado"
+              onClick={() => {
+                setValue(3);
+                handleClose();
+              }}
+              style={{
+                fontWeight: 500,
+                color: value === 3 ? Colors.primary.main : '',
+              }}
+            >
+              Envíos finalizados
+            </MenuItem>
+          </Menu>
+        </Box>
+      )}
       {!mobile && (
         <Box
           sx={{
