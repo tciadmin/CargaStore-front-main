@@ -140,7 +140,7 @@ const CargaPage = () => {
         <Box
           style={{
             display: "flex",
-            height: "100vh",
+            height: "100%",
             alignItems: "center",
             justifyContent: "center",
           }}
@@ -149,7 +149,7 @@ const CargaPage = () => {
         </Box>
       )}
       {singleOrder && (
-        <Box style={{ padding: 20 }}>
+        <Box style={{ padding: 10 }}>
           <Typography
             mb={3}
             ml={5}
@@ -714,6 +714,16 @@ const CargaPage = () => {
               </Box>
             </Box>
           </Modal>
+          <Box
+            style={{
+              display: "flex",
+              alignItems: "right",
+              justifyContent: "right",
+              cursor: "pointer",
+            }}
+          >
+            <img src="/imgShipments/QuestionIcon.svg" />
+          </Box>
         </Box>
       )}
     </Box>

@@ -142,14 +142,14 @@ export default function PageMarketplace() {
                     style={{
                       gap: '5px',
                       display: 'flex',
-                      width: '152px',
-                      heigth: '307px',
+                      width: '287px',
+                      heigth: '500px',
                       flexDirection: 'column',
                       justyfyContent: 'center',
                     }}
                   >
                     <img
-                      style={{ height: 200, width: '100%' }}
+                      style={{ height: '100%', width: '100%' }}
                       src={
                         item.package?.image1
                           ? `${urlBack}/${item.package?.image1}`
@@ -250,8 +250,9 @@ export default function PageMarketplace() {
                 >
                   Recientes
                 </h1>
-                <Grid container spacing={3}>
+                <Grid container spacing={3} style={{display: 'flex', gap: 30}}>
                   {orders?.map((item) => (
+                  
                     <Grid
                       item
                       xs={6}
@@ -279,7 +280,6 @@ export default function PageMarketplace() {
             )}
           </Box>
         )}
-        {mobile && (
           <Box
             style={{
               display: 'flex',
@@ -291,7 +291,6 @@ export default function PageMarketplace() {
           >
             <img src="/imgShipments/QuestionIcon.svg" />
           </Box>
-        )}
       </Box>
     </>
   );
