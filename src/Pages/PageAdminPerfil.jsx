@@ -118,6 +118,7 @@ const PageAdminPerfil = () => {
               />
             </label>
           </div>
+          <form style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
           <Box
               style={{
                 display: "flex",
@@ -125,7 +126,6 @@ const PageAdminPerfil = () => {
                 flexDirection: "column",
                 gap: 3,
                 justifyContent: "center",
-                // padding: 5,
               }}
             >
 
@@ -206,8 +206,8 @@ const PageAdminPerfil = () => {
                   readOnly={!editar}
                 />
               </FormControl>
-
               </Box>
+              </form>
           
 
           {editar ? (
