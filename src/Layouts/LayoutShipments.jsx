@@ -251,25 +251,24 @@ const LayoutShipments = () => {
               )}
             </Box>
           </Box>
+          <Box
+            style={{
+              display: 'flex',
+              alignItems: 'right',
+              justifyContent: 'right',
+              padding: '10px',
+              cursor: 'pointer',
+              position: 'fixed',
+              width: '100%',
+              bottom: 0
+            }}
+          >
+            <img src="/imgShipments/QuestionIcon.svg" />
+          </Box>
         </Box>
       )}
       <Outlet />
-      {mobile ? (
-        <Box
-          style={{
-            display: 'flex',
-            alignItems: 'right',
-            justifyContent: 'right',
-            padding: '10px',
-            cursor: 'pointer',
-            backgroundColor: '#f5f5f5ff',
-          }}
-        >
-          <img src="/imgShipments/QuestionIcon.svg" />
-        </Box>
-      ) : (
-        ''
-      )}
+      
     </div>
   );
 };

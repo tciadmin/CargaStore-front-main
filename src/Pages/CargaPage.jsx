@@ -738,10 +738,14 @@ const CargaPage = () => {
           </Modal>
           <Box
             style={{
-              display: "flex",
-              alignItems: "right",
-              justifyContent: "right",
-              cursor: "pointer",
+              display: 'flex',
+              alignItems: 'right',
+              justifyContent: 'right',
+              padding: '10px',
+              cursor: 'pointer',
+              position: 'fixed',
+              width: '100%',
+              bottom: 0
             }}
           >
             <img src="/imgShipments/QuestionIcon.svg" />
