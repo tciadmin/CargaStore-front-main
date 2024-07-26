@@ -22,6 +22,7 @@ import { listOrder } from '../Redux/Actions/OrderActions/listOrder';
 import { clearOrdersList } from '../Redux/Actions/OrderActions/clearOrdersList';
 import MobileChargeItemCard from '../Components/cards/MobileChargeItemCard';
 import Loading from '../Components/Loading/Loading';
+import { getDriverList } from '../Redux/Actions/DriverAction/getDriverList';
 
 export default function PageAdminPanel({ seccion = 0 }) {
   const [open, setOpen] = React.useState(true);
@@ -40,6 +41,10 @@ export default function PageAdminPanel({ seccion = 0 }) {
     (state) => state.orders
   );
 
+  const { driverList, driverListLoading } = useSelector(
+    (state) => state.driver
+  );
+
   React.useEffect(() => {
     setValue(seccion);
   }, [seccion]);
@@ -55,6 +60,8 @@ export default function PageAdminPanel({ seccion = 0 }) {
       ? (status = 'en curso')
       : value === 3
       ? (status = 'finalizado')
+      : value === 4
+      ? dispatch(getDriverList())
       : null;
     dispatch(listOrder(status, '', '', '', ''));
   }, [dispatch, value]);
@@ -273,113 +280,92 @@ export default function PageAdminPanel({ seccion = 0 }) {
         )
       )}
 
-      {value === 4 && (
-        <Container fluid>
-          <Stack
-            direction="column"
-            justifyContent={'center'}
-            spacing={2}
-            width="100%"
-            maxWidth={'1200px'}
-            mt={5}
-          >
+      {value === 4 && driverListLoading ? (
+        <Box
+          style={{
+            display: 'flex',
+            height: '80vh',
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Loading color="#333" />
+        </Box>
+      ) : (
+        value === 4 &&
+        !driverListLoading &&
+        driverList.length && (
+          <Container fluid>
             <Stack
-              direction="row"
-              justifyContent={'space-between'}
-              alignItems={'center'}
-              p={2}
+              direction="column"
+              justifyContent={'center'}
+              spacing={2}
               width="100%"
-              sx={{ background: '#fff', borderRadius: '5px' }}
+              maxWidth={'1200px'}
+              mt={5}
             >
-              <Stack
-                direction={'row'}
-                justifyContent={'flex-start'}
-                spacing={2}
-                alignItems={'center'}
-              >
-                <Avatar mr={2}></Avatar>
-                <Typography fontSize="16px">
-                  Emanuel Ginobili
-                </Typography>
-              </Stack>
-              <svg
-                style={{ cursor: 'pointer' }}
-                onClick={() => navigate('/conductor')}
-                width="21"
-                height="14"
-                viewBox="0 0 21 14"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M19.5733 7C19.5733 10.3133 15.3779 13 10.2027 13C5.0274 13 0.832031 10.3133 0.832031 7C0.832031 3.68667 5.0274 1 10.2027 1C15.3779 1 19.5733 3.68667 19.5733 7Z"
-                  stroke="#007C52"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M12.546 7.00047C12.575 7.8529 12.1349 8.65321 11.3982 9.08797C10.6614 9.52272 9.74532 9.52272 9.00858 9.08797C8.27185 8.65321 7.83178 7.8529 7.86072 7.00047C7.83178 6.14804 8.27185 5.34773 9.00858 4.91298C9.74532 4.47823 10.6614 4.47823 11.3982 4.91298C12.1349 5.34773 12.575 6.14804 12.546 7.00047V7.00047Z"
-                  stroke="#007C52"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              {driverList?.map((item) => (
+                <Stack
+                  key={item.userId}
+                  direction="row"
+                  justifyContent={'space-between'}
+                  alignItems={'center'}
+                  p={2}
+                  width="100%"
+                  sx={{ background: '#fff', borderRadius: '5px' }}
+                >
+                  <Stack
+                    direction={'row'}
+                    justifyContent={'flex-start'}
+                    spacing={2}
+                    alignItems={'center'}
+                  >
+                    <Avatar
+                      mr={2}
+                      src={`${import.meta.env.VITE_URL_BACKEND}/${
+                        item.user_driver.profile_image
+                      }`}
+                    />
+                    <Typography fontSize="16px">
+                      {`${item.user_driver.name} ${item.user_driver.lastname}`}
+                    </Typography>
+                  </Stack>
+                  <svg
+                    style={{ cursor: 'pointer' }}
+                    onClick={() =>
+                      navigate(`/conductor/${item.userId}`)
+                    }
+                    width="21"
+                    height="14"
+                    viewBox="0 0 21 14"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M19.5733 7C19.5733 10.3133 15.3779 13 10.2027 13C5.0274 13 0.832031 10.3133 0.832031 7C0.832031 3.68667 5.0274 1 10.2027 1C15.3779 1 19.5733 3.68667 19.5733 7Z"
+                      stroke="#007C52"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M12.546 7.00047C12.575 7.8529 12.1349 8.65321 11.3982 9.08797C10.6614 9.52272 9.74532 9.52272 9.00858 9.08797C8.27185 8.65321 7.83178 7.8529 7.86072 7.00047C7.83178 6.14804 8.27185 5.34773 9.00858 4.91298C9.74532 4.47823 10.6614 4.47823 11.3982 4.91298C12.1349 5.34773 12.575 6.14804 12.546 7.00047V7.00047Z"
+                      stroke="#007C52"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </Stack>
+              ))}
             </Stack>
-
-            <Stack
-              direction="row"
-              justifyContent={'space-between'}
-              alignItems={'center'}
-              p={2}
-              width="100%"
-              sx={{ background: '#fff', borderRadius: '5px' }}
-            >
-              <Stack
-                direction={'row'}
-                justifyContent={'flex-start'}
-                spacing={2}
-                alignItems={'center'}
-              >
-                <Avatar mr={2}></Avatar>
-                <Typography fontSize="16px">Juan Perez</Typography>
-              </Stack>
-              <svg
-                style={{ cursor: 'pointer' }}
-                onClick={() => navigate('/conductor')}
-                width="21"
-                height="14"
-                viewBox="0 0 21 14"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M19.5733 7C19.5733 10.3133 15.3779 13 10.2027 13C5.0274 13 0.832031 10.3133 0.832031 7C0.832031 3.68667 5.0274 1 10.2027 1C15.3779 1 19.5733 3.68667 19.5733 7Z"
-                  stroke="#007C52"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M12.546 7.00047C12.575 7.8529 12.1349 8.65321 11.3982 9.08797C10.6614 9.52272 9.74532 9.52272 9.00858 9.08797C8.27185 8.65321 7.83178 7.8529 7.86072 7.00047C7.83178 6.14804 8.27185 5.34773 9.00858 4.91298C9.74532 4.47823 10.6614 4.47823 11.3982 4.91298C12.1349 5.34773 12.575 6.14804 12.546 7.00047V7.00047Z"
-                  stroke="#007C52"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </Stack>
-          </Stack>
-        </Container>
+          </Container>
+        )
       )}
       {/* {mobile ? (
         <Box
