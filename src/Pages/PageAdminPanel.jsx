@@ -67,14 +67,13 @@ export default function PageAdminPanel({ seccion = 0 }) {
   return (
     <Box
       sx={{
-        bgcolor: '#e6e6e6',
+        bgcolor: '#f5f5f5ff',
         display: 'flex',
         flexDirection: mobile ? 'column' : 'row',
-        justifyContent: mobile ? 'flex-start' : 'space-between',
-        width: '100vw',
-        minHeight: '100vh',
-        height: '100%',
-        marginTop: '64px'
+        justifyContent: mobile ? 'flex-start' : '',
+        width: '100%',
+        marginTop: '64px',
+        gap: 20
       }}
     >
       {mobile ? (
@@ -84,17 +83,17 @@ export default function PageAdminPanel({ seccion = 0 }) {
       ) : (
         <Box
           sx={{
-            bgcolor: '#e6e6e6',
+            bgcolor: '#f5f5f5ff',
             width: '250px',
             height: '100%',
           }}
         >
           <List
             sx={{
-              width: '250px',
+              width: '350px',
               paddingTop: 0,
               marginRight: '5px',
-              maxWidth: 360,
+              maxWidth: 500,
               fontWeight: 400,
               minHeight: '100vh',
               bgcolor: 'transparent',
@@ -380,23 +379,22 @@ export default function PageAdminPanel({ seccion = 0 }) {
               </svg>
             </Stack>
           </Stack>
-        </Container>
-      )}
-      {/* {mobile ? (
-        <Box
+          {/* <Box
           style={{
             display: "flex",
             alignItems: "right",
             justifyContent: "right",
             padding: "10px",
             cursor: "pointer",
+           
           }}
         >
-          <img src="/imgAdminPayment/ChatIcon.svg" />
-        </Box>
-      ) : (
-        ""
-      )} */}
+          <img  style={{ height: 50,
+            width: 50}} src="/imgAdminPayment/ChatIcon.svg" />
+        </Box> */}
+        </Container>
+      )}
+      
     </Box>
   );
 }
