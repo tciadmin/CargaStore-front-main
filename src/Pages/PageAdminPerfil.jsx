@@ -86,6 +86,7 @@ const PageAdminPerfil = () => {
           flexDirection={'column'}
           justifyContent={'center'}
           alignContent={'center'}
+          height={'100vh'}
         >
           <div
             style={{
@@ -124,7 +125,7 @@ const PageAdminPerfil = () => {
                 flexDirection: "column",
                 gap: 3,
                 justifyContent: "center",
-                padding: 5,
+                // padding: 5,
               }}
             >
 
@@ -212,7 +213,11 @@ const PageAdminPerfil = () => {
           {editar ? (
             <Button
               variant="contained"
-              style={{ fontWeight: 'bold' }}
+              style={{
+                fontWeight: 600,
+                alignSelf: "center",
+                marginTop: "20px",
+              }}
               onClick={() => putBasicData()}
             >
               {' '}
@@ -223,13 +228,15 @@ const PageAdminPerfil = () => {
               variant="outlined"
               onClick={() => setEditar(true)}
               style={{
-                fontWeight: 'bold',
-                width: '80px',
-                alignSelf: 'center',
+                fontWeight: 600,
+                alignSelf: "center",
+                border: "2px solid",
+                backgroundColor: Colors.primary.contrastText,
+                marginTop: "20px",
               }}
             >
               {' '}
-              Editar
+              Editar datos
             </Button>
           )}
         </Stack>

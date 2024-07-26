@@ -79,7 +79,7 @@ export default function CompNavLanding() {
         justifyContent={"space-around"}
         pt={2}
         width="100vw"
-        position={"absolute"}
+        position={"fixed"}
       >
         <img
           src="/imgLanding/LogoCargaStoreBlanco.png"
@@ -119,7 +119,7 @@ export default function CompNavLanding() {
       <AppBar
         component="nav"
         elevation={0}
-        position="sticky"
+        position="fixed"
         sx={{ width: "100%" }}
         style={{
           backgroundColor: Colors.primary.contrastText,
