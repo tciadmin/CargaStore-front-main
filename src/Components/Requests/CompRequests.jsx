@@ -11,7 +11,7 @@ export const CompRequests = () => {
         alignItems: "center",
         justifyContent: "center",
         gap: 20,
-        padding: 40,
+        // padding: 40,
         
       }}
     >

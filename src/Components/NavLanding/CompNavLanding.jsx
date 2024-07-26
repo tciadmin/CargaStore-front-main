@@ -311,7 +311,7 @@ export default function CompNavLanding() {
                         nombre: "Socios Activos",
                         ruta: "/administrador/panel/socios",
                       },
-                      { nombre: "Pagos", ruta: "/payment" },
+                      // { nombre: "Pagos", ruta: "/payment" },
                     ].map((item, index) => (
                       <ListItem key={index} disablePadding>
                         <ListItemButton
@@ -483,7 +483,7 @@ export default function CompNavLanding() {
                         : "secondary"
                     }
                   >
-                    {user.role == "admin" ? "Pagos" : "Mis envios"}
+                    {user.role == "admin" ? "" : "Mis envios"}
                   </Typography>
                 </>
               )}
