@@ -4,10 +4,17 @@ import {
   GET_DRIVER_PENDING,
   GET_DRIVER_SUCCESS,
 } from '../Actions/DriverAction/driverDetail';
+import {
+  GET_DRIVER_LIST_PENDING,
+  GET_DRIVER_LIST_SUCCESS,
+  GET_DRIVER_LIST_FAILURE,
+} from '../Actions/DriverAction/getDriverList';
 
 const initialState = {
   singleDriver: null,
   singleDriverLoading: false,
+  driverList: [],
+  driverListLoading: false,
 };
 
 export const driverReducer = (state = initialState, action) => {
@@ -32,6 +39,22 @@ export const driverReducer = (state = initialState, action) => {
         ...state,
         singleDriverLoading: false,
         singleDriver: action.payload,
+      };
+    case GET_DRIVER_LIST_PENDING:
+      return {
+        ...state,
+        driverListLoading: true,
+      };
+    case GET_DRIVER_LIST_FAILURE:
+      return {
+        ...state,
+        driverListLoading: false,
+      };
+    case GET_DRIVER_LIST_SUCCESS:
+      return {
+        ...state,
+        driverListLoading: false,
+        driverList: action.payload,
       };
     default:
       return { ...state };
