@@ -379,22 +379,23 @@ export default function PageAdminPanel({ seccion = 0 }) {
               </svg>
             </Stack>
           </Stack>
-          {/* <Box
-          style={{
-            display: "flex",
-            alignItems: "right",
-            justifyContent: "right",
-            padding: "10px",
-            cursor: "pointer",
-           
-          }}
-        >
-          <img  style={{ height: 50,
-            width: 50}} src="/imgAdminPayment/ChatIcon.svg" />
-        </Box> */}
+          
         </Container>
       )}
-      
+      <Box
+          style={{
+            display: 'flex',
+              alignItems: 'right',
+              justifyContent: 'right',
+              padding: '10px',
+              cursor: 'pointer',
+              position: 'fixed',
+              width: '100%',
+              bottom: 0
+          }}
+        >
+          <img src="/imgAdminPayment/ChatIcon.svg" />
+        </Box>
     </Box>
   );
 }

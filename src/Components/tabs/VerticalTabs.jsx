@@ -102,7 +102,7 @@ export default function VerticalTabs() {
   const containerBox = mobile
     ? {
         flexGrow: 1,
-        bgcolor: "#e6e6e6",
+        bgcolor: "#f5f5f5ff",
         display: "flex",
         flexDirection: "column",
         maxWidth: "100%",
@@ -110,7 +110,7 @@ export default function VerticalTabs() {
       }
     : {
         flexGrow: 1,
-        bgcolor: "#e6e6e6",
+        bgcolor: "#f5f5f5ff",
         display: "flex",
         width: "100%",
         height: "100%",

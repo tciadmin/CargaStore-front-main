@@ -10,9 +10,7 @@ export const CompRequests = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        gap: 20,
-        // padding: 40,
-        
+        gap: 20,        
       }}
     >
       <Grid container spacing={1}>
