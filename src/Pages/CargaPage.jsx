@@ -167,6 +167,7 @@ const CargaPage = () => {
                   fontWeight: 600,
                   width: "150px",
                   height: "40px",
+                  marginRight: 5
                 }}
                 onClick={() => navigate("/editarEnvio")}
               >
