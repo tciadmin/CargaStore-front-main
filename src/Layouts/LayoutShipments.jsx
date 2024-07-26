@@ -71,6 +71,7 @@ const LayoutShipments = () => {
           sx={{
             minWidth: '100%',
             height: '100%',
+            marginTop: '64px'
           }}
         >
           <Box

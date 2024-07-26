@@ -15,7 +15,7 @@ import ChargeRequestCard from "../Components/cards/ChargeRequestCard";
 import ConductorAsignadoCard from "../Components/cards/ConductorAsignadoCard";
 import VerticalGreenStepper from "../Components/steppers/VerticalGreenStepper";
 import CompNavLanding from "../Components/NavLanding/CompNavLanding";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { orderDetail } from "../Redux/Actions/OrderActions/orderDetail";
 import { format, isValid, parseISO } from "date-fns";
@@ -52,6 +52,7 @@ const CargaPage = () => {
   const { id } = useParams();
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     dispatch(orderDetail(id));
@@ -130,7 +131,7 @@ const CargaPage = () => {
       style={{
         display: "flex",
         height: "100%",
-        // alignItems: 'center',
+        marginTop: "64px",
         justifyContent: "center",
         flexDirection: "column",
       }}
@@ -150,15 +151,29 @@ const CargaPage = () => {
       )}
       {singleOrder && (
         <Box style={{ padding: 10 }}>
-          <Typography
-            mb={3}
-            ml={5}
-            fontSize="16px"
-            color={"secondary"}
-            fontWeight={600}
-          >
-            {`#${singleOrder?.id}`}
-          </Typography>
+          <Box style={{ display: "flex", justifyContent: "space-between" }}>
+            <Typography
+              mb={3}
+              ml={5}
+              fontSize="16px"
+              color={"secondary"}
+              fontWeight={600}
+            >
+              {`#${singleOrder?.id}`}
+            </Typography>
+            {user.role === 'customer' && <Button
+                variant="contained"
+                sx={{
+                  fontWeight: 600,
+                  width: "150px",
+                  height: "40px",
+                }}
+                onClick={() => navigate("/editarEnvio")}
+              >
+                Editar envío
+              </Button>}
+            
+          </Box>
           <Grid
             container
             direction={mobile ? "column" : "row"}
@@ -262,7 +277,12 @@ const CargaPage = () => {
                     : `${singleOrder?.adittional_information}`}{" "}
                 </Typography>
                 {user.role === "customer" && (
-                  <Stack direction="row" justifyContent={"center"} mt={3}>
+                  <Stack
+                    direction="row"
+                    justifyContent={"center"}
+                    mt={3}
+                    gap={5}
+                  >
                     <Button
                       disabled={duplicating}
                       variant="outlined"
@@ -438,10 +458,10 @@ const CargaPage = () => {
                     variant="contained"
                     disabled={applicationLoading}
                     sx={{
-                      backgroundColor: '#007C52',
-                      color: '#fff',
-                      marginTop: '20px',
-                      width: '100%',
+                      backgroundColor: "#007C52",
+                      color: "#fff",
+                      marginTop: "20px",
+                      width: "100%",
                     }}
                     onClick={applyForOrder}
                   >
@@ -523,8 +543,8 @@ const CargaPage = () => {
           </Grid>
           <Container>
             {!mobile &&
-              user?.role === 'admin' &&
-              singleOrder?.status === 'pendiente' && (
+              user?.role === "admin" &&
+              singleOrder?.status === "pendiente" && (
                 <>
                   <Typography fontSize="16px" fontWeight={600}>
                     Solicitudes de conductores
@@ -581,9 +601,8 @@ const CargaPage = () => {
                 )}
               {singleOrder?.status !== "pendiente" && orderState && (
                 <Grid item xs={6}>
-                  {user?.role === 'customer' &&
-                    (!orderState?.enPreparacion ||
-                      !orderState?.preparado) && (
+                  {user?.role === "customer" &&
+                    (!orderState?.enPreparacion || !orderState?.preparado) && (
                       <Button
                         disabled={changingOrderState}
                         style={{
@@ -604,17 +623,16 @@ const CargaPage = () => {
                         onClick={handleChangeOrderState}
                       >
                         {!orderState?.enPreparacion
-                          ? 'Orden en preparación'
+                          ? "Orden en preparación"
                           : orderState?.enPreparacion &&
                             !orderState?.preparado &&
-                            'Orden preparada'}
+                            "Orden preparada"}
                       </Button>
                     )}
-                  {user?.role === 'driver' &&
+                  {user?.role === "driver" &&
                     orderState?.enPreparacion &&
                     orderState?.preparado &&
-                    (!orderState?.retirado ||
-                      !orderState?.enCamino) && (
+                    (!orderState?.retirado || !orderState?.enCamino) && (
                       <Button
                         disabled={changingOrderState}
                         style={{

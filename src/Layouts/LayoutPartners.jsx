@@ -108,6 +108,7 @@ export default function LayoutPartners() {
               alignItems: "right",
               justifyContent: "right",
               padding: "10px",
+              marginTop: '64px'
             }}
           >
             <img

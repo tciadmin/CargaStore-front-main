@@ -231,7 +231,7 @@ const PageCrearEnvios = () => {
     <Box style={{fontFamily: "Montserrat, sans-serif" , minHeight: '100vh',  background: '#F6F6F6'}}>
       <CompNavLanding></CompNavLanding>
       <section
-        style={{ background: '#F6F6F6', minHeight: '100vh'}}
+        style={{ background: '#F6F6F6', minHeight: '100vh', marginTop: '64px'}}
         id="arriba"
       >
         <Container maxWidth={'md'} sx={{ padding: '20px 0' }}>

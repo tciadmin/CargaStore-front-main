@@ -74,6 +74,7 @@ export default function PageAdminPanel({ seccion = 0 }) {
         width: '100vw',
         minHeight: '100vh',
         height: '100%',
+        marginTop: '64px'
       }}
     >
       {mobile ? (
