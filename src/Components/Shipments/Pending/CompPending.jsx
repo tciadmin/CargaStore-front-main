@@ -51,7 +51,7 @@ export default function CompPending() {
     (state) => state.orders
   );
   return (
-    <Box style={{ background: '#FFF', width: '100%'}}>
+    <Box style={{ background: '#FFF', width: '100%' }}>
       {ordersLoading ? (
         <Box
           style={{
@@ -150,6 +150,22 @@ export default function CompPending() {
                       }}
                       spacing={0.5}
                     >
+                      <Grid
+                        container
+                        direction="row"
+                        justifyContent="center"
+                        alignItems="center"
+                      >
+                        <p
+                          style={{
+                            fontSize: '12px',
+                            fontWeight: 600,
+                            marginLeft: '3px',
+                          }}
+                        >
+                          Código
+                        </p>
+                      </Grid>
                       <Grid
                         container
                         direction="row"

@@ -45,8 +45,6 @@ const ShipmentsItem = ({
     (state) => state.orders
   );
 
-  const { user } = useSelector((state) => state.user);
-
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = (event) => {
@@ -72,7 +70,7 @@ const ShipmentsItem = ({
   };
 
   const handleRedirect = () => {
-    user?.role === 'customer' && navigate(`/carga/${code}`);
+    userRole === 'customer' && navigate(`/carga/${code}`);
   };
 
   return (
@@ -85,7 +83,7 @@ const ShipmentsItem = ({
           width: '100%',
           background: 'white',
           color: 'black',
-          cursor: user?.role === 'customer' && 'pointer',
+          cursor: userRole === 'customer' && 'pointer',
         }}
       >
         <Grid

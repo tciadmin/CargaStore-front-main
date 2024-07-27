@@ -162,6 +162,22 @@ export default function CompAssigned() {
                             marginLeft: '3px',
                           }}
                         >
+                          Código
+                        </p>
+                      </Grid>
+                      <Grid
+                        container
+                        direction="row"
+                        justifyContent="center"
+                        alignItems="center"
+                      >
+                        <p
+                          style={{
+                            fontSize: '12px',
+                            fontWeight: 600,
+                            marginLeft: '3px',
+                          }}
+                        >
                           Producto
                         </p>
                       </Grid>
@@ -336,6 +352,7 @@ export default function CompAssigned() {
                       {orders.map((row) => (
                         <ShipmentsItem
                           key={row.id}
+                          userRole={user?.role}
                           status={row.status}
                           code={row.id}
                           productName={row.package.product_name}
