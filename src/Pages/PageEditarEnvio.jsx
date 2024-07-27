@@ -176,7 +176,7 @@ const PageEditarEnvio = () => {
   return (
     <Box style={{fontFamily: "Montserrat, sans-serif" , minHeight: '100vh',  background: '#F6F6F6'}}>
       <CompNavLanding></CompNavLanding>
-      <section style={{ background: "#F6F6F6", height: "100%" }} id="arriba">
+      <section style={{ background: "#F6F6F6", height: "100%", marginTop: '64px'}}  id="arriba">
         <Container maxWidth={"md"} sx={{ padding: "20px 0" }}>
           {!mobile ? (
             <>

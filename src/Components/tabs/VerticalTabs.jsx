@@ -102,7 +102,7 @@ export default function VerticalTabs() {
   const containerBox = mobile
     ? {
         flexGrow: 1,
-        bgcolor: "#e6e6e6",
+        bgcolor: "#f5f5f5ff",
         display: "flex",
         flexDirection: "column",
         maxWidth: "100%",
@@ -110,7 +110,7 @@ export default function VerticalTabs() {
       }
     : {
         flexGrow: 1,
-        bgcolor: "#e6e6e6",
+        bgcolor: "#f5f5f5ff",
         display: "flex",
         width: "100%",
         height: "100%",
@@ -308,9 +308,9 @@ export default function VerticalTabs() {
   };
 
   return (
-    <Box pb={5} sx={containerBox} height={'100vh'}>
+    <Box  sx={containerBox} height={'100vh'} style={{marginTop: '64px'}}>
       {mobile && (
-        <Container>
+        <Container >
           <Stack
             direction="row"
             justifyContent={"space-between"}
@@ -402,7 +402,7 @@ export default function VerticalTabs() {
             borderRight: 1,
             borderColor: "divider",
             width: "300px",
-            height: "200vh",
+            // height: "100vh",
           }}
         >
           <Tab
@@ -462,7 +462,7 @@ export default function VerticalTabs() {
             borderRight: 1,
             borderColor: "divider",
             width: "300px",
-            height: "200vh",
+            minHeight: "100vh",
           }}
         >
           <Tab

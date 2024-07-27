@@ -45,7 +45,7 @@ export default function PageMarketplace() {
   return (
     <>
       <CompNavLanding />
-      <Box>
+      <Box style={{marginTop: '64px'}}>
         {mobile ? (
           <>
             <Box
@@ -300,17 +300,20 @@ export default function PageMarketplace() {
             )}
           </Box>
         )}
-        <Box
-          style={{
-            display: 'flex',
-            alignItems: 'right',
-            justifyContent: 'right',
-            padding: '10px',
-            cursor: 'pointer',
-          }}
-        >
-          <img src="/imgShipments/QuestionIcon.svg" />
-        </Box>
+          <Box
+            style={{
+              display: 'flex',
+              alignItems: 'right',
+              justifyContent: 'right',
+              padding: '10px',
+              cursor: 'pointer',
+              position: 'fixed',
+              width: '100%',
+              bottom: 0
+            }}
+          >
+            <img src="/imgShipments/QuestionIcon.svg" />
+          </Box>
       </Box>
     </>
   );

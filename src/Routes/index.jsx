@@ -123,33 +123,33 @@ export const router = createBrowserRouter([
       { path: 'finished', element: <CompSent /> },
     ],
   },
-  {
-    path: '/payment',
-    element: <LayoutAdminPayment />,
-    children: [
-      { index: true, element: <CompPendingPayment /> },
-      { path: 'acredited', element: <CompAcreditedPayment /> },
-    ],
-  },
-  {
-    path: '/post-payment',
-    element: <CompPayDriver />,
-  },
+  // {
+  //   path: '/payment',
+  //   element: <LayoutAdminPayment />,
+  //   children: [
+  //     { index: true, element: <CompPendingPayment /> },
+  //     { path: 'acredited', element: <CompAcreditedPayment /> },
+  //   ],
+  // },
+  // {
+  //   path: '/post-payment',
+  //   element: <CompPayDriver />,
+  // },
 
   {
     path: '/',
     element: <PageRedirect />,
   },
-  {
-    path: '/config',
-    element: <LayoutConfi />,
-    children: [
-      { path: 'Datos personales', element: <CompEdit /> },
-      { path: 'Configuración de cuenta', element: <CompEditTwo /> },
-      { path: 'Configuración de pagos', element: <CompEditThree /> },
-      { path: 'Historial de pagos', element: <CompCard /> },
-    ],
-  },
+  // {
+  //   path: '/config',
+  //   element: <LayoutConfi />,
+  //   children: [
+  //     { path: 'Datos personales', element: <CompEdit /> },
+  //     { path: 'Configuración de cuenta', element: <CompEditTwo /> },
+  //     { path: 'Configuración de pagos', element: <CompEditThree /> },
+  //     { path: 'Historial de pagos', element: <CompCard /> },
+  //   ],
+  // },
   {
     path: '/partners',
     element: <LayoutPartners />,
