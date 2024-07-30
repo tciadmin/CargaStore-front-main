@@ -7,6 +7,9 @@ import {
   Snackbar,
   Stack,
   useMediaQuery,
+  Box, 
+  FormControl,
+  OutlinedInput
 } from '@mui/material';
 import InputForm from '../Components/inputs/InputForm';
 import {
@@ -14,6 +17,8 @@ import {
   patchBasicUserData,
 } from '../Redux/Actions/UserActions/userActions';
 import Cookies from 'js-cookie';
+import { Colors } from '../Utils/Colors';
+
 const PageAdminPerfil = () => {
   const mobile = useMediaQuery('(max-width: 750px)');
   const dispatch = useDispatch();
@@ -81,6 +86,7 @@ const PageAdminPerfil = () => {
           flexDirection={'column'}
           justifyContent={'center'}
           alignContent={'center'}
+          height={'100vh'}
         >
           <div
             style={{
@@ -112,47 +118,106 @@ const PageAdminPerfil = () => {
               />
             </label>
           </div>
-          <InputForm
-            value={data.name}
-            setter={(valor) => {
-              setData((prevState) => ({
-                ...prevState,
-                name: valor,
-              }));
-            }}
-            label="Nombre"
-            sizeH="35px"
-            marginT={3}
-            marginB={3}
-            readOnly={!editar}
-          />
-          <InputForm
-            value={data.lastname}
-            setter={(valor) => {
-              setData((prevState) => ({
-                ...prevState,
-                lastname: valor,
-              }));
-            }}
-            label="Apellido"
-            sizeH="35px"
-            marginB={3}
-            readOnly={!editar}
-          />
+          <form style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
+          <Box
+              style={{
+                display: "flex",
+                textAlign: "left",
+                flexDirection: "column",
+                gap: 3,
+                justifyContent: "center",
+              }}
+            >
 
-          <InputForm
-            value={user.email}
-            label="Correo electrónico"
-            type="email"
-            sizeH="35px"
-            marginB={3}
-            readOnly={true}
-          />
+          <p
+                style={{
+                  fontWeight: 500,
+                  color: Colors.secondary.contrastText,
+                  textAlign: "left",
+                }}
+              >
+                Nombre
+              </p>
+              <FormControl
+                sx={{
+                  m: 1,
+                  width: mobile ? "370px" : "666px",
+                }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  sx={{
+                    backgroundColor: Colors.primary.contrastText,
+                    borderRadius: "8px",
+                  }}
+                  value={data.name}
+                  readOnly={!editar}
+                />
+              </FormControl>
+
+              <p
+                style={{
+                  fontWeight: 500,
+                  color: Colors.secondary.contrastText,
+                  textAlign: "left",
+                }}
+              >
+                Apellido
+              </p>
+              <FormControl
+                sx={{
+                  m: 1,
+                  width: mobile ? "370px" : "666px",
+                }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  sx={{
+                    backgroundColor: Colors.primary.contrastText,
+                    borderRadius: "8px",
+                  }}
+                  value={data.lastname}
+                  readOnly={!editar}
+                />
+              </FormControl>
+          
+              <p
+                style={{
+                  fontWeight: 500,
+                  color: Colors.secondary.contrastText,
+                  textAlign: "left",
+                }}
+              >
+                Correo electrónico
+              </p>
+              <FormControl
+                sx={{
+                  m: 1,
+                  width: mobile ? "370px" : "666px",
+                }}
+                variant="outlined"
+              >
+                <OutlinedInput
+                  sx={{
+                    backgroundColor: Colors.primary.contrastText,
+                    borderRadius: "8px",
+                  }}
+                  value={data.email}
+                  readOnly={!editar}
+                />
+              </FormControl>
+              </Box>
+              </form>
+          
 
           {editar ? (
             <Button
               variant="contained"
-              style={{ fontWeight: 'bold' }}
+              style={{
+                fontWeight: 600,
+                alignSelf: "center",
+                marginTop: "20px",
+              }}
               onClick={() => putBasicData()}
             >
               {' '}
@@ -163,13 +228,15 @@ const PageAdminPerfil = () => {
               variant="outlined"
               onClick={() => setEditar(true)}
               style={{
-                fontWeight: 'bold',
-                width: '80px',
-                alignSelf: 'center',
+                fontWeight: 600,
+                alignSelf: "center",
+                border: "2px solid",
+                backgroundColor: Colors.primary.contrastText,
+                marginTop: "20px",
               }}
             >
               {' '}
-              Editar
+              Editar datos
             </Button>
           )}
         </Stack>

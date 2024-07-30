@@ -20,14 +20,26 @@ export default function CompInProgress() {
   const { user } = useSelector((state) => state.user);
 
   React.useEffect(() => {
-    user?.role === 'customer' &&
-      dispatch(
-        listOrder(
-          'en curso', //status
-          '', //orderType
-          user?.customer?.id //customerId
+    user?.role === 'customer'
+      ? dispatch(
+          listOrder(
+            'en curso', //status
+            '', //orderType
+            user?.customer?.id, //customerId
+            '', //pendingAssignedDriverId
+            '' //assignedDriverId
+          )
         )
-      );
+      : user?.role === 'driver' &&
+        dispatch(
+          listOrder(
+            'en curso', //status
+            '', //orderType
+            '', //customerId
+            '', //pendingAssignedDriverId
+            user?.driver?.id //assignedDriverId
+          )
+        );
     return () => {
       dispatch(clearOrdersList());
     };
@@ -73,6 +85,7 @@ export default function CompInProgress() {
                 {orders?.map((row) => (
                   <MobileShipmentItem
                     key={row.id}
+                    id={row.id}
                     status={row.status}
                     image={row.package.image1}
                     price={row.package.offered_price}
@@ -135,6 +148,22 @@ export default function CompInProgress() {
                       }}
                       spacing={0.5}
                     >
+                      <Grid
+                        container
+                        direction="row"
+                        justifyContent="center"
+                        alignItems="center"
+                      >
+                        <p
+                          style={{
+                            fontSize: '12px',
+                            fontWeight: 600,
+                            marginLeft: '3px',
+                          }}
+                        >
+                          Código
+                        </p>
+                      </Grid>
                       <Grid
                         container
                         direction="row"
@@ -323,6 +352,7 @@ export default function CompInProgress() {
                       {orders?.map((row) => (
                         <ShipmentsItem
                           key={row.id}
+                          userRole={user?.role}
                           status={row.status}
                           code={row.id}
                           productName={row.package.product_name}

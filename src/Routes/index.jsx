@@ -44,7 +44,7 @@ import { CompDashboard } from '../Components/Dashboard/CompDashboard';
 import CompPayDriver from '../Components/PayDriver/CompPayDriver';
 import PageChatMobile from '../Pages/PageChatMobile';
 import PageNotificacionesMobile from '../Pages/PageNotificacionesMobile';
-import ChatDePrueba from '../Components/Chat/ChatDePrueba';
+import CompRegister from '../Components/Register/CompRegister';
 
 export const router = createBrowserRouter([
   {
@@ -73,7 +73,7 @@ export const router = createBrowserRouter([
     path: '/register',
     element: <LayoutRegister />,
     children: [
-      { index: true, element: <PageRegister /> },
+      { index: true, element: <CompRegister /> },
       { path: 'driver', element: <CompRegDriver /> },
       { path: 'driver/vehicle-info', element: <CompVehicleInfo /> },
       { path: 'user', element: <CompRegUser /> },
@@ -123,37 +123,33 @@ export const router = createBrowserRouter([
       { path: 'finished', element: <CompSent /> },
     ],
   },
-  {
-path: '/chatprueba',
-element: <ChatDePrueba/>
-  },
-  {
-    path: '/payment',
-    element: <LayoutAdminPayment />,
-    children: [
-      { index: true, element: <CompPendingPayment /> },
-      { path: 'acredited', element: <CompAcreditedPayment /> },
-    ],
-  },
-  {
-    path: '/post-payment',
-    element: <CompPayDriver />,
-  },
+  // {
+  //   path: '/payment',
+  //   element: <LayoutAdminPayment />,
+  //   children: [
+  //     { index: true, element: <CompPendingPayment /> },
+  //     { path: 'acredited', element: <CompAcreditedPayment /> },
+  //   ],
+  // },
+  // {
+  //   path: '/post-payment',
+  //   element: <CompPayDriver />,
+  // },
 
   {
     path: '/',
     element: <PageRedirect />,
   },
-  {
-    path: '/config',
-    element: <LayoutConfi />,
-    children: [
-      { path: 'Datos personales', element: <CompEdit /> },
-      { path: 'Configuración de cuenta', element: <CompEditTwo /> },
-      { path: 'Configuración de pagos', element: <CompEditThree /> },
-      { path: 'Historial de pagos', element: <CompCard /> },
-    ],
-  },
+  // {
+  //   path: '/config',
+  //   element: <LayoutConfi />,
+  //   children: [
+  //     { path: 'Datos personales', element: <CompEdit /> },
+  //     { path: 'Configuración de cuenta', element: <CompEditTwo /> },
+  //     { path: 'Configuración de pagos', element: <CompEditThree /> },
+  //     { path: 'Historial de pagos', element: <CompCard /> },
+  //   ],
+  // },
   {
     path: '/partners',
     element: <LayoutPartners />,

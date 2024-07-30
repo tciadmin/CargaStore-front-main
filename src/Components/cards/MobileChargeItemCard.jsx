@@ -9,6 +9,8 @@ const MobileChargeItemCard = ({
   charge_type,
   driver_name,
 }) => {
+  const urlBack = import.meta.env.VITE_URL_BACKEND;
+
   return (
     <Box
       style={{
@@ -25,7 +27,7 @@ const MobileChargeItemCard = ({
           width: '100%',
           maxWidth: 200,
         }}
-        src={`http://localhost:3000/api/${image}`}
+        src={`${urlBack}/${image}`}
       />
       <p>{`#${id}`}</p>
       <p> {product_name}</p>

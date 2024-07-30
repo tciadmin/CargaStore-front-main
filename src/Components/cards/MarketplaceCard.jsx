@@ -11,23 +11,23 @@ const MarketplaceCard = ({
 }) => {
   const navigate = useNavigate();
   return (
-    <Stack flexDirection={'column'} gap={'3px'}>
+    <Stack flexDirection={'column'} gap={'3px'} style={{width: '287px', height: '500px'}}>
       <Box bg="background.paper" height={'240px'} mb={3}>
         {' '}
         <img src={image} width={'100%'} height={'100%'}></img>{' '}
       </Box>
-      <p style={{ fontSize: '16px', marginBottom: '5px' }}>
+      <p style={{ fontSize: '16px', marginBottom: '5px', fontWeight: 600}}>
         {' '}
         Valor ofertado:{' '}
-        <span style={{ fontWeight: 'normal' }}> $ {price}</span>{' '}
+        <span style={{ fontWeight: 400 }}> $ {price}</span>{' '}
       </p>
-      <Typography fontSize={'12px'} fontWeight={400}>
+      <Typography fontSize={'16px'} fontWeight={400}>
         {title}{' '}
       </Typography>
-      <Typography fontSize={'12px'} fontWeight={400}>
+      <Typography fontSize={'16px'} fontWeight={400}>
         {weight}{' '}
       </Typography>
-      <Typography fontSize={'12px'} mb={2} fontWeight={400}>
+      <Typography fontSize={'16px'} mb={2} fontWeight={400}>
         Tipo de carga: {typeCharge}{' '}
       </Typography>
       <Button

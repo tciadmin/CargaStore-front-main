@@ -1,6 +1,7 @@
 import { ACEPT_ORDER_SUCCESS } from '../Actions/ApplicationActions/aceptOrder';
 import { APPLY_FOR_ORDER_SUCCESS } from '../Actions/ApplicationActions/applyForOrder';
 import { ASSING_DRIVER_SUCCESS } from '../Actions/ApplicationActions/assignDriverToOrder';
+import { DECLINE_ORDER_SUCCESS } from '../Actions/ApplicationActions/declineOrder';
 import {
   CHANGE_ORDER_STATE_FAILURE,
   CHANGE_ORDER_STATE_PENDING,
@@ -49,6 +50,7 @@ const initialState = {
   singleOrderLoading: false,
   orderState: null,
   orderStateLoading: false,
+  changingOrderState: false,
   duplicating: false,
   error: null,
 };
@@ -180,19 +182,25 @@ export const orderReducer = (state = initialState, action) => {
     case CHANGE_ORDER_STATE_PENDING:
       return {
         ...state,
-        orderStateLoading: true,
+        changingOrderState: true,
         error: null,
       };
     case CHANGE_ORDER_STATE_SUCCESS:
       return {
         ...state,
-        orderStateLoading: false,
-        orderState: action.payload.orderState,
+        changingOrderState: false,
+        orderState: {
+          ...state.orderState,
+          enPreparacion: action.payload.orderState.enPreparacion,
+          preparado: action.payload.orderState.preparado,
+          retirado: action.payload.orderState.retirado,
+          enCamino: action.payload.orderState.enCamino,
+        },
       };
     case CHANGE_ORDER_STATE_FAILURE:
       return {
         ...state,
-        orderStateLoading: false,
+        changingOrderState: false,
         error: action.error,
       };
 
@@ -204,7 +212,7 @@ export const orderReducer = (state = initialState, action) => {
         singleOrder: {
           ...state.singleOrder,
           applications: [
-            action.payload,
+            action.payload.application,
             ...state.singleOrder.applications,
           ],
         },
@@ -228,6 +236,20 @@ export const orderReducer = (state = initialState, action) => {
           status: action.payload.orderStatus,
           pendingAssignedDriverId:
             action.payload.pendingAssignedDriverId,
+        },
+      };
+
+    case DECLINE_ORDER_SUCCESS:
+      return {
+        ...state,
+        singleOrder: {
+          ...state.singleOrder,
+          pendingAssignedDriverId:
+            action.payload.pendingAssignedDriverId,
+          applications: state.singleOrder.applications.filter(
+            (application) =>
+              application.id !== action.payload.deletedApplication.id
+          ),
         },
       };
     default:

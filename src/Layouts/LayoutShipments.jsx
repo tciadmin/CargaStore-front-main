@@ -6,9 +6,10 @@ import CompNavLanding from '../Components/NavLanding/CompNavLanding';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { Button, useMediaQuery } from '@mui/material';
+import { Button, Menu, MenuItem, useMediaQuery } from '@mui/material';
 //? --------------------------------------------- STYLES
 import { Colors } from '../Utils/Colors';
+import { useSelector } from 'react-redux';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -37,26 +38,43 @@ CustomTabPanel.propTypes = {
 };
 
 const LayoutShipments = () => {
-  const [userRol, setUserRol] = React.useState('cliente');
-  React.useEffect(() => {
-    if (localStorage.getItem('userPrueba')) {
-      setUserRol(localStorage.getItem('userPrueba'));
-    } else {
-      localStorage.setItem('userPrueba', 'cliente');
-    }
-  }, []);
+  const { user } = useSelector((state) => state.user);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  // const [userRol, setUserRol] = React.useState('');
+  // React.useEffect(() => {
+  //   if (localStorage.getItem(user)) {
+  //     setUserRol(localStorage.getItem(user.role));
+  //   } else {
+  //     localStorage.setItem(user, user.role);
+  //   }
+  // }, []);
   const mobile = useMediaQuery('(max-width:720px)');
   const [value, setValue] = React.useState(0);
+  const [title, setTitle] = React.useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
     if (value === 0) {
+      setTitle('Envíos pendiente');
       navigate('/shipments');
     } else if (value === 1) {
+      setTitle('Envíos asignados');
       navigate('/shipments/assigned');
     } else if (value === 2) {
+      setTitle('Envíos en curso');
       navigate('/shipments/in-progress');
     } else {
+      setTitle('Envíos finalizados');
       navigate('/shipments/finished');
     }
   }, [value, navigate]);
@@ -64,11 +82,109 @@ const LayoutShipments = () => {
   return (
     <div>
       <CompNavLanding />
+      {mobile && user?.role === 'driver' && (
+        <Box
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            padding: '20px',
+          }}
+        >
+          <h2
+            style={{
+              fontFamily: 'Montserrat',
+              fontSize: '20px',
+              fontWeight: 600,
+              lineHeight: '24px',
+              letterSpacing: '-0.02em',
+              textAlign: 'center',
+            }}
+          >
+            {title}
+          </h2>
+          <img
+            onClick={handleClick}
+            style={{
+              backgroundColor: Colors.primary.constrastText,
+              cursor: 'pointer',
+            }}
+            src="/imgShipments/ArrowDashboard.svg"
+          />
+
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              'aria-labelledby': 'basic-button',
+            }}
+          >
+            <MenuItem
+              name="Pendientes"
+              value="pendiente"
+              onClick={() => {
+                setValue(0);
+                handleClose();
+              }}
+              style={{
+                fontWeight: 500,
+                color: value === 0 ? Colors.primary.main : '',
+              }}
+            >
+              Envíos pendientes
+            </MenuItem>
+            <MenuItem
+              name="Asignado"
+              value="asignado"
+              onClick={() => {
+                setValue(1);
+                handleClose();
+              }}
+              style={{
+                fontWeight: 500,
+                color: value === 1 ? Colors.primary.main : '',
+              }}
+            >
+              Envíos asignados
+            </MenuItem>
+            <MenuItem
+              name="en curso"
+              value="en curso"
+              onClick={() => {
+                setValue(2);
+                handleClose();
+              }}
+              style={{
+                fontWeight: 500,
+                color: value === 2 ? Colors.primary.main : '',
+              }}
+            >
+              Envíos en curso
+            </MenuItem>
+            <MenuItem
+              name="finalizado"
+              value="finalizado"
+              onClick={() => {
+                setValue(3);
+                handleClose();
+              }}
+              style={{
+                fontWeight: 500,
+                color: value === 3 ? Colors.primary.main : '',
+              }}
+            >
+              Envíos finalizados
+            </MenuItem>
+          </Menu>
+        </Box>
+      )}
       {!mobile && (
         <Box
           sx={{
             minWidth: '100%',
             height: '100%',
+            marginTop: '64px'
           }}
         >
           <Box
@@ -90,6 +206,7 @@ const LayoutShipments = () => {
                 width: '96%',
                 height: '60px',
                 alignItems: 'center',
+                backgroundColor: Colors.terciary.contrastText,
               }}
             >
               <div
@@ -100,7 +217,6 @@ const LayoutShipments = () => {
                   zIndex: 0,
                   width: '100%',
                   maxWidth: '780px',
-                  borderBottom: '1px solid #475367',
                 }}
               >
                 <Button
@@ -237,7 +353,7 @@ const LayoutShipments = () => {
                   Finalizados
                 </Button>
               </div>
-              {userRol == 'cliente' && (
+              {user.role == 'customer' && (
                 <Button
                   style={{ margin: 0 }}
                   variant="contained"
@@ -248,24 +364,24 @@ const LayoutShipments = () => {
               )}
             </Box>
           </Box>
+          <Box
+            style={{
+              display: 'flex',
+              alignItems: 'right',
+              justifyContent: 'right',
+              padding: '10px',
+              cursor: 'pointer',
+              position: 'fixed',
+              width: '100%',
+              bottom: 0
+            }}
+          >
+            <img src="/imgShipments/QuestionIcon.svg" />
+          </Box>
         </Box>
       )}
       <Outlet />
-      {mobile ? (
-        <Box
-          style={{
-            display: 'flex',
-            alignItems: 'right',
-            justifyContent: 'right',
-            padding: '10px',
-            cursor: 'pointer',
-          }}
-        >
-          <img src="/imgShipments/QuestionIcon.svg" />
-        </Box>
-      ) : (
-        ''
-      )}
+      
     </div>
   );
 };

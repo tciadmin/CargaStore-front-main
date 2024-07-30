@@ -19,14 +19,24 @@ export default function CompSent() {
   const { user } = useSelector((state) => state.user);
 
   React.useEffect(() => {
-    user?.role === 'customer' &&
-      dispatch(
-        listOrder(
-          'finalizado', //status
-          '', //orderType
-          user?.customer?.id //customerId
+    user?.role === 'customer'
+      ? dispatch(
+          listOrder(
+            'finalizado', //status
+            '', //orderType
+            user?.customer?.id //customerId
+          )
         )
-      );
+      : user?.role === 'driver' &&
+        dispatch(
+          listOrder(
+            'finalizado', //status
+            '', //orderType
+            '', //customerId
+            '', //pendingAssignedDriverId
+            user?.driver?.id //assignedDriverId
+          )
+        );
     return () => {
       dispatch(clearOrdersList());
     };
@@ -73,6 +83,7 @@ export default function CompSent() {
                 {orders.map((row) => (
                   <MobileShipmentItem
                     key={row.id}
+                    id={row.id}
                     status={row.status}
                     image={row.package.image1}
                     price={row.package.offered_price}
@@ -139,6 +150,22 @@ export default function CompSent() {
                       }}
                       spacing={0.5}
                     >
+                      <Grid
+                        container
+                        direction="row"
+                        justifyContent="center"
+                        alignItems="center"
+                      >
+                        <p
+                          style={{
+                            fontSize: '12px',
+                            fontWeight: 600,
+                            marginLeft: '3px',
+                          }}
+                        >
+                          Código
+                        </p>
+                      </Grid>
                       <Grid
                         container
                         direction="row"

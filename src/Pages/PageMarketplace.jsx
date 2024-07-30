@@ -37,13 +37,15 @@ export default function PageMarketplace() {
   };
 
   useEffect(() => {
-    dispatch(listOrder('', orderType, ''));
+    dispatch(listOrder('pendiente', orderType, '', '', ''));
   }, [dispatch, orderType]);
+
+  const urlBack = import.meta.env.VITE_URL_BACKEND;
 
   return (
     <>
       <CompNavLanding />
-      <Box>
+      <Box style={{marginTop: '64px'}}>
         {mobile ? (
           <>
             <Box
@@ -54,9 +56,31 @@ export default function PageMarketplace() {
               }}
             >
               {orderType === 'nacional' ? (
-                <h2>Envíos nacionales</h2>
+                <h2
+                  style={{
+                    fontFamily: 'Montserrat',
+                    fontSize: '20px',
+                    fontWeight: 600,
+                    lineHeight: '24px',
+                    letterSpacing: '-0.02em',
+                    textAlign: 'center',
+                  }}
+                >
+                  Envíos nacionales
+                </h2>
               ) : (
-                <h2>Envíos internacionales</h2>
+                <h2
+                  style={{
+                    fontFamily: 'Montserrat',
+                    fontSize: '20px',
+                    fontWeight: 600,
+                    lineHeight: '24px',
+                    letterSpacing: '-0.02em',
+                    textAlign: 'center',
+                  }}
+                >
+                  Envíos internacionales
+                </h2>
               )}
               <img
                 onClick={handleClick}
@@ -134,40 +158,35 @@ export default function PageMarketplace() {
                   <Loading color="#333" />
                 </Box>
               ) : (
-                orders?.map((item) => (
-                  <Box
-                    key={item.id}
-                    style={{
-                      gap: '5px',
-                      display: 'flex',
-                      width: '152px',
-                      heigth: '307px',
-                      flexDirection: 'column',
-                      justyfyContent: 'center',
-                    }}
-                  >
-                    <img
-                      style={{ height: 200, width: '100%' }}
-                      src={
-                        item.package?.image1
-                          ? `http://localhost:3000/api/${item.package?.image1}`
-                          : ''
-                      }
-                    />
-                    <p>{`#${item.id}`}</p>
-                    <span style={{ fontWeight: 600 }}>
-                      {' '}
-                      Valor ofertado:{' '}
-                      <p style={{ fontWeight: 400 }}>
-                        {' '}
-                        {item.package?.offered_price}
-                      </p>
-                    </span>
-                    <p> {item.package?.product_name}</p>
-                    <p> {item.package?.weight}</p>
-                    <p>{`Tipo de carga: ${item.package?.type}`}</p>
-                  </Box>
-                ))
+                <Grid
+                  container
+                  spacing={3}
+                  style={{ display: 'flex', gap: 30 }}
+                >
+                  {orders?.map((item) => (
+                    <Grid
+                      item
+                      xs={6}
+                      sm={4}
+                      md={3}
+                      lg={2.4}
+                      key={item.id}
+                    >
+                      <MarketplaceCard
+                        image={
+                          item.package?.image1
+                            ? `${urlBack}/${item.package?.image1}`
+                            : ''
+                        }
+                        title={item.package?.product_name}
+                        weight={item.package?.weight}
+                        price={item.package?.offered_price}
+                        typeCharge={item.package?.type}
+                        id={item.id}
+                      ></MarketplaceCard>
+                    </Grid>
+                  ))}
+                </Grid>
               )}
             </Box>
           </>
@@ -248,7 +267,11 @@ export default function PageMarketplace() {
                 >
                   Recientes
                 </h1>
-                <Grid container spacing={3}>
+                <Grid
+                  container
+                  spacing={3}
+                  style={{ display: 'flex', gap: 30 }}
+                >
                   {orders?.map((item) => (
                     <Grid
                       item
@@ -261,7 +284,7 @@ export default function PageMarketplace() {
                       <MarketplaceCard
                         image={
                           item.package?.image1
-                            ? `http://localhost:3000/api/${item.package?.image1}`
+                            ? `${urlBack}/${item.package?.image1}`
                             : ''
                         }
                         title={item.package?.product_name}
@@ -277,7 +300,6 @@ export default function PageMarketplace() {
             )}
           </Box>
         )}
-        {mobile && (
           <Box
             style={{
               display: 'flex',
@@ -285,11 +307,13 @@ export default function PageMarketplace() {
               justifyContent: 'right',
               padding: '10px',
               cursor: 'pointer',
+              position: 'fixed',
+              width: '100%',
+              bottom: 0
             }}
           >
             <img src="/imgShipments/QuestionIcon.svg" />
           </Box>
-        )}
       </Box>
     </>
   );

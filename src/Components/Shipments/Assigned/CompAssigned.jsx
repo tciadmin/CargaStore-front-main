@@ -21,14 +21,26 @@ export default function CompAssigned() {
   const { user } = useSelector((state) => state.user);
 
   React.useEffect(() => {
-    user?.role === 'customer' &&
-      dispatch(
-        listOrder(
-          'asignado', //status
-          '', //orderType
-          user?.customer?.id //customerId
+    user?.role === 'customer'
+      ? dispatch(
+          listOrder(
+            'asignado', //status
+            '', //orderType
+            user?.customer?.id, //customerId
+            '', //pendingAssignedDriverId
+            '' //assignedDriverId
+          )
         )
-      );
+      : user?.role === 'driver' &&
+        dispatch(
+          listOrder(
+            'asignado', //status
+            '', //orderType
+            '', //customerId
+            '', //pendingAssignedDriverId
+            user?.driver?.id //assignedDriverId
+          )
+        );
     return () => {
       dispatch(clearOrdersList());
     };
@@ -39,7 +51,7 @@ export default function CompAssigned() {
   );
 
   return (
-    <Box style={{ background: '#FFF' }}>
+    <Box style={{ backgroundColor: Colors.terciary.contrastText }}>
       {ordersLoading ? (
         <Box
           style={{
@@ -74,6 +86,7 @@ export default function CompAssigned() {
                 {orders.map((row) => (
                   <MobileShipmentItem
                     key={row.id}
+                    id={row.id}
                     status={row.status}
                     image={row.package.image1}
                     price={row.package.offered_price}
@@ -136,6 +149,22 @@ export default function CompAssigned() {
                       }}
                       spacing={0.5}
                     >
+                      <Grid
+                        container
+                        direction="row"
+                        justifyContent="center"
+                        alignItems="center"
+                      >
+                        <p
+                          style={{
+                            fontSize: '12px',
+                            fontWeight: 600,
+                            marginLeft: '3px',
+                          }}
+                        >
+                          Código
+                        </p>
+                      </Grid>
                       <Grid
                         container
                         direction="row"
@@ -323,6 +352,7 @@ export default function CompAssigned() {
                       {orders.map((row) => (
                         <ShipmentsItem
                           key={row.id}
+                          userRole={user?.role}
                           status={row.status}
                           code={row.id}
                           productName={row.package.product_name}
