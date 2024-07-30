@@ -44,6 +44,7 @@ import { CompDashboard } from '../Components/Dashboard/CompDashboard';
 import CompPayDriver from '../Components/PayDriver/CompPayDriver';
 import PageChatMobile from '../Pages/PageChatMobile';
 import PageNotificacionesMobile from '../Pages/PageNotificacionesMobile';
+import ChatDePrueba from '../Components/Chat/ChatDePrueba';
 
 export const router = createBrowserRouter([
   {
@@ -121,6 +122,10 @@ export const router = createBrowserRouter([
       { path: 'in-progress', element: <CompInProgress /> },
       { path: 'finished', element: <CompSent /> },
     ],
+  },
+  {
+path: '/chatprueba',
+element: <ChatDePrueba/>
   },
   {
     path: '/payment',

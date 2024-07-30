@@ -35,7 +35,6 @@ const MobileShipmentItem = ({
     setOpen(false);
   };
 
-  console.log('image: ', `http://localhost:3000/api/${image}`);
   return (
     <>
       <Box

@@ -20,7 +20,6 @@ import Menu from '@mui/material/Menu';
 import { Colors } from '../../Utils/Colors';
 import {
   Drawer,
-  Grid,
   List,
   ListItem,
   ListItemButton,
@@ -43,6 +42,8 @@ export default function CompNavLanding() {
   };
 
   React.useEffect(() => {
+    const id_user = Cookies.get('id');
+    console.log('efecto secundario',id_user)
     dispatch(getUser(Cookies.get('id')));
   }, [dispatch]);
 

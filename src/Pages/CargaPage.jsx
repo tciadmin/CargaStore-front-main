@@ -25,6 +25,7 @@ import { applicForOrder } from '../Redux/Actions/ApplicationActions/applyForOrde
 import { getOrderState } from '../Redux/Actions/OrderActions/getOrderState';
 import { aceptOrder } from '../Redux/Actions/ApplicationActions/aceptOrder';
 import { declineOrder } from '../Redux/Actions/ApplicationActions/declineOrder';
+import { clearOrderDetail } from '../Redux/Actions/OrderActions/clearOrderDetail';
 
 const GreenCircle = () => {
   return (
@@ -51,6 +52,9 @@ const CargaPage = () => {
 
   React.useEffect(() => {
     dispatch(orderDetail(id));
+    return () => {
+      dispatch(clearOrderDetail());
+    };
   }, [dispatch, id]);
 
   const { singleOrder, singleOrderLoading, duplicating, orderState } =
@@ -61,13 +65,21 @@ const CargaPage = () => {
   );
 
   React.useEffect(() => {
-    (singleOrder?.status === 'en curso' ||
-      singleOrder?.status === 'finalizado') &&
+    singleOrder?.status !== 'pendiente' &&
       dispatch(getOrderState(id));
   }, [singleOrder?.status, dispatch, id]);
 
   const mobile = useMediaQuery('(max-width:750px)');
   const [postular, setPostular] = useState(false);
+
+  const [applyed, setApplyed] = useState(false);
+
+  React.useEffect(() => {
+    singleOrder?.applications?.length !== 0 &&
+      singleOrder?.applications?.map((el) => {
+        el.driverId === user?.driver?.id && setApplyed(true);
+      });
+  }, [singleOrder?.applications, user?.driver?.id]);
 
   const formatDate = (dateString) => {
     const date = parseISO(dateString);
@@ -399,7 +411,8 @@ const CargaPage = () => {
               </Grid>
               {user.role === 'driver' &&
                 singleOrder?.status === 'pendiente' &&
-                !singleOrder?.pendingAssignedDriverId && (
+                !singleOrder?.pendingAssignedDriverId &&
+                !applyed && (
                   <Button
                     disabled={applicationLoading}
                     sx={{ marginTop: '20px', width: '100%' }}
@@ -407,6 +420,25 @@ const CargaPage = () => {
                   >
                     Postularse
                   </Button>
+                )}
+              {applyed &&
+                user.role === 'driver' &&
+                singleOrder?.pendingAssignedDriverId !==
+                  user?.driver?.id &&
+                singleOrder?.assignedDriverId !==
+                  user?.driver?.id && (
+                  <p
+                    style={{
+                      color: '#007C52',
+                      fontFamily: 'Montserrat',
+                      fontSize: '16px',
+                      fontWeight: 500,
+                      lineHeight: '23.2px',
+                      textAlign: 'left',
+                    }}
+                  >
+                    {'Te postulaste a este envío'}
+                  </p>
                 )}
               {singleOrder?.status === 'pendiente' &&
                 singleOrder?.pendingAssignedDriverId ===
@@ -467,7 +499,7 @@ const CargaPage = () => {
           </Grid>
           <Container>
             {!mobile &&
-              user.role == 'admin' &&
+              user.role === 'admin' &&
               singleOrder?.status === 'pendiente' && (
                 <>
                   <Typography fontSize="16px" fontWeight={600}>
@@ -496,6 +528,14 @@ const CargaPage = () => {
                         estrellas={element.driver.rating}
                         driverId={element.driverId}
                         orderId={id}
+                        pending={
+                          singleOrder?.pendingAssignedDriverId ===
+                          element?.driverId
+                        }
+                        assigned={
+                          singleOrder?.assignedDriverId ===
+                          element?.driverId
+                        }
                       />
                     ))}
                   </Stack>
@@ -530,22 +570,20 @@ const CargaPage = () => {
                           singleOrder?.assignedDriver?.truck
                             .charge_type
                         }
-                      ></ConductorAsignadoCard>
+                      />
                     </Box>
                   </Grid>
                 )}
-              {(singleOrder?.status === 'en curso' ||
-                singleOrder?.status === 'finalizado') &&
-                orderState && (
-                  <Grid item xs={6}>
-                    <VerticalGreenStepper
-                      steps={orderState}
-                      driverName={
-                        singleOrder?.assignedDriver?.user_driver.name
-                      }
-                    />
-                  </Grid>
-                )}
+              {singleOrder?.status !== 'pendiente' && orderState && (
+                <Grid item xs={6}>
+                  <VerticalGreenStepper
+                    steps={orderState}
+                    driverName={
+                      singleOrder?.assignedDriver?.user_driver.name
+                    }
+                  />
+                </Grid>
+              )}
             </Grid>
           </Container>
           <Modal
