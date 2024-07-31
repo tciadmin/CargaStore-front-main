@@ -307,6 +307,14 @@ export default function VerticalTabs() {
     setValue(newValue);
   };
 
+  const onChange = (e) => {
+    const {name, value} = e.target
+    setData(prevData => ({
+      ...prevData,
+      [name]: value
+    }))
+  }
+
   return (
     <Box  sx={containerBox} height={'100vh'} style={{marginTop: '64px'}}>
       {mobile && (
@@ -595,7 +603,9 @@ export default function VerticalTabs() {
                     backgroundColor: Colors.primary.contrastText,
                     borderRadius: "8px",
                   }}
-                  value={data.name}
+                  name='name'
+                  onChange={onChange}
+                  defaultValue={data.name}
                   readOnly={!editar}
                 />
               </FormControl>
@@ -617,7 +627,9 @@ export default function VerticalTabs() {
                     backgroundColor: Colors.primary.contrastText,
                     borderRadius: "8px",
                   }}
-                  value={data.lastname}
+                  name='lastname'
+                  onChange={onChange}
+                  defaultValue={data.lastname}
                   readOnly={!editar}
                 />
               </FormControl>
@@ -643,7 +655,9 @@ export default function VerticalTabs() {
                     backgroundColor: Colors.primary.contrastText,
                     borderRadius: "8px",
                   }}
-                  value={data.email}
+                  name='email'
+                  onChange={onChange}
+                  defaultValue={data.email}
                   readOnly={!editar}
                 />
               </FormControl>
@@ -669,7 +683,9 @@ export default function VerticalTabs() {
                     backgroundColor: Colors.primary.contrastText,
                     borderRadius: "8px",
                   }}
-                  value={data.driver && data.driver.phone}
+                  name='phone'
+                  onChange={onChange}
+                  defaultValue={data.driver && data.driver.phone}
                   readOnly={!editar}
                 />
               </FormControl>
@@ -695,8 +711,10 @@ export default function VerticalTabs() {
                     backgroundColor: Colors.primary.contrastText,
                     borderRadius: "8px",
                   }}
-                  value={data.driver && data.driver.description}
-                  readOnly={!editar}
+                  name='description'
+                  onChange={onChange}
+                  defaultValue={data.driver && data.driver.description}
+                  readOnly={editar}
                 />
               </FormControl>
             </Box>
@@ -733,7 +751,9 @@ export default function VerticalTabs() {
                     backgroundColor: Colors.primary.contrastText,
                     borderRadius: "8px",
                   }}
-                  value={data.name}
+                  name="name"
+                  onChange={onChange}
+                  defaultValue={data.name}
                   readOnly={!editar}
                 />
               </FormControl>
@@ -755,7 +775,9 @@ export default function VerticalTabs() {
                     backgroundColor: Colors.primary.contrastText,
                     borderRadius: "8px",
                   }}
-                  value={data.lastname}
+                  name="lastname"
+                  onChange={onChange}
+                  defaultValue={data.lastname}
                   readOnly={!editar}
                 />
               </FormControl>
@@ -781,7 +803,9 @@ export default function VerticalTabs() {
                     backgroundColor: Colors.primary.contrastText,
                     borderRadius: "8px",
                   }}
-                  value={data.email}
+                  name="email"
+                  onChange={onChange}
+                  defaultValue={data.email}
                   readOnly={!editar}
                 />
               </FormControl>
@@ -900,7 +924,9 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: "8px",
                     }}
-                    value={data.customer && data.customer.company_name}
+                    name="company_name"
+                    onChange={onChange}
+                    defaultValue={data.customer && data.customer.company_name}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -926,7 +952,9 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: "8px",
                     }}
-                    value={data.customer && data.customer.ruc}
+                    name="ruc"
+                    onChange={onChange}
+                    defaultValue={data.customer && data.customer.ruc}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -952,7 +980,9 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: "8px",
                     }}
-                    value={data.customer && data.customer.address}
+                    name="address"
+                    onChange={onChange}
+                    defaultValue={data.customer && data.customer.address}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -978,7 +1008,9 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: "8px",
                     }}
-                    value={data.customer && data.customer.country}
+                    name="country"
+                    onChange={onChange}
+                    defaultValue={data.customer && data.customer.country}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1016,7 +1048,9 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: "8px",
                     }}
-                    value={data.driver && data.driver.truck?.brand}
+                    name="brand"
+                    onChange={onChange}
+                    defaultValue={data.driver && data.driver.truck?.brand}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1042,7 +1076,9 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: "8px",
                     }}
-                    value={data.driver && data.driver.truck?.model}
+                    name="model"
+                    onChange={onChange}
+                    defaultValue={data.driver && data.driver.truck?.model}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1067,7 +1103,9 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: "8px",
                     }}
-                    value={data.driver && data.driver.truck?.year}
+                    name="year"
+                    onChange={onChange}
+                    defaultValue={data.driver && data.driver.truck?.year}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1092,7 +1130,9 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: "8px",
                     }}
-                    value={data.driver && data.driver.truck?.num_plate}
+                    name="num_plate"
+                    onChange={onChange}
+                    defaultValue={data.driver && data.driver.truck?.num_plate}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1117,7 +1157,9 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: "8px",
                     }}
-                    value={data.driver && data.driver.truck?.charge_capacity}
+                    name="charge_capacity"
+                    onChange={onChange}
+                    defaultValue={data.driver && data.driver.truck?.charge_capacity}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1142,7 +1184,9 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: "8px",
                     }}
-                    value={data.driver && data.driver.truck?.charge_type}
+                    name="charge_type"
+                    onChange={onChange}
+                    defaultValue={data.driver && data.driver.truck?.charge_type}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1324,7 +1368,9 @@ export default function VerticalTabs() {
                     backgroundColor: Colors.primary.contrastText,
                     borderRadius: "8px",
                   }}
-                  value={data.driver && data.driver.license}
+                  name="license"
+                  onChange={onChange}
+                  defaultValue={data.driver && data.driver.license}
                   readOnly={!editar}
                 />
               </FormControl>
@@ -1349,7 +1395,9 @@ export default function VerticalTabs() {
                     backgroundColor: Colors.primary.contrastText,
                     borderRadius: "8px",
                   }}
-                  value={data.driver && data.driver.iess}
+                  name="iess"
+                  onChange={onChange}
+                  defaultValue={data.driver && data.driver.iess}
                   readOnly={!editar}
                 />
               </FormControl>
@@ -1375,32 +1423,9 @@ export default function VerticalTabs() {
                     backgroundColor: Colors.primary.contrastText,
                     borderRadius: "8px",
                   }}
-                  value={data.driver && data.driver.port_permit}
-                  readOnly={!editar}
-                />
-              </FormControl>
-
-              <p
-                style={{
-                  fontWeight: 500,
-                  color: Colors.secondary.contrastText,
-                  textAlign: "left",
-                }}
-              >
-                Matrícula
-              </p>
-              <FormControl
-                sx={{
-                  m: 1,
-                  width: mobile ? "370px" : "666px",
-                }}
-                variant="outlined"
-              >
-                <OutlinedInput
-                  sx={{
-                    backgroundColor: Colors.primary.contrastText,
-                    borderRadius: "8px",
-                  }}
+                  name="port_permit"
+                  onChange={onChange}
+                  defaultValue={data.driver && data.driver.port_permit}
                   readOnly={!editar}
                 />
               </FormControl>
@@ -1426,31 +1451,9 @@ export default function VerticalTabs() {
                     backgroundColor: Colors.primary.contrastText,
                     borderRadius: "8px",
                   }}
-                  value={data.driver && data.driver.insurance_policy}
-                  readOnly={!editar}
-                />
-              </FormControl>
-              <p
-                style={{
-                  fontWeight: 500,
-                  color: Colors.secondary.contrastText,
-                  textAlign: "left",
-                }}
-              >
-                Unidad de carga
-              </p>
-              <FormControl
-                sx={{
-                  m: 1,
-                  width: mobile ? "370px" : "666px",
-                }}
-                variant="outlined"
-              >
-                <OutlinedInput
-                  sx={{
-                    backgroundColor: Colors.primary.contrastText,
-                    borderRadius: "8px",
-                  }}
+                  name="insurance_policy"
+                  onChange={onChange}
+                  defaultValue={data.driver && data.driver.insurance_policy}
                   readOnly={!editar}
                 />
               </FormControl>
