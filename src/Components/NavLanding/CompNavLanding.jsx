@@ -17,13 +17,18 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 
 //? --------------------------------------------- STYLES
-import { Colors } from "../../Utils/Colors";
-import { Drawer, Grid, List, ListItem, ListItemButton } from "@mui/material";
-import "./styles.css";
-import { useDispatch, useSelector } from "react-redux";
-import Chat from "../Chat/Chat";
-import Notificaciones from "../Notificaciones/Notificaciones";
-import { getUser } from "../../Redux/Actions/UserActions/userActions";
+import { Colors } from '../../Utils/Colors';
+import {
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+} from '@mui/material';
+import './styles.css';
+import { useDispatch, useSelector } from 'react-redux';
+import Chat from '../Chat/Chat';
+import Notificaciones from '../Notificaciones/Notificaciones';
+import { getUser } from '../../Redux/Actions/UserActions/userActions';
 
 export default function CompNavLanding() {
   const mobile = useMediaQuery("(max-width:720px)");
@@ -37,7 +42,9 @@ export default function CompNavLanding() {
   };
 
   React.useEffect(() => {
-    dispatch(getUser(Cookies.get("id")));
+    const id_user = Cookies.get('id');
+    console.log('efecto secundario',id_user)
+    dispatch(getUser(Cookies.get('id')));
   }, [dispatch]);
 
   const handleCloseUserMenu = () => {
