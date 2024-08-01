@@ -102,7 +102,6 @@ export const CompProfile = () => {
         backgroundColor: '#F6F6F6',
       }}
     >
-      <CompNavLanding />
       {singleDriverLoading && (
         <Box
           style={{

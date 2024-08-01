@@ -81,7 +81,6 @@ const LayoutShipments = () => {
 
   return (
     <div>
-      <CompNavLanding />
       {mobile && user?.role === 'driver' && (
         <Box
           style={{

@@ -53,7 +53,6 @@ export default function CompPayDriver() {
 
   return (
     <Box>
-      <CompNavLanding />
 
       <Box
         sx={{

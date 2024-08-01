@@ -104,7 +104,6 @@ export default function LayoutAdminPayment() {
   }, [value]);
   return (
     <Box>
-      <CompNavLanding />
       {mobile ? (
         <>
           <Box

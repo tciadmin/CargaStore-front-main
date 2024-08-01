@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Cookies from "js-cookie";
 //? --------------------------------------------- MUI
 import AppBar from "@mui/material/AppBar";
@@ -15,7 +16,6 @@ import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-
 //? --------------------------------------------- STYLES
 import { Colors } from '../../Utils/Colors';
 import {
@@ -81,7 +81,8 @@ export default function CompNavLanding() {
     return <></>;
   } else if (location.pathname == "/landing" && mobile) {
     return (
-      <Stack
+    <Box>
+<Stack
         direction="row"
         justifyContent={"space-around"}
         pt={2}
@@ -120,10 +121,15 @@ export default function CompNavLanding() {
           </Button>
         </Stack>
       </Stack>
+      <Outlet/>
+
+    </Box>
+      
     );
   } else {
     return (
-      <AppBar
+      <Box>
+<AppBar
         component="nav"
         elevation={0}
         position="fixed"
@@ -206,7 +212,7 @@ export default function CompNavLanding() {
               </Stack>
               <Stack
                 display={"flex"}
-                height={"90vh"}
+                // height={"90vh"}
                 flexDirection={"column"}
                 justifyContent={"space-between"}
               >
@@ -631,7 +637,12 @@ export default function CompNavLanding() {
         {chat && <Chat cerrarChat={() => setChat(false)}></Chat>}
         {/*fin del componente chat */}
         {notificaciones && <Notificaciones></Notificaciones>}
+
       </AppBar>
+      <Outlet />
+
+      </Box>
+      
     );
   }
 }
