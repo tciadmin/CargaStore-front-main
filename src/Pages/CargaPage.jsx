@@ -139,7 +139,6 @@ const CargaPage = () => {
         flexDirection: "column",
       }}
     >
-      <CompNavLanding />
       {singleOrderLoading && (
         <Box
           style={{

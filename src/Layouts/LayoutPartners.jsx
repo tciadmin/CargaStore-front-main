@@ -99,7 +99,6 @@ export default function LayoutPartners() {
   }, [value]);
   return (
     <Box>
-      <CompNavLanding />
       {mobile ? (
         <>
           <Box

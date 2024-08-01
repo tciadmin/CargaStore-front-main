@@ -44,7 +44,6 @@ export default function PageMarketplace() {
 
   return (
     <>
-      <CompNavLanding />
       <Box style={{marginTop: '64px'}}>
         {mobile ? (
           <>
