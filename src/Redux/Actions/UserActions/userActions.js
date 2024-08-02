@@ -53,7 +53,7 @@ export const getAllUsers = () => {
 };
 
 export const getUser = (id) => {
-  console.log('getUser ejecutado');
+  console.log('getUser ejecutado', id);
   return async (dispatch) => {
     dispatch({ type: GET_USER_PENDING });
     try {

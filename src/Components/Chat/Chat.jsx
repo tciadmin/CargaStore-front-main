@@ -15,6 +15,10 @@ import getTimeDifference from '../../helpers/diferenciaHoraria';
 import EmisorMessage from './EmisorMessage';
 import ReceptorMessage from './ReceptorMessage';
 import ReceptorWriting from './ReceptorWriting';
+import { io } from 'socket.io-client';
+
+const socket = io('http://localhost:3000/');
+
 const Chat = ({ cerrarChat }) => {
     const [arrayChat, setArrayChat] = useState([]);
     const [chatear, setChatear] = useState(false);
@@ -37,22 +41,25 @@ const Chat = ({ cerrarChat }) => {
             setArrayChat(Object.entries(chats));
         }
     }, [chats && Cookies.get("token")]);
-const enviarMensaje = ()=>{
-    
-     dispatch(createMessage(arrayChat[indexReceptor][1].chatID,nuevoMensaje))
-     dispatch(getAllChats())
-}
+    const enviarMensaje = () => {
+        if (nuevoMensaje.trim() !== '') {
+            socket.emit('message', nuevoMensaje, arrayChat[indexReceptor][1].chatID, Cookies.get('id'));
+            dispatch(getAllMessages(arrayChat[indexReceptor][1].chatID));
+            dispatch(getAllChats())
+        }
+
+    }
 
     return (
         <>
 
             <Box
-            style={{
-                transition:'all 0.3s ease'
-                
+                style={{
+                    transition: 'all 0.3s ease'
 
 
-            }}
+
+                }}
                 position="fixed"
                 bottom={0}
                 right={0}
@@ -89,6 +96,7 @@ const enviarMensaje = ()=>{
                     <svg
                         style={{ cursor: 'pointer' }}
                         onClick={() => {
+
                             setChatear(false);
                             cerrarChat();
                         }}
@@ -135,6 +143,7 @@ const enviarMensaje = ()=>{
                                             sx={{ cursor: 'pointer' }}
                                             onClick={() => {
                                                 dispatch(getAllMessages(e[1].chatID))
+                                                socket.emit('joinChat', e[1].chatID);
                                                 setChatear(true)
                                                 setIndexReceptor(index);
                                             }
@@ -194,9 +203,9 @@ const enviarMensaje = ()=>{
                         <>
                             <div style={{ width: "95%", maxHeight: "390px", overflowY: "auto", overflowX: "none" }}>
                                 {messages ?
-                                    (messages.slice().reverse().map((e, index) => {                                       
-                                        
-                                        
+                                    (messages.slice().reverse().map((e, index) => {
+
+
                                         if (parseInt(e.emisorID) == parseInt(Cookies.get('id'))) {
                                             return <EmisorMessage key={index} date={e.createdAt} message={e.message}></EmisorMessage>
 
@@ -206,8 +215,8 @@ const enviarMensaje = ()=>{
 
                                         }
 
-                                    })):
-                                <Typography color="secondary"> No se cargaron los mensajes</Typography>
+                                    })) :
+                                    <Typography color="secondary"> No se cargaron los mensajes</Typography>
                                 }
 
                             </div>
@@ -276,7 +285,7 @@ const enviarMensaje = ()=>{
                                                 fontSize: '16px',
                                             }}
                                             value={nuevoMensaje}
-                                            onChange={(e)=>setNuevoMensaje(e.target.value)}
+                                            onChange={(e) => setNuevoMensaje(e.target.value)}
                                         ></Input>
                                     </Stack>
                                     <Stack direction="row" alignItems="center">
@@ -324,7 +333,7 @@ const enviarMensaje = ()=>{
                                                 background: Colors.primary.main,
                                                 cursor: 'pointer',
                                             }}
-                                            onClick={()=>enviarMensaje()}
+                                            onClick={() => enviarMensaje()}
                                         >
                                             <svg
                                                 style={{ cursor: 'pointer' }}

@@ -5,7 +5,6 @@ import CompNavLanding from '../Components/NavLanding/CompNavLanding';
 const PagePerfil = () => {
   return (
     <>
-      <CompNavLanding />
 
       <VerticalTabs />
     </>
