@@ -373,7 +373,7 @@ export const CompMarketplacePostular = () => {
                   justifyContent: 'right',
                   alignContent: 'right',
                 }}
-                src="/public/imgShipments/CloseButton.svg"
+                src="/imgShipments/CloseButton.svg"
               />
             </Box>
 
