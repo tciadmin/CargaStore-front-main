@@ -368,13 +368,24 @@ const LayoutShipments = () => {
               alignItems: 'right',
               justifyContent: 'right',
               padding: '10px',
-              cursor: 'pointer',
               position: 'fixed',
               width: '100%',
               bottom: 0,
             }}
           >
-            <img src="/imgShipments/QuestionIcon.svg" />
+            <Box
+              style={{
+                display: 'flex',
+                position: 'absolute',
+                bottom: 0,
+                rigth: 0,
+              }}
+            >
+              <img
+                style={{ cursor: 'pointer' }}
+                src="/imgShipments/QuestionIcon.svg"
+              />
+            </Box>
           </Box>
         </Box>
       )}
