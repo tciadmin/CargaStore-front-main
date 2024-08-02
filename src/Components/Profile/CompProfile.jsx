@@ -10,7 +10,6 @@ import {
   Avatar,
   Typography,
 } from '@mui/material';
-import CompNavLanding from '../NavLanding/CompNavLanding';
 import { Colors } from '../../Utils/Colors';
 import { useDispatch, useSelector } from 'react-redux';
 import {

@@ -14,7 +14,6 @@ import ResponsiveImageBox from '../Components/imageComponents/ResponsiveImageBox
 import ChargeRequestCard from '../Components/cards/ChargeRequestCard';
 import ConductorAsignadoCard from '../Components/cards/ConductorAsignadoCard';
 import VerticalGreenStepper from '../Components/steppers/VerticalGreenStepper';
-import CompNavLanding from '../Components/NavLanding/CompNavLanding';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { orderDetail } from '../Redux/Actions/OrderActions/orderDetail';

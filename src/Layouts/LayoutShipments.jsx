@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import CompNavLanding from '../Components/NavLanding/CompNavLanding';
 //? --------------------------------------------- MUI
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
@@ -183,7 +182,7 @@ const LayoutShipments = () => {
           sx={{
             minWidth: '100%',
             height: '100%',
-            marginTop: '64px'
+            marginTop: '64px',
           }}
         >
           <Box
@@ -372,7 +371,7 @@ const LayoutShipments = () => {
               cursor: 'pointer',
               position: 'fixed',
               width: '100%',
-              bottom: 0
+              bottom: 0,
             }}
           >
             <img src="/imgShipments/QuestionIcon.svg" />
@@ -380,7 +379,6 @@ const LayoutShipments = () => {
         </Box>
       )}
       <Outlet />
-      
     </div>
   );
 };

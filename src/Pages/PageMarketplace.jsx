@@ -7,7 +7,6 @@ import { useState } from 'react';
 import { Grid, useMediaQuery, Menu, MenuItem } from '@mui/material';
 import MarketplaceCard from '../Components/cards/MarketplaceCard';
 import { Colors } from '../Utils/Colors';
-import CompNavLanding from '../Components/NavLanding/CompNavLanding';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { listOrder } from '../Redux/Actions/OrderActions/listOrder';
@@ -44,7 +43,7 @@ export default function PageMarketplace() {
 
   return (
     <>
-      <Box style={{marginTop: '64px'}}>
+      <Box style={{ marginTop: '64px' }}>
         {mobile ? (
           <>
             <Box
@@ -299,20 +298,20 @@ export default function PageMarketplace() {
             )}
           </Box>
         )}
-          <Box
-            style={{
-              display: 'flex',
-              alignItems: 'right',
-              justifyContent: 'right',
-              padding: '10px',
-              cursor: 'pointer',
-              position: 'fixed',
-              width: '100%',
-              bottom: 0
-            }}
-          >
-            <img src="/imgShipments/QuestionIcon.svg" />
-          </Box>
+        <Box
+          style={{
+            display: 'flex',
+            alignItems: 'right',
+            justifyContent: 'right',
+            padding: '10px',
+            cursor: 'pointer',
+            position: 'fixed',
+            width: '100%',
+            bottom: 0,
+          }}
+        >
+          <img src="/imgShipments/QuestionIcon.svg" />
+        </Box>
       </Box>
     </>
   );

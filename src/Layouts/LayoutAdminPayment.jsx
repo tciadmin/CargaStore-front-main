@@ -1,22 +1,21 @@
-import * as React from "react";
-import { Outlet } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import CompNavLanding from "../Components/NavLanding/CompNavLanding";
-import { useDispatch } from "react-redux";
-import { filterPayment } from "../Redux/Actions/PaymentActions/paymentActions";
+import * as React from 'react';
+import { Outlet } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { filterPayment } from '../Redux/Actions/PaymentActions/paymentActions';
 //? --------------------------------------------- MUI
-import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import { useMediaQuery } from "@mui/material";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import { useMediaQuery } from '@mui/material';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 //? --------------------------------------------- STYLES
-import { Colors } from "../Utils/Colors";
+import { Colors } from '../Utils/Colors';
 
 const drawerWidth = 240;
 
@@ -49,13 +48,13 @@ CustomTabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
   };
 }
 
 export default function LayoutAdminPayment() {
   const [value, setValue] = React.useState(0);
-  const mobile = useMediaQuery("(max-width:720px)");
+  const mobile = useMediaQuery('(max-width:720px)');
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -72,11 +71,11 @@ export default function LayoutAdminPayment() {
 
   const clickPending = () => {
     setAnchorEl(null);
-    navigate("/payment");
+    navigate('/payment');
   };
   const clickAccredited = () => {
     setAnchorEl(null);
-    navigate("/payment/acredited");
+    navigate('/payment/acredited');
   };
 
   const tabNameToIndex = {
@@ -94,12 +93,12 @@ export default function LayoutAdminPayment() {
   };
 
   useEffect(() => {
-    if (value === "0") {
+    if (value === '0') {
       // dispatch(filterPayment(value)) &&
-      navigate("/payment");
+      navigate('/payment');
     } else {
       // dispatch(filterPayment(value)) &&
-      navigate("/payment/acredited");
+      navigate('/payment/acredited');
     }
   }, [value]);
   return (
@@ -108,17 +107,17 @@ export default function LayoutAdminPayment() {
         <>
           <Box
             style={{
-              display: "flex",
-              alignItems: "right",
-              justifyContent: "right",
-              padding: "10px",
+              display: 'flex',
+              alignItems: 'right',
+              justifyContent: 'right',
+              padding: '10px',
             }}
           >
             <img
               onClick={handleClick}
               style={{
                 backgroundColor: Colors.primary.constrastText,
-                cursor: "pointer",
+                cursor: 'pointer',
               }}
               src="/imgShipments/ArrowDashboard.svg"
             />
@@ -129,7 +128,7 @@ export default function LayoutAdminPayment() {
               open={open}
               onClose={handleClose}
               MenuListProps={{
-                "aria-labelledby": "basic-button",
+                'aria-labelledby': 'basic-button',
               }}
             >
               <MenuItem
@@ -139,7 +138,9 @@ export default function LayoutAdminPayment() {
                 style={{
                   fontWeight: 500,
                   color:
-                    location.pathname === "/payment" ? Colors.primary.main : "",
+                    location.pathname === '/payment'
+                      ? Colors.primary.main
+                      : '',
                 }}
               >
                 Pendientes
@@ -151,9 +152,9 @@ export default function LayoutAdminPayment() {
                 style={{
                   fontWeight: 500,
                   color:
-                    location.pathname === "/shipments/acredited"
+                    location.pathname === '/shipments/acredited'
                       ? Colors.primary.main
-                      : "",
+                      : '',
                 }}
               >
                 Acreditados
@@ -162,7 +163,7 @@ export default function LayoutAdminPayment() {
           </Box>
         </>
       ) : (
-        <Box sx={{ minWidth: "100%", display: "flex" }}>
+        <Box sx={{ minWidth: '100%', display: 'flex' }}>
           <Drawer
             variant="permanent"
             sx={{
@@ -170,8 +171,8 @@ export default function LayoutAdminPayment() {
               flexShrink: 0,
               [`& .MuiDrawer-paper`]: {
                 width: drawerWidth,
-                boxSizing: "border-box",
-                marginTop: "64px",
+                boxSizing: 'border-box',
+                marginTop: '64px',
               },
             }}
           >
@@ -179,12 +180,12 @@ export default function LayoutAdminPayment() {
               style={{
                 color: Colors.primary.main,
                 fontWeight: 600,
-                padding: "20px",
+                padding: '20px',
               }}
             >
               Pagos
             </span>
-            <Box sx={{ border: "none" }}>
+            <Box sx={{ border: 'none' }}>
               <Tabs
                 orientation="vertical"
                 value={value}
@@ -193,40 +194,40 @@ export default function LayoutAdminPayment() {
               >
                 <Tab
                   sx={{
-                    textTransform: "none",
-                    display: "flex",
-                    width: "239px",
+                    textTransform: 'none',
+                    display: 'flex',
+                    width: '239px',
                   }}
                   label="Pendientes"
                   name="Pendientes"
                   {...a11yProps(0)}
                 />
                 <Tab
-                  sx={{ textTransform: "none" }}
+                  sx={{ textTransform: 'none' }}
                   label="Acreditados"
                   name="Acreditados"
                   {...a11yProps(1)}
                 />
               </Tabs>
             </Box>
-          </Drawer>{" "}
+          </Drawer>{' '}
         </Box>
       )}
       <Outlet />
       {mobile ? (
         <Box
           style={{
-            display: "flex",
-            alignItems: "right",
-            justifyContent: "right",
-            padding: "10px",
-            cursor: "pointer",
+            display: 'flex',
+            alignItems: 'right',
+            justifyContent: 'right',
+            padding: '10px',
+            cursor: 'pointer',
           }}
         >
           <img src="/imgAdminPayment/ChatIcon.svg" />
         </Box>
       ) : (
-        ""
+        ''
       )}
     </Box>
   );

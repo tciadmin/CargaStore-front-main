@@ -1,20 +1,19 @@
-import * as React from "react";
-import { Outlet } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import CompNavLanding from "../Components/NavLanding/CompNavLanding";
+import * as React from 'react';
+import { Outlet } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 //? --------------------------------------------- MUI
-import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import { useMediaQuery } from "@mui/material";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import { useMediaQuery } from '@mui/material';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 //? --------------------------------------------- STYLES
-import { Colors } from "../Utils/Colors";
+import { Colors } from '../Utils/Colors';
 
 const drawerWidth = 240;
 
@@ -47,13 +46,13 @@ CustomTabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
   };
 }
 
 export default function LayoutPartners() {
   const [value, setValue] = React.useState(0);
-  const mobile = useMediaQuery("(max-width:720px)");
+  const mobile = useMediaQuery('(max-width:720px)');
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
 
@@ -69,11 +68,11 @@ export default function LayoutPartners() {
 
   const clickPending = () => {
     setAnchorEl(null);
-    navigate("/partners");
+    navigate('/partners');
   };
   const clickAccredited = () => {
     setAnchorEl(null);
-    navigate("/partners/active-members");
+    navigate('/partners/active-members');
   };
 
   const tabNameToIndex = {
@@ -92,9 +91,9 @@ export default function LayoutPartners() {
 
   useEffect(() => {
     if (value === 0) {
-      navigate("/partners");
+      navigate('/partners');
     } else {
-      navigate("/partners/active-members");
+      navigate('/partners/active-members');
     }
   }, [value]);
   return (
@@ -103,18 +102,18 @@ export default function LayoutPartners() {
         <>
           <Box
             style={{
-              display: "flex",
-              alignItems: "right",
-              justifyContent: "right",
-              padding: "10px",
-              marginTop: '64px'
+              display: 'flex',
+              alignItems: 'right',
+              justifyContent: 'right',
+              padding: '10px',
+              marginTop: '64px',
             }}
           >
             <img
               onClick={handleClick}
               style={{
                 backgroundColor: Colors.primary.constrastText,
-                cursor: "pointer",
+                cursor: 'pointer',
               }}
               src="/imgShipments/ArrowDashboard.svg"
             />
@@ -125,7 +124,7 @@ export default function LayoutPartners() {
               open={open}
               onClose={handleClose}
               MenuListProps={{
-                "aria-labelledby": "basic-button",
+                'aria-labelledby': 'basic-button',
               }}
             >
               <MenuItem
@@ -135,7 +134,9 @@ export default function LayoutPartners() {
                 style={{
                   fontWeight: 500,
                   color:
-                    location.pathname === "/payment" ? Colors.primary.main : "",
+                    location.pathname === '/payment'
+                      ? Colors.primary.main
+                      : '',
                 }}
               >
                 Solicitudes de carga
@@ -147,9 +148,9 @@ export default function LayoutPartners() {
                 style={{
                   fontWeight: 500,
                   color:
-                    location.pathname === "/shipments/acredited"
+                    location.pathname === '/shipments/acredited'
                       ? Colors.primary.main
-                      : "",
+                      : '',
                 }}
               >
                 Socios activos
@@ -158,7 +159,7 @@ export default function LayoutPartners() {
           </Box>
         </>
       ) : (
-        <Box sx={{ minWidth: "100%", display: "flex" }}>
+        <Box sx={{ minWidth: '100%', display: 'flex' }}>
           <Drawer
             variant="permanent"
             sx={{
@@ -166,12 +167,12 @@ export default function LayoutPartners() {
               flexShrink: 0,
               [`& .MuiDrawer-paper`]: {
                 width: drawerWidth,
-                boxSizing: "border-box",
-                marginTop: "64px",
+                boxSizing: 'border-box',
+                marginTop: '64px',
               },
             }}
           >
-            <Box sx={{ border: "none" }}>
+            <Box sx={{ border: 'none' }}>
               <Tabs
                 orientation="vertical"
                 value={value}
@@ -180,38 +181,38 @@ export default function LayoutPartners() {
               >
                 <Tab
                   sx={{
-                    textTransform: "none",
-                    display: "flex",
-                    width: "239px",
+                    textTransform: 'none',
+                    display: 'flex',
+                    width: '239px',
                   }}
                   label="Solicitudes de carga"
                   name="Pendientes"
                   {...a11yProps(0)}
                 />
                 <Tab
-                  sx={{ textTransform: "none" }}
+                  sx={{ textTransform: 'none' }}
                   label="Socios activos"
                   name="Acreditados"
                   {...a11yProps(1)}
                 />
               </Tabs>
             </Box>
-          </Drawer>{" "}
+          </Drawer>{' '}
         </Box>
       )}
       <Outlet />
       {/* {mobile ? ( */}
-        <Box
-          style={{
-            display: "flex",
-            alignItems: "right",
-            justifyContent: "right",
-            padding: "10px",
-            cursor: "pointer",
-          }}
-        >
-          <img src="/imgAdminPayment/ChatIcon.svg" />
-        </Box>
+      <Box
+        style={{
+          display: 'flex',
+          alignItems: 'right',
+          justifyContent: 'right',
+          padding: '10px',
+          cursor: 'pointer',
+        }}
+      >
+        <img src="/imgAdminPayment/ChatIcon.svg" />
+      </Box>
       {/* ) : (
         ""
       )} */}
