@@ -21,7 +21,6 @@ const PageLanding = () => {
   const mobile = useMediaQuery("(max-width: 750px)");
   return (
     <>
-      <CompNavLanding />
       <Hero></Hero>
       <QuienesSomosSection imagen={"/home/quienes.png"}></QuienesSomosSection>
       <NuestroServicioSection></NuestroServicioSection>

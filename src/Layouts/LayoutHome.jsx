@@ -5,7 +5,6 @@ import { Outlet } from "react-router-dom";
 const LayoutHome = () => {
   return (
     <>
-      <CompNavLanding />      
           <Outlet />
           
     </>
