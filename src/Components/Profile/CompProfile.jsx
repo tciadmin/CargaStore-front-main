@@ -21,6 +21,7 @@ import { useParams } from 'react-router-dom';
 import { driverDetail } from '../../Redux/Actions/DriverAction/driverDetail';
 import Loading from '../Loading/Loading';
 import { clearSingleDriver } from '../../Redux/Actions/DriverAction/clearSingleDriver';
+import { format } from 'date-fns';
 
 export const CompProfile = () => {
   const { userId } = useParams();
@@ -127,7 +128,9 @@ export const CompProfile = () => {
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '10px',
+                gap: '22px',
+                width: '716px',
+                margin: '176px 20px 0px 0px',
               }}
               justifyContent={'center'}
               alignItems={'center'}
@@ -143,9 +146,9 @@ export const CompProfile = () => {
                 <Box>
                   <Avatar
                     src={
-                      singleDriver?.user?.profile_image
-                        ? `${urlBack}/${singleDriver?.user?.profile_image}`
-                        : '/imgShipments/DriverDetails.jpg'
+                      singleDriver?.user?.profile_image &&
+                      `${urlBack}/${singleDriver?.user?.profile_image}`
+                      // : '/imgShipments/DriverDetails.jpg'
                     }
                     sx={{ width: '150px', height: '150px' }}
                   ></Avatar>
@@ -154,18 +157,24 @@ export const CompProfile = () => {
                   style={{ fontWeight: 'bold' }}
                 >{`${singleDriver?.user?.name} ${singleDriver?.user?.lastname}`}</p>
                 <p style={{ color: Colors.secondary.contrastText }}>
-                  Socio desde 01/10/2022
+                  {`Socio desde ${format(
+                    new Date(singleDriver?.driver?.createdAt ?? ''),
+                    'dd/MM/yy'
+                  )}`}
                 </p>
                 <Box
                   sx={{
-                    width: mobile ? '100%' : '50%',
+                    width: mobile ? '100vw' : '50%',
                     padding: '20px',
+                    wordWrap: 'break-word',
                   }}
                 >
                   <p>
-                    {singleDriver?.driver?.description
-                      ? singleDriver?.driver?.description
-                      : 'El conductor no cuenta con una descripción'}
+                    {
+                      singleDriver?.driver?.description
+                      // && singleDriver?.driver?.description
+                      // : 'El conductor no cuenta con una descripción'
+                    }
                   </p>
                 </Box>
               </Box>
@@ -199,8 +208,10 @@ export const CompProfile = () => {
                     fontWeight: 600,
                   }}
                 >
-                  <p>+500</p>
-                  <p>Viajes</p>
+                  <p>{singleDriver?.driver?.order_count}</p>
+                  <p>{`Viaje${
+                    singleDriver?.driver?.order_count === 1 ? '' : 's'
+                  }`}</p>
                 </Box>{' '}
                 <Box
                   style={{
@@ -244,8 +255,12 @@ export const CompProfile = () => {
                     fontWeight: 600,
                   }}
                 >
-                  <p>398 </p>
-                  <p>Reseñas</p>
+                  <p>{singleDriver?.driver?.feedback_count}</p>
+                  <p>{`Reseña${
+                    singleDriver?.driver?.feedback_count === 1
+                      ? ''
+                      : 's'
+                  }`}</p>
                 </Box>
               </Stack>
               {mobile && user?.role === 'admin' && (
@@ -553,6 +568,8 @@ export const CompProfile = () => {
                 width="100%"
                 maxWidth={'600px'}
                 style={{
+                  display: 'flex',
+                  marginTop: '176px',
                   border: '1px solid lightgrey',
                   padding: '20px',
                   borderRadius: '10px',

@@ -8,27 +8,27 @@ import {
   Stack,
   Typography,
   useMediaQuery,
-} from "@mui/material";
-import React, { useState } from "react";
-import ResponsiveImageBox from "../Components/imageComponents/ResponsiveImageBox";
-import ChargeRequestCard from "../Components/cards/ChargeRequestCard";
-import ConductorAsignadoCard from "../Components/cards/ConductorAsignadoCard";
-import VerticalGreenStepper from "../Components/steppers/VerticalGreenStepper";
-import CompNavLanding from "../Components/NavLanding/CompNavLanding";
-import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { orderDetail } from "../Redux/Actions/OrderActions/orderDetail";
-import { format, isValid, parseISO } from "date-fns";
-import Loading from "../Components/Loading/Loading";
-import { duplicateOrder } from "../Redux/Actions/OrderActions/duplicateorder";
-import { applicForOrder } from "../Redux/Actions/ApplicationActions/applyForOrder";
-import { getOrderState } from "../Redux/Actions/OrderActions/getOrderState";
-import { aceptOrder } from "../Redux/Actions/ApplicationActions/aceptOrder";
-import { declineOrder } from "../Redux/Actions/ApplicationActions/declineOrder";
-import { clearOrderDetail } from "../Redux/Actions/OrderActions/clearOrderDetail";
-import { clearApplicationMessage } from "../Redux/Actions/ApplicationActions/clearApplicationMessage";
-import { changeOrderState } from "../Redux/Actions/OrderActions/changeOrderState";
-import { Colors } from "../Utils/Colors";
+} from '@mui/material';
+import React, { useState } from 'react';
+import ResponsiveImageBox from '../Components/imageComponents/ResponsiveImageBox';
+import ChargeRequestCard from '../Components/cards/ChargeRequestCard';
+import ConductorAsignadoCard from '../Components/cards/ConductorAsignadoCard';
+import VerticalGreenStepper from '../Components/steppers/VerticalGreenStepper';
+import CompNavLanding from '../Components/NavLanding/CompNavLanding';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { orderDetail } from '../Redux/Actions/OrderActions/orderDetail';
+import { format, isValid, parseISO } from 'date-fns';
+import Loading from '../Components/Loading/Loading';
+import { duplicateOrder } from '../Redux/Actions/OrderActions/duplicateorder';
+import { applicForOrder } from '../Redux/Actions/ApplicationActions/applyForOrder';
+import { getOrderState } from '../Redux/Actions/OrderActions/getOrderState';
+import { aceptOrder } from '../Redux/Actions/ApplicationActions/aceptOrder';
+import { declineOrder } from '../Redux/Actions/ApplicationActions/declineOrder';
+import { clearOrderDetail } from '../Redux/Actions/OrderActions/clearOrderDetail';
+import { clearApplicationMessage } from '../Redux/Actions/ApplicationActions/clearApplicationMessage';
+import { changeOrderState } from '../Redux/Actions/OrderActions/changeOrderState';
+import { Colors } from '../Utils/Colors';
 
 const GreenCircle = () => {
   return (
@@ -88,9 +88,7 @@ const CargaPage = () => {
 
   React.useEffect(() => {
     singleOrder?.applications.map((el) => {
-      el.driverId === user?.driver?.id
-        ? setApplyed(true)
-        : setApplyed(false);
+      el.driverId === user?.driver?.id && setApplyed(true);
     });
     !singleOrder?.applications?.length && setApplyed(false);
     console.log('applyed: ', applyed);
@@ -132,11 +130,11 @@ const CargaPage = () => {
   return (
     <Box
       style={{
-        display: "flex",
-        height: "100%",
-        marginTop: "64px",
-        justifyContent: "center",
-        flexDirection: "column",
+        display: 'flex',
+        height: '100%',
+        marginTop: '64px',
+        justifyContent: 'center',
+        flexDirection: 'column',
       }}
     >
       {singleOrderLoading && (
@@ -153,29 +151,35 @@ const CargaPage = () => {
       )}
       {singleOrder && (
         <Box style={{ padding: 10 }}>
-          <Box style={{ display: "flex", justifyContent: "space-between" }}>
+          <Box
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
             <Typography
               mb={3}
               ml={5}
               fontSize="16px"
-              color={"secondary"}
+              color={'secondary'}
               fontWeight={600}
             >
               {`#${singleOrder?.id}`}
             </Typography>
-            {user.role === 'customer' && <Button
+            {user.role === 'customer' && (
+              <Button
                 variant="contained"
                 sx={{
                   fontWeight: 600,
-                  width: "150px",
-                  height: "40px",
-                  marginRight: 5
+                  width: '150px',
+                  height: '40px',
+                  marginRight: 5,
                 }}
-                onClick={() => navigate("/editarEnvio")}
+                onClick={() => navigate('/editarEnvio')}
               >
                 Editar envío
-              </Button>}
-            
+              </Button>
+            )}
           </Box>
           <Grid
             container
@@ -289,10 +293,10 @@ const CargaPage = () => {
                     ? ''
                     : `${singleOrder?.adittional_information}`}{' '}
                 </Typography>
-                {user.role === "customer" && (
+                {user.role === 'customer' && (
                   <Stack
                     direction="row"
-                    justifyContent={"center"}
+                    justifyContent={'center'}
                     mt={3}
                     gap={5}
                   >
@@ -471,10 +475,10 @@ const CargaPage = () => {
                     variant="contained"
                     disabled={applicationLoading}
                     sx={{
-                      backgroundColor: "#007C52",
-                      color: "#fff",
-                      marginTop: "20px",
-                      width: "100%",
+                      backgroundColor: '#007C52',
+                      color: '#fff',
+                      marginTop: '20px',
+                      width: '100%',
                     }}
                     onClick={applyForOrder}
                   >
@@ -560,8 +564,8 @@ const CargaPage = () => {
           </Grid>
           <Container>
             {!mobile &&
-              user?.role === "admin" &&
-              singleOrder?.status === "pendiente" && (
+              user?.role === 'admin' &&
+              singleOrder?.status === 'pendiente' && (
                 <>
                   <Typography fontSize="16px" fontWeight={600}>
                     Solicitudes de conductores
@@ -637,8 +641,9 @@ const CargaPage = () => {
                 )}
               {singleOrder?.status !== 'pendiente' && orderState && (
                 <Grid item xs={6}>
-                  {user?.role === "customer" &&
-                    (!orderState?.enPreparacion || !orderState?.preparado) && (
+                  {user?.role === 'customer' &&
+                    (!orderState?.enPreparacion ||
+                      !orderState?.preparado) && (
                       <Button
                         disabled={changingOrderState}
                         style={{
@@ -665,13 +670,14 @@ const CargaPage = () => {
                           ? 'Orden en preparación'
                           : orderState?.enPreparacion &&
                             !orderState?.preparado &&
-                            "Orden preparada"}
+                            'Orden preparada'}
                       </Button>
                     )}
-                  {user?.role === "driver" &&
+                  {user?.role === 'driver' &&
                     orderState?.enPreparacion &&
                     orderState?.preparado &&
-                    (!orderState?.retirado || !orderState?.enCamino) && (
+                    (!orderState?.retirado ||
+                      !orderState?.enCamino) && (
                       <Button
                         disabled={changingOrderState}
                         style={{
@@ -757,7 +763,7 @@ const CargaPage = () => {
                       justifyContent: 'right',
                       alignContent: 'right',
                     }}
-                    src="/public/imgShipments/CloseButton.svg"
+                    src="/imgShipments/CloseButton.svg"
                   />
                 </Box>
 
@@ -786,13 +792,24 @@ const CargaPage = () => {
               alignItems: 'right',
               justifyContent: 'right',
               padding: '10px',
-              cursor: 'pointer',
               position: 'fixed',
               width: '100%',
-              bottom: 0
+              bottom: 0,
             }}
           >
-            <img src="/imgShipments/QuestionIcon.svg" />
+            <Box
+              style={{
+                display: 'flex',
+                position: 'absolute',
+                bottom: 0,
+                rigth: 0,
+              }}
+            >
+              <img
+                style={{ cursor: 'pointer' }}
+                src="/imgShipments/QuestionIcon.svg"
+              />
+            </Box>
           </Box>
         </Box>
       )}

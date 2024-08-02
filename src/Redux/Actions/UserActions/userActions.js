@@ -109,6 +109,13 @@ export const postUser = (userType, userData, navigate) => {
             charge_type,
           }
         );
+
+        Cookies.set('id', data?.user.id, {
+          expires: 1,
+          secure: true,
+          sameSite: 'Strict',
+          path: '/',
+        });
         dispatch({
           type: POST_USER_SUCCESS,
           payload: driver.data,
