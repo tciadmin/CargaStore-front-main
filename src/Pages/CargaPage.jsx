@@ -28,6 +28,7 @@ import { clearOrderDetail } from '../Redux/Actions/OrderActions/clearOrderDetail
 import { clearApplicationMessage } from '../Redux/Actions/ApplicationActions/clearApplicationMessage';
 import { changeOrderState } from '../Redux/Actions/OrderActions/changeOrderState';
 import { Colors } from '../Utils/Colors';
+import { finishOrder } from '../Redux/Actions/OrderActions/finishOrder';
 
 const GreenCircle = () => {
   return (
@@ -121,6 +122,10 @@ const CargaPage = () => {
 
   const handleChangeOrderState = () => {
     dispatch(changeOrderState(id));
+  };
+
+  const handleFinishOrder = () => {
+    dispatch(finishOrder(id, user?.driver?.id));
   };
 
   const urlBack = import.meta.env.VITE_URL_BACKEND;
@@ -699,6 +704,35 @@ const CargaPage = () => {
                         {!orderState.retirado
                           ? 'Orden retirada'
                           : !orderState.enCamino && 'Orden en camino'}
+                      </Button>
+                    )}
+                  {user?.role === 'driver' &&
+                    singleOrder?.status === 'en curso' &&
+                    orderState?.enPreparacion &&
+                    orderState?.preparado &&
+                    orderState?.retirado &&
+                    orderState?.enCamino && (
+                      <Button
+                        disabled={changingOrderState}
+                        style={{
+                          fontFamily: 'Inter',
+                          fontWeight: '600',
+                          lineHeight: !mobile ? '23.2px' : '10px',
+                          textAlign: 'center',
+                          backgroundColor: '#007C52',
+                          color: '#fff',
+                          borderRadius: '8px',
+                          fontSize: '16px',
+                          width: 'Hug (121px)px',
+                          height: 'Fixed (39px)px',
+                          padding: '16px 24px 16px 24px',
+                          gap: '10px',
+                          marginBottom: '10px',
+                          marginTop: mobile && '10px',
+                        }}
+                        onClick={handleFinishOrder}
+                      >
+                        Finalizar envío
                       </Button>
                     )}
                   <VerticalGreenStepper

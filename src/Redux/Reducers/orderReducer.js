@@ -40,6 +40,11 @@ import {
   ORDER_DETAIL_PENDING,
   ORDER_DETAIL_SUCCESS,
 } from '../Actions/OrderActions/orderDetail';
+import {
+  FINISH_ORDER_PENDING,
+  FINISH_ORDER_SUCCESS,
+  FINISH_ORDER_FAILURE,
+} from '../Actions/OrderActions/finishOrder';
 
 const initialState = {
   orders: [],
@@ -198,6 +203,27 @@ export const orderReducer = (state = initialState, action) => {
         },
       };
     case CHANGE_ORDER_STATE_FAILURE:
+      return {
+        ...state,
+        changingOrderState: false,
+        error: action.error,
+      };
+    case FINISH_ORDER_PENDING:
+      return {
+        ...state,
+        changingOrderState: true,
+        error: null,
+      };
+    case FINISH_ORDER_SUCCESS:
+      return {
+        ...state,
+        changingOrderState: false,
+        singleOrder: {
+          ...state.singleOrder,
+          status: action.payload.orderStatus,
+        },
+      };
+    case FINISH_ORDER_FAILURE:
       return {
         ...state,
         changingOrderState: false,
