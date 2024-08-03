@@ -735,6 +735,21 @@ const CargaPage = () => {
                         Finalizar envío
                       </Button>
                     )}
+                  {singleOrder?.status === 'finalizado' && (
+                    <p
+                      style={{
+                        color: '#007C52',
+                        fontFamily: 'Montserrat',
+                        fontSize: '16px',
+                        fontWeight: 500,
+                        lineHeight: '23.2px',
+                        textAlign: 'left',
+                        margin: '10px 0px',
+                      }}
+                    >
+                      {'Envío finalizado'}
+                    </p>
+                  )}
                   <VerticalGreenStepper
                     steps={orderState}
                     driverName={
