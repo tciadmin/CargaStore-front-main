@@ -21,6 +21,7 @@ import { driverDetail } from '../../Redux/Actions/DriverAction/driverDetail';
 import Loading from '../Loading/Loading';
 import { clearSingleDriver } from '../../Redux/Actions/DriverAction/clearSingleDriver';
 import { format } from 'date-fns';
+import { validateDriver } from '../../Redux/Actions/DriverAction/validateDriver';
 
 export const CompProfile = () => {
   const { userId } = useParams();
@@ -48,9 +49,8 @@ export const CompProfile = () => {
 
   const { user } = useSelector((state) => state.user);
 
-  const { singleDriver, singleDriverLoading } = useSelector(
-    (state) => state.driver
-  );
+  const { singleDriver, singleDriverLoading, validateLoading } =
+    useSelector((state) => state.driver);
 
   const { allFeedback, singleFeedBackLoading, feedbackLoading } =
     useSelector((state) => state.feedback);
@@ -91,6 +91,10 @@ export const CompProfile = () => {
     if (customerId && driverId && comment && score) {
       dispatch(postFeedback(data));
     }
+  };
+
+  const handleValidateDriver = () => {
+    dispatch(validateDriver(singleDriver?.driver?.id));
   };
 
   const urlBack = import.meta.env.VITE_URL_BACKEND;
@@ -557,6 +561,58 @@ export const CompProfile = () => {
                 </Box>
               ) : (
                 ''
+              )}
+              {user?.role === 'admin' && (
+                <Box justifyContent={'center'}>
+                  {!singleDriver?.driver?.validate_by_admin ? (
+                    <Button
+                      disabled={validateLoading}
+                      style={{
+                        fontFamily: 'Inter',
+                        fontWeight: '600',
+                        lineHeight: '23.2px',
+                        textAlign: 'center',
+                        backgroundColor: '#007C52',
+                        color: '#fff',
+                        borderRadius: '8px',
+                        fontSize: '16px',
+                        width: '296px',
+                        height: '39px',
+                        padding: '16px 24px 16px 24px',
+                        gap: '10px',
+                      }}
+                      onClick={handleValidateDriver}
+                    >
+                      {validateLoading
+                        ? 'cargando...'
+                        : 'Aceptar usuario'}
+                    </Button>
+                  ) : (
+                    <Button
+                      disabled={validateLoading}
+                      style={{
+                        fontFamily: 'Inter',
+                        fontWeight: '600',
+                        lineHeight: '23.2px',
+                        textAlign: 'center',
+                        color: '#007C52',
+                        border: 'solid 1px #007C52',
+                        borderRadius: '8px',
+                        fontSize: '16px',
+                        backgroundColor: 'transparent',
+                        width: '296px',
+                        height: '39px',
+                        padding: '16px 24px 16px 24px',
+                        gap: '10px',
+                      }}
+                      onClick={handleValidateDriver}
+                    >
+                      {validateLoading
+                        ? 'Cargando...'
+                        : 'Rechazar usuario'}
+                    </Button>
+                  )}
+                </Box>
               )}
             </Stack>
             {!mobile && user?.role === 'admin' && (

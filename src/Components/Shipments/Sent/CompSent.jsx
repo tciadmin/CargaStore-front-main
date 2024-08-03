@@ -24,7 +24,9 @@ export default function CompSent() {
           listOrder(
             'finalizado', //status
             '', //orderType
-            user?.customer?.id //customerId
+            user?.customer?.id, //customerId
+            '', //pendingAssignedDriverId
+            '' //assignedDriverId
           )
         )
       : user?.role === 'driver' &&
@@ -347,6 +349,7 @@ export default function CompSent() {
                       {orders?.map((row) => (
                         <ShipmentsItem
                           key={row.id}
+                          userRole={user?.role}
                           status={row.status}
                           code={row.id}
                           productName={row.package.product_name}
