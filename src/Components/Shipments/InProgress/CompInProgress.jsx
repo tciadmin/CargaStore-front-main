@@ -68,13 +68,6 @@ export default function CompInProgress() {
         <>
           {mobile ? (
             <>
-              <h3
-                style={{
-                  paddingLeft: '30px',
-                }}
-              >
-                Envíos en curso
-              </h3>
               <Box
                 style={{
                   display: 'flex',

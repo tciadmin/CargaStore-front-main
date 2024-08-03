@@ -66,13 +66,6 @@ export default function CompSent() {
         <>
           {mobile ? (
             <>
-              <h3
-                style={{
-                  paddingLeft: '30px',
-                }}
-              >
-                Envíos finalizados
-              </h3>
               <Box
                 style={{
                   display: 'flex',

@@ -5,6 +5,7 @@ import Modal from '@mui/material/Modal';
 import { format } from 'date-fns';
 import FinishMessage from '../ShipmentsItem/FinishMessage';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const MobileShipmentItem = ({
   id,
@@ -29,10 +30,13 @@ const MobileShipmentItem = ({
     boxShadow: 24,
     p: 2,
   };
+
+  const { user } = useSelector((state) => state.user);
+
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
-    status === 'finalizado'
+    status === 'finalizado' && user?.role === 'customer'
       ? setOpen(true)
       : navigate(`/carga/${id}`);
   };

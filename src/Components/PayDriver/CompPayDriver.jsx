@@ -1,33 +1,32 @@
-import * as React from "react";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { postPayment } from "../../Redux/Actions/PaymentActions/paymentActions";
+import * as React from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { postPayment } from '../../Redux/Actions/PaymentActions/paymentActions';
 //? --------------------------------------------- MUI
-import Box from "@mui/material/Box";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import FormControl from "@mui/material/FormControl";
-import Button from "@mui/material/Button";
-import { useMediaQuery } from "@mui/material";
-import Modal from "@mui/material/Modal";
+import Box from '@mui/material/Box';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import FormControl from '@mui/material/FormControl';
+import Button from '@mui/material/Button';
+import { useMediaQuery } from '@mui/material';
+import Modal from '@mui/material/Modal';
 //? --------------------------------------------- STYLES
-import { Colors } from "../../Utils/Colors";
-import CompNavLanding from "../NavLanding/CompNavLanding";
+import { Colors } from '../../Utils/Colors';
 // import "./styles.css";
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
   width: 500,
-  bgcolor: "background.paper",
+  bgcolor: 'background.paper',
   boxShadow: 24,
   p: 2,
 };
 
 export default function CompPayDriver() {
-  const mobile = useMediaQuery("(max-width:720px)");
+  const mobile = useMediaQuery('(max-width:720px)');
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
@@ -39,50 +38,51 @@ export default function CompPayDriver() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: "",
-      doc: "",
-      pedido: "",
-      account: "",
-      total: "",
+      name: '',
+      doc: '',
+      pedido: '',
+      account: '',
+      total: '',
     },
   });
 
   const onClickPay = (pay) => {
-    dispatch(postPayment(pay)) && navigate("/payment") && handleOpen();
+    dispatch(postPayment(pay)) &&
+      navigate('/payment') &&
+      handleOpen();
   };
 
   return (
     <Box>
-
       <Box
         sx={{
-          display: "flex",
+          display: 'flex',
           backgroundColor: Colors.terciary.main,
         }}
-        style={{ overflow: mobile ? "" : "hidden" }}
+        style={{ overflow: mobile ? '' : 'hidden' }}
       >
         <Box
           style={{
-            display: "flex",
-            width: "100%",
+            display: 'flex',
+            width: '100%',
             margin: 30,
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
             gap: 10,
           }}
         >
           <Box
             style={{
-              display: "flex",
-              width: "100%",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
+              display: 'flex',
+              width: '100%',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
               gap: 10,
             }}
           >
-            <h1 style={{ fontSize: "1.5rem" }}> Acreditar pago </h1>
+            <h1 style={{ fontSize: '1.5rem' }}> Acreditar pago </h1>
             <p
               style={{
                 fontWeight: 400,
@@ -93,7 +93,10 @@ export default function CompPayDriver() {
             </p>
           </Box>
 
-          <form className="inputContainer" onSubmit={handleSubmit(onClickPay)}>
+          <form
+            className="inputContainer"
+            onSubmit={handleSubmit(onClickPay)}
+          >
             {/* //? --------------------------------------------- NAME */}
             <p
               style={{
@@ -104,24 +107,24 @@ export default function CompPayDriver() {
               Nombre del conductor
             </p>
             <FormControl
-              sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+              sx={{ m: 1, width: mobile ? '300px' : '666px' }}
               variant="outlined"
             >
               <OutlinedInput
-                {...register("name", {
+                {...register('name', {
                   required: {
                     value: true,
-                    message: "Este campo es requerido",
+                    message: 'Este campo es requerido',
                   },
                 })}
                 placeholder="Luis Alvarez"
                 style={{
-                  height: mobile ? "40px" : "50px",
-                  borderRadius: "8px",
+                  height: mobile ? '40px' : '50px',
+                  borderRadius: '8px',
                 }}
               />
               {errors.name && (
-                <p style={{ color: "red" }}>{errors.name.message}</p>
+                <p style={{ color: 'red' }}>{errors.name.message}</p>
               )}
             </FormControl>
             {/* //? --------------------------------------------- DOC */}
@@ -134,24 +137,24 @@ export default function CompPayDriver() {
               Documento de identidad
             </p>
             <FormControl
-              sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+              sx={{ m: 1, width: mobile ? '300px' : '666px' }}
               variant="outlined"
             >
               <OutlinedInput
-                {...register("doc", {
+                {...register('doc', {
                   required: {
                     value: true,
-                    message: "Este campo es requerido",
+                    message: 'Este campo es requerido',
                   },
                 })}
                 placeholder="11111111111"
                 style={{
-                  height: mobile ? "40px" : "50px",
-                  borderRadius: "8px",
+                  height: mobile ? '40px' : '50px',
+                  borderRadius: '8px',
                 }}
               />
               {errors.doc && (
-                <p style={{ color: "red" }}>{errors.doc.message}</p>
+                <p style={{ color: 'red' }}>{errors.doc.message}</p>
               )}
             </FormControl>
             {/* //? --------------------------------------------- PEDIDO */}
@@ -164,24 +167,26 @@ export default function CompPayDriver() {
               Número de pedido
             </p>
             <FormControl
-              sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+              sx={{ m: 1, width: mobile ? '300px' : '666px' }}
               variant="outlined"
             >
               <OutlinedInput
-                {...register("pedido", {
+                {...register('pedido', {
                   required: {
                     value: true,
-                    message: "Este campo es requerido",
+                    message: 'Este campo es requerido',
                   },
                 })}
                 placeholder="#12345"
                 style={{
-                  height: mobile ? "40px" : "50px",
-                  borderRadius: "8px",
+                  height: mobile ? '40px' : '50px',
+                  borderRadius: '8px',
                 }}
               />
               {errors.pedido && (
-                <p style={{ color: "red" }}>{errors.pedido.message}</p>
+                <p style={{ color: 'red' }}>
+                  {errors.pedido.message}
+                </p>
               )}
             </FormControl>
             {/* //? --------------------------------------------- ACCOUNT */}
@@ -194,24 +199,26 @@ export default function CompPayDriver() {
               Número de cuenta
             </p>
             <FormControl
-              sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+              sx={{ m: 1, width: mobile ? '300px' : '666px' }}
               variant="outlined"
             >
               <OutlinedInput
-                {...register("account", {
+                {...register('account', {
                   required: {
                     value: true,
-                    message: "Este campo es requerido",
+                    message: 'Este campo es requerido',
                   },
                 })}
                 placeholder="12345"
                 style={{
-                  height: mobile ? "40px" : "50px",
-                  borderRadius: "8px",
+                  height: mobile ? '40px' : '50px',
+                  borderRadius: '8px',
                 }}
               />
               {errors.account && (
-                <p style={{ color: "red" }}>{errors.account.message}</p>
+                <p style={{ color: 'red' }}>
+                  {errors.account.message}
+                </p>
               )}
             </FormControl>
             {/* //? --------------------------------------------- TOTAL */}
@@ -224,37 +231,37 @@ export default function CompPayDriver() {
               Total (-20% comisión)
             </p>
             <FormControl
-              sx={{ m: 1, width: mobile ? "300px" : "666px" }}
+              sx={{ m: 1, width: mobile ? '300px' : '666px' }}
               variant="outlined"
             >
               <OutlinedInput
-                {...register("total", {
+                {...register('total', {
                   required: {
                     value: true,
-                    message: "Este campo es requerido",
+                    message: 'Este campo es requerido',
                   },
                 })}
                 placeholder="$11.234"
                 style={{
-                  height: mobile ? "40px" : "50px",
-                  borderRadius: "8px",
+                  height: mobile ? '40px' : '50px',
+                  borderRadius: '8px',
                 }}
               />
               {errors.total && (
-                <p style={{ color: "red" }}>{errors.total.message}</p>
+                <p style={{ color: 'red' }}>{errors.total.message}</p>
               )}
             </FormControl>
             <Button
               variant="contained"
               sx={{
                 m: 1,
-                width: mobile ? "300px" : "666px",
-                height: "40px",
+                width: mobile ? '300px' : '666px',
+                height: '40px',
               }}
               style={{
                 color: Colors.primary.contrastText,
                 backgroundColor: Colors.primary.main,
-                borderRadius: "8px",
+                borderRadius: '8px',
               }}
               type="submit"
             >
@@ -270,27 +277,27 @@ export default function CompPayDriver() {
             <Box
               sx={style}
               style={{
-                display: "flex",
-                alignItems: "center",
-                flexDirection: "column",
-                gap: "10px",
+                display: 'flex',
+                alignItems: 'center',
+                flexDirection: 'column',
+                gap: '10px',
               }}
             >
               <Box
                 style={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "right",
-                  alignItems: "right",
-                  cursor: "pointer",
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'right',
+                  alignItems: 'right',
+                  cursor: 'pointer',
                 }}
               >
                 <img
                   onClick={handleClose}
                   style={{
-                    display: "flex",
-                    justifyContent: "right",
-                    alignContent: "right",
+                    display: 'flex',
+                    justifyContent: 'right',
+                    alignContent: 'right',
                   }}
                   src="/imgShipments/CloseButton.svg"
                 />
@@ -298,19 +305,19 @@ export default function CompPayDriver() {
 
               <Box
                 style={{
-                  display: "flex",
-                  padding: "20px",
-                  gap: "10px",
-                  justifyContent: "center",
-                  width: "90%",
+                  display: 'flex',
+                  padding: '20px',
+                  gap: '10px',
+                  justifyContent: 'center',
+                  width: '90%',
                 }}
               >
                 <Box
                   style={{
-                    display: "flex",
+                    display: 'flex',
                     // width: "30%",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    justifyContent: 'center',
+                    alignItems: 'center',
                   }}
                 >
                   <img src="/imgAdminPayment/AccreditedPayment.jpg" />
@@ -318,21 +325,27 @@ export default function CompPayDriver() {
 
                 <Box
                   style={{
-                    display: "flex",
+                    display: 'flex',
                     // width: "70%",
-                    flexDirection: "column",
-                    gap: "5px",
+                    flexDirection: 'column',
+                    gap: '5px',
                   }}
                 >
-                  <h3 style={{ textAlign: "center", fontWeight: 500 }}>
+                  <h3
+                    style={{ textAlign: 'center', fontWeight: 500 }}
+                  >
                     Pago acreditado
                   </h3>
 
                   <span
-                    style={{ display: "flex", gap: "5px", fontWeight: 400 }}
+                    style={{
+                      display: 'flex',
+                      gap: '5px',
+                      fontWeight: 400,
+                    }}
                   >
-                    Luis Alvarez recibirá una notificación de la transacción
-                    realizada
+                    Luis Alvarez recibirá una notificación de la
+                    transacción realizada
                   </span>
                 </Box>
               </Box>

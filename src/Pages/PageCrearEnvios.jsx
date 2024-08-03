@@ -17,7 +17,6 @@ import {
 import React, { useState } from 'react';
 import GreenStepper from '../Components/steppers/GreenStepper';
 import { useNavigate } from 'react-router-dom';
-import CompNavLanding from '../Components/NavLanding/CompNavLanding';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { createOrder } from '../Redux/Actions/OrderActions/createOrder';
@@ -28,7 +27,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es'; // Importar configuración de idioma español
 import { TimeField } from '@mui/x-date-pickers';
-import './styles.css'
+import './styles.css';
 
 dayjs.locale('es'); // Establecer el idioma globalmente para dayjs
 
@@ -228,10 +227,19 @@ const PageCrearEnvios = () => {
   };
 
   return (
-    <Box style={{fontFamily: "Montserrat, sans-serif" , minHeight: '100vh',  background: '#F6F6F6'}}>
-      <CompNavLanding></CompNavLanding>
+    <Box
+      style={{
+        fontFamily: 'Montserrat, sans-serif',
+        minHeight: '100vh',
+        background: '#F6F6F6',
+      }}
+    >
       <section
-        style={{ background: '#F6F6F6', minHeight: '100vh', marginTop: '64px'}}
+        style={{
+          background: '#F6F6F6',
+          minHeight: '100vh',
+          marginTop: '64px',
+        }}
         id="arriba"
       >
         <Container maxWidth={'md'} sx={{ padding: '20px 0' }}>
@@ -301,11 +309,16 @@ const PageCrearEnvios = () => {
               />
             </>
           )}
-          <h1 style={{textAlign: 'center', padding: 10, marginTop: 20}}>
+          <h1
+            style={{
+              textAlign: 'center',
+              padding: 10,
+              marginTop: 20,
+            }}
+          >
             Crear envío
           </h1>
           <h5
-            
             style={{
               fontSize: '16px',
               marginBottom: 10,
@@ -316,9 +329,22 @@ const PageCrearEnvios = () => {
           >
             {descripciones[stepIndex]}
           </h5>
-          <Stack direction="column" alignItems={'center'}  textAlign={'left'} sx={{p: 4,}} >
+          <Stack
+            direction="column"
+            alignItems={'center'}
+            textAlign={'left'}
+            sx={{ p: 4 }}
+          >
             {stepIndex === 0 && (
-              <Box style={{display: 'flex', textAlign: 'left', flexDirection: 'column', gap: 5, justifyContent: 'center'}}>
+              <Box
+                style={{
+                  display: 'flex',
+                  textAlign: 'left',
+                  flexDirection: 'column',
+                  gap: 5,
+                  justifyContent: 'center',
+                }}
+              >
                 <p
                   style={{
                     fontWeight: 500,
@@ -379,7 +405,7 @@ const PageCrearEnvios = () => {
                         value: 15,
                         message:
                           'El número no debe tener más de 15 dígitos',
-                      }
+                      },
                     })}
                     style={{
                       height: mobile ? '40px' : '50px',
@@ -533,7 +559,15 @@ const PageCrearEnvios = () => {
               </Box>
             )}
             {stepIndex === 1 && (
-              <Box style={{display: 'flex', textAlign: 'left', flexDirection: 'column', gap: 5, justifyContent: 'center'}}>
+              <Box
+                style={{
+                  display: 'flex',
+                  textAlign: 'left',
+                  flexDirection: 'column',
+                  gap: 5,
+                  justifyContent: 'center',
+                }}
+              >
                 <p
                   style={{
                     fontWeight: 500,
@@ -732,9 +766,9 @@ const PageCrearEnvios = () => {
                         message: 'Este campo es requerido',
                       },
                       pattern: {
-                        value:
-                          /\b\d{1,2}\sx\s\d{1,3}/,
-                        message: 'Ingrese un volumen válido (5 x 5 m, 50 x 20 cm)',
+                        value: /\b\d{1,2}\sx\s\d{1,3}/,
+                        message:
+                          'Ingrese un volumen válido (5 x 5 m, 50 x 20 cm)',
                       },
                     })}
                     style={{
@@ -767,7 +801,7 @@ const PageCrearEnvios = () => {
                 >
                   <OutlinedInput
                     type="text"
-                    style={{borderRadius: '10px',}}
+                    style={{ borderRadius: '10px' }}
                     {...register('offered_price', {
                       required: 'Este campo es requerido',
                       pattern: {
@@ -790,7 +824,7 @@ const PageCrearEnvios = () => {
                     inputProps={{
                       style: {
                         height: mobile ? '40px' : '50px',
-                        padding: 1
+                        padding: 1,
                       },
                     }}
                     aria-describedby="outlined-price-helper-text"
@@ -827,7 +861,7 @@ const PageCrearEnvios = () => {
                 <Grid
                   container
                   margin="0 auto"
-                  width= {mobile ? '370px' : '666px'} 
+                  width={mobile ? '370px' : '666px'}
                   my={2}
                   mb={2}
                   justifyContent={'flex-start'}
@@ -841,8 +875,7 @@ const PageCrearEnvios = () => {
                     direction="row"
                     justifyContent={'center'}
                     style={imageStyles}
-                    width= {mobile ? '370px' : '666px'} 
-
+                    width={mobile ? '370px' : '666px'}
                   >
                     <input
                       type="file"
@@ -880,22 +913,18 @@ const PageCrearEnvios = () => {
                     direction="row"
                     justifyContent={'center'}
                     style={imageStyles}
-                    width= {mobile ? '370px' : '666px'} 
-
-
+                    width={mobile ? '370px' : '666px'}
                   >
                     <input
                       type="file"
                       accept="image/*"
                       style={inputFileStyles}
-                      {...register('image2', 
-                        {
+                      {...register('image2', {
                         required: {
                           value: true,
                           message: 'Image is required',
                         },
-                      }
-                    )}
+                      })}
                       onChange={(ev) => {
                         handleFileChange(ev, 2);
                       }}
@@ -922,9 +951,7 @@ const PageCrearEnvios = () => {
                     direction="row"
                     justifyContent={'center'}
                     style={imageStyles}
-                    width= {mobile ? '370px' : '666px'} 
-
-
+                    width={mobile ? '370px' : '666px'}
                   >
                     <input
                       type="file"
@@ -962,9 +989,7 @@ const PageCrearEnvios = () => {
                     direction="row"
                     justifyContent={'center'}
                     style={imageStyles}
-                    width= {mobile ? '370px' : '666px'} 
-
-
+                    width={mobile ? '370px' : '666px'}
                   >
                     <input
                       type="file"
@@ -1004,7 +1029,14 @@ const PageCrearEnvios = () => {
               </Box>
             )}
             {stepIndex === 2 && (
-              <Box style={{display: 'flex', textAlign: 'left', flexDirection: 'column', gap: 5}}>
+              <Box
+                style={{
+                  display: 'flex',
+                  textAlign: 'left',
+                  flexDirection: 'column',
+                  gap: 5,
+                }}
+              >
                 <p
                   style={{
                     fontWeight: 500,
@@ -1015,15 +1047,18 @@ const PageCrearEnvios = () => {
                   Fecha de retiro
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '370px' : '666px', borderRadius: '10px' }}
+                  sx={{
+                    m: 1,
+                    width: mobile ? '370px' : '666px',
+                    borderRadius: '10px',
+                  }}
                   variant="outlined"
-                  style={{ borderRadius: '10px'}}
-
+                  style={{ borderRadius: '10px' }}
                 >
                   <LocalizationProvider
                     dateAdapter={AdapterDayjs}
                     adapterLocale="es"
-                    style={{ borderRadius: '10px'}}
+                    style={{ borderRadius: '10px' }}
                   >
                     <DatePicker
                       {...register('pick_up_date', {
@@ -1035,7 +1070,10 @@ const PageCrearEnvios = () => {
                       }
                       inputFormat="DD/MM/YYYY" // Formato día, mes, año
                       renderInput={(params) => (
-                        <TextField style={{ borderRadius: '10px'}} {...params} />
+                        <TextField
+                          style={{ borderRadius: '10px' }}
+                          {...params}
+                        />
                       )}
                       style={{
                         height: mobile ? '40px' : '50px',
@@ -1060,7 +1098,11 @@ const PageCrearEnvios = () => {
                   Hora de retiro
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '370px' : '666px', height: mobile ? '40px' : '50px', }}
+                  sx={{
+                    m: 1,
+                    width: mobile ? '370px' : '666px',
+                    height: mobile ? '40px' : '50px',
+                  }}
                   variant="outlined"
                 >
                   <LocalizationProvider
@@ -1106,7 +1148,11 @@ const PageCrearEnvios = () => {
                   Dirección de retiro
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '370px' : '666px', height: mobile ? '40px' : '50px', }}
+                  sx={{
+                    m: 1,
+                    width: mobile ? '370px' : '666px',
+                    height: mobile ? '40px' : '50px',
+                  }}
                   variant="outlined"
                 >
                   <OutlinedInput
@@ -1138,7 +1184,11 @@ const PageCrearEnvios = () => {
                   Fecha de entrega
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '370px' : '666px', height: mobile ? '40px' : '50px', }}
+                  sx={{
+                    m: 1,
+                    width: mobile ? '370px' : '666px',
+                    height: mobile ? '40px' : '50px',
+                  }}
                   variant="outlined"
                 >
                   <LocalizationProvider
@@ -1180,7 +1230,11 @@ const PageCrearEnvios = () => {
                   Hora de entrega
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '370px' : '666px' , height: mobile ? '40px' : '50px',}}
+                  sx={{
+                    m: 1,
+                    width: mobile ? '370px' : '666px',
+                    height: mobile ? '40px' : '50px',
+                  }}
                   variant="outlined"
                 >
                   <LocalizationProvider
@@ -1250,7 +1304,14 @@ const PageCrearEnvios = () => {
               </Box>
             )}
             {stepIndex === 3 && (
-              <Box style={{display: 'flex', textAlign: 'left', flexDirection: 'column', gap: 5}}>
+              <Box
+                style={{
+                  display: 'flex',
+                  textAlign: 'left',
+                  flexDirection: 'column',
+                  gap: 5,
+                }}
+              >
                 <p
                   style={{
                     fontWeight: 500,
@@ -1301,7 +1362,7 @@ const PageCrearEnvios = () => {
                 >
                   <OutlinedInput
                     type="text"
-                    style={{borderRadius: '10px',}}
+                    style={{ borderRadius: '10px' }}
                     {...register('offered_price', {
                       required: 'Este campo es requerido',
                       pattern: {
@@ -1324,7 +1385,7 @@ const PageCrearEnvios = () => {
                     inputProps={{
                       style: {
                         height: mobile ? '40px' : '50px',
-                        padding: 1
+                        padding: 1,
                       },
                     }}
                     aria-describedby="outlined-price-helper-text"
@@ -1341,11 +1402,11 @@ const PageCrearEnvios = () => {
               sx={{
                 width: mobile ? '370px' : '666px',
                 padding: mobile ? '' : '18px 0',
-                fontFamily: "Montserrat , sans-serif",
+                fontFamily: 'Montserrat , sans-serif',
                 backgroundColor: Colors.primary.main,
                 color: Colors.primary.contrastText,
                 height: mobile ? '40px' : '50px',
-                marginTop: 3
+                marginTop: 3,
               }}
               disabled={singleOrderLoading}
               onClick={handleSubmit(onClick)}

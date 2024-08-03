@@ -73,13 +73,6 @@ export default function CompPending() {
         <>
           {mobile ? (
             <>
-              <h3
-                style={{
-                  paddingLeft: '30px',
-                }}
-              >
-                Envíos pendientes
-              </h3>
               <Box
                 style={{
                   display: 'flex',
