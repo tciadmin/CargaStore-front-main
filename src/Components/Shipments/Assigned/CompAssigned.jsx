@@ -69,13 +69,6 @@ export default function CompAssigned() {
         <>
           {mobile ? (
             <>
-              <h3
-                style={{
-                  paddingLeft: '30px',
-                }}
-              >
-                Envíos asignados
-              </h3>
               <Box
                 style={{
                   display: 'flex',
