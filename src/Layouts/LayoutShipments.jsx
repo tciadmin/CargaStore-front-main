@@ -86,6 +86,7 @@ const LayoutShipments = () => {
             display: 'flex',
             justifyContent: 'space-between',
             padding: '20px',
+            marginTop: '50px',
           }}
         >
           <h2

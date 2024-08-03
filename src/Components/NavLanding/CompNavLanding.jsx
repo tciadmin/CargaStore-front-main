@@ -268,7 +268,7 @@ export default function CompNavLanding() {
                           </ListItemButton>
                         </ListItem>
                       ))}
-                    {user.role == 'driver' &&
+                    {user.role === 'driver' &&
                       [
                         { nombre: 'Mis envíos', ruta: '/shipments' },
                         {
