@@ -8,8 +8,10 @@ import { paymentReducer } from './paymentReducer';
 import { formDataReducer } from './formsDataReducer';
 import { chatReducer } from './chatReducer';
 import { driverReducer } from './driverReducer';
+import { alertReducer } from './alertReducer';
 
 const rootReducer = combineReducers({
+  alert: alertReducer,
   forms: formDataReducer,
   user: userReducer,
   driver: driverReducer,

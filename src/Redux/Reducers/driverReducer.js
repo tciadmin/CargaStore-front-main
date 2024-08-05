@@ -9,10 +9,16 @@ import {
   GET_DRIVER_LIST_SUCCESS,
   GET_DRIVER_LIST_FAILURE,
 } from '../Actions/DriverAction/getDriverList';
+import {
+  VALIDATE_DRIVER_FAILURE,
+  VALIDATE_DRIVER_PENDING,
+  VALIDATE_DRIVER_SUCCESS,
+} from '../Actions/DriverAction/validateDriver';
 
 const initialState = {
   singleDriver: null,
   singleDriverLoading: false,
+  validateLoading: false,
   driverList: [],
   driverListLoading: false,
 };
@@ -55,6 +61,28 @@ export const driverReducer = (state = initialState, action) => {
         ...state,
         driverListLoading: false,
         driverList: action.payload,
+      };
+    case VALIDATE_DRIVER_PENDING:
+      return {
+        ...state,
+        validateLoading: true,
+      };
+    case VALIDATE_DRIVER_SUCCESS:
+      return {
+        ...state,
+        validateLoading: false,
+        singleDriver: {
+          ...state.singleDriver,
+          driver: {
+            ...state.singleDriver.driver,
+            validate_by_admin: action.payload.validate_by_admin,
+          },
+        },
+      };
+    case VALIDATE_DRIVER_FAILURE:
+      return {
+        ...state,
+        validateDriver: false,
       };
     default:
       return { ...state };
