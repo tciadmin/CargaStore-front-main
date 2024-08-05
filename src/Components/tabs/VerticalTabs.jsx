@@ -13,6 +13,8 @@ import {
   Grid,
   Paper,
   // Snackbar,
+  MenuItem,
+  Select,
   Stack,
   useMediaQuery,
   FormControl,
@@ -95,8 +97,16 @@ export default function VerticalTabs() {
       email: '',
       description: '',
       phone: '',
+      brand: '',
+      model: '',
+      year: '',
+      num_plate: '',
+      charge_capacity: '',
+      charge_type: '',
     },
   });
+
+  const selectChargeType = ['Seca', 'Peligrosa', 'Refrigerada'];
 
   const watchData = watch();
   React.useEffect(() => {
@@ -130,10 +140,19 @@ export default function VerticalTabs() {
       setValue('email', user.email);
     }
     if (user?.driver) {
-      setValue('description', user?.driver.description);
-      setValue('phone', user?.driver.phone);
+      setValue('description', user?.driver?.description);
+      setValue('phone', user?.driver?.phone);
+      setValue('brand', user?.driver?.truck?.brand);
+      setValue('model', user?.driver?.truck?.model);
+      setValue('year', user?.driver?.truck?.year);
+      setValue('num_plate', user?.driver?.truck?.num_plate);
+      setValue(
+        'charge_capacity',
+        user?.driver?.truck?.charge_capacity
+      );
+      setValue('charge_type', user?.driver?.truck?.charge_type);
     }
-  }, [setValue, user, user.driver, urlBack]);
+  }, [setValue, user, urlBack]);
 
   React.useEffect(() => {
     setEditar(false);
@@ -253,69 +272,24 @@ export default function VerticalTabs() {
   };
 
   const putTruckData = () => {
-    // const regex = /^[0-9a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/;
-    // const regexNum = /^[0-9]+$/;
-    // if (!data.driver || !data.driver.truck) {
-    //   setErrorValidation({
-    //     value: true,
-    //     message: 'Datos del camión no disponibles',
-    //   });
-    //   return;
-    // }
-    // const isTruckObjectNotEmpty = (truck) =>
-    //   Object.values(truck).every(
-    //     (value) =>
-    //       value !== '' && value !== null && value !== undefined
-    //   );
-    // const anoActual = new Date().getFullYear();
-    // if (!isTruckObjectNotEmpty(data.driver.truck)) {
-    //   setErrorValidation({
-    //     value: true,
-    //     message: 'Ningún campo puede estar vacío',
-    //   });
-    // } else if (regex.test(data.driver.truck.brand) == false) {
-    //   setErrorValidation({
-    //     value: true,
-    //     message: 'El campo marca contiene carácteres inválidos',
-    //   });
-    // } else if (regex.test(data.driver.truck.model) == false) {
-    //   setErrorValidation({
-    //     value: true,
-    //     message: 'El campo modelo contiene carácteres inválidos',
-    //   });
-    // } else if (
-    //   regex.test(data.driver.truck.charge_capacity) == false
-    // ) {
-    //   setErrorValidation({
-    //     value: true,
-    //     message:
-    //       'El campo capacidad de carga contiene carácteres inválidos',
-    //   });
-    // } else if (regex.test(data.driver.truck.charge_type) == false) {
-    //   setErrorValidation({
-    //     value: true,
-    //     message:
-    //       'El campo tipo de carga contiene carácteres inválidos',
-    //   });
-    // } else if (regexNum.test(data.driver.truck.num_plate) == false) {
-    //   setErrorValidation({
-    //     value: true,
-    //     message: 'El campo matrícula tiene que ser un número',
-    //   });
-    // } else if (
-    //   regexNum.test(data.driver.truck.year) == false ||
-    //   parseInt(data.driver.truck.year) > anoActual ||
-    //   parseInt(data.driver.truck.year) < 1950
-    // ) {
-    //   setErrorValidation({
-    //     value: true,
-    //     message: 'El campo año tiene que ser un año válido',
-    //   });
-    // } else {
-    //   setDataChanged(true);
-    //   setEditar(false);
-    //   dispatch(patchTruck(user.id, data));
-    // }
+    const {
+      brand,
+      model,
+      year,
+      num_plate,
+      charge_capacity,
+      charge_type,
+    } = watch();
+    dispatch(
+      patchTruck({
+        brand,
+        model,
+        year,
+        num_plate,
+        charge_capacity,
+        charge_type,
+      })
+    );
   };
 
   const handleChange = (event, newValue) => {
@@ -348,8 +322,8 @@ export default function VerticalTabs() {
           >
             <Typography fontSize={'20px'} fontWeight={600}>
               {user.role == 'driver'
-                ? driverOptionsMobile[value]
-                : clientOptionsMobile[value]}
+                ? driverOptionsMobile[tab]
+                : clientOptionsMobile[tab]}
             </Typography>
             <div style={{ height: '100%', position: 'relative' }}>
               <Button
@@ -949,7 +923,7 @@ export default function VerticalTabs() {
             <label htmlFor="avatar">
               <Avatar
                 alt="profile image"
-                src="imagen"
+                src={showImage}
                 sx={{
                   width: 100,
                   height: 100,
@@ -1129,11 +1103,12 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    // name="brand"
-                    // // onChange={onChange}
-                    // defaultValue={
-                    //   data.driver && data.driver.truck?.brand
-                    // }
+                    {...register('brand', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1159,11 +1134,12 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    // name="model"
-                    // onChange={onChange}
-                    // defaultValue={
-                    //   data.driver && data.driver.truck?.model
-                    // }
+                    {...register('model', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1188,11 +1164,12 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    // name="year"
-                    // onChange={onChange}
-                    // defaultValue={
-                    //   data.driver && data.driver.truck?.year
-                    // }
+                    {...register('year', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1217,11 +1194,12 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    // name="num_plate"
-                    // onChange={onChange}
-                    // defaultValue={
-                    //   data.driver && data.driver.truck?.num_plate
-                    // }
+                    {...register('num_plate', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1246,12 +1224,12 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    // name="charge_capacity"
-                    // onChange={onChange}
-                    // defaultValue={
-                    //   data.driver &&
-                    //   data.driver.truck?.charge_capacity
-                    // }
+                    {...register('charge_capacity', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1271,18 +1249,26 @@ export default function VerticalTabs() {
                   }}
                   variant="outlined"
                 >
-                  <OutlinedInput
+                  <Select
+                    defaultValue={watch().charge_type}
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    // name="charge_type"
-                    // onChange={onChange}
-                    // defaultValue={
-                    //   data.driver && data.driver.truck?.charge_type
-                    // }
+                    {...register('charge_type', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
-                  />
+                  >
+                    {selectChargeType.map((type, index) => (
+                      <MenuItem key={index} value={type}>
+                        {type}
+                      </MenuItem>
+                    ))}
+                  </Select>
                 </FormControl>
               </Box>
             )}
@@ -1290,6 +1276,7 @@ export default function VerticalTabs() {
             {editar ? (
               <Button
                 variant="contained"
+                disabled={userLoading}
                 style={{
                   fontWeight: 600,
                   alignSelf: 'center',
@@ -1300,8 +1287,10 @@ export default function VerticalTabs() {
                   switch (user.role) {
                     case 'customer':
                       putCustomerDataClient();
+                      break;
                     case 'driver':
                       putTruckData();
+                      break;
                   }
                 }}
               >
@@ -1422,7 +1411,7 @@ export default function VerticalTabs() {
             <label htmlFor="avatar">
               <Avatar
                 alt="profile image"
-                src="imagen"
+                src={showImage}
                 sx={{
                   width: 100,
                   height: 100,

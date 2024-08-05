@@ -236,21 +236,26 @@ export const patchDriver = (
   };
 };
 
-export const patchTruck = (id, truck) => {
+export const patchTruck = (truck) => {
   return async (dispatch) => {
     dispatch({ type: PATCH_TRUCK_PENDING });
     try {
-      const user = await axiosInstance.patch(
-        `/truck/update/${id}`,
+      const userId = Cookies.get('id');
+      const response = await axiosInstance.patch(
+        `/truck/update/${userId}`,
         truck,
         { headers }
       );
       return dispatch({
         type: PATCH_TRUCK_SUCCESS,
-        payload: user,
+        payload: response.data,
       });
     } catch (error) {
-      dispatch({ type: PATCH_TRUCK_FAILURE, error: error.message });
+      console.error(error);
+      dispatch({
+        type: PATCH_TRUCK_FAILURE,
+        payload: error.response.data,
+      });
     }
   };
 };
