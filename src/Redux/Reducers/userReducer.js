@@ -180,16 +180,18 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         userLoading: false,
-        error: action.error,
       };
     case PATCH_DRIVER_SUCCESS:
       return {
         ...state,
         user: {
           ...state.user,
+          name: action.payload.user?.name,
+          lastname: action.payload.user?.lastname,
+          profile_image: action.payload.user?.profile_image,
           driver: {
-            ...state.driver,
-            ...action.payload,
+            description: action.payload.driver?.description,
+            phone: action.payload.driver?.phone,
           },
         },
         userLoading: false,

@@ -64,7 +64,7 @@ const PageAdminPerfil = () => {
 
   React.useEffect(() => {
     setEditar(false);
-  }, [user.name, user.lastname, user.profile_image]);
+  }, [user]);
 
   const putBasicData = () => {
     const { profile_image, name, lastname } = watch();
@@ -96,7 +96,6 @@ const PageAdminPerfil = () => {
                 accept="image/*"
                 style={{
                   display: 'none',
-                  border: 'solid red',
                 }}
                 id="avatar"
                 {...register('profile_image', {

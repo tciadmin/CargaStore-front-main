@@ -2,7 +2,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
+import Tab, { tabClasses } from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import {
@@ -18,18 +18,19 @@ import {
   FormControl,
   OutlinedInput,
 } from '@mui/material';
+import { useForm } from 'react-hook-form';
 import ResponsiveImageBox from '../imageComponents/ResponsiveImageBox';
-import InputForm from '../inputs/InputForm';
+// import InputForm from '../inputs/InputForm';
 import CobroItemCard from '../cards/CobroItemCard';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  getUser,
-  patchBasicUserData,
+  // getUser,
+  // patchBasicUserData,
   patchCustomer,
   patchDriver,
   patchTruck,
 } from '../../Redux/Actions/UserActions/userActions';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 import { Colors } from '../../Utils/Colors';
 
 function TabPanel(props) {
@@ -68,29 +69,87 @@ function a11yProps(index) {
 export default function VerticalTabs() {
   const dispatch = useDispatch();
 
-  const [value, setValue] = React.useState(0);
+  const [tab, setTab] = React.useState(0);
 
   const [open, setOpen] = React.useState(false);
-  const [errorValidation, setErrorValidation] = React.useState({
-    value: false,
-    message: 'Mensaje incorrecto',
-  });
+  // const [errorValidation, setErrorValidation] = React.useState({
+  //   value: false,
+  //   message: 'Mensaje incorrecto',
+  // });
   const [dataChanged, setDataChanged] = React.useState(false);
 
-  const [editar, setEditar] = React.useState(0);
-  const { user } = useSelector((state) => state.user);
+  const [editar, setEditar] = React.useState(false);
+  const { user, userLoading } = useSelector((state) => state.user);
+  const [showImage, setShowImage] = React.useState(null);
+
+  const {
+    register,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      profile_image: '',
+      name: '',
+      lastname: '',
+      email: '',
+      description: '',
+      phone: '',
+    },
+  });
+
+  const watchData = watch();
+  React.useEffect(() => {
+    console.log('DATA: ', watchData);
+  }, [watchData]);
+
+  const setFileToBase = (file) => {
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setShowImage(reader.result);
+      };
+    }
+  };
+
+  const handleFileChange = (ev) => {
+    const selectedFile = ev.target.files?.[0];
+    setValue('profile_image', selectedFile);
+    setFileToBase(selectedFile);
+  };
+
+  const urlBack = import.meta.env.VITE_URL_BACKEND;
 
   React.useEffect(() => {
-    dispatch(getUser(Cookies.get('id')));
-    setData(user);
-    setEditar(false);
-  }, []);
-  const [data, setData] = React.useState(user);
-  React.useEffect(() => {
-    if (!editar) {
-      setData(user);
+    if (user) {
+      user.profile_image &&
+        setShowImage(`${urlBack}/${user.profile_image}`);
+      setValue('name', user.name);
+      setValue('lastname', user.lastname);
+      setValue('email', user.email);
     }
-  }, [user]);
+    if (user?.driver) {
+      setValue('description', user?.driver.description);
+      setValue('phone', user?.driver.phone);
+    }
+  }, [setValue, user, user.driver, urlBack]);
+
+  React.useEffect(() => {
+    setEditar(false);
+  }, [user, user.driver]);
+
+  // React.useEffect(() => {
+  //   dispatch(getUser(Cookies.get('id')));
+  //   setData(user);
+  //   setEditar(false);
+  // }, []);
+  // const [data, setData] = React.useState(user);
+  // React.useEffect(() => {
+  //   if (!editar) {
+  //     setData(user);
+  //   }
+  // }, [user]);
 
   const mobile = useMediaQuery('(max-width: 750px)');
   const driverOptionsMobile = [
@@ -123,228 +182,155 @@ export default function VerticalTabs() {
   ];
 
   const putBasicData = () => {
-    const regexDescription = /^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s.,;:!?()-]*$/;
-    const regex = /^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/;
-    if (!data.name) {
-      setErrorValidation({
-        value: true,
-        message: 'El campo nombre debe completarse',
-      });
-    } else if (!data.lastname) {
-      setErrorValidation({
-        value: true,
-        message: 'El campo apellido debe completarse',
-      });
-    } else {
-      if (regex.test(data.name) == false) {
-        setErrorValidation({
-          value: true,
-          message:
-            'Su nombre no puede contener carácteres especiales ni números',
-        });
-      } else if (regex.test(data.lastname) == false) {
-        setErrorValidation({
-          value: true,
-          message:
-            'Su apellido no puede contener carácteres especiales ni números',
-        });
-      } else {
-        if (dataChanged != true) {
-          const regexTel = /^[0-9\s+]+$/;
-          if (
-            data.driver &&
-            regexTel.test(data.driver.phone) == false
-          ) {
-            setErrorValidation({
-              value: true,
-              message:
-                'Su número de contacto no puede contener caracteres especiales',
-            });
-          } else if (
-            data.driver &&
-            regexDescription.test(data.driver.description) == false
-          ) {
-            setErrorValidation({
-              value: true,
-              message:
-                'Su descripcion no puede contener carácteres especiales ni números',
-            });
-          } else {
-            if (!dataChanged) {
-              if (
-                data.role == 'driver' &&
-                (data.name.trim() != user.name ||
-                  data.lastname.trim() != user.lastname ||
-                  data.driver.description.trim() !=
-                    user.driver.description ||
-                  data.driver.phone != user.driver.phone)
-              ) {
-                dispatch(patchDriver(data.id, data));
-              }
-              if (
-                data.role == 'customer' &&
-                (data.name.trim() != user.name ||
-                  data.lastname.trim() != user.lastname)
-              ) {
-                dispatch(
-                  patchBasicUserData(data.name, data.lastname)
-                );
-              }
-              setEditar(false);
-              setDataChanged(true);
-            }
-          }
-        }
-      }
-    }
+    const { profile_image, name, lastname, description, phone } =
+      watch();
+    dispatch(
+      patchDriver(profile_image, name, lastname, description, phone)
+    );
   };
 
   const putCustomerDataClient = () => {
-    if (!data.customer) {
-      setErrorValidation({
-        value: true,
-        message: 'Datos del cliente no están disponibles',
-      });
-      return;
-    }
-    if (!data.customer.company_name) {
-      setErrorValidation({
-        value: true,
-        message: 'El nombre de la empresa debe completarse',
-      });
-    } else if (!data.customer.address) {
-      setErrorValidation({
-        value: true,
-        message: 'La dirección es obligatoria',
-      });
-    } else {
-      const regex = /^[0-9a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/;
-
-      const regexRUC = /^[0-9]+$/;
-      const cleanRuc = data.customer.ruc
-        ? data.customer.ruc.toString().trim()
-        : '';
-      if (regex.test(data.customer.company_name) == false) {
-        setErrorValidation({
-          value: true,
-          message:
-            'El nombre de su empresa no puede contener carácteres especiales ',
-        });
-      } else if (regex.test(data.customer.address) == false) {
-        setErrorValidation({
-          value: true,
-          message:
-            'La dirección no puede contener carácteres especiales ',
-        });
-      } else if (regexRUC.test(cleanRuc) == false) {
-        setErrorValidation({
-          value: true,
-          message: 'El RUC solamente puede contener números',
-        });
-      } else if (regex.test(data.customer.country) == false) {
-        setErrorValidation({
-          value: true,
-          message: 'El país no puede contener carácteres especiales ',
-        });
-      } else {
-        if (cleanRuc.length != 10) {
-          setErrorValidation({
-            value: true,
-            message: 'El número RUC debe contener 10 digitos',
-          });
-        } else {
-          if (!dataChanged) {
-            dispatch(patchCustomer(data.customer.id, data.customer));
-            setEditar(false);
-            setDataChanged(true);
-          }
-        }
-      }
-    }
+    // if (!data.customer) {
+    //   setErrorValidation({
+    //     value: true,
+    //     message: 'Datos del cliente no están disponibles',
+    //   });
+    //   return;
+    // }
+    // if (!data.customer.company_name) {
+    //   setErrorValidation({
+    //     value: true,
+    //     message: 'El nombre de la empresa debe completarse',
+    //   });
+    // } else if (!data.customer.address) {
+    //   setErrorValidation({
+    //     value: true,
+    //     message: 'La dirección es obligatoria',
+    //   });
+    // } else {
+    //   const regex = /^[0-9a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/;
+    //   const regexRUC = /^[0-9]+$/;
+    //   const cleanRuc = data.customer.ruc
+    //     ? data.customer.ruc.toString().trim()
+    //     : '';
+    //   if (regex.test(data.customer.company_name) == false) {
+    //     setErrorValidation({
+    //       value: true,
+    //       message:
+    //         'El nombre de su empresa no puede contener carácteres especiales ',
+    //     });
+    //   } else if (regex.test(data.customer.address) == false) {
+    //     setErrorValidation({
+    //       value: true,
+    //       message:
+    //         'La dirección no puede contener carácteres especiales ',
+    //     });
+    //   } else if (regexRUC.test(cleanRuc) == false) {
+    //     setErrorValidation({
+    //       value: true,
+    //       message: 'El RUC solamente puede contener números',
+    //     });
+    //   } else if (regex.test(data.customer.country) == false) {
+    //     setErrorValidation({
+    //       value: true,
+    //       message: 'El país no puede contener carácteres especiales ',
+    //     });
+    //   } else {
+    //     if (cleanRuc.length != 10) {
+    //       setErrorValidation({
+    //         value: true,
+    //         message: 'El número RUC debe contener 10 digitos',
+    //       });
+    //     } else {
+    //       if (!dataChanged) {
+    //         dispatch(patchCustomer(data.customer.id, data.customer));
+    //         setEditar(false);
+    //         setDataChanged(true);
+    //       }
+    //     }
+    //   }
+    // }
   };
 
   const putTruckData = () => {
-    const regex = /^[0-9a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/;
-    const regexNum = /^[0-9]+$/;
-
-    if (!data.driver || !data.driver.truck) {
-      setErrorValidation({
-        value: true,
-        message: 'Datos del camión no disponibles',
-      });
-      return;
-    }
-
-    const isTruckObjectNotEmpty = (truck) =>
-      Object.values(truck).every(
-        (value) =>
-          value !== '' && value !== null && value !== undefined
-      );
-
-    const anoActual = new Date().getFullYear();
-    if (!isTruckObjectNotEmpty(data.driver.truck)) {
-      setErrorValidation({
-        value: true,
-        message: 'Ningún campo puede estar vacío',
-      });
-    } else if (regex.test(data.driver.truck.brand) == false) {
-      setErrorValidation({
-        value: true,
-        message: 'El campo marca contiene carácteres inválidos',
-      });
-    } else if (regex.test(data.driver.truck.model) == false) {
-      setErrorValidation({
-        value: true,
-        message: 'El campo modelo contiene carácteres inválidos',
-      });
-    } else if (
-      regex.test(data.driver.truck.charge_capacity) == false
-    ) {
-      setErrorValidation({
-        value: true,
-        message:
-          'El campo capacidad de carga contiene carácteres inválidos',
-      });
-    } else if (regex.test(data.driver.truck.charge_type) == false) {
-      setErrorValidation({
-        value: true,
-        message:
-          'El campo tipo de carga contiene carácteres inválidos',
-      });
-    } else if (regexNum.test(data.driver.truck.num_plate) == false) {
-      setErrorValidation({
-        value: true,
-        message: 'El campo matrícula tiene que ser un número',
-      });
-    } else if (
-      regexNum.test(data.driver.truck.year) == false ||
-      parseInt(data.driver.truck.year) > anoActual ||
-      parseInt(data.driver.truck.year) < 1950
-    ) {
-      setErrorValidation({
-        value: true,
-        message: 'El campo año tiene que ser un año válido',
-      });
-    } else {
-      setDataChanged(true);
-      setEditar(false);
-      dispatch(patchTruck(user.id, data));
-    }
+    // const regex = /^[0-9a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/;
+    // const regexNum = /^[0-9]+$/;
+    // if (!data.driver || !data.driver.truck) {
+    //   setErrorValidation({
+    //     value: true,
+    //     message: 'Datos del camión no disponibles',
+    //   });
+    //   return;
+    // }
+    // const isTruckObjectNotEmpty = (truck) =>
+    //   Object.values(truck).every(
+    //     (value) =>
+    //       value !== '' && value !== null && value !== undefined
+    //   );
+    // const anoActual = new Date().getFullYear();
+    // if (!isTruckObjectNotEmpty(data.driver.truck)) {
+    //   setErrorValidation({
+    //     value: true,
+    //     message: 'Ningún campo puede estar vacío',
+    //   });
+    // } else if (regex.test(data.driver.truck.brand) == false) {
+    //   setErrorValidation({
+    //     value: true,
+    //     message: 'El campo marca contiene carácteres inválidos',
+    //   });
+    // } else if (regex.test(data.driver.truck.model) == false) {
+    //   setErrorValidation({
+    //     value: true,
+    //     message: 'El campo modelo contiene carácteres inválidos',
+    //   });
+    // } else if (
+    //   regex.test(data.driver.truck.charge_capacity) == false
+    // ) {
+    //   setErrorValidation({
+    //     value: true,
+    //     message:
+    //       'El campo capacidad de carga contiene carácteres inválidos',
+    //   });
+    // } else if (regex.test(data.driver.truck.charge_type) == false) {
+    //   setErrorValidation({
+    //     value: true,
+    //     message:
+    //       'El campo tipo de carga contiene carácteres inválidos',
+    //   });
+    // } else if (regexNum.test(data.driver.truck.num_plate) == false) {
+    //   setErrorValidation({
+    //     value: true,
+    //     message: 'El campo matrícula tiene que ser un número',
+    //   });
+    // } else if (
+    //   regexNum.test(data.driver.truck.year) == false ||
+    //   parseInt(data.driver.truck.year) > anoActual ||
+    //   parseInt(data.driver.truck.year) < 1950
+    // ) {
+    //   setErrorValidation({
+    //     value: true,
+    //     message: 'El campo año tiene que ser un año válido',
+    //   });
+    // } else {
+    //   setDataChanged(true);
+    //   setEditar(false);
+    //   dispatch(patchTruck(user.id, data));
+    // }
   };
 
   const handleChange = (event, newValue) => {
     setEditar(false);
-    setData(user);
-    setValue(newValue);
+    // setData(user);
+    setTab(newValue);
   };
 
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  // const onChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setData((prevData) => ({
+  //     ...prevData,
+  //     [name]: value,
+  //   }));
+  // };
 
   return (
     <Box
@@ -404,10 +390,10 @@ export default function VerticalTabs() {
                           textAlign: 'start',
                           width: '100%',
                           display: 'inline-block',
-                          fontWeight: value == index ? 600 : 400,
-                          color: value == index ? '#007C52' : 'black',
+                          fontWeight: tab == index ? 600 : 400,
+                          color: tab == index ? '#007C52' : 'black',
                         }}
-                        onClick={() => setValue(index)}
+                        onClick={() => setTab(index)}
                       >
                         {option}
                       </Button>
@@ -422,10 +408,10 @@ export default function VerticalTabs() {
                           textAlign: 'start',
                           width: '100%',
                           display: 'inline-block',
-                          fontWeight: value == index ? 600 : 400,
-                          color: value == index ? '#007C52' : 'black',
+                          fontWeight: tab == index ? 600 : 400,
+                          color: tab == index ? '#007C52' : 'black',
                         }}
-                        onClick={() => setValue(index)}
+                        onClick={() => setTab(index)}
                       >
                         {option}
                       </Button>
@@ -441,7 +427,7 @@ export default function VerticalTabs() {
         <Tabs
           orientation="vertical"
           variant="scrollable"
-          value={value}
+          value={tab}
           onChange={handleChange}
           aria-label="Vertical tabs example"
           sx={{
@@ -455,7 +441,7 @@ export default function VerticalTabs() {
             label="Datos Personales"
             sx={{
               textTransform: 'none',
-              background: value == 0 ? 'white' : 'transparent',
+              background: tab == 0 ? 'white' : 'transparent',
               width: '100%',
               alignItems: 'flex-start',
               fontWeight: 'bold',
@@ -466,7 +452,7 @@ export default function VerticalTabs() {
             label="Datos del camión"
             sx={{
               textTransform: 'none',
-              background: value == 1 ? 'white' : 'transparent',
+              background: tab == 1 ? 'white' : 'transparent',
               width: '100%',
               alignItems: 'flex-start',
               fontWeight: 'bold',
@@ -477,7 +463,7 @@ export default function VerticalTabs() {
             label="Documentos legales"
             sx={{
               textTransform: 'none',
-              background: value == 2 ? 'white' : 'transparent',
+              background: tab == 2 ? 'white' : 'transparent',
               width: '100%',
               alignItems: 'flex-start',
               fontWeight: 'bold',
@@ -501,7 +487,7 @@ export default function VerticalTabs() {
         <Tabs
           orientation="vertical"
           variant="scrollable"
-          value={value}
+          value={tab}
           onChange={handleChange}
           aria-label="Vertical tabs example"
           sx={{
@@ -515,7 +501,7 @@ export default function VerticalTabs() {
             label="Datos Personales"
             sx={{
               textTransform: 'none',
-              background: value == 0 ? 'white' : 'transparent',
+              background: tab == 0 ? 'white' : 'transparent',
               width: '100%',
               alignItems: 'flex-start',
               fontWeight: 'bold',
@@ -526,7 +512,7 @@ export default function VerticalTabs() {
             label="Configuración de cuenta"
             sx={{
               textTransform: 'none',
-              background: value == 1 ? 'white' : 'transparent',
+              background: tab == 1 ? 'white' : 'transparent',
               width: '100%',
               alignItems: 'flex-start',
               fontWeight: 'bold',
@@ -559,9 +545,9 @@ export default function VerticalTabs() {
       )}
 
       <TabPanel
-        value={value}
+        value={tab}
         style={{
-          width: value == 0 ? '100%' : '0',
+          width: tab == 0 ? '100%' : '0',
           display: 'flex',
           justifyContent: 'center',
           gap: 20,
@@ -591,10 +577,18 @@ export default function VerticalTabs() {
           >
             {editar ? (
               <input
+                type="file"
                 accept="image/*"
                 style={{ display: 'none' }}
                 id="avatar"
-                type="file"
+                {...register('profile_image', {
+                  required: {
+                    value: true,
+                  },
+                })}
+                onChange={(ev) => {
+                  handleFileChange(ev);
+                }}
               />
             ) : (
               ''
@@ -602,7 +596,7 @@ export default function VerticalTabs() {
             <label htmlFor="avatar">
               <Avatar
                 alt="Profile"
-                src="imagen"
+                src={showImage}
                 sx={{
                   width: 100,
                   height: 100,
@@ -620,7 +614,7 @@ export default function VerticalTabs() {
               flexDirection: 'column',
             }}
           >
-            {value == 0 && user.role === 'driver' && (
+            {tab == 0 && user.role === 'driver' && (
               <Box
                 style={{
                   display: 'flex',
@@ -652,9 +646,12 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    name="name"
-                    onChange={onChange}
-                    defaultValue={data.name}
+                    {...register('name', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -676,9 +673,12 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    name="lastname"
-                    onChange={onChange}
-                    defaultValue={data.lastname}
+                    {...register('lastname', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -704,9 +704,12 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    name="email"
-                    onChange={onChange}
-                    defaultValue={data.email}
+                    {...register('email', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -732,9 +735,12 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    name="phone"
-                    onChange={onChange}
-                    defaultValue={data.driver && data.driver.phone}
+                    {...register('phone', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -760,17 +766,18 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    name="description"
-                    onChange={onChange}
-                    defaultValue={
-                      data.driver && data.driver.description
-                    }
-                    readOnly={editar}
+                    {...register('description', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
+                    readOnly={!editar}
                   />
                 </FormControl>
               </Box>
             )}
-            {value == 0 && user.role === 'customer' && (
+            {tab == 0 && user.role === 'customer' && (
               <Box
                 style={{
                   display: 'flex',
@@ -802,9 +809,12 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    name="name"
-                    onChange={onChange}
-                    defaultValue={data.name}
+                    {...register('name', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -826,9 +836,12 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    name="lastname"
-                    onChange={onChange}
-                    defaultValue={data.lastname}
+                    {...register('lastname', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -854,9 +867,12 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    name="email"
-                    onChange={onChange}
-                    defaultValue={data.email}
+                    {...register('email', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -867,6 +883,7 @@ export default function VerticalTabs() {
           {editar ? (
             <Button
               variant="contained"
+              disabled={userLoading}
               style={{
                 fontWeight: 600,
                 alignSelf: 'center',
@@ -898,9 +915,9 @@ export default function VerticalTabs() {
         </Stack>
       </TabPanel>
       <TabPanel
-        value={value}
+        value={tab}
         style={{
-          width: value == 1 ? '100%' : '0',
+          width: tab == 1 ? '100%' : '0',
           display: 'flex',
           justifyContent: 'center',
         }}
@@ -1013,7 +1030,7 @@ export default function VerticalTabs() {
                       borderRadius: '8px',
                     }}
                     name="ruc"
-                    onChange={onChange}
+                    // onChange={onChange}
                     defaultValue={data.customer && data.customer.ruc}
                     readOnly={!editar}
                   />
@@ -1041,7 +1058,7 @@ export default function VerticalTabs() {
                       borderRadius: '8px',
                     }}
                     name="address"
-                    onChange={onChange}
+                    // onChange={onChange}
                     defaultValue={
                       data.customer && data.customer.address
                     }
@@ -1070,11 +1087,11 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    name="country"
-                    onChange={onChange}
-                    defaultValue={
-                      data.customer && data.customer.country
-                    }
+                    // name="country"
+                    // // onChange={onChange}
+                    // defaultValue={
+                    //   data.customer && data.customer.country
+                    // }
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1112,11 +1129,11 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    name="brand"
-                    onChange={onChange}
-                    defaultValue={
-                      data.driver && data.driver.truck?.brand
-                    }
+                    // name="brand"
+                    // // onChange={onChange}
+                    // defaultValue={
+                    //   data.driver && data.driver.truck?.brand
+                    // }
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1142,11 +1159,11 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    name="model"
-                    onChange={onChange}
-                    defaultValue={
-                      data.driver && data.driver.truck?.model
-                    }
+                    // name="model"
+                    // onChange={onChange}
+                    // defaultValue={
+                    //   data.driver && data.driver.truck?.model
+                    // }
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1171,11 +1188,11 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    name="year"
-                    onChange={onChange}
-                    defaultValue={
-                      data.driver && data.driver.truck?.year
-                    }
+                    // name="year"
+                    // onChange={onChange}
+                    // defaultValue={
+                    //   data.driver && data.driver.truck?.year
+                    // }
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1200,11 +1217,11 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    name="num_plate"
-                    onChange={onChange}
-                    defaultValue={
-                      data.driver && data.driver.truck?.num_plate
-                    }
+                    // name="num_plate"
+                    // onChange={onChange}
+                    // defaultValue={
+                    //   data.driver && data.driver.truck?.num_plate
+                    // }
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1229,12 +1246,12 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    name="charge_capacity"
-                    onChange={onChange}
-                    defaultValue={
-                      data.driver &&
-                      data.driver.truck?.charge_capacity
-                    }
+                    // name="charge_capacity"
+                    // onChange={onChange}
+                    // defaultValue={
+                    //   data.driver &&
+                    //   data.driver.truck?.charge_capacity
+                    // }
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1259,11 +1276,11 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    name="charge_type"
-                    onChange={onChange}
-                    defaultValue={
-                      data.driver && data.driver.truck?.charge_type
-                    }
+                    // name="charge_type"
+                    // onChange={onChange}
+                    // defaultValue={
+                    //   data.driver && data.driver.truck?.charge_type
+                    // }
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1371,9 +1388,9 @@ export default function VerticalTabs() {
         </Stack>
       </TabPanel>
       <TabPanel
-        value={value}
+        value={tab}
         style={{
-          width: value == 2 ? '100%' : '0',
+          width: tab == 2 ? '100%' : '0',
           display: 'flex',
           justifyContent: 'center',
         }}
@@ -1455,9 +1472,9 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    name="license"
-                    onChange={onChange}
-                    defaultValue={data.driver && data.driver.license}
+                    // name="license"
+                    // onChange={onChange}
+                    // defaultValue={data.driver && data.driver.license}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1482,9 +1499,9 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    name="iess"
-                    onChange={onChange}
-                    defaultValue={data.driver && data.driver.iess}
+                    // name="iess"
+                    // onChange={onChange}
+                    // defaultValue={data.driver && data.driver.iess}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1510,11 +1527,11 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    name="port_permit"
-                    onChange={onChange}
-                    defaultValue={
-                      data.driver && data.driver.port_permit
-                    }
+                    // name="port_permit"
+                    // onChange={onChange}
+                    // defaultValue={
+                    //   data.driver && data.driver.port_permit
+                    // }
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1540,11 +1557,11 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    name="insurance_policy"
-                    onChange={onChange}
-                    defaultValue={
-                      data.driver && data.driver.insurance_policy
-                    }
+                    // name="insurance_policy"
+                    // onChange={onChange}
+                    // defaultValue={
+                    //   data.driver && data.driver.insurance_policy
+                    // }
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1892,9 +1909,9 @@ export default function VerticalTabs() {
         </Stack>
       </TabPanel>
       <TabPanel
-        value={value}
+        value={tab}
         style={{
-          width: value == 3 ? '100%' : '0',
+          width: tab == 3 ? '100%' : '0',
           display: 'flex',
           justifyContent: 'center',
         }}

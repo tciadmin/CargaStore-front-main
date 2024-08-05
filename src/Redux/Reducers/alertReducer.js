@@ -2,6 +2,8 @@ import { CLEAR_ALERT } from '../Actions/AlertAction/clearAlert';
 import {
   PATCH_BASIC_USER_FAILURE,
   PATCH_BASIC_USER_SUCCESS,
+  PATCH_DRIVER_FAILURE,
+  PATCH_DRIVER_SUCCESS,
 } from '../Actions/UserActions/userActions';
 
 const initialState = {
@@ -18,6 +20,16 @@ export const alertReducer = (state = initialState, action) => {
         message: action.payload.message,
       };
     case PATCH_BASIC_USER_FAILURE:
+      return {
+        ...state,
+        message: action.payload.message,
+      };
+    case PATCH_DRIVER_SUCCESS:
+      return {
+        ...state,
+        message: action.payload.message,
+      };
+    case PATCH_DRIVER_FAILURE:
       return {
         ...state,
         message: action.payload.message,

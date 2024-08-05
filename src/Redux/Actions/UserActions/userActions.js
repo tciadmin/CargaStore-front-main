@@ -198,25 +198,40 @@ export const patchCustomer = (id, customer) => {
   };
 };
 
-export const patchDriver = (id, datos) => {
+export const patchDriver = (
+  profile_image,
+  name,
+  lastname,
+  description,
+  phone
+) => {
   return async (dispatch) => {
     dispatch({ type: PATCH_DRIVER_PENDING });
-    const driver = {
-      name: datos.name,
-      lastname: datos.lastname,
-      description: datos.driver.description,
-      phone: datos.driver.phone,
-    };
     try {
-      await axiosInstance.patch(`/driver/patch/${id}`, driver, {
-        headers,
-      });
+      const userId = Cookies.get('id');
+      const formData = new FormData();
+      formData.append('profile_image', profile_image);
+      formData.append('name', name);
+      formData.append('lastname', lastname);
+      formData.append('description', description);
+      formData.append('phone', phone);
+      const response = await axiosInstance.patch(
+        `/driver/patch/${userId}`,
+        formData,
+        {
+          headers,
+        }
+      );
       return dispatch({
         type: PATCH_DRIVER_SUCCESS,
-        payload: data,
+        payload: response.data,
       });
     } catch (error) {
-      dispatch({ type: PATCH_DRIVER_FAILURE, error: error.message });
+      console.error(error);
+      dispatch({
+        type: PATCH_DRIVER_FAILURE,
+        payload: error.response.data,
+      });
     }
   };
 };
