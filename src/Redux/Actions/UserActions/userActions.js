@@ -239,30 +239,33 @@ export const patchTruck = (id, truck) => {
     }
   };
 };
-export const patchBasicUserData = (name, lastname) => {
+export const patchBasicUserData = (profile_image, name, lastname) => {
   return async (dispatch) => {
     dispatch({ type: PATCH_BASIC_USER_PENDING });
     try {
       const token = Cookies.get('token');
+      const userId = Cookies.get('id');
       const headers = {
         Authorization: `Bearer ${token}`,
       };
-      await axiosInstance.patch(
-        `/users/patchDataUser`,
-        { name, lastname },
+      const formData = new FormData();
+      formData.append('profile_image', profile_image);
+      formData.append('name', name);
+      formData.append('lastname', lastname);
+      const response = await axiosInstance.patch(
+        `/users/patchDataUser/${userId}`,
+        formData,
         { headers }
       );
       return dispatch({
         type: PATCH_BASIC_USER_SUCCESS,
-        payload: {
-          name,
-          lastname,
-        },
+        payload: response.data,
       });
     } catch (error) {
+      console.log('response error: ', error);
       dispatch({
         type: PATCH_BASIC_USER_FAILURE,
-        error: error.message,
+        payload: error.response.data,
       });
     }
   };

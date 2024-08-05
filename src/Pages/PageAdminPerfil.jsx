@@ -1,79 +1,74 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Alert,
   Avatar,
   Button,
-  Snackbar,
   Stack,
   useMediaQuery,
-  Box, 
+  Box,
   FormControl,
-  OutlinedInput
+  OutlinedInput,
 } from '@mui/material';
-import InputForm from '../Components/inputs/InputForm';
-import {
-  getUser,
-  patchBasicUserData,
-} from '../Redux/Actions/UserActions/userActions';
-import Cookies from 'js-cookie';
+import { useForm } from 'react-hook-form';
+import { patchBasicUserData } from '../Redux/Actions/UserActions/userActions';
 import { Colors } from '../Utils/Colors';
 
 const PageAdminPerfil = () => {
   const mobile = useMediaQuery('(max-width: 750px)');
   const dispatch = useDispatch();
   const [editar, setEditar] = useState(false);
-  const [dataChanged, setDataChanged] = useState(false);
+  const { user, userLoading } = useSelector((state) => state.user);
+  const [showImage, setShowImage] = useState(null);
 
-  const [errorValidation, setErrorValidation] = useState({
-    value: false,
-    message: 'Mensaje incorrecto',
+  const {
+    register,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      profile_image: '',
+      name: '',
+      lastname: '',
+      email: '',
+    },
   });
-  const { user } = useSelector((state) => state.user);
-  const [data, setData] = useState(user);
+
+  const setFileToBase = (file) => {
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setShowImage(reader.result);
+      };
+    }
+  };
+
+  const handleFileChange = (ev) => {
+    const selectedFile = ev.target.files?.[0];
+    setValue('profile_image', selectedFile);
+    setFileToBase(selectedFile);
+  };
+
+  const urlBack = import.meta.env.VITE_URL_BACKEND;
 
   React.useEffect(() => {
-    dispatch(getUser(Cookies.get('id')));
-    setData(user);
-    setEditar(false);
-  }, [dispatch, user]);
-  useEffect(() => {
-    if (!editar) {
-      setData(user);
+    if (user) {
+      user.profile_image &&
+        setShowImage(`${urlBack}/${user.profile_image}`);
+      setValue('name', user.name);
+      setValue('lastname', user.lastname);
+      setValue('email', user.email);
     }
-  }, [editar, user]);
+  }, [setValue, user, urlBack]);
+
+  React.useEffect(() => {
+    setEditar(false);
+  }, [user.name, user.lastname, user.profile_image]);
 
   const putBasicData = () => {
-    const regex = /^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/;
-    if (!data.name) {
-      setErrorValidation({
-        value: true,
-        message: 'El campo nombre debe completarse',
-      });
-    } else if (!data.lastname) {
-      setErrorValidation({
-        value: true,
-        message: 'El campo apellido debe completarse',
-      });
-    } else {
-      if (regex.test(data.name) == false) {
-        setErrorValidation({
-          value: true,
-          message:
-            'Su nombre no puede contener carácteres especiales ni números',
-        });
-      } else if (regex.test(data.lastname) == false) {
-        setErrorValidation({
-          value: true,
-          message:
-            'Su apellido no puede contener carácteres especiales ni números',
-        });
-      } else {
-        setEditar(false);
-        setDataChanged(true);
-        dispatch(patchBasicUserData(data.name, data.lastname));
-      }
-    }
+    const { profile_image, name, lastname } = watch();
+    dispatch(patchBasicUserData(profile_image, name, lastname));
   };
 
   return (
@@ -97,10 +92,21 @@ const PageAdminPerfil = () => {
           >
             {editar ? (
               <input
-                accept="image/*"
-                style={{ display: 'none' }}
-                id="avatar"
                 type="file"
+                accept="image/*"
+                style={{
+                  display: 'none',
+                  border: 'solid red',
+                }}
+                id="avatar"
+                {...register('profile_image', {
+                  required: {
+                    value: true,
+                  },
+                })}
+                onChange={(ev) => {
+                  handleFileChange(ev);
+                }}
               />
             ) : (
               ''
@@ -108,7 +114,7 @@ const PageAdminPerfil = () => {
             <label htmlFor="avatar">
               <Avatar
                 alt="Profile"
-                src="imagen"
+                src={showImage}
                 sx={{
                   width: 100,
                   height: 100,
@@ -118,22 +124,28 @@ const PageAdminPerfil = () => {
               />
             </label>
           </div>
-          <form style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
-          <Box
+          <form
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
+            }}
+          >
+            <Box
               style={{
-                display: "flex",
-                textAlign: "left",
-                flexDirection: "column",
+                display: 'flex',
+                textAlign: 'left',
+                flexDirection: 'column',
                 gap: 3,
-                justifyContent: "center",
+                justifyContent: 'center',
               }}
             >
-
-          <p
+              <p
                 style={{
                   fontWeight: 500,
                   color: Colors.secondary.contrastText,
-                  textAlign: "left",
+                  textAlign: 'left',
                 }}
               >
                 Nombre
@@ -141,16 +153,21 @@ const PageAdminPerfil = () => {
               <FormControl
                 sx={{
                   m: 1,
-                  width: mobile ? "370px" : "666px",
+                  width: mobile ? '370px' : '666px',
                 }}
                 variant="outlined"
               >
                 <OutlinedInput
                   sx={{
                     backgroundColor: Colors.primary.contrastText,
-                    borderRadius: "8px",
+                    borderRadius: '8px',
                   }}
-                  value={data.name}
+                  {...register('name', {
+                    required: {
+                      value: true,
+                      message: 'Este campo es requerido',
+                    },
+                  })}
                   readOnly={!editar}
                 />
               </FormControl>
@@ -159,7 +176,7 @@ const PageAdminPerfil = () => {
                 style={{
                   fontWeight: 500,
                   color: Colors.secondary.contrastText,
-                  textAlign: "left",
+                  textAlign: 'left',
                 }}
               >
                 Apellido
@@ -167,25 +184,35 @@ const PageAdminPerfil = () => {
               <FormControl
                 sx={{
                   m: 1,
-                  width: mobile ? "370px" : "666px",
+                  width: mobile ? '370px' : '666px',
                 }}
                 variant="outlined"
               >
                 <OutlinedInput
                   sx={{
                     backgroundColor: Colors.primary.contrastText,
-                    borderRadius: "8px",
+                    borderRadius: '8px',
                   }}
-                  value={data.lastname}
+                  {...register('lastname', {
+                    required: {
+                      value: true,
+                      message: 'Este campo es requerido',
+                    },
+                  })}
                   readOnly={!editar}
                 />
+                {errors.lastname && (
+                  <p style={{ color: 'red' }}>
+                    {errors.lastname.message}
+                  </p>
+                )}
               </FormControl>
-          
+
               <p
                 style={{
                   fontWeight: 500,
                   color: Colors.secondary.contrastText,
-                  textAlign: "left",
+                  textAlign: 'left',
                 }}
               >
                 Correo electrónico
@@ -193,32 +220,37 @@ const PageAdminPerfil = () => {
               <FormControl
                 sx={{
                   m: 1,
-                  width: mobile ? "370px" : "666px",
+                  width: mobile ? '370px' : '666px',
                 }}
                 variant="outlined"
               >
                 <OutlinedInput
                   sx={{
                     backgroundColor: Colors.primary.contrastText,
-                    borderRadius: "8px",
+                    borderRadius: '8px',
                   }}
-                  value={data.email}
+                  {...register('email', {
+                    required: {
+                      value: true,
+                      message: 'Este campo es requerido',
+                    },
+                  })}
                   readOnly={!editar}
                 />
               </FormControl>
-              </Box>
-              </form>
-          
+            </Box>
+          </form>
 
           {editar ? (
             <Button
               variant="contained"
+              disabled={userLoading}
               style={{
                 fontWeight: 600,
-                alignSelf: "center",
-                marginTop: "20px",
+                alignSelf: 'center',
+                marginTop: '20px',
               }}
-              onClick={() => putBasicData()}
+              onClick={putBasicData}
             >
               {' '}
               Guardar Cambios
@@ -229,10 +261,10 @@ const PageAdminPerfil = () => {
               onClick={() => setEditar(true)}
               style={{
                 fontWeight: 600,
-                alignSelf: "center",
-                border: "2px solid",
+                alignSelf: 'center',
+                border: '2px solid',
                 backgroundColor: Colors.primary.contrastText,
-                marginTop: "20px",
+                marginTop: '20px',
               }}
             >
               {' '}
@@ -241,41 +273,6 @@ const PageAdminPerfil = () => {
           )}
         </Stack>
       </Stack>
-
-      <Snackbar
-        open={errorValidation.value}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        autoHideDuration={6000}
-        onClose={() =>
-          setErrorValidation({ value: false, message: '' })
-        }
-      >
-        <Alert
-          onClose={() =>
-            setErrorValidation({ value: false, message: '' })
-          }
-          severity="error"
-          variant="filled"
-          sx={{ width: '100%' }}
-        >
-          {errorValidation.message}
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        open={dataChanged}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        autoHideDuration={6000}
-        onClose={() => setDataChanged(false)}
-      >
-        <Alert
-          onClose={() => setDataChanged(false)}
-          severity="success"
-          variant="filled"
-          sx={{ width: '100%' }}
-        >
-          Los cambios se guardaron con éxito!
-        </Alert>
-      </Snackbar>
     </>
   );
 };

@@ -36,7 +36,7 @@ import {
   PUT_CUSTOMER_SUCCESS,
   PATCH_BASIC_USER_SUCCESS,
   PATCH_BASIC_USER_PENDING,
-  PATCH_BASIC_USER_FAILURE
+  PATCH_BASIC_USER_FAILURE,
 } from '../Actions/UserActions/userActions';
 
 const initialState = {
@@ -163,8 +163,8 @@ export const userReducer = (state = initialState, action) => {
           ...state.user,
           customer: {
             ...state.customer,
-            ...action.payload
-          }
+            ...action.payload,
+          },
         },
         userLoading: false,
         error: null,
@@ -189,9 +189,10 @@ export const userReducer = (state = initialState, action) => {
           ...state.user,
           driver: {
             ...state.driver,
-            ...action.payload
-          }
-        }, userLoading: false,
+            ...action.payload,
+          },
+        },
+        userLoading: false,
         error: null,
       };
     case PATCH_BASIC_USER_PENDING:
@@ -211,8 +212,9 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         user: {
           ...state.user,
-          name: action.payload.name,
-          lastname: action.payload.lastname
+          name: action.payload.updatedUser?.name,
+          lastname: action.payload.updatedUser?.lastname,
+          profile_image: action.payload.updatedUser?.profile_image,
         },
         userLoading: false,
         error: null,
@@ -239,12 +241,11 @@ export const userReducer = (state = initialState, action) => {
             ...state.driver,
             truck: {
               ...state.driver.truck,
-              ...action.payload
-
-            }
-          }
+              ...action.payload,
+            },
+          },
         },
-        user: action.payload,
+        // user: action.payload,
         userLoading: false,
         error: null,
       };

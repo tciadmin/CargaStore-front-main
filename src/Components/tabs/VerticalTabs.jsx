@@ -1,36 +1,36 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import * as React from "react";
-import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import {
-  Alert,
+  // Alert,
   Avatar,
   Button,
   Container,
   Grid,
   Paper,
-  Snackbar,
+  // Snackbar,
   Stack,
   useMediaQuery,
   FormControl,
   OutlinedInput,
-} from "@mui/material";
-import ResponsiveImageBox from "../imageComponents/ResponsiveImageBox";
-import InputForm from "../inputs/InputForm";
-import CobroItemCard from "../cards/CobroItemCard";
-import { useDispatch, useSelector } from "react-redux";
+} from '@mui/material';
+import ResponsiveImageBox from '../imageComponents/ResponsiveImageBox';
+import InputForm from '../inputs/InputForm';
+import CobroItemCard from '../cards/CobroItemCard';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   getUser,
   patchBasicUserData,
   patchCustomer,
   patchDriver,
   patchTruck,
-} from "../../Redux/Actions/UserActions/userActions";
-import Cookies from "js-cookie";
-import { Colors } from "../../Utils/Colors";
+} from '../../Redux/Actions/UserActions/userActions';
+import Cookies from 'js-cookie';
+import { Colors } from '../../Utils/Colors';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -61,7 +61,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `vertical-tab-${index}`,
-    "aria-controls": `vertical-tabpanel-${index}`,
+    'aria-controls': `vertical-tabpanel-${index}`,
   };
 }
 
@@ -73,7 +73,7 @@ export default function VerticalTabs() {
   const [open, setOpen] = React.useState(false);
   const [errorValidation, setErrorValidation] = React.useState({
     value: false,
-    message: "Mensaje incorrecto",
+    message: 'Mensaje incorrecto',
   });
   const [dataChanged, setDataChanged] = React.useState(false);
 
@@ -81,7 +81,7 @@ export default function VerticalTabs() {
   const { user } = useSelector((state) => state.user);
 
   React.useEffect(() => {
-    dispatch(getUser(Cookies.get("id")));
+    dispatch(getUser(Cookies.get('id')));
     setData(user);
     setEditar(false);
   }, []);
@@ -92,34 +92,34 @@ export default function VerticalTabs() {
     }
   }, [user]);
 
-  const mobile = useMediaQuery("(max-width: 750px)");
+  const mobile = useMediaQuery('(max-width: 750px)');
   const driverOptionsMobile = [
-    "Datos Personales",
-    "Datos del camión",
-    "Documentos Legales",
-    "Historial de cobros",
+    'Datos Personales',
+    'Datos del camión',
+    'Documentos Legales',
+    'Historial de cobros',
   ];
   const containerBox = mobile
     ? {
         flexGrow: 1,
-        bgcolor: "#f5f5f5ff",
-        display: "flex",
-        flexDirection: "column",
-        maxWidth: "100%",
-        height: "100%",
+        bgcolor: '#f5f5f5ff',
+        display: 'flex',
+        flexDirection: 'column',
+        maxWidth: '100%',
+        height: '100%',
       }
     : {
         flexGrow: 1,
-        bgcolor: "#f5f5f5ff",
-        display: "flex",
-        width: "100%",
-        height: "100%",
+        bgcolor: '#f5f5f5ff',
+        display: 'flex',
+        width: '100%',
+        height: '100%',
       };
   const clientOptionsMobile = [
-    "Datos Personales",
-    "Configuración de la cuenta",
+    'Datos Personales',
+    'Configuración de la cuenta',
     // "Configuración de pagos",
-    "Historial de cobros",
+    'Historial de cobros',
   ];
 
   const putBasicData = () => {
@@ -128,34 +128,37 @@ export default function VerticalTabs() {
     if (!data.name) {
       setErrorValidation({
         value: true,
-        message: "El campo nombre debe completarse",
+        message: 'El campo nombre debe completarse',
       });
     } else if (!data.lastname) {
       setErrorValidation({
         value: true,
-        message: "El campo apellido debe completarse",
+        message: 'El campo apellido debe completarse',
       });
     } else {
       if (regex.test(data.name) == false) {
         setErrorValidation({
           value: true,
           message:
-            "Su nombre no puede contener carácteres especiales ni números",
+            'Su nombre no puede contener carácteres especiales ni números',
         });
       } else if (regex.test(data.lastname) == false) {
         setErrorValidation({
           value: true,
           message:
-            "Su apellido no puede contener carácteres especiales ni números",
+            'Su apellido no puede contener carácteres especiales ni números',
         });
       } else {
         if (dataChanged != true) {
           const regexTel = /^[0-9\s+]+$/;
-          if (data.driver && regexTel.test(data.driver.phone) == false) {
+          if (
+            data.driver &&
+            regexTel.test(data.driver.phone) == false
+          ) {
             setErrorValidation({
               value: true,
               message:
-                "Su número de contacto no puede contener caracteres especiales",
+                'Su número de contacto no puede contener caracteres especiales',
             });
           } else if (
             data.driver &&
@@ -164,25 +167,28 @@ export default function VerticalTabs() {
             setErrorValidation({
               value: true,
               message:
-                "Su descripcion no puede contener carácteres especiales ni números",
+                'Su descripcion no puede contener carácteres especiales ni números',
             });
           } else {
             if (!dataChanged) {
               if (
-                data.role == "driver" &&
+                data.role == 'driver' &&
                 (data.name.trim() != user.name ||
                   data.lastname.trim() != user.lastname ||
-                  data.driver.description.trim() != user.driver.description ||
+                  data.driver.description.trim() !=
+                    user.driver.description ||
                   data.driver.phone != user.driver.phone)
               ) {
                 dispatch(patchDriver(data.id, data));
               }
               if (
-                data.role == "customer" &&
+                data.role == 'customer' &&
                 (data.name.trim() != user.name ||
                   data.lastname.trim() != user.lastname)
               ) {
-                dispatch(patchBasicUserData(data.name, data.lastname));
+                dispatch(
+                  patchBasicUserData(data.name, data.lastname)
+                );
               }
               setEditar(false);
               setDataChanged(true);
@@ -197,51 +203,54 @@ export default function VerticalTabs() {
     if (!data.customer) {
       setErrorValidation({
         value: true,
-        message: "Datos del cliente no están disponibles",
+        message: 'Datos del cliente no están disponibles',
       });
       return;
     }
     if (!data.customer.company_name) {
       setErrorValidation({
         value: true,
-        message: "El nombre de la empresa debe completarse",
+        message: 'El nombre de la empresa debe completarse',
       });
     } else if (!data.customer.address) {
       setErrorValidation({
         value: true,
-        message: "La dirección es obligatoria",
+        message: 'La dirección es obligatoria',
       });
     } else {
       const regex = /^[0-9a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/;
 
       const regexRUC = /^[0-9]+$/;
-      const cleanRuc = data.customer.ruc ? data.customer.ruc.toString().trim() : '';
+      const cleanRuc = data.customer.ruc
+        ? data.customer.ruc.toString().trim()
+        : '';
       if (regex.test(data.customer.company_name) == false) {
         setErrorValidation({
           value: true,
           message:
-            "El nombre de su empresa no puede contener carácteres especiales ",
+            'El nombre de su empresa no puede contener carácteres especiales ',
         });
       } else if (regex.test(data.customer.address) == false) {
         setErrorValidation({
           value: true,
-          message: "La dirección no puede contener carácteres especiales ",
+          message:
+            'La dirección no puede contener carácteres especiales ',
         });
       } else if (regexRUC.test(cleanRuc) == false) {
         setErrorValidation({
           value: true,
-          message: "El RUC solamente puede contener números",
+          message: 'El RUC solamente puede contener números',
         });
       } else if (regex.test(data.customer.country) == false) {
         setErrorValidation({
           value: true,
-          message: "El país no puede contener carácteres especiales ",
+          message: 'El país no puede contener carácteres especiales ',
         });
       } else {
         if (cleanRuc.length != 10) {
           setErrorValidation({
             value: true,
-            message: "El número RUC debe contener 10 digitos",
+            message: 'El número RUC debe contener 10 digitos',
           });
         } else {
           if (!dataChanged) {
@@ -259,50 +268,53 @@ export default function VerticalTabs() {
     const regexNum = /^[0-9]+$/;
 
     if (!data.driver || !data.driver.truck) {
-        setErrorValidation({
-          value: true,
-          message: "Datos del camión no disponibles",
-        });
-        return;
-      }
+      setErrorValidation({
+        value: true,
+        message: 'Datos del camión no disponibles',
+      });
+      return;
+    }
 
     const isTruckObjectNotEmpty = (truck) =>
       Object.values(truck).every(
-        (value) => value !== "" && value !== null && value !== undefined
+        (value) =>
+          value !== '' && value !== null && value !== undefined
       );
-
-      
 
     const anoActual = new Date().getFullYear();
     if (!isTruckObjectNotEmpty(data.driver.truck)) {
       setErrorValidation({
         value: true,
-        message: "Ningún campo puede estar vacío",
+        message: 'Ningún campo puede estar vacío',
       });
     } else if (regex.test(data.driver.truck.brand) == false) {
       setErrorValidation({
         value: true,
-        message: "El campo marca contiene carácteres inválidos",
+        message: 'El campo marca contiene carácteres inválidos',
       });
     } else if (regex.test(data.driver.truck.model) == false) {
       setErrorValidation({
         value: true,
-        message: "El campo modelo contiene carácteres inválidos",
+        message: 'El campo modelo contiene carácteres inválidos',
       });
-    } else if (regex.test(data.driver.truck.charge_capacity) == false) {
+    } else if (
+      regex.test(data.driver.truck.charge_capacity) == false
+    ) {
       setErrorValidation({
         value: true,
-        message: "El campo capacidad de carga contiene carácteres inválidos",
+        message:
+          'El campo capacidad de carga contiene carácteres inválidos',
       });
     } else if (regex.test(data.driver.truck.charge_type) == false) {
       setErrorValidation({
         value: true,
-        message: "El campo tipo de carga contiene carácteres inválidos",
+        message:
+          'El campo tipo de carga contiene carácteres inválidos',
       });
     } else if (regexNum.test(data.driver.truck.num_plate) == false) {
       setErrorValidation({
         value: true,
-        message: "El campo matrícula tiene que ser un número",
+        message: 'El campo matrícula tiene que ser un número',
       });
     } else if (
       regexNum.test(data.driver.truck.year) == false ||
@@ -311,7 +323,7 @@ export default function VerticalTabs() {
     ) {
       setErrorValidation({
         value: true,
-        message: "El campo año tiene que ser un año válido",
+        message: 'El campo año tiene que ser un año válido',
       });
     } else {
       setDataChanged(true);
@@ -335,22 +347,29 @@ export default function VerticalTabs() {
   };
 
   return (
-    <Box sx={containerBox} height={"100vh"} style={{ marginTop: "64px" }}>
+    <Box
+      sx={containerBox}
+      height={'100vh'}
+      style={{ marginTop: '64px' }}
+    >
       {mobile && (
         <Container>
           <Stack
             direction="row"
-            justifyContent={"space-between"}
-            style={{ padding: "10px 0" }}
-            alignContent={"center"}
+            justifyContent={'space-between'}
+            style={{ padding: '10px 0' }}
+            alignContent={'center'}
           >
-            <Typography fontSize={"20px"} fontWeight={600}>
-              {user.role == "driver"
+            <Typography fontSize={'20px'} fontWeight={600}>
+              {user.role == 'driver'
                 ? driverOptionsMobile[value]
                 : clientOptionsMobile[value]}
             </Typography>
-            <div style={{ height: "100%", position: "relative" }}>
-              <Button variant="terciary" onClick={() => setOpen(!open)}>
+            <div style={{ height: '100%', position: 'relative' }}>
+              <Button
+                variant="terciary"
+                onClick={() => setOpen(!open)}
+              >
                 <svg
                   width="16"
                   height="9"
@@ -367,44 +386,44 @@ export default function VerticalTabs() {
               {open && (
                 <Paper
                   style={{
-                    maxWidth: "500px",
-                    width: "200px",
-                    position: "absolute",
-                    right: "25px ",
-                    top: "30px",
+                    maxWidth: '500px',
+                    width: '200px',
+                    position: 'absolute',
+                    right: '25px ',
+                    top: '30px',
                     zIndex: 10,
                   }}
                 >
-                  {user.role == "driver" &&
+                  {user.role == 'driver' &&
                     driverOptionsMobile.map((option, index) => (
                       <Button
                         variant="terciary"
                         key={index}
                         sx={{
-                          fontSize: "14px",
-                          textAlign: "start",
-                          width: "100%",
-                          display: "inline-block",
+                          fontSize: '14px',
+                          textAlign: 'start',
+                          width: '100%',
+                          display: 'inline-block',
                           fontWeight: value == index ? 600 : 400,
-                          color: value == index ? "#007C52" : "black",
+                          color: value == index ? '#007C52' : 'black',
                         }}
                         onClick={() => setValue(index)}
                       >
                         {option}
                       </Button>
                     ))}
-                  {user.role == "customer" &&
+                  {user.role == 'customer' &&
                     clientOptionsMobile.map((option, index) => (
                       <Button
                         variant="terciary"
                         key={index}
                         sx={{
-                          fontSize: "14px",
-                          textAlign: "start",
-                          width: "100%",
-                          display: "inline-block",
+                          fontSize: '14px',
+                          textAlign: 'start',
+                          width: '100%',
+                          display: 'inline-block',
                           fontWeight: value == index ? 600 : 400,
-                          color: value == index ? "#007C52" : "black",
+                          color: value == index ? '#007C52' : 'black',
                         }}
                         onClick={() => setValue(index)}
                       >
@@ -418,7 +437,7 @@ export default function VerticalTabs() {
         </Container>
       )}
 
-      {!mobile && user.role == "driver" && (
+      {!mobile && user.role == 'driver' && (
         <Tabs
           orientation="vertical"
           variant="scrollable"
@@ -427,41 +446,41 @@ export default function VerticalTabs() {
           aria-label="Vertical tabs example"
           sx={{
             borderRight: 1,
-            borderColor: "divider",
-            width: "300px",
+            borderColor: 'divider',
+            width: '300px',
             // height: "100vh",
           }}
         >
           <Tab
             label="Datos Personales"
             sx={{
-              textTransform: "none",
-              background: value == 0 ? "white" : "transparent",
-              width: "100%",
-              alignItems: "flex-start",
-              fontWeight: "bold",
+              textTransform: 'none',
+              background: value == 0 ? 'white' : 'transparent',
+              width: '100%',
+              alignItems: 'flex-start',
+              fontWeight: 'bold',
             }}
             {...a11yProps(0)}
           />
           <Tab
             label="Datos del camión"
             sx={{
-              textTransform: "none",
-              background: value == 1 ? "white" : "transparent",
-              width: "100%",
-              alignItems: "flex-start",
-              fontWeight: "bold",
+              textTransform: 'none',
+              background: value == 1 ? 'white' : 'transparent',
+              width: '100%',
+              alignItems: 'flex-start',
+              fontWeight: 'bold',
             }}
             {...a11yProps(1)}
           />
           <Tab
             label="Documentos legales"
             sx={{
-              textTransform: "none",
-              background: value == 2 ? "white" : "transparent",
-              width: "100%",
-              alignItems: "flex-start",
-              fontWeight: "bold",
+              textTransform: 'none',
+              background: value == 2 ? 'white' : 'transparent',
+              width: '100%',
+              alignItems: 'flex-start',
+              fontWeight: 'bold',
             }}
             {...a11yProps(2)}
           />
@@ -478,7 +497,7 @@ export default function VerticalTabs() {
           /> */}
         </Tabs>
       )}
-      {!mobile && user.role == "customer" && (
+      {!mobile && user.role == 'customer' && (
         <Tabs
           orientation="vertical"
           variant="scrollable"
@@ -487,30 +506,30 @@ export default function VerticalTabs() {
           aria-label="Vertical tabs example"
           sx={{
             borderRight: 1,
-            borderColor: "divider",
-            width: "300px",
-            minHeight: "100vh",
+            borderColor: 'divider',
+            width: '300px',
+            minHeight: '100vh',
           }}
         >
           <Tab
             label="Datos Personales"
             sx={{
-              textTransform: "none",
-              background: value == 0 ? "white" : "transparent",
-              width: "100%",
-              alignItems: "flex-start",
-              fontWeight: "bold",
+              textTransform: 'none',
+              background: value == 0 ? 'white' : 'transparent',
+              width: '100%',
+              alignItems: 'flex-start',
+              fontWeight: 'bold',
             }}
             {...a11yProps(0)}
           />
           <Tab
             label="Configuración de cuenta"
             sx={{
-              textTransform: "none",
-              background: value == 1 ? "white" : "transparent",
-              width: "100%",
-              alignItems: "flex-start",
-              fontWeight: "bold",
+              textTransform: 'none',
+              background: value == 1 ? 'white' : 'transparent',
+              width: '100%',
+              alignItems: 'flex-start',
+              fontWeight: 'bold',
             }}
             {...a11yProps(1)}
           />
@@ -542,43 +561,43 @@ export default function VerticalTabs() {
       <TabPanel
         value={value}
         style={{
-          width: value == 0 ? "100%" : "0",
-          display: "flex",
-          justifyContent: "center",
+          width: value == 0 ? '100%' : '0',
+          display: 'flex',
+          justifyContent: 'center',
           gap: 20,
         }}
         index={0}
       >
         <Stack
           display="flex"
-          width={mobile ? "85vw" : "50vw"}
-          flexDirection={"column"}
-          justifyContent={"center"}
-          alignContent={"center"}
+          width={mobile ? '85vw' : '50vw'}
+          flexDirection={'column'}
+          justifyContent={'center'}
+          alignContent={'center'}
           p={5}
           style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "column",
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
           }}
         >
           <div
             style={{
-              display: "flex",
-              width: "100%",
-              justifyContent: "center",
+              display: 'flex',
+              width: '100%',
+              justifyContent: 'center',
             }}
           >
             {editar ? (
               <input
                 accept="image/*"
-                style={{ display: "none" }}
+                style={{ display: 'none' }}
                 id="avatar"
                 type="file"
               />
             ) : (
-              ""
+              ''
             )}
             <label htmlFor="avatar">
               <Avatar
@@ -587,28 +606,28 @@ export default function VerticalTabs() {
                 sx={{
                   width: 100,
                   height: 100,
-                  alignSelf: "center",
-                  cursor: editar ? "cell" : "default",
+                  alignSelf: 'center',
+                  cursor: editar ? 'cell' : 'default',
                 }}
               />
             </label>
           </div>
           <form
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
             }}
           >
-            {value == 0 && user.role === "driver" && (
+            {value == 0 && user.role === 'driver' && (
               <Box
                 style={{
-                  display: "flex",
-                  textAlign: "left",
-                  flexDirection: "column",
+                  display: 'flex',
+                  textAlign: 'left',
+                  flexDirection: 'column',
                   gap: 3,
-                  justifyContent: "center",
+                  justifyContent: 'center',
                   padding: 5,
                 }}
               >
@@ -616,7 +635,7 @@ export default function VerticalTabs() {
                   style={{
                     fontWeight: 500,
                     color: Colors.secondary.contrastText,
-                    textAlign: "left",
+                    textAlign: 'left',
                   }}
                 >
                   Nombre
@@ -624,14 +643,14 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? "370px" : "666px",
+                    width: mobile ? '370px' : '666px',
                   }}
                   variant="outlined"
                 >
                   <OutlinedInput
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
-                      borderRadius: "8px",
+                      borderRadius: '8px',
                     }}
                     name="name"
                     onChange={onChange}
@@ -643,19 +662,19 @@ export default function VerticalTabs() {
                   style={{
                     fontWeight: 500,
                     color: Colors.secondary.contrastText,
-                    textAlign: "left",
+                    textAlign: 'left',
                   }}
                 >
                   Apellido
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? "370px" : "666px" }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
                   variant="outlined"
                 >
                   <OutlinedInput
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
-                      borderRadius: "8px",
+                      borderRadius: '8px',
                     }}
                     name="lastname"
                     onChange={onChange}
@@ -668,7 +687,7 @@ export default function VerticalTabs() {
                   style={{
                     fontWeight: 500,
                     color: Colors.secondary.contrastText,
-                    textAlign: "left",
+                    textAlign: 'left',
                   }}
                 >
                   Correo electrónico
@@ -676,14 +695,14 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? "370px" : "666px",
+                    width: mobile ? '370px' : '666px',
                   }}
                   variant="outlined"
                 >
                   <OutlinedInput
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
-                      borderRadius: "8px",
+                      borderRadius: '8px',
                     }}
                     name="email"
                     onChange={onChange}
@@ -696,7 +715,7 @@ export default function VerticalTabs() {
                   style={{
                     fontWeight: 500,
                     color: Colors.secondary.contrastText,
-                    textAlign: "left",
+                    textAlign: 'left',
                   }}
                 >
                   Número de contacto
@@ -704,14 +723,14 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? "370px" : "666px",
+                    width: mobile ? '370px' : '666px',
                   }}
                   variant="outlined"
                 >
                   <OutlinedInput
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
-                      borderRadius: "8px",
+                      borderRadius: '8px',
                     }}
                     name="phone"
                     onChange={onChange}
@@ -724,7 +743,7 @@ export default function VerticalTabs() {
                   style={{
                     fontWeight: 500,
                     color: Colors.secondary.contrastText,
-                    textAlign: "left",
+                    textAlign: 'left',
                   }}
                 >
                   Descripción
@@ -732,31 +751,33 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? "370px" : "666px",
+                    width: mobile ? '370px' : '666px',
                   }}
                   variant="outlined"
                 >
                   <OutlinedInput
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
-                      borderRadius: "8px",
+                      borderRadius: '8px',
                     }}
                     name="description"
                     onChange={onChange}
-                    defaultValue={data.driver && data.driver.description}
+                    defaultValue={
+                      data.driver && data.driver.description
+                    }
                     readOnly={editar}
                   />
                 </FormControl>
               </Box>
             )}
-            {value == 0 && user.role === "customer" && (
+            {value == 0 && user.role === 'customer' && (
               <Box
                 style={{
-                  display: "flex",
-                  textAlign: "left",
-                  flexDirection: "column",
+                  display: 'flex',
+                  textAlign: 'left',
+                  flexDirection: 'column',
                   gap: 3,
-                  justifyContent: "center",
+                  justifyContent: 'center',
                   padding: 5,
                 }}
               >
@@ -764,7 +785,7 @@ export default function VerticalTabs() {
                   style={{
                     fontWeight: 500,
                     color: Colors.secondary.contrastText,
-                    textAlign: "left",
+                    textAlign: 'left',
                   }}
                 >
                   Nombre
@@ -772,14 +793,14 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? "370px" : "666px",
+                    width: mobile ? '370px' : '666px',
                   }}
                   variant="outlined"
                 >
                   <OutlinedInput
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
-                      borderRadius: "8px",
+                      borderRadius: '8px',
                     }}
                     name="name"
                     onChange={onChange}
@@ -791,19 +812,19 @@ export default function VerticalTabs() {
                   style={{
                     fontWeight: 500,
                     color: Colors.secondary.contrastText,
-                    textAlign: "left",
+                    textAlign: 'left',
                   }}
                 >
                   Apellido
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? "370px" : "666px" }}
+                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
                   variant="outlined"
                 >
                   <OutlinedInput
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
-                      borderRadius: "8px",
+                      borderRadius: '8px',
                     }}
                     name="lastname"
                     onChange={onChange}
@@ -816,7 +837,7 @@ export default function VerticalTabs() {
                   style={{
                     fontWeight: 500,
                     color: Colors.secondary.contrastText,
-                    textAlign: "left",
+                    textAlign: 'left',
                   }}
                 >
                   Correo electrónico
@@ -824,14 +845,14 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? "370px" : "666px",
+                    width: mobile ? '370px' : '666px',
                   }}
                   variant="outlined"
                 >
                   <OutlinedInput
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
-                      borderRadius: "8px",
+                      borderRadius: '8px',
                     }}
                     name="email"
                     onChange={onChange}
@@ -848,14 +869,14 @@ export default function VerticalTabs() {
               variant="contained"
               style={{
                 fontWeight: 600,
-                alignSelf: "center",
-                marginTop: "20px",
+                alignSelf: 'center',
+                marginTop: '20px',
               }}
               onClick={() => {
                 putBasicData();
               }}
             >
-              {" "}
+              {' '}
               Guardar Cambios
             </Button>
           ) : (
@@ -864,13 +885,13 @@ export default function VerticalTabs() {
               onClick={() => setEditar(true)}
               style={{
                 fontWeight: 600,
-                alignSelf: "center",
-                border: "2px solid",
+                alignSelf: 'center',
+                border: '2px solid',
                 backgroundColor: Colors.primary.contrastText,
-                marginTop: "20px",
+                marginTop: '20px',
               }}
             >
-              {" "}
+              {' '}
               Editar datos
             </Button>
           )}
@@ -879,30 +900,30 @@ export default function VerticalTabs() {
       <TabPanel
         value={value}
         style={{
-          width: value == 1 ? "100%" : "0",
-          display: "flex",
-          justifyContent: "center",
+          width: value == 1 ? '100%' : '0',
+          display: 'flex',
+          justifyContent: 'center',
         }}
         index={1}
       >
         <Stack
           display="flex"
-          width={mobile ? "85vw" : "50vw"}
-          flexDirection={"column"}
-          justifyContent={"center"}
-          alignContent={"center"}
+          width={mobile ? '85vw' : '50vw'}
+          flexDirection={'column'}
+          justifyContent={'center'}
+          alignContent={'center'}
         >
           <div
             style={{
-              display: "flex",
-              width: "100%",
-              justifyContent: "center",
+              display: 'flex',
+              width: '100%',
+              justifyContent: 'center',
             }}
           >
             {editar && (
               <input
                 accept="image/*"
-                style={{ display: "none" }}
+                style={{ display: 'none' }}
                 id="avatar"
                 type="file"
               />
@@ -915,28 +936,28 @@ export default function VerticalTabs() {
                 sx={{
                   width: 100,
                   height: 100,
-                  alignSelf: "center",
-                  cursor: editar ? "cell" : "none",
+                  alignSelf: 'center',
+                  cursor: editar ? 'cell' : 'none',
                 }}
               />
             </label>
           </div>
           <form
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
             }}
           >
-            {user.role == "customer" && (
+            {user.role == 'customer' && (
               <Box
                 style={{
-                  display: "flex",
-                  textAlign: "left",
-                  flexDirection: "column",
+                  display: 'flex',
+                  textAlign: 'left',
+                  flexDirection: 'column',
                   gap: 3,
-                  justifyContent: "center",
+                  justifyContent: 'center',
                   padding: 5,
                 }}
               >
@@ -944,7 +965,7 @@ export default function VerticalTabs() {
                   style={{
                     fontWeight: 500,
                     color: Colors.secondary.contrastText,
-                    textAlign: "left",
+                    textAlign: 'left',
                   }}
                 >
                   Nombre de la empresa
@@ -952,18 +973,20 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? "370px" : "666px",
+                    width: mobile ? '370px' : '666px',
                   }}
                   variant="outlined"
                 >
                   <OutlinedInput
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
-                      borderRadius: "8px",
+                      borderRadius: '8px',
                     }}
                     name="company_name"
                     onChange={onChange}
-                    defaultValue={data.customer && data.customer.company_name}
+                    defaultValue={
+                      data.customer && data.customer.company_name
+                    }
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -972,7 +995,7 @@ export default function VerticalTabs() {
                   style={{
                     fontWeight: 500,
                     color: Colors.secondary.contrastText,
-                    textAlign: "left",
+                    textAlign: 'left',
                   }}
                 >
                   RUC
@@ -980,14 +1003,14 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? "370px" : "666px",
+                    width: mobile ? '370px' : '666px',
                   }}
                   variant="outlined"
                 >
                   <OutlinedInput
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
-                      borderRadius: "8px",
+                      borderRadius: '8px',
                     }}
                     name="ruc"
                     onChange={onChange}
@@ -1000,7 +1023,7 @@ export default function VerticalTabs() {
                   style={{
                     fontWeight: 500,
                     color: Colors.secondary.contrastText,
-                    textAlign: "left",
+                    textAlign: 'left',
                   }}
                 >
                   Dirección
@@ -1008,18 +1031,20 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? "370px" : "666px",
+                    width: mobile ? '370px' : '666px',
                   }}
                   variant="outlined"
                 >
                   <OutlinedInput
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
-                      borderRadius: "8px",
+                      borderRadius: '8px',
                     }}
                     name="address"
                     onChange={onChange}
-                    defaultValue={data.customer && data.customer.address}
+                    defaultValue={
+                      data.customer && data.customer.address
+                    }
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1028,7 +1053,7 @@ export default function VerticalTabs() {
                   style={{
                     fontWeight: 500,
                     color: Colors.secondary.contrastText,
-                    textAlign: "left",
+                    textAlign: 'left',
                   }}
                 >
                   País
@@ -1036,31 +1061,33 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? "370px" : "666px",
+                    width: mobile ? '370px' : '666px',
                   }}
                   variant="outlined"
                 >
                   <OutlinedInput
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
-                      borderRadius: "8px",
+                      borderRadius: '8px',
                     }}
                     name="country"
                     onChange={onChange}
-                    defaultValue={data.customer && data.customer.country}
+                    defaultValue={
+                      data.customer && data.customer.country
+                    }
                     readOnly={!editar}
                   />
                 </FormControl>
               </Box>
             )}
-            {user.role == "driver" && (
+            {user.role == 'driver' && (
               <Box
                 style={{
-                  display: "flex",
-                  textAlign: "left",
-                  flexDirection: "column",
+                  display: 'flex',
+                  textAlign: 'left',
+                  flexDirection: 'column',
                   gap: 3,
-                  justifyContent: "center",
+                  justifyContent: 'center',
                   padding: 5,
                 }}
               >
@@ -1068,7 +1095,7 @@ export default function VerticalTabs() {
                   style={{
                     fontWeight: 500,
                     color: Colors.secondary.contrastText,
-                    textAlign: "left",
+                    textAlign: 'left',
                   }}
                 >
                   Marca
@@ -1076,18 +1103,20 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? "370px" : "666px",
+                    width: mobile ? '370px' : '666px',
                   }}
                   variant="outlined"
                 >
                   <OutlinedInput
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
-                      borderRadius: "8px",
+                      borderRadius: '8px',
                     }}
                     name="brand"
                     onChange={onChange}
-                    defaultValue={data.driver && data.driver.truck?.brand}
+                    defaultValue={
+                      data.driver && data.driver.truck?.brand
+                    }
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1096,7 +1125,7 @@ export default function VerticalTabs() {
                   style={{
                     fontWeight: 500,
                     color: Colors.secondary.contrastText,
-                    textAlign: "left",
+                    textAlign: 'left',
                   }}
                 >
                   Modelo
@@ -1104,100 +1133,19 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? "370px" : "666px",
+                    width: mobile ? '370px' : '666px',
                   }}
                   variant="outlined"
                 >
                   <OutlinedInput
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
-                      borderRadius: "8px",
+                      borderRadius: '8px',
                     }}
                     name="model"
                     onChange={onChange}
-                    defaultValue={data.driver && data.driver.truck?.model}
-                    readOnly={!editar}
-                  />
-                </FormControl>
-                <p
-                  style={{
-                    fontWeight: 500,
-                    color: Colors.secondary.contrastText,
-                    textAlign: "left",
-                  }}
-                >
-                  Año
-                </p>
-                <FormControl
-                  sx={{
-                    m: 1,
-                    width: mobile ? "370px" : "666px",
-                  }}
-                  variant="outlined"
-                >
-                  <OutlinedInput
-                    sx={{
-                      backgroundColor: Colors.primary.contrastText,
-                      borderRadius: "8px",
-                    }}
-                    name="year"
-                    onChange={onChange}
-                    defaultValue={data.driver && data.driver.truck?.year}
-                    readOnly={!editar}
-                  />
-                </FormControl>
-                <p
-                  style={{
-                    fontWeight: 500,
-                    color: Colors.secondary.contrastText,
-                    textAlign: "left",
-                  }}
-                >
-                  Matrícula
-                </p>
-                <FormControl
-                  sx={{
-                    m: 1,
-                    width: mobile ? "370px" : "666px",
-                  }}
-                  variant="outlined"
-                >
-                  <OutlinedInput
-                    sx={{
-                      backgroundColor: Colors.primary.contrastText,
-                      borderRadius: "8px",
-                    }}
-                    name="num_plate"
-                    onChange={onChange}
-                    defaultValue={data.driver && data.driver.truck?.num_plate}
-                    readOnly={!editar}
-                  />
-                </FormControl>
-                <p
-                  style={{
-                    fontWeight: 500,
-                    color: Colors.secondary.contrastText,
-                    textAlign: "left",
-                  }}
-                >
-                  Capacidad de carga
-                </p>
-                <FormControl
-                  sx={{
-                    m: 1,
-                    width: mobile ? "370px" : "666px",
-                  }}
-                  variant="outlined"
-                >
-                  <OutlinedInput
-                    sx={{
-                      backgroundColor: Colors.primary.contrastText,
-                      borderRadius: "8px",
-                    }}
-                    name="charge_capacity"
-                    onChange={onChange}
                     defaultValue={
-                      data.driver && data.driver.truck?.charge_capacity
+                      data.driver && data.driver.truck?.model
                     }
                     readOnly={!editar}
                   />
@@ -1206,7 +1154,95 @@ export default function VerticalTabs() {
                   style={{
                     fontWeight: 500,
                     color: Colors.secondary.contrastText,
-                    textAlign: "left",
+                    textAlign: 'left',
+                  }}
+                >
+                  Año
+                </p>
+                <FormControl
+                  sx={{
+                    m: 1,
+                    width: mobile ? '370px' : '666px',
+                  }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    sx={{
+                      backgroundColor: Colors.primary.contrastText,
+                      borderRadius: '8px',
+                    }}
+                    name="year"
+                    onChange={onChange}
+                    defaultValue={
+                      data.driver && data.driver.truck?.year
+                    }
+                    readOnly={!editar}
+                  />
+                </FormControl>
+                <p
+                  style={{
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
+                    textAlign: 'left',
+                  }}
+                >
+                  Matrícula
+                </p>
+                <FormControl
+                  sx={{
+                    m: 1,
+                    width: mobile ? '370px' : '666px',
+                  }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    sx={{
+                      backgroundColor: Colors.primary.contrastText,
+                      borderRadius: '8px',
+                    }}
+                    name="num_plate"
+                    onChange={onChange}
+                    defaultValue={
+                      data.driver && data.driver.truck?.num_plate
+                    }
+                    readOnly={!editar}
+                  />
+                </FormControl>
+                <p
+                  style={{
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
+                    textAlign: 'left',
+                  }}
+                >
+                  Capacidad de carga
+                </p>
+                <FormControl
+                  sx={{
+                    m: 1,
+                    width: mobile ? '370px' : '666px',
+                  }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    sx={{
+                      backgroundColor: Colors.primary.contrastText,
+                      borderRadius: '8px',
+                    }}
+                    name="charge_capacity"
+                    onChange={onChange}
+                    defaultValue={
+                      data.driver &&
+                      data.driver.truck?.charge_capacity
+                    }
+                    readOnly={!editar}
+                  />
+                </FormControl>
+                <p
+                  style={{
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
+                    textAlign: 'left',
                   }}
                 >
                   Unidad de carga
@@ -1214,18 +1250,20 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? "370px" : "666px",
+                    width: mobile ? '370px' : '666px',
                   }}
                   variant="outlined"
                 >
                   <OutlinedInput
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
-                      borderRadius: "8px",
+                      borderRadius: '8px',
                     }}
                     name="charge_type"
                     onChange={onChange}
-                    defaultValue={data.driver && data.driver.truck?.charge_type}
+                    defaultValue={
+                      data.driver && data.driver.truck?.charge_type
+                    }
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1237,20 +1275,20 @@ export default function VerticalTabs() {
                 variant="contained"
                 style={{
                   fontWeight: 600,
-                  alignSelf: "center",
-                  marginTop: "20px",
-                  marginBottom: "20px",
+                  alignSelf: 'center',
+                  marginTop: '20px',
+                  marginBottom: '20px',
                 }}
                 onClick={() => {
                   switch (user.role) {
-                    case "customer":
+                    case 'customer':
                       putCustomerDataClient();
-                    case "driver":
+                    case 'driver':
                       putTruckData();
                   }
                 }}
               >
-                {" "}
+                {' '}
                 Guardar Cambios
               </Button>
             ) : (
@@ -1259,30 +1297,30 @@ export default function VerticalTabs() {
                 onClick={() => setEditar(true)}
                 style={{
                   fontWeight: 600,
-                  alignSelf: "center",
-                  border: "2px solid",
+                  alignSelf: 'center',
+                  border: '2px solid',
                   backgroundColor: Colors.primary.contrastText,
-                  marginTop: "20px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginBottom: "20px",
+                  marginTop: '20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: '20px',
                 }}
               >
-                {" "}
+                {' '}
                 Editar datos
               </Button>
             )}
           </form>
           <form
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
             }}
           >
-            {user.role == "customer" && (
+            {user.role == 'customer' && (
               <Stack>
                 <svg
                   // style={{marginLeft: '10px', marginTop: 10}}
@@ -1304,7 +1342,7 @@ export default function VerticalTabs() {
                   style={{
                     fontWeight: 500,
                     color: Colors.secondary.contrastText,
-                    textAlign: "left",
+                    textAlign: 'left',
                   }}
                 >
                   Contraseña
@@ -1312,14 +1350,14 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? "370px" : "666px",
+                    width: mobile ? '370px' : '666px',
                   }}
                   variant="outlined"
                 >
                   <OutlinedInput
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
-                      borderRadius: "8px",
+                      borderRadius: '8px',
                       color: Colors.primary.main,
                       fontWeight: 600,
                     }}
@@ -1335,30 +1373,30 @@ export default function VerticalTabs() {
       <TabPanel
         value={value}
         style={{
-          width: value == 2 ? "100%" : "0",
-          display: "flex",
-          justifyContent: "center",
+          width: value == 2 ? '100%' : '0',
+          display: 'flex',
+          justifyContent: 'center',
         }}
         index={2}
       >
         <Stack
           display="flex"
-          width={mobile ? "85vw" : "50vw"}
-          flexDirection={"column"}
-          justifyContent={"center"}
-          alignContent={"center"}
+          width={mobile ? '85vw' : '50vw'}
+          flexDirection={'column'}
+          justifyContent={'center'}
+          alignContent={'center'}
         >
           <div
             style={{
-              display: "flex",
-              width: "100%",
-              justifyContent: "center",
+              display: 'flex',
+              width: '100%',
+              justifyContent: 'center',
             }}
           >
             {editar && (
               <input
                 accept="image/*"
-                style={{ display: "none" }}
+                style={{ display: 'none' }}
                 id="avatar"
                 type="file"
               />
@@ -1371,28 +1409,28 @@ export default function VerticalTabs() {
                 sx={{
                   width: 100,
                   height: 100,
-                  alignSelf: "center",
-                  cursor: editar ? "cell" : "none",
+                  alignSelf: 'center',
+                  cursor: editar ? 'cell' : 'none',
                 }}
               />
             </label>
           </div>
           <form
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
             }}
           >
-            {user.role == "driver" && (
+            {user.role == 'driver' && (
               <Box
                 style={{
-                  display: "flex",
-                  textAlign: "left",
-                  flexDirection: "column",
+                  display: 'flex',
+                  textAlign: 'left',
+                  flexDirection: 'column',
                   gap: 3,
-                  justifyContent: "center",
+                  justifyContent: 'center',
                   padding: 5,
                 }}
               >
@@ -1400,7 +1438,7 @@ export default function VerticalTabs() {
                   style={{
                     fontWeight: 500,
                     color: Colors.secondary.contrastText,
-                    textAlign: "left",
+                    textAlign: 'left',
                   }}
                 >
                   Licencia de conducir
@@ -1408,14 +1446,14 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? "370px" : "666px",
+                    width: mobile ? '370px' : '666px',
                   }}
                   variant="outlined"
                 >
                   <OutlinedInput
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
-                      borderRadius: "8px",
+                      borderRadius: '8px',
                     }}
                     name="license"
                     onChange={onChange}
@@ -1427,7 +1465,7 @@ export default function VerticalTabs() {
                   style={{
                     fontWeight: 500,
                     color: Colors.secondary.contrastText,
-                    textAlign: "left",
+                    textAlign: 'left',
                   }}
                 >
                   Afiliación IESS
@@ -1435,14 +1473,14 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? "370px" : "666px",
+                    width: mobile ? '370px' : '666px',
                   }}
                   variant="outlined"
                 >
                   <OutlinedInput
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
-                      borderRadius: "8px",
+                      borderRadius: '8px',
                     }}
                     name="iess"
                     onChange={onChange}
@@ -1455,7 +1493,7 @@ export default function VerticalTabs() {
                   style={{
                     fontWeight: 500,
                     color: Colors.secondary.contrastText,
-                    textAlign: "left",
+                    textAlign: 'left',
                   }}
                 >
                   Permiso de puerto
@@ -1463,18 +1501,20 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? "370px" : "666px",
+                    width: mobile ? '370px' : '666px',
                   }}
                   variant="outlined"
                 >
                   <OutlinedInput
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
-                      borderRadius: "8px",
+                      borderRadius: '8px',
                     }}
                     name="port_permit"
                     onChange={onChange}
-                    defaultValue={data.driver && data.driver.port_permit}
+                    defaultValue={
+                      data.driver && data.driver.port_permit
+                    }
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1483,7 +1523,7 @@ export default function VerticalTabs() {
                   style={{
                     fontWeight: 500,
                     color: Colors.secondary.contrastText,
-                    textAlign: "left",
+                    textAlign: 'left',
                   }}
                 >
                   Póliza de seguro
@@ -1491,45 +1531,49 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? "370px" : "666px",
+                    width: mobile ? '370px' : '666px',
                   }}
                   variant="outlined"
                 >
                   <OutlinedInput
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
-                      borderRadius: "8px",
+                      borderRadius: '8px',
                     }}
                     name="insurance_policy"
                     onChange={onChange}
-                    defaultValue={data.driver && data.driver.insurance_policy}
+                    defaultValue={
+                      data.driver && data.driver.insurance_policy
+                    }
                     readOnly={!editar}
                   />
                 </FormControl>
 
                 <Box
                   style={{
-                    display: "flex",
-                    justifyContent: "space-between ",
+                    display: 'flex',
+                    justifyContent: 'space-between ',
                   }}
                   mb={3}
                   width="100%"
                 >
                   <Typography
                     style={{
-                      display: "inline",
-                      color: "#475367",
+                      display: 'inline',
+                      color: '#475367',
                       fontWeight: 500,
                     }}
                   >
-                    Foto de licencia de conducir{" "}
-                    {editar && <span style={{ color: "red" }}>*</span>}
+                    Foto de licencia de conducir{' '}
+                    {editar && (
+                      <span style={{ color: 'red' }}>*</span>
+                    )}
                   </Typography>
                   {editar && (
                     <>
                       <input
                         accept="image/*"
-                        style={{ display: "none" }}
+                        style={{ display: 'none' }}
                         id="licencia"
                         multiple
                         type="file"
@@ -1537,9 +1581,9 @@ export default function VerticalTabs() {
                       <label htmlFor="licencia">
                         <Typography
                           style={{
-                            color: "#475367",
-                            cursor: "pointer",
-                            fontWeight: "bold",
+                            color: '#475367',
+                            cursor: 'pointer',
+                            fontWeight: 'bold',
                           }}
                         >
                           Subir
@@ -1551,27 +1595,29 @@ export default function VerticalTabs() {
 
                 <Box
                   style={{
-                    display: "flex",
-                    justifyContent: "space-between ",
+                    display: 'flex',
+                    justifyContent: 'space-between ',
                   }}
                   mb={3}
                   width="100%"
                 >
                   <Typography
                     style={{
-                      display: "inline",
-                      color: "#475367",
+                      display: 'inline',
+                      color: '#475367',
                       fontWeight: 500,
                     }}
                   >
-                    Comprobante de afiliación IESS (PDF){" "}
-                    {editar && <span style={{ color: "red" }}>*</span>}
+                    Comprobante de afiliación IESS (PDF){' '}
+                    {editar && (
+                      <span style={{ color: 'red' }}>*</span>
+                    )}
                   </Typography>
                   {editar && (
                     <>
                       <input
                         accept="application/pdf"
-                        style={{ display: "none" }}
+                        style={{ display: 'none' }}
                         id="comprobanteAfiliacion"
                         multiple
                         type="file"
@@ -1579,9 +1625,9 @@ export default function VerticalTabs() {
                       <label htmlFor="comprobanteAfiliacion">
                         <Typography
                           style={{
-                            color: "#475367",
-                            cursor: "pointer",
-                            fontWeight: "bold",
+                            color: '#475367',
+                            cursor: 'pointer',
+                            fontWeight: 'bold',
                           }}
                         >
                           Subir
@@ -1592,27 +1638,29 @@ export default function VerticalTabs() {
                 </Box>
                 <Box
                   style={{
-                    display: "flex",
-                    justifyContent: "space-between ",
+                    display: 'flex',
+                    justifyContent: 'space-between ',
                   }}
                   mb={3}
                   width="100%"
                 >
                   <Typography
                     style={{
-                      display: "inline",
-                      color: "#475367",
+                      display: 'inline',
+                      color: '#475367',
                       fontWeight: 500,
                     }}
                   >
-                    Comprobante de permiso de puerto (PDF){" "}
-                    {editar && <span style={{ color: "red" }}>*</span>}
+                    Comprobante de permiso de puerto (PDF){' '}
+                    {editar && (
+                      <span style={{ color: 'red' }}>*</span>
+                    )}
                   </Typography>
                   {editar && (
                     <>
                       <input
                         accept="application/pdf"
-                        style={{ display: "none" }}
+                        style={{ display: 'none' }}
                         id="permisoPuerto"
                         multiple
                         type="file"
@@ -1620,9 +1668,9 @@ export default function VerticalTabs() {
                       <label htmlFor="permisoPuerto">
                         <Typography
                           style={{
-                            color: "#475367",
-                            cursor: "pointer",
-                            fontWeight: "bold",
+                            color: '#475367',
+                            cursor: 'pointer',
+                            fontWeight: 'bold',
                           }}
                         >
                           Subir
@@ -1633,27 +1681,29 @@ export default function VerticalTabs() {
                 </Box>
                 <Box
                   style={{
-                    display: "flex",
-                    justifyContent: "space-between ",
+                    display: 'flex',
+                    justifyContent: 'space-between ',
                   }}
                   mb={3}
                   width="100%"
                 >
                   <Typography
                     style={{
-                      display: "inline",
-                      color: "#475367",
+                      display: 'inline',
+                      color: '#475367',
                       fontWeight: 500,
                     }}
                   >
                     Foto póliza de seguro
-                    {editar && <span style={{ color: "red" }}>*</span>}
+                    {editar && (
+                      <span style={{ color: 'red' }}>*</span>
+                    )}
                   </Typography>
                   {editar && (
                     <>
                       <input
                         accept="image/*"
-                        style={{ display: "none" }}
+                        style={{ display: 'none' }}
                         id="licencia"
                         multiple
                         type="file"
@@ -1661,11 +1711,11 @@ export default function VerticalTabs() {
                       <label htmlFor="licencia">
                         <Typography
                           style={{
-                            color: "#475367",
-                            cursor: "pointer",
-                            fontWeight: "bold",
+                            color: '#475367',
+                            cursor: 'pointer',
+                            fontWeight: 'bold',
                           }}
-                          width={"50%"}
+                          width={'50%'}
                         >
                           Subir
                         </Typography>
@@ -1686,7 +1736,7 @@ export default function VerticalTabs() {
                   padding: 5,
                 }}
               > */}
-                {/* <p
+            {/* <p
                 style={{
                   fontWeight: 500,
                   color: Colors.secondary.contrastText,
@@ -1710,7 +1760,7 @@ export default function VerticalTabs() {
                   readOnly={!editar}
                 />
               </FormControl> */}
-                {/* <p
+            {/* <p
                 style={{
                   fontWeight: 500,
                   color: Colors.secondary.contrastText,
@@ -1783,7 +1833,7 @@ export default function VerticalTabs() {
                   readOnly={!editar}
                 />
               </FormControl> */}
-                {/* <p
+            {/* <p
                 style={{
                   fontWeight: 500,
                   color: Colors.secondary.contrastText,
@@ -1807,20 +1857,20 @@ export default function VerticalTabs() {
                   readOnly={!editar}
                 />
               </FormControl> */}
-              {/* </Box>
+            {/* </Box>
             )} */}
           </form>
-          {user.role === "driver" &&
+          {user.role === 'driver' &&
             (editar ? (
               <Button
                 variant="contained"
                 style={{
                   fontWeight: 600,
-                  alignSelf: "center",
-                  marginTop: "20px",
+                  alignSelf: 'center',
+                  marginTop: '20px',
                 }}
               >
-                {" "}
+                {' '}
                 Guardar Cambios
               </Button>
             ) : (
@@ -1829,13 +1879,13 @@ export default function VerticalTabs() {
                 onClick={() => setEditar(true)}
                 style={{
                   fontWeight: 600,
-                  alignSelf: "center",
-                  border: "2px solid",
+                  alignSelf: 'center',
+                  border: '2px solid',
                   backgroundColor: Colors.primary.contrastText,
-                  marginTop: "20px",
+                  marginTop: '20px',
                 }}
               >
-                {" "}
+                {' '}
                 Editar datos
               </Button>
             ))}
@@ -1844,9 +1894,9 @@ export default function VerticalTabs() {
       <TabPanel
         value={value}
         style={{
-          width: value == 3 ? "100%" : "0",
-          display: "flex",
-          justifyContent: "center",
+          width: value == 3 ? '100%' : '0',
+          display: 'flex',
+          justifyContent: 'center',
         }}
         index={3}
       >
@@ -1854,8 +1904,8 @@ export default function VerticalTabs() {
           <Stack
             width="100%"
             direction="column"
-            alignItems={"center"}
-            style={{ border: "none" }}
+            alignItems={'center'}
+            style={{ border: 'none' }}
             spacing={3}
           >
             <Grid
@@ -1866,8 +1916,8 @@ export default function VerticalTabs() {
               width="100%"
               p={1}
               style={{
-                borderRadius: "5px",
-                border: "1px solid lightgrey",
+                borderRadius: '5px',
+                border: '1px solid lightgrey',
               }}
               spacing={2}
             >
@@ -1875,17 +1925,19 @@ export default function VerticalTabs() {
                 item
                 container
                 direction="row"
-                justifyContent={"flex-end"}
+                justifyContent={'flex-end'}
                 xs={6}
               >
                 <ResponsiveImageBox
                   w="120px"
                   h="120px"
-                  url={"/marketplace/7.png"}
+                  url={'/marketplace/7.png'}
                 />
               </Grid>
               <Grid item xs={6}>
-                <Typography fontSize="14px">Bobinas de papel</Typography>
+                <Typography fontSize="14px">
+                  Bobinas de papel
+                </Typography>
                 <Typography fontSize="12px" color="secondary">
                   Perú - Bolivia
                 </Typography>
@@ -1894,7 +1946,7 @@ export default function VerticalTabs() {
                 </Typography>
 
                 <Typography fontSize="12px" color="secondary">
-                  {" "}
+                  {' '}
                   20/5/2024
                 </Typography>
                 <Typography fontSize="12px" color="primary">
@@ -1910,8 +1962,8 @@ export default function VerticalTabs() {
               width="100%"
               p={1}
               style={{
-                borderRadius: "5px",
-                border: "1px solid lightgrey",
+                borderRadius: '5px',
+                border: '1px solid lightgrey',
               }}
               spacing={2}
             >
@@ -1919,17 +1971,19 @@ export default function VerticalTabs() {
                 item
                 container
                 direction="row"
-                justifyContent={"flex-end"}
+                justifyContent={'flex-end'}
                 xs={6}
               >
                 <ResponsiveImageBox
                   w="120px"
                   h="120px"
-                  url={"/marketplace/7.png"}
+                  url={'/marketplace/7.png'}
                 />
               </Grid>
               <Grid item xs={6}>
-                <Typography fontSize="14px">Bobinas de papel</Typography>
+                <Typography fontSize="14px">
+                  Bobinas de papel
+                </Typography>
                 <Typography fontSize="12px" color="secondary">
                   Perú - Bolivia
                 </Typography>
@@ -1938,7 +1992,7 @@ export default function VerticalTabs() {
                 </Typography>
 
                 <Typography fontSize="12px" color="secondary">
-                  {" "}
+                  {' '}
                   20/5/2024
                 </Typography>
                 <Typography fontSize="12px" color="primary">
@@ -1954,8 +2008,8 @@ export default function VerticalTabs() {
               width="100%"
               p={1}
               style={{
-                borderRadius: "5px",
-                border: "1px solid lightgrey",
+                borderRadius: '5px',
+                border: '1px solid lightgrey',
               }}
               spacing={2}
             >
@@ -1963,17 +2017,19 @@ export default function VerticalTabs() {
                 item
                 container
                 direction="row"
-                justifyContent={"flex-end"}
+                justifyContent={'flex-end'}
                 xs={6}
               >
                 <ResponsiveImageBox
                   w="120px"
                   h="120px"
-                  url={"/marketplace/7.png"}
+                  url={'/marketplace/7.png'}
                 />
               </Grid>
               <Grid item xs={6}>
-                <Typography fontSize="14px">Bobinas de papel</Typography>
+                <Typography fontSize="14px">
+                  Bobinas de papel
+                </Typography>
                 <Typography fontSize="12px" color="secondary">
                   Perú - Bolivia
                 </Typography>
@@ -1982,7 +2038,7 @@ export default function VerticalTabs() {
                 </Typography>
 
                 <Typography fontSize="12px" color="secondary">
-                  {" "}
+                  {' '}
                   20/5/2024
                 </Typography>
                 <Typography fontSize="12px" color="primary">
@@ -1998,8 +2054,8 @@ export default function VerticalTabs() {
               width="100%"
               p={1}
               style={{
-                borderRadius: "5px",
-                border: "1px solid lightgrey",
+                borderRadius: '5px',
+                border: '1px solid lightgrey',
               }}
               spacing={2}
             >
@@ -2007,17 +2063,19 @@ export default function VerticalTabs() {
                 item
                 container
                 direction="row"
-                justifyContent={"flex-end"}
+                justifyContent={'flex-end'}
                 xs={6}
               >
                 <ResponsiveImageBox
                   w="120px"
                   h="120px"
-                  url={"/marketplace/7.png"}
+                  url={'/marketplace/7.png'}
                 />
               </Grid>
               <Grid item xs={6}>
-                <Typography fontSize="14px">Bobinas de papel</Typography>
+                <Typography fontSize="14px">
+                  Bobinas de papel
+                </Typography>
                 <Typography fontSize="12px" color="secondary">
                   Perú - Bolivia
                 </Typography>
@@ -2026,7 +2084,7 @@ export default function VerticalTabs() {
                 </Typography>
 
                 <Typography fontSize="12px" color="secondary">
-                  {" "}
+                  {' '}
                   20/5/2024
                 </Typography>
                 <Typography fontSize="12px" color="primary">
@@ -2038,60 +2096,60 @@ export default function VerticalTabs() {
         ) : (
           <Stack
             display="flex"
-            width={mobile ? "85vw" : "65vw"}
-            maxWidth={"600px"}
-            flexDirection={"column"}
-            justifyContent={"center"}
-            alignContent={"center"}
+            width={mobile ? '85vw' : '65vw'}
+            maxWidth={'600px'}
+            flexDirection={'column'}
+            justifyContent={'center'}
+            alignContent={'center'}
           >
             <Box
               display="flex"
-              flexDirection={"column"}
+              flexDirection={'column'}
               alignItems="center"
-              justifyContent={"center"}
+              justifyContent={'center'}
               sx={{
-                border: "2px solid #D0D5DD",
-                padding: "30px 50px",
-                borderRadius: "5px",
+                border: '2px solid #D0D5DD',
+                padding: '30px 50px',
+                borderRadius: '5px',
               }}
             >
               <CobroItemCard
                 title="Bobinas de papel"
-                countrys={"Perú - Bolivia"}
-                typeCharge={"Seca"}
-                date={"20/06/2024"}
+                countrys={'Perú - Bolivia'}
+                typeCharge={'Seca'}
+                date={'20/06/2024'}
                 price={4000}
-                discount={"20% de descuento por comisión"}
+                discount={'20% de descuento por comisión'}
               ></CobroItemCard>
               <CobroItemCard
                 title="Bobinas de papel"
-                countrys={"Perú - Bolivia"}
-                typeCharge={"Seca"}
-                date={"20/06/2024"}
+                countrys={'Perú - Bolivia'}
+                typeCharge={'Seca'}
+                date={'20/06/2024'}
                 price={4000}
-                discount={"20% de descuento por comisión"}
+                discount={'20% de descuento por comisión'}
               ></CobroItemCard>
               <CobroItemCard
                 title="Bobinas de papel"
-                countrys={"Perú - Bolivia"}
-                typeCharge={"Seca"}
-                date={"20/06/2024"}
+                countrys={'Perú - Bolivia'}
+                typeCharge={'Seca'}
+                date={'20/06/2024'}
                 price={4000}
-                discount={"20% de descuento por comisión"}
+                discount={'20% de descuento por comisión'}
               ></CobroItemCard>
               <CobroItemCard
                 title="Bobinas de papel"
-                countrys={"Perú - Bolivia"}
-                typeCharge={"Seca"}
-                date={"20/06/2024"}
+                countrys={'Perú - Bolivia'}
+                typeCharge={'Seca'}
+                date={'20/06/2024'}
                 price={4000}
-                discount={"20% de descuento por comisión"}
+                discount={'20% de descuento por comisión'}
               ></CobroItemCard>
             </Box>
           </Stack>
         )}
       </TabPanel>
-      <Snackbar
+      {/* <Snackbar
         open={errorValidation.value}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         autoHideDuration={6000}
@@ -2120,7 +2178,7 @@ export default function VerticalTabs() {
         >
           Los cambios se guardaron con éxito!
         </Alert>
-      </Snackbar>
+      </Snackbar> */}
     </Box>
   );
 }
