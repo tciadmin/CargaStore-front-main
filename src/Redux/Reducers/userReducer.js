@@ -190,6 +190,7 @@ export const userReducer = (state = initialState, action) => {
           lastname: action.payload.user?.lastname,
           profile_image: action.payload.user?.profile_image,
           driver: {
+            ...state.user.driver,
             description: action.payload.driver?.description,
             phone: action.payload.driver?.phone,
           },
@@ -240,10 +241,15 @@ export const userReducer = (state = initialState, action) => {
         user: {
           ...state.user,
           driver: {
-            ...state.driver,
+            ...state.user.driver,
             truck: {
-              ...state.driver.truck,
-              ...action.payload,
+              ...state.user.driver.truck,
+              brand: action.payload.truck?.brand,
+              model: action.payload.truck?.model,
+              year: action.payload.truck?.year,
+              num_plate: action.payload.truck?.num_plate,
+              charge_capacity: action.payload.truck?.charge_capacity,
+              charge_type: action.payload.truck?.charge_type,
             },
           },
         },
