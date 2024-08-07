@@ -8,6 +8,8 @@ import {
   DUPLICATE_ORDER_SUCCESS,
 } from '../Actions/OrderActions/duplicateorder';
 import {
+  AUTH_USER_FAILURE,
+  AUTH_USER_SUCCESS,
   PATCH_BASIC_USER_FAILURE,
   PATCH_BASIC_USER_SUCCESS,
   PATCH_DRIVER_FAILURE,
@@ -16,6 +18,8 @@ import {
   PATCH_DRIVER_SUCCESS,
   PATCH_TRUCK_FAILURE,
   PATCH_TRUCK_SUCCESS,
+  POST_USER_FAILURE,
+  POST_USER_SUCCESS,
   PUT_CUSTOMER_FAILURE,
   PUT_CUSTOMER_SUCCESS,
 } from '../Actions/UserActions/userActions';
@@ -94,6 +98,26 @@ export const alertReducer = (state = initialState, action) => {
         message: action.payload.message,
       };
     case DUPLICATE_ORDER_FAILURE:
+      return {
+        ...state,
+        message: action.payload.message,
+      };
+    case POST_USER_SUCCESS:
+      return {
+        ...state,
+        message: action.payload.message,
+      };
+    case POST_USER_FAILURE:
+      return {
+        ...state,
+        message: action.payload.message,
+      };
+    case AUTH_USER_SUCCESS:
+      return {
+        ...state,
+        message: action.payload.message,
+      };
+    case AUTH_USER_FAILURE:
       return {
         ...state,
         message: action.payload.message,

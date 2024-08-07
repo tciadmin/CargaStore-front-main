@@ -153,7 +153,11 @@ export const postUser = (userType, userData, navigate) => {
         navigate('/shipments');
       }
     } catch (error) {
-      dispatch({ type: POST_USER_FAILURE, error: error.message });
+      console.error(error);
+      dispatch({
+        type: POST_USER_FAILURE,
+        payload: error.response.data,
+      });
     }
   };
 };
@@ -189,7 +193,11 @@ export const authUser = (user, navigate) => {
         navigate('/administrador/panel');
       }
     } catch (error) {
-      dispatch({ type: AUTH_USER_FAILURE, error: error.message });
+      console.error(error);
+      dispatch({
+        type: AUTH_USER_FAILURE,
+        payload: error.response.data,
+      });
     }
   };
 };
