@@ -37,6 +37,13 @@ export const PATCH_DRIVER_PENDING = 'PATCH_DRIVER_PENDING';
 export const PATCH_DRIVER_SUCCESS = 'PATCH_DRIVER_SUCCESS';
 export const PATCH_DRIVER_FAILURE = 'PATCH_DRIVER_FAILURE';
 
+export const PATCH_DRIVER_LEGAL_DOCUMENTS_PENDING =
+  'PATCH_DRIVER_LEGAL_DOCUMENTS_PENDING';
+export const PATCH_DRIVER_LEGAL_DOCUMENTS_SUCCESS =
+  'PATCH_DRIVER_LEGAL_DOCUMENTS_SUCCESS';
+export const PATCH_DRIVER_LEGAL_DOCUMENTS_FAILURE =
+  'PATCH_DRIVER_LEGAL_DOCUMENTS_FAILURE';
+
 export const getAllUsers = () => {
   return async (dispatch) => {
     dispatch({ type: GET_ALL_USERS_PENDING });
@@ -259,6 +266,48 @@ export const patchTruck = (truck) => {
     }
   };
 };
+
+export const patchDriverLegalDocuments = (
+  driverId,
+  num_license,
+  iess,
+  port_permit,
+  insurance_policy,
+  img_insurance_policy,
+  img_driver_license,
+  pdf_iess,
+  pdf_port_permit
+) => {
+  return async (dispatch) => {
+    dispatch({ type: PATCH_DRIVER_LEGAL_DOCUMENTS_PENDING });
+    try {
+      const formData = new FormData();
+      formData.append('num_license', num_license);
+      formData.append('iess', iess);
+      formData.append('port_permit', port_permit);
+      formData.append('insurance_policy', insurance_policy);
+      formData.append('img_insurance_policy', img_insurance_policy);
+      formData.append('img_driver_license', img_driver_license);
+      formData.append('pdf_iess', pdf_iess);
+      formData.append('pdf_port_permit', pdf_port_permit);
+      const response = await axiosInstance.patch(
+        `http://localhost:3000/api/driver/patch/legal_documents/${driverId}`,
+        formData
+      );
+      return dispatch({
+        type: PATCH_DRIVER_LEGAL_DOCUMENTS_SUCCESS,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error(error);
+      dispatch({
+        type: PATCH_DRIVER_LEGAL_DOCUMENTS_FAILURE,
+        payload: error.response.data,
+      });
+    }
+  };
+};
+
 export const patchBasicUserData = (profile_image, name, lastname) => {
   return async (dispatch) => {
     dispatch({ type: PATCH_BASIC_USER_PENDING });
