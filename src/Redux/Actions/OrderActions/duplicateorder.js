@@ -16,9 +16,10 @@ export const duplicateOrder = (orderId) => {
         payload: response.data,
       });
     } catch (error) {
+      console.error(error);
       dispatch({
         type: DUPLICATE_ORDER_FAILURE,
-        error: error.message,
+        error: error.response.data,
       });
     }
   };
