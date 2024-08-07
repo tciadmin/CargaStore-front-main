@@ -96,7 +96,11 @@ export const createOrder = (
       });
       navigate('/shipments');
     } catch (error) {
-      dispatch({ type: CREATE_ORDER_FAILURE, error: error.message });
+      console.error(error);
+      dispatch({
+        type: CREATE_ORDER_FAILURE,
+        payload: error.response.data,
+      });
     }
   };
 };

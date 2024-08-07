@@ -1,5 +1,13 @@
 import { CLEAR_ALERT } from '../Actions/AlertAction/clearAlert';
 import {
+  CREATE_ORDER_FAILURE,
+  CREATE_ORDER_SUCCESS,
+} from '../Actions/OrderActions/createOrder';
+import {
+  DUPLICATE_ORDER_FAILURE,
+  DUPLICATE_ORDER_SUCCESS,
+} from '../Actions/OrderActions/duplicateorder';
+import {
   PATCH_BASIC_USER_FAILURE,
   PATCH_BASIC_USER_SUCCESS,
   PATCH_DRIVER_FAILURE,
@@ -66,6 +74,26 @@ export const alertReducer = (state = initialState, action) => {
         message: action.payload.message,
       };
     case PUT_CUSTOMER_FAILURE:
+      return {
+        ...state,
+        message: action.payload.message,
+      };
+    case CREATE_ORDER_SUCCESS:
+      return {
+        ...state,
+        message: action.payload.message,
+      };
+    case CREATE_ORDER_FAILURE:
+      return {
+        ...state,
+        message: action.payload.message,
+      };
+    case DUPLICATE_ORDER_SUCCESS:
+      return {
+        ...state,
+        message: action.payload.message,
+      };
+    case DUPLICATE_ORDER_FAILURE:
       return {
         ...state,
         message: action.payload.message,

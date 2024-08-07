@@ -36,6 +36,8 @@ const ChargeRequestCard = ({
   const assignDriver = () => {
     dispatch(assingDriverToOrder(driverId, orderId));
   };
+
+  const urlBack = import.meta.env.VITE_URL_BACKEND;
   return (
     <Grid
       container
@@ -52,10 +54,7 @@ const ChargeRequestCard = ({
         xs={2}
       >
         <Grid item xs={4}>
-          <Avatar
-            alt="indefinido"
-            src={perfilImg ? perfilImg : imagen}
-          />
+          <Avatar alt={nombre} src={`${urlBack}/${perfilImg}`} />
         </Grid>
         <Grid
           item
