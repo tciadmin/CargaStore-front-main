@@ -140,6 +140,12 @@ export const postUser = (userType, userData, navigate) => {
           { company_name, address, city, company_phone }
         );
         console.log('customer: ', customer);
+        Cookies.set('id', data?.user.id, {
+          expires: 1,
+          secure: true,
+          sameSite: 'Strict',
+          path: '/',
+        });
         dispatch({
           type: POST_USER_SUCCESS,
           payload: customer.data,
