@@ -30,6 +30,7 @@ import {
   // patchBasicUserData,
   patchCustomer,
   patchDriver,
+  patchDriverLegalDocuments,
   patchTruck,
 } from '../../Redux/Actions/UserActions/userActions';
 // import Cookies from 'js-cookie';
@@ -103,10 +104,23 @@ export default function VerticalTabs() {
       num_plate: '',
       charge_capacity: '',
       charge_type: '',
+      num_license: '',
+      iess: '',
+      port_permit: '',
+      insurance_policy: '',
+      img_driver_license: '',
+      img_insurance_policy: '',
+      pdf_iess: '',
+      pdf_port_permit: '',
     },
   });
 
   const selectChargeType = ['Seca', 'Peligrosa', 'Refrigerada'];
+
+  const booleanSelect = [
+    { boolean: true, string: 'Si' },
+    { boolean: false, string: 'No' },
+  ];
 
   const watchData = watch();
   React.useEffect(() => {
@@ -129,6 +143,11 @@ export default function VerticalTabs() {
     setFileToBase(selectedFile);
   };
 
+  const handleLegalDocumentFileChange = (ev, param) => {
+    const selectedFile = ev.target.files?.[0];
+    setValue(`${param}`, selectedFile);
+  };
+
   const urlBack = import.meta.env.VITE_URL_BACKEND;
 
   React.useEffect(() => {
@@ -142,6 +161,10 @@ export default function VerticalTabs() {
     if (user?.driver) {
       setValue('description', user?.driver?.description);
       setValue('phone', user?.driver?.phone);
+      setValue('num_license', user?.driver?.num_license);
+      setValue('iess', user?.driver?.iess);
+      setValue('port_permit', user?.driver?.port_permit);
+      setValue('insurance_policy', user?.driver?.insurance_policy);
       setValue('brand', user?.driver?.truck?.brand);
       setValue('model', user?.driver?.truck?.model);
       setValue('year', user?.driver?.truck?.year);
@@ -289,6 +312,33 @@ export default function VerticalTabs() {
         charge_capacity,
         charge_type,
       })
+    );
+  };
+
+  const patchLegalDocuments = () => {
+    const {
+      num_license,
+      iess,
+      port_permit,
+      insurance_policy,
+      img_insurance_policy,
+      img_driver_license,
+      pdf_iess,
+      pdf_port_permit,
+    } = watch();
+    const driverId = user?.driver.id;
+    dispatch(
+      patchDriverLegalDocuments(
+        driverId,
+        num_license,
+        iess,
+        port_permit,
+        insurance_policy,
+        img_insurance_policy,
+        img_driver_license,
+        pdf_iess,
+        pdf_port_permit
+      )
     );
   };
 
@@ -1461,9 +1511,12 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    // name="license"
-                    // onChange={onChange}
-                    // defaultValue={data.driver && data.driver.license}
+                    {...register('num_license', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1483,16 +1536,26 @@ export default function VerticalTabs() {
                   }}
                   variant="outlined"
                 >
-                  <OutlinedInput
+                  <Select
+                    defaultValue={watch().iess}
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    // name="iess"
-                    // onChange={onChange}
-                    // defaultValue={data.driver && data.driver.iess}
+                    {...register('iess', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
-                  />
+                  >
+                    {booleanSelect.map((item, index) => (
+                      <MenuItem key={index} value={item.boolean}>
+                        {item.string}
+                      </MenuItem>
+                    ))}
+                  </Select>
                 </FormControl>
 
                 <p
@@ -1511,18 +1574,26 @@ export default function VerticalTabs() {
                   }}
                   variant="outlined"
                 >
-                  <OutlinedInput
+                  <Select
+                    defaultValue={watch().port_permit}
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    // name="port_permit"
-                    // onChange={onChange}
-                    // defaultValue={
-                    //   data.driver && data.driver.port_permit
-                    // }
+                    {...register('port_permit', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
-                  />
+                  >
+                    {booleanSelect.map((item, index) => (
+                      <MenuItem key={index} value={item.boolean}>
+                        {item.string}
+                      </MenuItem>
+                    ))}
+                  </Select>
                 </FormControl>
 
                 <p
@@ -1546,11 +1617,12 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    // name="insurance_policy"
-                    // onChange={onChange}
-                    // defaultValue={
-                    //   data.driver && data.driver.insurance_policy
-                    // }
+                    {...register('insurance_policy', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1583,6 +1655,17 @@ export default function VerticalTabs() {
                         id="licencia"
                         multiple
                         type="file"
+                        {...register('img_driver_license', {
+                          required: {
+                            value: true,
+                          },
+                        })}
+                        onChange={(ev) => {
+                          handleLegalDocumentFileChange(
+                            ev,
+                            'img_driver_license'
+                          );
+                        }}
                       />
                       <label htmlFor="licencia">
                         <Typography
@@ -1627,6 +1710,17 @@ export default function VerticalTabs() {
                         id="comprobanteAfiliacion"
                         multiple
                         type="file"
+                        {...register('pdf_iess', {
+                          required: {
+                            value: true,
+                          },
+                        })}
+                        onChange={(ev) => {
+                          handleLegalDocumentFileChange(
+                            ev,
+                            'pdf_iess'
+                          );
+                        }}
                       />
                       <label htmlFor="comprobanteAfiliacion">
                         <Typography
@@ -1670,6 +1764,17 @@ export default function VerticalTabs() {
                         id="permisoPuerto"
                         multiple
                         type="file"
+                        {...register('pdf_port_permit', {
+                          required: {
+                            value: true,
+                          },
+                        })}
+                        onChange={(ev) => {
+                          handleLegalDocumentFileChange(
+                            ev,
+                            'pdf_port_permit'
+                          );
+                        }}
                       />
                       <label htmlFor="permisoPuerto">
                         <Typography
@@ -1710,11 +1815,22 @@ export default function VerticalTabs() {
                       <input
                         accept="image/*"
                         style={{ display: 'none' }}
-                        id="licencia"
+                        id="insurance_policy"
                         multiple
                         type="file"
+                        {...register('img_insurance_policy', {
+                          required: {
+                            value: true,
+                          },
+                        })}
+                        onChange={(ev) => {
+                          handleLegalDocumentFileChange(
+                            ev,
+                            'img_insurance_policy'
+                          );
+                        }}
                       />
-                      <label htmlFor="licencia">
+                      <label htmlFor="insurance_policy">
                         <Typography
                           style={{
                             color: '#475367',
@@ -1870,10 +1986,14 @@ export default function VerticalTabs() {
             (editar ? (
               <Button
                 variant="contained"
+                disabled={userLoading}
                 style={{
                   fontWeight: 600,
                   alignSelf: 'center',
                   marginTop: '20px',
+                }}
+                onClick={() => {
+                  patchLegalDocuments();
                 }}
               >
                 {' '}

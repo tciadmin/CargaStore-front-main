@@ -37,6 +37,8 @@ import {
   PATCH_BASIC_USER_SUCCESS,
   PATCH_BASIC_USER_PENDING,
   PATCH_BASIC_USER_FAILURE,
+  PATCH_DRIVER_LEGAL_DOCUMENTS_PENDING,
+  PATCH_DRIVER_LEGAL_DOCUMENTS_SUCCESS,
 } from '../Actions/UserActions/userActions';
 
 const initialState = {
@@ -254,6 +256,35 @@ export const userReducer = (state = initialState, action) => {
           },
         },
         // user: action.payload,
+        userLoading: false,
+        error: null,
+      };
+    case PATCH_DRIVER_LEGAL_DOCUMENTS_PENDING:
+      return {
+        ...state,
+        userLoading: true,
+      };
+    case PATCH_DRIVER_LEGAL_DOCUMENTS_SUCCESS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          driver: {
+            ...state.user.driver,
+            num_license: action.payload.updatedDriver?.num_license,
+            iess: action.payload.updatedDriver?.iess,
+            port_permit: action.payload.updatedDriver?.port_permit,
+            insurance_policy:
+              action.payload.updatedDriver?.insurance_policy,
+            img_insurance_policy:
+              action.payload.updatedDriver?.img_insurance_policy,
+            img_driver_license:
+              action.payload.updatedDriver?.img_driver_license,
+            pdf_iess: action.payload.updatedDriver?.pdf_iess,
+            pdf_port_permit:
+              action.payload.updatedDriver?.pdf_port_permit,
+          },
+        },
         userLoading: false,
         error: null,
       };
