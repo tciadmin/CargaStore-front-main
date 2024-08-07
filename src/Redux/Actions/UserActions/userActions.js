@@ -140,6 +140,12 @@ export const postUser = (userType, userData, navigate) => {
           { company_name, address, city, company_phone }
         );
         console.log('customer: ', customer);
+        Cookies.set('id', data?.user.id, {
+          expires: 1,
+          secure: true,
+          sameSite: 'Strict',
+          path: '/',
+        });
         dispatch({
           type: POST_USER_SUCCESS,
           payload: customer.data,
@@ -188,19 +194,35 @@ export const authUser = (user, navigate) => {
   };
 };
 
-export const patchCustomer = (id, customer) => {
+export const patchCustomer = (
+  customerId,
+  company_name,
+  ruc,
+  company_phone,
+  address,
+  country,
+  city
+) => {
   return async (dispatch) => {
     dispatch({ type: PUT_CUSTOMER_PENDING });
     try {
-      await axiosInstance.put(`/customer/edit/${id}`, customer, {
-        headers,
-      });
+      const response = await axiosInstance.put(
+        `/customer/edit/${customerId}`,
+        { company_name, ruc, company_phone, address, country, city },
+        {
+          headers,
+        }
+      );
       return dispatch({
         type: PUT_CUSTOMER_SUCCESS,
-        payload: customer,
+        payload: response.data,
       });
     } catch (error) {
-      dispatch({ type: PUT_CUSTOMER_FAILURE, error: error.message });
+      console.error(error);
+      dispatch({
+        type: PUT_CUSTOMER_FAILURE,
+        payload: error.response.data,
+      });
     }
   };
 };

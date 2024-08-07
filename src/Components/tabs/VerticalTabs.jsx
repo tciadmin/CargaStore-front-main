@@ -26,6 +26,7 @@ import ResponsiveImageBox from '../imageComponents/ResponsiveImageBox';
 import CobroItemCard from '../cards/CobroItemCard';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  patchBasicUserData,
   // getUser,
   // patchBasicUserData,
   patchCustomer,
@@ -79,7 +80,7 @@ export default function VerticalTabs() {
   //   value: false,
   //   message: 'Mensaje incorrecto',
   // });
-  const [dataChanged, setDataChanged] = React.useState(false);
+  // const [dataChanged, setDataChanged] = React.useState(false);
 
   const [editar, setEditar] = React.useState(false);
   const { user, userLoading } = useSelector((state) => state.user);
@@ -112,6 +113,12 @@ export default function VerticalTabs() {
       img_insurance_policy: '',
       pdf_iess: '',
       pdf_port_permit: '',
+      company_name: '',
+      ruc: '',
+      company_phone: '',
+      address: '',
+      country: '',
+      city: '',
     },
   });
 
@@ -157,6 +164,14 @@ export default function VerticalTabs() {
       setValue('name', user.name);
       setValue('lastname', user.lastname);
       setValue('email', user.email);
+    }
+    if (user?.customer) {
+      setValue('company_name', user?.customer?.company_name);
+      setValue('ruc', user?.customer?.ruc);
+      setValue('company_phone', user?.customer?.company_phone);
+      setValue('address', user?.customer?.address);
+      setValue('country', user?.customer?.country);
+      setValue('city', user?.customer?.city);
     }
     if (user?.driver) {
       setValue('description', user?.driver?.description);
@@ -223,7 +238,7 @@ export default function VerticalTabs() {
     'Historial de cobros',
   ];
 
-  const putBasicData = () => {
+  const putBasicDriverData = () => {
     const { profile_image, name, lastname, description, phone } =
       watch();
     dispatch(
@@ -231,67 +246,32 @@ export default function VerticalTabs() {
     );
   };
 
+  const putBasicCustomerData = () => {
+    const { profile_image, name, lastname } = watch();
+    dispatch(patchBasicUserData(profile_image, name, lastname));
+  };
+
   const putCustomerDataClient = () => {
-    // if (!data.customer) {
-    //   setErrorValidation({
-    //     value: true,
-    //     message: 'Datos del cliente no están disponibles',
-    //   });
-    //   return;
-    // }
-    // if (!data.customer.company_name) {
-    //   setErrorValidation({
-    //     value: true,
-    //     message: 'El nombre de la empresa debe completarse',
-    //   });
-    // } else if (!data.customer.address) {
-    //   setErrorValidation({
-    //     value: true,
-    //     message: 'La dirección es obligatoria',
-    //   });
-    // } else {
-    //   const regex = /^[0-9a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/;
-    //   const regexRUC = /^[0-9]+$/;
-    //   const cleanRuc = data.customer.ruc
-    //     ? data.customer.ruc.toString().trim()
-    //     : '';
-    //   if (regex.test(data.customer.company_name) == false) {
-    //     setErrorValidation({
-    //       value: true,
-    //       message:
-    //         'El nombre de su empresa no puede contener carácteres especiales ',
-    //     });
-    //   } else if (regex.test(data.customer.address) == false) {
-    //     setErrorValidation({
-    //       value: true,
-    //       message:
-    //         'La dirección no puede contener carácteres especiales ',
-    //     });
-    //   } else if (regexRUC.test(cleanRuc) == false) {
-    //     setErrorValidation({
-    //       value: true,
-    //       message: 'El RUC solamente puede contener números',
-    //     });
-    //   } else if (regex.test(data.customer.country) == false) {
-    //     setErrorValidation({
-    //       value: true,
-    //       message: 'El país no puede contener carácteres especiales ',
-    //     });
-    //   } else {
-    //     if (cleanRuc.length != 10) {
-    //       setErrorValidation({
-    //         value: true,
-    //         message: 'El número RUC debe contener 10 digitos',
-    //       });
-    //     } else {
-    //       if (!dataChanged) {
-    //         dispatch(patchCustomer(data.customer.id, data.customer));
-    //         setEditar(false);
-    //         setDataChanged(true);
-    //       }
-    //     }
-    //   }
-    // }
+    const customerId = user?.customer.id;
+    const {
+      company_name,
+      ruc,
+      company_phone,
+      address,
+      country,
+      city,
+    } = watch();
+    dispatch(
+      patchCustomer(
+        customerId,
+        company_name,
+        ruc,
+        company_phone,
+        address,
+        country,
+        city
+      )
+    );
   };
 
   const putTruckData = () => {
@@ -914,7 +894,14 @@ export default function VerticalTabs() {
                 marginTop: '20px',
               }}
               onClick={() => {
-                putBasicData();
+                switch (user?.role) {
+                  case 'driver':
+                    putBasicDriverData();
+                    break;
+                  case 'customer':
+                    putBasicCustomerData();
+                    break;
+                }
               }}
             >
               {' '}
@@ -1023,11 +1010,44 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    name="company_name"
-                    onChange={onChange}
-                    defaultValue={
-                      data.customer && data.customer.company_name
-                    }
+                    {...register('company_name', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
+                    readOnly={!editar}
+                  />
+                </FormControl>
+
+                <p
+                  style={{
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
+                    textAlign: 'left',
+                  }}
+                >
+                  Número de telefono
+                </p>
+                <FormControl
+                  sx={{
+                    m: 1,
+                    width: mobile ? '370px' : '666px',
+                  }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    sx={{
+                      backgroundColor: Colors.primary.contrastText,
+                      borderRadius: '8px',
+                    }}
+                    name="company_phone"
+                    {...register('company_phone', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1054,8 +1074,12 @@ export default function VerticalTabs() {
                       borderRadius: '8px',
                     }}
                     name="ruc"
-                    // onChange={onChange}
-                    defaultValue={data.customer && data.customer.ruc}
+                    {...register('ruc', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1082,10 +1106,12 @@ export default function VerticalTabs() {
                       borderRadius: '8px',
                     }}
                     name="address"
-                    // onChange={onChange}
-                    defaultValue={
-                      data.customer && data.customer.address
-                    }
+                    {...register('address', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1111,11 +1137,45 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    // name="country"
-                    // // onChange={onChange}
-                    // defaultValue={
-                    //   data.customer && data.customer.country
-                    // }
+                    name="country"
+                    {...register('country', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
+                    readOnly={!editar}
+                  />
+                </FormControl>
+
+                <p
+                  style={{
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
+                    textAlign: 'left',
+                  }}
+                >
+                  Ciudad
+                </p>
+                <FormControl
+                  sx={{
+                    m: 1,
+                    width: mobile ? '370px' : '666px',
+                  }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    sx={{
+                      backgroundColor: Colors.primary.contrastText,
+                      borderRadius: '8px',
+                    }}
+                    name="city"
+                    {...register('city', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>

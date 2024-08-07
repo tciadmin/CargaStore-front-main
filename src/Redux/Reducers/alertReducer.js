@@ -8,6 +8,8 @@ import {
   PATCH_DRIVER_SUCCESS,
   PATCH_TRUCK_FAILURE,
   PATCH_TRUCK_SUCCESS,
+  PUT_CUSTOMER_FAILURE,
+  PUT_CUSTOMER_SUCCESS,
 } from '../Actions/UserActions/userActions';
 
 const initialState = {
@@ -54,6 +56,16 @@ export const alertReducer = (state = initialState, action) => {
         message: action.payload.message,
       };
     case PATCH_DRIVER_LEGAL_DOCUMENTS_FAILURE:
+      return {
+        ...state,
+        message: action.payload.message,
+      };
+    case PUT_CUSTOMER_SUCCESS:
+      return {
+        ...state,
+        message: action.payload.message,
+      };
+    case PUT_CUSTOMER_FAILURE:
       return {
         ...state,
         message: action.payload.message,

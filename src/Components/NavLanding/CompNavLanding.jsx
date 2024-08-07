@@ -20,7 +20,6 @@ import Menu from '@mui/material/Menu';
 import { Colors } from '../../Utils/Colors';
 import {
   Drawer,
-  Grid,
   List,
   ListItem,
   ListItemButton,
@@ -67,6 +66,7 @@ export default function CompNavLanding() {
   };
 
   const { user } = useSelector((state) => state.user);
+  const urlBack = import.meta.env.VITE_URL_BACKEND;
 
   const onClickNotificaciones = () => {
     if (mobile) {
@@ -608,7 +608,10 @@ export default function CompNavLanding() {
                     onClick={handleOpenUserMenu}
                     sx={{ pr: 1 }}
                   >
-                    <Avatar alt="Remy Sharp" src="perfil.webp" />
+                    <Avatar
+                      alt={user?.name}
+                      src={`${urlBack}/${user.profile_image}`}
+                    />
                   </IconButton>
                 </Tooltip>
                 <Menu

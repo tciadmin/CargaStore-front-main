@@ -156,7 +156,6 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         userLoading: false,
-        error: action.error,
       };
     case PUT_CUSTOMER_SUCCESS:
       return {
@@ -164,8 +163,13 @@ export const userReducer = (state = initialState, action) => {
         user: {
           ...state.user,
           customer: {
-            ...state.customer,
-            ...action.payload,
+            ...state.user.customer,
+            company_name: action.payload.customer?.company_name,
+            ruc: action.payload.customer?.ruc,
+            company_phone: action.payload.customer?.company_phone,
+            address: action.payload.customer?.address,
+            country: action.payload.customer?.country,
+            city: action.payload.customer?.city,
           },
         },
         userLoading: false,
