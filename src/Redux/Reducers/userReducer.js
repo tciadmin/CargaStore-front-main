@@ -37,6 +37,8 @@ import {
   PATCH_BASIC_USER_SUCCESS,
   PATCH_BASIC_USER_PENDING,
   PATCH_BASIC_USER_FAILURE,
+  PATCH_DRIVER_LEGAL_DOCUMENTS_PENDING,
+  PATCH_DRIVER_LEGAL_DOCUMENTS_SUCCESS,
 } from '../Actions/UserActions/userActions';
 
 const initialState = {
@@ -154,7 +156,6 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         userLoading: false,
-        error: action.error,
       };
     case PUT_CUSTOMER_SUCCESS:
       return {
@@ -162,8 +163,13 @@ export const userReducer = (state = initialState, action) => {
         user: {
           ...state.user,
           customer: {
-            ...state.customer,
-            ...action.payload,
+            ...state.user.customer,
+            company_name: action.payload.customer?.company_name,
+            ruc: action.payload.customer?.ruc,
+            company_phone: action.payload.customer?.company_phone,
+            address: action.payload.customer?.address,
+            country: action.payload.customer?.country,
+            city: action.payload.customer?.city,
           },
         },
         userLoading: false,
@@ -190,6 +196,7 @@ export const userReducer = (state = initialState, action) => {
           lastname: action.payload.user?.lastname,
           profile_image: action.payload.user?.profile_image,
           driver: {
+            ...state.user.driver,
             description: action.payload.driver?.description,
             phone: action.payload.driver?.phone,
           },
@@ -240,14 +247,48 @@ export const userReducer = (state = initialState, action) => {
         user: {
           ...state.user,
           driver: {
-            ...state.driver,
+            ...state.user.driver,
             truck: {
-              ...state.driver.truck,
-              ...action.payload,
+              ...state.user.driver.truck,
+              brand: action.payload.truck?.brand,
+              model: action.payload.truck?.model,
+              year: action.payload.truck?.year,
+              num_plate: action.payload.truck?.num_plate,
+              charge_capacity: action.payload.truck?.charge_capacity,
+              charge_type: action.payload.truck?.charge_type,
             },
           },
         },
         // user: action.payload,
+        userLoading: false,
+        error: null,
+      };
+    case PATCH_DRIVER_LEGAL_DOCUMENTS_PENDING:
+      return {
+        ...state,
+        userLoading: true,
+      };
+    case PATCH_DRIVER_LEGAL_DOCUMENTS_SUCCESS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          driver: {
+            ...state.user.driver,
+            num_license: action.payload.updatedDriver?.num_license,
+            iess: action.payload.updatedDriver?.iess,
+            port_permit: action.payload.updatedDriver?.port_permit,
+            insurance_policy:
+              action.payload.updatedDriver?.insurance_policy,
+            img_insurance_policy:
+              action.payload.updatedDriver?.img_insurance_policy,
+            img_driver_license:
+              action.payload.updatedDriver?.img_driver_license,
+            pdf_iess: action.payload.updatedDriver?.pdf_iess,
+            pdf_port_permit:
+              action.payload.updatedDriver?.pdf_port_permit,
+          },
+        },
         userLoading: false,
         error: null,
       };

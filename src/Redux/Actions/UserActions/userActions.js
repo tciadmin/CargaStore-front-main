@@ -37,6 +37,13 @@ export const PATCH_DRIVER_PENDING = 'PATCH_DRIVER_PENDING';
 export const PATCH_DRIVER_SUCCESS = 'PATCH_DRIVER_SUCCESS';
 export const PATCH_DRIVER_FAILURE = 'PATCH_DRIVER_FAILURE';
 
+export const PATCH_DRIVER_LEGAL_DOCUMENTS_PENDING =
+  'PATCH_DRIVER_LEGAL_DOCUMENTS_PENDING';
+export const PATCH_DRIVER_LEGAL_DOCUMENTS_SUCCESS =
+  'PATCH_DRIVER_LEGAL_DOCUMENTS_SUCCESS';
+export const PATCH_DRIVER_LEGAL_DOCUMENTS_FAILURE =
+  'PATCH_DRIVER_LEGAL_DOCUMENTS_FAILURE';
+
 export const getAllUsers = () => {
   return async (dispatch) => {
     dispatch({ type: GET_ALL_USERS_PENDING });
@@ -134,6 +141,12 @@ export const postUser = (userType, userData, navigate) => {
           { company_name, address, city, company_phone }
         );
         console.log('customer: ', customer);
+        Cookies.set('id', data?.user.id, {
+          expires: 1,
+          secure: true,
+          sameSite: 'Strict',
+          path: '/',
+        });
         dispatch({
           type: POST_USER_SUCCESS,
           payload: customer.data,
@@ -141,7 +154,11 @@ export const postUser = (userType, userData, navigate) => {
         navigate('/shipments');
       }
     } catch (error) {
-      dispatch({ type: POST_USER_FAILURE, error: error.message });
+      console.error(error);
+      dispatch({
+        type: POST_USER_FAILURE,
+        payload: error.response.data,
+      });
     }
   };
 };
@@ -177,24 +194,44 @@ export const authUser = (user, navigate) => {
         navigate('/administrador/panel');
       }
     } catch (error) {
-      dispatch({ type: AUTH_USER_FAILURE, error: error.message });
+      console.error(error);
+      dispatch({
+        type: AUTH_USER_FAILURE,
+        payload: error.response.data,
+      });
     }
   };
 };
 
-export const patchCustomer = (id, customer) => {
+export const patchCustomer = (
+  customerId,
+  company_name,
+  ruc,
+  company_phone,
+  address,
+  country,
+  city
+) => {
   return async (dispatch) => {
     dispatch({ type: PUT_CUSTOMER_PENDING });
     try {
-      await axiosInstance.put(`/customer/edit/${id}`, customer, {
-        headers,
-      });
+      const response = await axiosInstance.put(
+        `/customer/edit/${customerId}`,
+        { company_name, ruc, company_phone, address, country, city },
+        {
+          headers,
+        }
+      );
       return dispatch({
         type: PUT_CUSTOMER_SUCCESS,
-        payload: customer,
+        payload: response.data,
       });
     } catch (error) {
-      dispatch({ type: PUT_CUSTOMER_FAILURE, error: error.message });
+      console.error(error);
+      dispatch({
+        type: PUT_CUSTOMER_FAILURE,
+        payload: error.response.data,
+      });
     }
   };
 };
@@ -237,24 +274,71 @@ export const patchDriver = (
   };
 };
 
-export const patchTruck = (id, truck) => {
+export const patchTruck = (truck) => {
   return async (dispatch) => {
     dispatch({ type: PATCH_TRUCK_PENDING });
     try {
-      const user = await axiosInstance.patch(
-        `/truck/update/${id}`,
+      const userId = Cookies.get('id');
+      const response = await axiosInstance.patch(
+        `/truck/update/${userId}`,
         truck,
         { headers }
       );
       return dispatch({
         type: PATCH_TRUCK_SUCCESS,
-        payload: user,
+        payload: response.data,
       });
     } catch (error) {
-      dispatch({ type: PATCH_TRUCK_FAILURE, error: error.message });
+      console.error(error);
+      dispatch({
+        type: PATCH_TRUCK_FAILURE,
+        payload: error.response.data,
+      });
     }
   };
 };
+
+export const patchDriverLegalDocuments = (
+  driverId,
+  num_license,
+  iess,
+  port_permit,
+  insurance_policy,
+  img_insurance_policy,
+  img_driver_license,
+  pdf_iess,
+  pdf_port_permit
+) => {
+  return async (dispatch) => {
+    dispatch({ type: PATCH_DRIVER_LEGAL_DOCUMENTS_PENDING });
+    try {
+      const formData = new FormData();
+      formData.append('num_license', num_license);
+      formData.append('iess', iess);
+      formData.append('port_permit', port_permit);
+      formData.append('insurance_policy', insurance_policy);
+      formData.append('img_insurance_policy', img_insurance_policy);
+      formData.append('img_driver_license', img_driver_license);
+      formData.append('pdf_iess', pdf_iess);
+      formData.append('pdf_port_permit', pdf_port_permit);
+      const response = await axiosInstance.patch(
+        `http://localhost:3000/api/driver/patch/legal_documents/${driverId}`,
+        formData
+      );
+      return dispatch({
+        type: PATCH_DRIVER_LEGAL_DOCUMENTS_SUCCESS,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error(error);
+      dispatch({
+        type: PATCH_DRIVER_LEGAL_DOCUMENTS_FAILURE,
+        payload: error.response.data,
+      });
+    }
+  };
+};
+
 export const patchBasicUserData = (profile_image, name, lastname) => {
   return async (dispatch) => {
     dispatch({ type: PATCH_BASIC_USER_PENDING });

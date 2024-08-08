@@ -13,6 +13,8 @@ import {
   Grid,
   Paper,
   // Snackbar,
+  MenuItem,
+  Select,
   Stack,
   useMediaQuery,
   FormControl,
@@ -24,10 +26,12 @@ import ResponsiveImageBox from '../imageComponents/ResponsiveImageBox';
 import CobroItemCard from '../cards/CobroItemCard';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  patchBasicUserData,
   // getUser,
   // patchBasicUserData,
   patchCustomer,
   patchDriver,
+  patchDriverLegalDocuments,
   patchTruck,
 } from '../../Redux/Actions/UserActions/userActions';
 // import Cookies from 'js-cookie';
@@ -76,7 +80,7 @@ export default function VerticalTabs() {
   //   value: false,
   //   message: 'Mensaje incorrecto',
   // });
-  const [dataChanged, setDataChanged] = React.useState(false);
+  // const [dataChanged, setDataChanged] = React.useState(false);
 
   const [editar, setEditar] = React.useState(false);
   const { user, userLoading } = useSelector((state) => state.user);
@@ -95,8 +99,35 @@ export default function VerticalTabs() {
       email: '',
       description: '',
       phone: '',
+      brand: '',
+      model: '',
+      year: '',
+      num_plate: '',
+      charge_capacity: '',
+      charge_type: '',
+      num_license: '',
+      iess: '',
+      port_permit: '',
+      insurance_policy: '',
+      img_driver_license: '',
+      img_insurance_policy: '',
+      pdf_iess: '',
+      pdf_port_permit: '',
+      company_name: '',
+      ruc: '',
+      company_phone: '',
+      address: '',
+      country: '',
+      city: '',
     },
   });
+
+  const selectChargeType = ['Seca', 'Peligrosa', 'Refrigerada'];
+
+  const booleanSelect = [
+    { boolean: true, string: 'Si' },
+    { boolean: false, string: 'No' },
+  ];
 
   const watchData = watch();
   React.useEffect(() => {
@@ -119,6 +150,11 @@ export default function VerticalTabs() {
     setFileToBase(selectedFile);
   };
 
+  const handleLegalDocumentFileChange = (ev, param) => {
+    const selectedFile = ev.target.files?.[0];
+    setValue(`${param}`, selectedFile);
+  };
+
   const urlBack = import.meta.env.VITE_URL_BACKEND;
 
   React.useEffect(() => {
@@ -129,11 +165,32 @@ export default function VerticalTabs() {
       setValue('lastname', user.lastname);
       setValue('email', user.email);
     }
-    if (user?.driver) {
-      setValue('description', user?.driver.description);
-      setValue('phone', user?.driver.phone);
+    if (user?.customer) {
+      setValue('company_name', user?.customer?.company_name);
+      setValue('ruc', user?.customer?.ruc);
+      setValue('company_phone', user?.customer?.company_phone);
+      setValue('address', user?.customer?.address);
+      setValue('country', user?.customer?.country);
+      setValue('city', user?.customer?.city);
     }
-  }, [setValue, user, user.driver, urlBack]);
+    if (user?.driver) {
+      setValue('description', user?.driver?.description);
+      setValue('phone', user?.driver?.phone);
+      setValue('num_license', user?.driver?.num_license);
+      setValue('iess', user?.driver?.iess);
+      setValue('port_permit', user?.driver?.port_permit);
+      setValue('insurance_policy', user?.driver?.insurance_policy);
+      setValue('brand', user?.driver?.truck?.brand);
+      setValue('model', user?.driver?.truck?.model);
+      setValue('year', user?.driver?.truck?.year);
+      setValue('num_plate', user?.driver?.truck?.num_plate);
+      setValue(
+        'charge_capacity',
+        user?.driver?.truck?.charge_capacity
+      );
+      setValue('charge_type', user?.driver?.truck?.charge_type);
+    }
+  }, [setValue, user, urlBack]);
 
   React.useEffect(() => {
     setEditar(false);
@@ -181,7 +238,7 @@ export default function VerticalTabs() {
     'Historial de cobros',
   ];
 
-  const putBasicData = () => {
+  const putBasicDriverData = () => {
     const { profile_image, name, lastname, description, phone } =
       watch();
     dispatch(
@@ -189,133 +246,80 @@ export default function VerticalTabs() {
     );
   };
 
+  const putBasicCustomerData = () => {
+    const { profile_image, name, lastname } = watch();
+    dispatch(patchBasicUserData(profile_image, name, lastname));
+  };
+
   const putCustomerDataClient = () => {
-    // if (!data.customer) {
-    //   setErrorValidation({
-    //     value: true,
-    //     message: 'Datos del cliente no están disponibles',
-    //   });
-    //   return;
-    // }
-    // if (!data.customer.company_name) {
-    //   setErrorValidation({
-    //     value: true,
-    //     message: 'El nombre de la empresa debe completarse',
-    //   });
-    // } else if (!data.customer.address) {
-    //   setErrorValidation({
-    //     value: true,
-    //     message: 'La dirección es obligatoria',
-    //   });
-    // } else {
-    //   const regex = /^[0-9a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/;
-    //   const regexRUC = /^[0-9]+$/;
-    //   const cleanRuc = data.customer.ruc
-    //     ? data.customer.ruc.toString().trim()
-    //     : '';
-    //   if (regex.test(data.customer.company_name) == false) {
-    //     setErrorValidation({
-    //       value: true,
-    //       message:
-    //         'El nombre de su empresa no puede contener carácteres especiales ',
-    //     });
-    //   } else if (regex.test(data.customer.address) == false) {
-    //     setErrorValidation({
-    //       value: true,
-    //       message:
-    //         'La dirección no puede contener carácteres especiales ',
-    //     });
-    //   } else if (regexRUC.test(cleanRuc) == false) {
-    //     setErrorValidation({
-    //       value: true,
-    //       message: 'El RUC solamente puede contener números',
-    //     });
-    //   } else if (regex.test(data.customer.country) == false) {
-    //     setErrorValidation({
-    //       value: true,
-    //       message: 'El país no puede contener carácteres especiales ',
-    //     });
-    //   } else {
-    //     if (cleanRuc.length != 10) {
-    //       setErrorValidation({
-    //         value: true,
-    //         message: 'El número RUC debe contener 10 digitos',
-    //       });
-    //     } else {
-    //       if (!dataChanged) {
-    //         dispatch(patchCustomer(data.customer.id, data.customer));
-    //         setEditar(false);
-    //         setDataChanged(true);
-    //       }
-    //     }
-    //   }
-    // }
+    const customerId = user?.customer.id;
+    const {
+      company_name,
+      ruc,
+      company_phone,
+      address,
+      country,
+      city,
+    } = watch();
+    dispatch(
+      patchCustomer(
+        customerId,
+        company_name,
+        ruc,
+        company_phone,
+        address,
+        country,
+        city
+      )
+    );
   };
 
   const putTruckData = () => {
-    // const regex = /^[0-9a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$/;
-    // const regexNum = /^[0-9]+$/;
-    // if (!data.driver || !data.driver.truck) {
-    //   setErrorValidation({
-    //     value: true,
-    //     message: 'Datos del camión no disponibles',
-    //   });
-    //   return;
-    // }
-    // const isTruckObjectNotEmpty = (truck) =>
-    //   Object.values(truck).every(
-    //     (value) =>
-    //       value !== '' && value !== null && value !== undefined
-    //   );
-    // const anoActual = new Date().getFullYear();
-    // if (!isTruckObjectNotEmpty(data.driver.truck)) {
-    //   setErrorValidation({
-    //     value: true,
-    //     message: 'Ningún campo puede estar vacío',
-    //   });
-    // } else if (regex.test(data.driver.truck.brand) == false) {
-    //   setErrorValidation({
-    //     value: true,
-    //     message: 'El campo marca contiene carácteres inválidos',
-    //   });
-    // } else if (regex.test(data.driver.truck.model) == false) {
-    //   setErrorValidation({
-    //     value: true,
-    //     message: 'El campo modelo contiene carácteres inválidos',
-    //   });
-    // } else if (
-    //   regex.test(data.driver.truck.charge_capacity) == false
-    // ) {
-    //   setErrorValidation({
-    //     value: true,
-    //     message:
-    //       'El campo capacidad de carga contiene carácteres inválidos',
-    //   });
-    // } else if (regex.test(data.driver.truck.charge_type) == false) {
-    //   setErrorValidation({
-    //     value: true,
-    //     message:
-    //       'El campo tipo de carga contiene carácteres inválidos',
-    //   });
-    // } else if (regexNum.test(data.driver.truck.num_plate) == false) {
-    //   setErrorValidation({
-    //     value: true,
-    //     message: 'El campo matrícula tiene que ser un número',
-    //   });
-    // } else if (
-    //   regexNum.test(data.driver.truck.year) == false ||
-    //   parseInt(data.driver.truck.year) > anoActual ||
-    //   parseInt(data.driver.truck.year) < 1950
-    // ) {
-    //   setErrorValidation({
-    //     value: true,
-    //     message: 'El campo año tiene que ser un año válido',
-    //   });
-    // } else {
-    //   setDataChanged(true);
-    //   setEditar(false);
-    //   dispatch(patchTruck(user.id, data));
-    // }
+    const {
+      brand,
+      model,
+      year,
+      num_plate,
+      charge_capacity,
+      charge_type,
+    } = watch();
+    dispatch(
+      patchTruck({
+        brand,
+        model,
+        year,
+        num_plate,
+        charge_capacity,
+        charge_type,
+      })
+    );
+  };
+
+  const patchLegalDocuments = () => {
+    const {
+      num_license,
+      iess,
+      port_permit,
+      insurance_policy,
+      img_insurance_policy,
+      img_driver_license,
+      pdf_iess,
+      pdf_port_permit,
+    } = watch();
+    const driverId = user?.driver.id;
+    dispatch(
+      patchDriverLegalDocuments(
+        driverId,
+        num_license,
+        iess,
+        port_permit,
+        insurance_policy,
+        img_insurance_policy,
+        img_driver_license,
+        pdf_iess,
+        pdf_port_permit
+      )
+    );
   };
 
   const handleChange = (event, newValue) => {
@@ -348,8 +352,8 @@ export default function VerticalTabs() {
           >
             <Typography fontSize={'20px'} fontWeight={600}>
               {user.role == 'driver'
-                ? driverOptionsMobile[value]
-                : clientOptionsMobile[value]}
+                ? driverOptionsMobile[tab]
+                : clientOptionsMobile[tab]}
             </Typography>
             <div style={{ height: '100%', position: 'relative' }}>
               <Button
@@ -890,7 +894,14 @@ export default function VerticalTabs() {
                 marginTop: '20px',
               }}
               onClick={() => {
-                putBasicData();
+                switch (user?.role) {
+                  case 'driver':
+                    putBasicDriverData();
+                    break;
+                  case 'customer':
+                    putBasicCustomerData();
+                    break;
+                }
               }}
             >
               {' '}
@@ -949,7 +960,7 @@ export default function VerticalTabs() {
             <label htmlFor="avatar">
               <Avatar
                 alt="profile image"
-                src="imagen"
+                src={showImage}
                 sx={{
                   width: 100,
                   height: 100,
@@ -999,11 +1010,44 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    name="company_name"
-                    onChange={onChange}
-                    defaultValue={
-                      data.customer && data.customer.company_name
-                    }
+                    {...register('company_name', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
+                    readOnly={!editar}
+                  />
+                </FormControl>
+
+                <p
+                  style={{
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
+                    textAlign: 'left',
+                  }}
+                >
+                  Número de telefono
+                </p>
+                <FormControl
+                  sx={{
+                    m: 1,
+                    width: mobile ? '370px' : '666px',
+                  }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    sx={{
+                      backgroundColor: Colors.primary.contrastText,
+                      borderRadius: '8px',
+                    }}
+                    name="company_phone"
+                    {...register('company_phone', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1030,8 +1074,12 @@ export default function VerticalTabs() {
                       borderRadius: '8px',
                     }}
                     name="ruc"
-                    // onChange={onChange}
-                    defaultValue={data.customer && data.customer.ruc}
+                    {...register('ruc', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1058,10 +1106,12 @@ export default function VerticalTabs() {
                       borderRadius: '8px',
                     }}
                     name="address"
-                    // onChange={onChange}
-                    defaultValue={
-                      data.customer && data.customer.address
-                    }
+                    {...register('address', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1087,11 +1137,45 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    // name="country"
-                    // // onChange={onChange}
-                    // defaultValue={
-                    //   data.customer && data.customer.country
-                    // }
+                    name="country"
+                    {...register('country', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
+                    readOnly={!editar}
+                  />
+                </FormControl>
+
+                <p
+                  style={{
+                    fontWeight: 500,
+                    color: Colors.secondary.contrastText,
+                    textAlign: 'left',
+                  }}
+                >
+                  Ciudad
+                </p>
+                <FormControl
+                  sx={{
+                    m: 1,
+                    width: mobile ? '370px' : '666px',
+                  }}
+                  variant="outlined"
+                >
+                  <OutlinedInput
+                    sx={{
+                      backgroundColor: Colors.primary.contrastText,
+                      borderRadius: '8px',
+                    }}
+                    name="city"
+                    {...register('city', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1129,11 +1213,12 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    // name="brand"
-                    // // onChange={onChange}
-                    // defaultValue={
-                    //   data.driver && data.driver.truck?.brand
-                    // }
+                    {...register('brand', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1159,11 +1244,12 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    // name="model"
-                    // onChange={onChange}
-                    // defaultValue={
-                    //   data.driver && data.driver.truck?.model
-                    // }
+                    {...register('model', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1188,11 +1274,12 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    // name="year"
-                    // onChange={onChange}
-                    // defaultValue={
-                    //   data.driver && data.driver.truck?.year
-                    // }
+                    {...register('year', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1217,11 +1304,12 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    // name="num_plate"
-                    // onChange={onChange}
-                    // defaultValue={
-                    //   data.driver && data.driver.truck?.num_plate
-                    // }
+                    {...register('num_plate', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1246,12 +1334,12 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    // name="charge_capacity"
-                    // onChange={onChange}
-                    // defaultValue={
-                    //   data.driver &&
-                    //   data.driver.truck?.charge_capacity
-                    // }
+                    {...register('charge_capacity', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1271,18 +1359,26 @@ export default function VerticalTabs() {
                   }}
                   variant="outlined"
                 >
-                  <OutlinedInput
+                  <Select
+                    defaultValue={watch().charge_type}
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    // name="charge_type"
-                    // onChange={onChange}
-                    // defaultValue={
-                    //   data.driver && data.driver.truck?.charge_type
-                    // }
+                    {...register('charge_type', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
-                  />
+                  >
+                    {selectChargeType.map((type, index) => (
+                      <MenuItem key={index} value={type}>
+                        {type}
+                      </MenuItem>
+                    ))}
+                  </Select>
                 </FormControl>
               </Box>
             )}
@@ -1290,6 +1386,7 @@ export default function VerticalTabs() {
             {editar ? (
               <Button
                 variant="contained"
+                disabled={userLoading}
                 style={{
                   fontWeight: 600,
                   alignSelf: 'center',
@@ -1300,8 +1397,10 @@ export default function VerticalTabs() {
                   switch (user.role) {
                     case 'customer':
                       putCustomerDataClient();
+                      break;
                     case 'driver':
                       putTruckData();
+                      break;
                   }
                 }}
               >
@@ -1422,7 +1521,7 @@ export default function VerticalTabs() {
             <label htmlFor="avatar">
               <Avatar
                 alt="profile image"
-                src="imagen"
+                src={showImage}
                 sx={{
                   width: 100,
                   height: 100,
@@ -1472,9 +1571,12 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    // name="license"
-                    // onChange={onChange}
-                    // defaultValue={data.driver && data.driver.license}
+                    {...register('num_license', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1494,16 +1596,26 @@ export default function VerticalTabs() {
                   }}
                   variant="outlined"
                 >
-                  <OutlinedInput
+                  <Select
+                    defaultValue={watch().iess}
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    // name="iess"
-                    // onChange={onChange}
-                    // defaultValue={data.driver && data.driver.iess}
+                    {...register('iess', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
-                  />
+                  >
+                    {booleanSelect.map((item, index) => (
+                      <MenuItem key={index} value={item.boolean}>
+                        {item.string}
+                      </MenuItem>
+                    ))}
+                  </Select>
                 </FormControl>
 
                 <p
@@ -1522,18 +1634,26 @@ export default function VerticalTabs() {
                   }}
                   variant="outlined"
                 >
-                  <OutlinedInput
+                  <Select
+                    defaultValue={watch().port_permit}
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    // name="port_permit"
-                    // onChange={onChange}
-                    // defaultValue={
-                    //   data.driver && data.driver.port_permit
-                    // }
+                    {...register('port_permit', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
-                  />
+                  >
+                    {booleanSelect.map((item, index) => (
+                      <MenuItem key={index} value={item.boolean}>
+                        {item.string}
+                      </MenuItem>
+                    ))}
+                  </Select>
                 </FormControl>
 
                 <p
@@ -1557,11 +1677,12 @@ export default function VerticalTabs() {
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                     }}
-                    // name="insurance_policy"
-                    // onChange={onChange}
-                    // defaultValue={
-                    //   data.driver && data.driver.insurance_policy
-                    // }
+                    {...register('insurance_policy', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                    })}
                     readOnly={!editar}
                   />
                 </FormControl>
@@ -1594,6 +1715,17 @@ export default function VerticalTabs() {
                         id="licencia"
                         multiple
                         type="file"
+                        {...register('img_driver_license', {
+                          required: {
+                            value: true,
+                          },
+                        })}
+                        onChange={(ev) => {
+                          handleLegalDocumentFileChange(
+                            ev,
+                            'img_driver_license'
+                          );
+                        }}
                       />
                       <label htmlFor="licencia">
                         <Typography
@@ -1638,6 +1770,17 @@ export default function VerticalTabs() {
                         id="comprobanteAfiliacion"
                         multiple
                         type="file"
+                        {...register('pdf_iess', {
+                          required: {
+                            value: true,
+                          },
+                        })}
+                        onChange={(ev) => {
+                          handleLegalDocumentFileChange(
+                            ev,
+                            'pdf_iess'
+                          );
+                        }}
                       />
                       <label htmlFor="comprobanteAfiliacion">
                         <Typography
@@ -1681,6 +1824,17 @@ export default function VerticalTabs() {
                         id="permisoPuerto"
                         multiple
                         type="file"
+                        {...register('pdf_port_permit', {
+                          required: {
+                            value: true,
+                          },
+                        })}
+                        onChange={(ev) => {
+                          handleLegalDocumentFileChange(
+                            ev,
+                            'pdf_port_permit'
+                          );
+                        }}
                       />
                       <label htmlFor="permisoPuerto">
                         <Typography
@@ -1721,11 +1875,22 @@ export default function VerticalTabs() {
                       <input
                         accept="image/*"
                         style={{ display: 'none' }}
-                        id="licencia"
+                        id="insurance_policy"
                         multiple
                         type="file"
+                        {...register('img_insurance_policy', {
+                          required: {
+                            value: true,
+                          },
+                        })}
+                        onChange={(ev) => {
+                          handleLegalDocumentFileChange(
+                            ev,
+                            'img_insurance_policy'
+                          );
+                        }}
                       />
-                      <label htmlFor="licencia">
+                      <label htmlFor="insurance_policy">
                         <Typography
                           style={{
                             color: '#475367',
@@ -1881,10 +2046,14 @@ export default function VerticalTabs() {
             (editar ? (
               <Button
                 variant="contained"
+                disabled={userLoading}
                 style={{
                   fontWeight: 600,
                   alignSelf: 'center',
                   marginTop: '20px',
+                }}
+                onClick={() => {
+                  patchLegalDocuments();
                 }}
               >
                 {' '}
