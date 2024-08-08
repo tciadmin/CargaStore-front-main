@@ -77,6 +77,7 @@ export const postUser = (userType, userData, navigate) => {
     console.log(userType);
     try {
       //Destructuramos los datos del usuario
+//    
       const { name, lastname, email, password, confirmPassword } =
         userData;
       const newUser = await axiosInstance.post('/auth/signup', {
@@ -96,7 +97,7 @@ export const postUser = (userType, userData, navigate) => {
         //userType sea 'driver'
         let { brand, model, year, charge_capacity, charge_type } =
           userData;
-
+          console.log(userData)
         //Hacemos la peticion al endpoint de creacion de conductor
         //y le pasamos como id del usuario el de la respuesta de newUser
         const driver = await axiosInstance.post(
