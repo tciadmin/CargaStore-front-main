@@ -8,6 +8,10 @@ import {
   DUPLICATE_ORDER_SUCCESS,
 } from '../Actions/OrderActions/duplicateorder';
 import {
+  EDIT_ORDER_FAILURE,
+  EDIT_ORDER_SUCCESS,
+} from '../Actions/OrderActions/editOrder';
+import {
   AUTH_USER_FAILURE,
   AUTH_USER_SUCCESS,
   PATCH_BASIC_USER_FAILURE,
@@ -118,6 +122,16 @@ export const alertReducer = (state = initialState, action) => {
         message: action.payload.message,
       };
     case AUTH_USER_FAILURE:
+      return {
+        ...state,
+        message: action.payload.message,
+      };
+    case EDIT_ORDER_SUCCESS:
+      return {
+        ...state,
+        message: action.payload.message,
+      };
+    case EDIT_ORDER_FAILURE:
       return {
         ...state,
         message: action.payload.message,

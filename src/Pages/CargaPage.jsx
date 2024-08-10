@@ -27,7 +27,7 @@ import { declineOrder } from '../Redux/Actions/ApplicationActions/declineOrder';
 import { clearOrderDetail } from '../Redux/Actions/OrderActions/clearOrderDetail';
 import { clearApplicationMessage } from '../Redux/Actions/ApplicationActions/clearApplicationMessage';
 import { changeOrderState } from '../Redux/Actions/OrderActions/changeOrderState';
-import { Colors } from '../Utils/Colors';
+// import { Colors } from '../Utils/Colors';
 import { finishOrder } from '../Redux/Actions/OrderActions/finishOrder';
 
 const GreenCircle = () => {
@@ -179,7 +179,7 @@ const CargaPage = () => {
                   height: '40px',
                   marginRight: 5,
                 }}
-                onClick={() => navigate('/editarEnvio')}
+                onClick={() => navigate(`/editarEnvio/${id}`)}
               >
                 Editar envío
               </Button>
