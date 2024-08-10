@@ -11,12 +11,13 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { listOrder } from '../Redux/Actions/OrderActions/listOrder';
 import Loading from '../Components/Loading/Loading';
+import ShipmentsMessage from '../Components/Shipments/ShipmentsMessage/ShipmentsMessage';
 
 export default function PageMarketplace() {
   const mobile = useMediaQuery('(max-width:720px)');
   const [anchorEl, setAnchorEl] = React.useState(null);
   const dispatch = useDispatch();
-  const { orders, ordersLoading } =
+  const { orders, ordersLoading, message } =
     useSelector((state) => state.orders) || [];
 
   const [orderType, setOrderType] = useState('nacional');
@@ -155,6 +156,16 @@ export default function PageMarketplace() {
                 >
                   <Loading color="#333" />
                 </Box>
+              ) : message ? (
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  alignItems={mobile ? '' : 'center'}
+                  minHeight="100vh"
+                  minWidth={mobile ? '100vw' : '60vw'}
+                >
+                  <ShipmentsMessage message={message} />
+                </Box>
               ) : (
                 <Grid
                   container
@@ -251,6 +262,7 @@ export default function PageMarketplace() {
               </Box>
             ) : (
               <>
+                {message && <ShipmentsMessage message={message} />}
                 <h1
                   style={{
                     color: '#1A1A21',
@@ -290,7 +302,7 @@ export default function PageMarketplace() {
                         price={item.package?.offered_price}
                         typeCharge={item.package?.type}
                         id={item.id}
-                      ></MarketplaceCard>
+                      />
                     </Grid>
                   ))}
                 </Grid>

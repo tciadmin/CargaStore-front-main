@@ -24,7 +24,14 @@ export const listOrder = (
         //   pendingAssignedDriverId ||
         //   assignedDriverId
         // ) {
-        if (status === 'pendiente') {
+        if (orderType === 'nacional' && status === 'pendiente') {
+          message = 'No hay envíos nacionales';
+        } else if (
+          orderType === 'international' &&
+          status === 'pendiente'
+        ) {
+          message = 'No hay envío internacionales';
+        } else if (status === 'pendiente') {
           message = `Aun no tienes envíos ${
             customerId ? 'generados' : 'pendientes'
           }`;
