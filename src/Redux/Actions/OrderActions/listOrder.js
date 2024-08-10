@@ -18,20 +18,24 @@ export const listOrder = (
         `/order/list_order?status=${status}&orderType=${orderType}&customerId=${customerId}&pendingAssignedDriverId=${pendingAssignedDriverId}&assignedDriverId=${assignedDriverId}`
       );
       let message = '';
-      if (customerId || pendingAssignedDriverId || assignedDriverId) {
-        if (!response.data.orders.length) {
-          if (status === 'pendiente') {
-            message = `Aun no tienes envíos ${
-              customerId ? 'generados' : 'pendientes'
-            }`;
-          } else if (status === 'asignado') {
-            message = 'Aun no tienes envíos asignados';
-          } else if (status === 'en curso') {
-            message = 'Aun no tienes envíos en curso';
-          } else if (status === 'finalizado') {
-            message = 'Aun no tienes envíos finalizados';
-          }
+      if (!response.data.orders.length) {
+        // if (
+        //   customerId ||
+        //   pendingAssignedDriverId ||
+        //   assignedDriverId
+        // ) {
+        if (status === 'pendiente') {
+          message = `Aun no tienes envíos ${
+            customerId ? 'generados' : 'pendientes'
+          }`;
+        } else if (status === 'asignado') {
+          message = 'Aun no tienes envíos asignados';
+        } else if (status === 'en curso') {
+          message = 'Aun no tienes envíos en curso';
+        } else if (status === 'finalizado') {
+          message = 'Aun no tienes envíos finalizados';
         }
+        // }
       }
       dispatch({
         type: LIST_ORDER_SUCCESS,
