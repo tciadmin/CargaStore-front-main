@@ -80,7 +80,7 @@ export default function PageAdminPanel({ seccion = 0 }) {
         justifyContent: mobile ? 'flex-start' : '',
         width: '100%',
         marginTop: '64px',
-        gap: 20
+        gap: 20,
       }}
     >
       {mobile ? (
@@ -368,19 +368,19 @@ export default function PageAdminPanel({ seccion = 0 }) {
         )
       )}
       <Box
-          style={{
-            display: 'flex',
-              alignItems: 'right',
-              justifyContent: 'right',
-              padding: '10px',
-              cursor: 'pointer',
-              position: 'fixed',
-              width: '100%',
-              bottom: 0
-          }}
-        >
-          <img src="/imgAdminPayment/ChatIcon.svg" />
-        </Box>
+        style={{
+          display: 'flex',
+          alignItems: 'right',
+          justifyContent: 'right',
+          padding: '10px',
+          cursor: 'pointer',
+          position: 'fixed',
+          width: '100%',
+          bottom: 0,
+        }}
+      >
+        <img src="/imgAdminPayment/ChatIcon.svg" />
+      </Box>
     </Box>
   );
 }

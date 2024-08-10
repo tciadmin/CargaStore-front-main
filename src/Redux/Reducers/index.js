@@ -9,9 +9,11 @@ import { formDataReducer } from './formsDataReducer';
 import { chatReducer } from './chatReducer';
 import { driverReducer } from './driverReducer';
 import { alertReducer } from './alertReducer';
+import { pageInfoReducer } from './pageInfoReducer';
 
 const rootReducer = combineReducers({
   alert: alertReducer,
+  pageInfo: pageInfoReducer,
   forms: formDataReducer,
   user: userReducer,
   driver: driverReducer,

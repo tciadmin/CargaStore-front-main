@@ -236,6 +236,7 @@ export const orderReducer = (state = initialState, action) => {
     case APPLY_FOR_ORDER_SUCCESS:
       return {
         ...state,
+        changingOrderState: false,
         singleOrder: {
           ...state.singleOrder,
           applications: [

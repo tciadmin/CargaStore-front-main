@@ -1,5 +1,9 @@
 import { CLEAR_ALERT } from '../Actions/AlertAction/clearAlert';
 import {
+  APPLY_FOR_ORDER_FAILURE,
+  APPLY_FOR_ORDER_SUCCESS,
+} from '../Actions/ApplicationActions/applyForOrder';
+import {
   CREATE_ORDER_FAILURE,
   CREATE_ORDER_SUCCESS,
 } from '../Actions/OrderActions/createOrder';
@@ -135,6 +139,16 @@ export const alertReducer = (state = initialState, action) => {
       return {
         ...state,
         message: action.payload.message,
+      };
+    case APPLY_FOR_ORDER_SUCCESS:
+      return {
+        ...state,
+        message: action.payload.message,
+      };
+    case APPLY_FOR_ORDER_FAILURE:
+      return {
+        ...state,
+        message: action.payload?.message,
       };
     default:
       return { ...state };
