@@ -57,7 +57,7 @@ export const router = createBrowserRouter([
       { path: '/carga/:id', element: <CargaPage /> },
       { path: '/crearEnvios', element: <PageCrearEnvios /> },
       { path: '/marketplace', element: <PageMarketplace /> },
-      { path: '/editarEnvio', element: <PageEditarEnvio /> },
+      { path: '/editarEnvio/:orderId', element: <PageEditarEnvio /> },
       { path: '/postular', element: <CompMarketplacePostular /> },
       {
         path: '/administrador',

@@ -43,7 +43,6 @@ export const verifyCode = (code) => {
     try {
       const validate = axiosInstance.post("/auth/validate_code", code);
       if (validate) {
-        console.log("codigo validado con éxito");
         return dispatch({
           type: PASSWORD_CODE_AUTH_SUCCESS,
           payload: validate,

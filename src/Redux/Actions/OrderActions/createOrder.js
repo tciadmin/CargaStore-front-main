@@ -33,32 +33,6 @@ export const createOrder = (
   },
   navigate
 ) => {
-  console.log('data: ', {
-    product_name, //string
-    quantity, //integer
-    type, // 'Seca' | 'Peligrosa' | 'Refrigerada'
-    weight, //float
-    volume, //integer
-    offered_price, //integer
-    // product_pic, //string
-    orderType, //'national' | 'international'
-    receiving_company, //string
-    contact_number, //integer
-    receiving_company_RUC, //integer
-    pick_up_date, //date
-    pick_up_time, //string
-    pick_up_address, //string
-    // pick_up_city, //string
-    delivery_date, //date
-    delivery_time, //string
-    delivery_address, //string
-    // delivery_city, // string
-    image1,
-    image2,
-    image3,
-    image4,
-  });
-  console.log('createOrder ejecutada');
   return async (dispatch) => {
     dispatch({ type: CREATE_ORDER_PENDING });
     try {

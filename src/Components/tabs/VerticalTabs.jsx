@@ -2,17 +2,15 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
-import Tab, { tabClasses } from '@mui/material/Tab';
+import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import {
-  // Alert,
   Avatar,
   Button,
   Container,
   Grid,
   Paper,
-  // Snackbar,
   MenuItem,
   Select,
   Stack,
@@ -27,14 +25,11 @@ import CobroItemCard from '../cards/CobroItemCard';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   patchBasicUserData,
-  // getUser,
-  // patchBasicUserData,
   patchCustomer,
   patchDriver,
   patchDriverLegalDocuments,
   patchTruck,
 } from '../../Redux/Actions/UserActions/userActions';
-// import Cookies from 'js-cookie';
 import { Colors } from '../../Utils/Colors';
 
 function TabPanel(props) {
@@ -76,22 +71,12 @@ export default function VerticalTabs() {
   const [tab, setTab] = React.useState(0);
 
   const [open, setOpen] = React.useState(false);
-  // const [errorValidation, setErrorValidation] = React.useState({
-  //   value: false,
-  //   message: 'Mensaje incorrecto',
-  // });
-  // const [dataChanged, setDataChanged] = React.useState(false);
 
   const [editar, setEditar] = React.useState(false);
   const { user, userLoading } = useSelector((state) => state.user);
   const [showImage, setShowImage] = React.useState(null);
 
-  const {
-    register,
-    watch,
-    setValue,
-    formState: { errors },
-  } = useForm({
+  const { register, watch, setValue } = useForm({
     defaultValues: {
       profile_image: '',
       name: '',
@@ -128,11 +113,6 @@ export default function VerticalTabs() {
     { boolean: true, string: 'Si' },
     { boolean: false, string: 'No' },
   ];
-
-  const watchData = watch();
-  React.useEffect(() => {
-    console.log('DATA: ', watchData);
-  }, [watchData]);
 
   const setFileToBase = (file) => {
     if (file) {
@@ -195,18 +175,6 @@ export default function VerticalTabs() {
   React.useEffect(() => {
     setEditar(false);
   }, [user, user.driver]);
-
-  // React.useEffect(() => {
-  //   dispatch(getUser(Cookies.get('id')));
-  //   setData(user);
-  //   setEditar(false);
-  // }, []);
-  // const [data, setData] = React.useState(user);
-  // React.useEffect(() => {
-  //   if (!editar) {
-  //     setData(user);
-  //   }
-  // }, [user]);
 
   const mobile = useMediaQuery('(max-width: 750px)');
   const driverOptionsMobile = [
@@ -2335,36 +2303,6 @@ export default function VerticalTabs() {
           </Stack>
         )}
       </TabPanel>
-      {/* <Snackbar
-        open={errorValidation.value}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        autoHideDuration={6000}
-        onClose={() => setErrorValidation({ value: false, message: "" })}
-      >
-        <Alert
-          onClose={() => setErrorValidation({ value: false, message: "" })}
-          severity="error"
-          variant="filled"
-          sx={{ width: "100%" }}
-        >
-          {errorValidation.message}
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        open={dataChanged}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        autoHideDuration={6000}
-        onClose={() => setDataChanged(false)}
-      >
-        <Alert
-          onClose={() => setDataChanged(false)}
-          severity="success"
-          variant="filled"
-          sx={{ width: "100%" }}
-        >
-          Los cambios se guardaron con éxito!
-        </Alert>
-      </Snackbar> */}
     </Box>
   );
 }

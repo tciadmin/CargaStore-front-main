@@ -57,6 +57,7 @@ const initialState = {
   orderStateLoading: false,
   changingOrderState: false,
   duplicating: false,
+  editingOrder: false,
   error: null,
 };
 
@@ -152,18 +153,18 @@ export const orderReducer = (state = initialState, action) => {
     case EDIT_ORDER_PENDING:
       return {
         ...state,
-        singleOrderLoading: true,
+        editingOrder: true,
         error: null,
       };
     case EDIT_ORDER_SUCCESS:
       return {
         ...state,
-        singleOrderLoading: false,
+        editingOrder: false,
       };
     case EDIT_ORDER_FAILURE:
       return {
         ...state,
-        singleOrderLoading: false,
+        editingOrder: false,
         error: action.error,
       };
     case ORDER_STATE_PENDING:
@@ -235,6 +236,7 @@ export const orderReducer = (state = initialState, action) => {
     case APPLY_FOR_ORDER_SUCCESS:
       return {
         ...state,
+        changingOrderState: false,
         singleOrder: {
           ...state.singleOrder,
           applications: [

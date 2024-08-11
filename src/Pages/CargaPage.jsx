@@ -27,7 +27,7 @@ import { declineOrder } from '../Redux/Actions/ApplicationActions/declineOrder';
 import { clearOrderDetail } from '../Redux/Actions/OrderActions/clearOrderDetail';
 import { clearApplicationMessage } from '../Redux/Actions/ApplicationActions/clearApplicationMessage';
 import { changeOrderState } from '../Redux/Actions/OrderActions/changeOrderState';
-import { Colors } from '../Utils/Colors';
+// import { Colors } from '../Utils/Colors';
 import { finishOrder } from '../Redux/Actions/OrderActions/finishOrder';
 
 const GreenCircle = () => {
@@ -91,7 +91,6 @@ const CargaPage = () => {
       el.driverId === user?.driver?.id && setApplyed(true);
     });
     !singleOrder?.applications?.length && setApplyed(false);
-    console.log('applyed: ', applyed);
   }, [
     applyed,
     singleOrder?.applications,
@@ -179,7 +178,7 @@ const CargaPage = () => {
                   height: '40px',
                   marginRight: 5,
                 }}
-                onClick={() => navigate('/editarEnvio')}
+                onClick={() => navigate(`/editarEnvio/${id}`)}
               >
                 Editar envío
               </Button>
@@ -690,6 +689,7 @@ const CargaPage = () => {
                           lineHeight: !mobile ? '23.2px' : '10px',
                           textAlign: 'center',
                           color: '#fff',
+                          backgroundColor: '#007C52',
                           borderRadius: '8px',
                           fontSize: '16px',
                           width: 'Hug (121px)px',

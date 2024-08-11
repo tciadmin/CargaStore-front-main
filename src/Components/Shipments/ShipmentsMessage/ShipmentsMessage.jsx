@@ -15,7 +15,6 @@ const ShipmentsMessage = ({ message, status, userRole }) => {
       justifyContent={'center'}
       style={{
         gap: '20px',
-        backgroundColor: '#f5f5f5ff',
         padding: 5,
         overflow: mobile ? '' : 'hidden',
       }}

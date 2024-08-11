@@ -23,6 +23,7 @@ import { clearOrdersList } from '../Redux/Actions/OrderActions/clearOrdersList';
 import MobileChargeItemCard from '../Components/cards/MobileChargeItemCard';
 import Loading from '../Components/Loading/Loading';
 import { getDriverList } from '../Redux/Actions/DriverAction/getDriverList';
+import ShipmentsMessage from '../Components/Shipments/ShipmentsMessage/ShipmentsMessage';
 
 export default function PageAdminPanel({ seccion = 0 }) {
   const [open, setOpen] = React.useState(true);
@@ -37,7 +38,7 @@ export default function PageAdminPanel({ seccion = 0 }) {
     'Socios Activos',
   ];
 
-  const { orders, ordersLoading } = useSelector(
+  const { orders, ordersLoading, message } = useSelector(
     (state) => state.orders
   );
 
@@ -50,7 +51,6 @@ export default function PageAdminPanel({ seccion = 0 }) {
   }, [seccion]);
 
   React.useEffect(() => {
-    console.log('value: ', value);
     let status = '';
     value === 0
       ? ((status = ''), dispatch(clearOrdersList()))
@@ -80,7 +80,7 @@ export default function PageAdminPanel({ seccion = 0 }) {
         justifyContent: mobile ? 'flex-start' : '',
         width: '100%',
         marginTop: '64px',
-        gap: 20
+        gap: 20,
       }}
     >
       {mobile ? (
@@ -215,6 +215,16 @@ export default function PageAdminPanel({ seccion = 0 }) {
           }}
         >
           <Loading color="#333" />
+        </Box>
+      ) : value > 0 && value < 4 && message ? (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems={mobile ? '' : 'center'}
+          minHeight="100vh"
+          minWidth={mobile ? '100vw' : '60vw'}
+        >
+          <ShipmentsMessage message={message} />
         </Box>
       ) : (
         value > 0 &&
@@ -368,19 +378,19 @@ export default function PageAdminPanel({ seccion = 0 }) {
         )
       )}
       <Box
-          style={{
-            display: 'flex',
-              alignItems: 'right',
-              justifyContent: 'right',
-              padding: '10px',
-              cursor: 'pointer',
-              position: 'fixed',
-              width: '100%',
-              bottom: 0
-          }}
-        >
-          <img src="/imgAdminPayment/ChatIcon.svg" />
-        </Box>
+        style={{
+          display: 'flex',
+          alignItems: 'right',
+          justifyContent: 'right',
+          padding: '10px',
+          cursor: 'pointer',
+          position: 'fixed',
+          width: '100%',
+          bottom: 0,
+        }}
+      >
+        <img src="/imgAdminPayment/ChatIcon.svg" />
+      </Box>
     </Box>
   );
 }

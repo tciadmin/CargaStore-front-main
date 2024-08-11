@@ -17,9 +17,10 @@ export const applicForOrder = (driverId, orderId) => {
         payload: response.data,
       });
     } catch (error) {
+      console.error(error);
       dispatch({
         type: APPLY_FOR_ORDER_FAILURE,
-        error: error.message,
+        payload: error.response.data,
       });
     }
   };

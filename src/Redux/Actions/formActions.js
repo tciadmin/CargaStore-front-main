@@ -6,6 +6,5 @@ export const driverFormData = (data) => {
 };
 
 export const clientFormData = (data) => {
-  console.log('formData: ', data);
   return { type: CLIENT_FORM_DATA, payload: data };
 };

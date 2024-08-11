@@ -1,5 +1,10 @@
 import { CLEAR_ALERT } from '../Actions/AlertAction/clearAlert';
 import {
+  APPLY_FOR_ORDER_FAILURE,
+  APPLY_FOR_ORDER_SUCCESS,
+} from '../Actions/ApplicationActions/applyForOrder';
+import { POST_FEEDBACK_FAILURE } from '../Actions/FeedbackActions/feedbackActions';
+import {
   CREATE_ORDER_FAILURE,
   CREATE_ORDER_SUCCESS,
 } from '../Actions/OrderActions/createOrder';
@@ -7,6 +12,10 @@ import {
   DUPLICATE_ORDER_FAILURE,
   DUPLICATE_ORDER_SUCCESS,
 } from '../Actions/OrderActions/duplicateorder';
+import {
+  EDIT_ORDER_FAILURE,
+  EDIT_ORDER_SUCCESS,
+} from '../Actions/OrderActions/editOrder';
 import {
   AUTH_USER_FAILURE,
   AUTH_USER_SUCCESS,
@@ -121,6 +130,31 @@ export const alertReducer = (state = initialState, action) => {
       return {
         ...state,
         message: action.payload.message,
+      };
+    case EDIT_ORDER_SUCCESS:
+      return {
+        ...state,
+        message: action.payload.message,
+      };
+    case EDIT_ORDER_FAILURE:
+      return {
+        ...state,
+        message: action.payload.message,
+      };
+    case APPLY_FOR_ORDER_SUCCESS:
+      return {
+        ...state,
+        message: action.payload.message,
+      };
+    case APPLY_FOR_ORDER_FAILURE:
+      return {
+        ...state,
+        message: action.payload?.message,
+      };
+    case POST_FEEDBACK_FAILURE:
+      return {
+        ...state,
+        message: action.payload?.message,
       };
     default:
       return { ...state };
