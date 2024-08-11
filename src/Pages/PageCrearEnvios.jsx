@@ -893,9 +893,7 @@ const PageCrearEnvios = () => {
                     />
                     <img
                       src={
-                        showImage1
-                          ? showImage1
-                          : '/crearenvios/i1.png'
+                        showImage1 ? showImage1 : '/image/default.svg'
                       }
                       style={{
                         borderRadius: '8px',
@@ -931,9 +929,7 @@ const PageCrearEnvios = () => {
                     />
                     <img
                       src={
-                        showImage2
-                          ? showImage2
-                          : '/crearenvios/i2.png'
+                        showImage2 ? showImage2 : '/image/default.svg'
                       }
                       style={{
                         maxHeight: '100%',
@@ -969,9 +965,7 @@ const PageCrearEnvios = () => {
                     />
                     <img
                       src={
-                        showImage3
-                          ? showImage3
-                          : '/crearenvios/i3.png'
+                        showImage3 ? showImage3 : '/image/default.svg'
                       }
                       style={{
                         maxHeight: '100%',
@@ -1007,9 +1001,7 @@ const PageCrearEnvios = () => {
                     />
                     <img
                       src={
-                        showImage4
-                          ? showImage4
-                          : '/crearenvios/i4.png'
+                        showImage4 ? showImage4 : '/image/default.svg'
                       }
                       style={{
                         maxHeight: '100%',
