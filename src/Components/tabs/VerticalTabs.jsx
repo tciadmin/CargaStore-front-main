@@ -114,11 +114,6 @@ export default function VerticalTabs() {
     { boolean: false, string: 'No' },
   ];
 
-  const watchData = watch();
-  React.useEffect(() => {
-    console.log('DATA: ', watchData);
-  }, [watchData]);
-
   const setFileToBase = (file) => {
     if (file) {
       const reader = new FileReader();

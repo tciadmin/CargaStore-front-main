@@ -54,7 +54,6 @@ export const formDataReducer = (state = initialState, action) => {
         ...state.clientData,
         ...action.payload,
       };
-      console.log('actionPayload: ', action.payload);
       return {
         ...state,
         clientData: updatedClientData,

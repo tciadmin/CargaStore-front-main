@@ -92,7 +92,6 @@ const VerticalStepItem = ({
 };
 
 const VerticalGreenStepper = ({ steps, driverName }) => {
-  console.log('steps: ', steps);
   return (
     <Box
       sx={{ width: '90%' }}

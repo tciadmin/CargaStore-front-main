@@ -91,7 +91,6 @@ const CargaPage = () => {
       el.driverId === user?.driver?.id && setApplyed(true);
     });
     !singleOrder?.applications?.length && setApplyed(false);
-    console.log('applyed: ', applyed);
   }, [
     applyed,
     singleOrder?.applications,
@@ -690,6 +689,7 @@ const CargaPage = () => {
                           lineHeight: !mobile ? '23.2px' : '10px',
                           textAlign: 'center',
                           color: '#fff',
+                          backgroundColor: '#007C52',
                           borderRadius: '8px',
                           fontSize: '16px',
                           width: 'Hug (121px)px',

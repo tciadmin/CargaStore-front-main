@@ -41,12 +41,6 @@ export const CompProfile = () => {
     },
   });
 
-  const formValues = watch();
-
-  useEffect(() => {
-    console.log('Form Values:', formValues);
-  }, [formValues]);
-
   const { user } = useSelector((state) => state.user);
 
   const { singleDriver, singleDriverLoading, validateLoading } =
@@ -86,7 +80,6 @@ export const CompProfile = () => {
   };
 
   const newFeedback = (data) => {
-    console.log('newFeedback ejecutado');
     const { customerId, driverId, comment, score } = data;
     if (customerId && driverId && comment && score) {
       dispatch(postFeedback(data));

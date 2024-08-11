@@ -3,6 +3,7 @@ import {
   APPLY_FOR_ORDER_FAILURE,
   APPLY_FOR_ORDER_SUCCESS,
 } from '../Actions/ApplicationActions/applyForOrder';
+import { POST_FEEDBACK_FAILURE } from '../Actions/FeedbackActions/feedbackActions';
 import {
   CREATE_ORDER_FAILURE,
   CREATE_ORDER_SUCCESS,
@@ -146,6 +147,11 @@ export const alertReducer = (state = initialState, action) => {
         message: action.payload.message,
       };
     case APPLY_FOR_ORDER_FAILURE:
+      return {
+        ...state,
+        message: action.payload?.message,
+      };
+    case POST_FEEDBACK_FAILURE:
       return {
         ...state,
         message: action.payload?.message,

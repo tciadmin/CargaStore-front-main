@@ -24,7 +24,6 @@ export const getFeedback = (id) => {
 };
 
 export const postFeedback = (feedback) => {
-  console.log('feedback data: ', feedback);
   const { customerId, driverId, comment, score } = feedback;
   return async (dispatch) => {
     dispatch({ type: POST_FEEDBACK_PENDING });
@@ -41,7 +40,11 @@ export const postFeedback = (feedback) => {
         payload: response.data,
       });
     } catch (error) {
-      dispatch({ type: POST_FEEDBACK_FAILURE, error: error.message });
+      console.error(error);
+      dispatch({
+        type: POST_FEEDBACK_FAILURE,
+        payload: error.response.data,
+      });
     }
   };
 };

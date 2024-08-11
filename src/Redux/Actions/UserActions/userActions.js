@@ -60,7 +60,6 @@ export const getAllUsers = () => {
 };
 
 export const getUser = (id) => {
-  console.log('getUser ejecutado', id);
   return async (dispatch) => {
     dispatch({ type: GET_USER_PENDING });
     try {
@@ -81,10 +80,9 @@ export const postUser = (userType, userData, navigate) => {
   //userData es la informacion del usuario
   return async (dispatch) => {
     dispatch({ type: POST_USER_PENDING });
-    console.log(userType);
     try {
       //Destructuramos los datos del usuario
-//    
+      //
       const { name, lastname, email, password, confirmPassword } =
         userData;
       const newUser = await axiosInstance.post('/auth/signup', {
@@ -95,7 +93,6 @@ export const postUser = (userType, userData, navigate) => {
         confirmPassword,
         role: userType,
       });
-      console.log(newUser);
       //Destructuramos los datos de la respuesta de newUser
       const { data } = newUser;
 
@@ -104,7 +101,6 @@ export const postUser = (userType, userData, navigate) => {
         //userType sea 'driver'
         let { brand, model, year, charge_capacity, charge_type } =
           userData;
-          console.log(userData)
         //Hacemos la peticion al endpoint de creacion de conductor
         //y le pasamos como id del usuario el de la respuesta de newUser
         const driver = await axiosInstance.post(
@@ -140,7 +136,6 @@ export const postUser = (userType, userData, navigate) => {
           `/customer/create/${data?.user.id}`,
           { company_name, address, city, company_phone }
         );
-        console.log('customer: ', customer);
         Cookies.set('id', data?.user.id, {
           expires: 1,
           secure: true,
@@ -362,7 +357,7 @@ export const patchBasicUserData = (profile_image, name, lastname) => {
         payload: response.data,
       });
     } catch (error) {
-      console.log('response error: ', error);
+      console.error(error);
       dispatch({
         type: PATCH_BASIC_USER_FAILURE,
         payload: error.response.data,

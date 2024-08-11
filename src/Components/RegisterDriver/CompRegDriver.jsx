@@ -20,7 +20,6 @@ export default function CompRegDriver() {
   const dispatch = useDispatch();
 
   const { driverData } = useSelector((state) => state.forms);
-  console.log('formState: ', driverData);
   const { name, lastname, email, password, confirmPassword } =
     driverData;
 

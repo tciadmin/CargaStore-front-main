@@ -136,16 +136,6 @@ const PageCrearEnvios = () => {
     setFileToBase(selectedFile, imageNum);
   };
 
-  const watchAllFields = watch();
-
-  React.useEffect(() => {
-    console.log('index: ', stepIndex);
-  }, [stepIndex]);
-
-  React.useEffect(() => {
-    console.log(watchAllFields);
-  }, [watchAllFields]);
-
   const formatNumber = (value) => {
     // Elimina cualquier carácter no numérico
     const numericValue = value.replace(/\D/g, '');

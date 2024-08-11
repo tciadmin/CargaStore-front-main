@@ -29,7 +29,6 @@ export const editOrder = (
     image4,
   } = {}
 ) => {
-  console.log('editOrder ejecutado');
   return async (dispatch) => {
     dispatch({ type: EDIT_ORDER_PENDING });
     try {

@@ -51,7 +51,6 @@ export default function PageAdminPanel({ seccion = 0 }) {
   }, [seccion]);
 
   React.useEffect(() => {
-    console.log('value: ', value);
     let status = '';
     value === 0
       ? ((status = ''), dispatch(clearOrdersList()))

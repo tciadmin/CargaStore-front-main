@@ -197,10 +197,6 @@ const PageEditarEnvio = () => {
     setValue('name', singleOrder?.name);
   }, [setValue, orderId, singleOrder, urlBack]);
 
-  // React.useEffect(() => {
-  //   console.log(watchAllFields);
-  // }, [watchAllFields]);
-
   const edit = (data) => {
     if (stepIndex < steps.length - 1) {
       setStepIndex(stepIndex + 1);
