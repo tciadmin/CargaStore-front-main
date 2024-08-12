@@ -29,7 +29,7 @@ const VerticalStepItem = ({
           alignItems={'center'}
           spacing={5}
         >
-          <CircleStep active={active}></CircleStep>
+          <CircleStep active={description === 'enPreparacion' && index === 0 || description === 'preparado' && index === 1 || description === 'retirado' && index === 2 || description === 'enCamino' && index === 3 ? active : ''}></CircleStep>
           {!ultimo && (
             <StepTrail vertical={true} active={active}></StepTrail>
           )}
@@ -48,7 +48,7 @@ const VerticalStepItem = ({
             sx={{ color: active ? '#007C52' : '#8C94A6' }}
           >
             {' '}
-            {description === 'enPreparacion'
+            {description === 'enPreparacion' 
               ? 'En preparación'
               : description === 'preparado'
               ? 'Preparado'
