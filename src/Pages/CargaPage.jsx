@@ -29,6 +29,7 @@ import { clearApplicationMessage } from '../Redux/Actions/ApplicationActions/cle
 import { changeOrderState } from '../Redux/Actions/OrderActions/changeOrderState';
 // import { Colors } from '../Utils/Colors';
 import { finishOrder } from '../Redux/Actions/OrderActions/finishOrder';
+import { postChat } from '../Redux/Actions/ChatActions/chatActions';
 
 const GreenCircle = () => {
   return (
@@ -111,8 +112,16 @@ const CargaPage = () => {
     dispatch(applicForOrder(user?.driver?.id, id));
   };
 
-  const handleAceptOrder = () => {
+  const handleAceptOrder = async() => {
     dispatch(aceptOrder(id));
+    const chatData = {
+      clientId: singleOrder.customer.user.id,
+      driverId: user.id,
+      orderId: singleOrder.id,
+      driverName: user.name,
+      driverLastname: user.lastname
+    }
+    await postChat(chatData)
   };
 
   const handleDeclineOrder = () => {
