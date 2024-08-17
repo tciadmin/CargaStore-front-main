@@ -29,6 +29,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Chat from '../Chat/Chat';
 import Notificaciones from '../Notificaciones/Notificaciones';
 import { getUser } from '../../Redux/Actions/UserActions/userActions';
+import { clearMessageList } from '../../Redux/Actions/ChatActions/chatActions';
+import { useEffect } from 'react';
 
 export default function CompNavLanding() {
   const mobile = useMediaQuery('(max-width:720px)');
@@ -41,9 +43,15 @@ export default function CompNavLanding() {
     setAnchorElUser(event.currentTarget);
   };
 
+  useEffect(() => {
+    !chat && dispatch(clearMessageList())
+  }, [chat])
+
+  const userId = Cookies.get('id');
+
   React.useEffect(() => {
-    dispatch(getUser(Cookies.get('id')));
-  }, [dispatch]);
+    userId && dispatch(getUser(userId));
+  }, [dispatch, userId]);
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);

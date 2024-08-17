@@ -12,10 +12,6 @@ const LayoutLogin = () => {
 
   const { token, user } = useSelector((store) => store.user);
 
-  React.useEffect(() => {
-    console.table({ token, user });
-  }, [token, user]);
-
   const goBack = () => {
     if (
       location.pathname === '/login/forgot-password' ||
