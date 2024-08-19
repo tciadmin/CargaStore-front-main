@@ -54,7 +54,7 @@ const ChargeRequestCard = ({
         xs={2}
       >
         <Grid item xs={4}>
-          <Avatar alt={nombre} src={`${urlBack}/${perfilImg}`} />
+          <Avatar alt={nombre} src={`${urlBack}/api/${perfilImg}`} />
         </Grid>
         <Grid
           item

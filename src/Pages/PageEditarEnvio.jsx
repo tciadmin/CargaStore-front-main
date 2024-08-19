@@ -169,10 +169,10 @@ const PageEditarEnvio = () => {
   }, [orderId, dispatch, singleOrder]);
 
   React.useEffect(() => {
-    setShowImage1(`${urlBack}/${singleOrder?.package?.image1}`);
-    setShowImage2(`${urlBack}/${singleOrder?.package?.image2}`);
-    setShowImage3(`${urlBack}/${singleOrder?.package?.image3}`);
-    setShowImage4(`${urlBack}/${singleOrder?.package?.image4}`);
+    setShowImage1(`${urlBack}/api/${singleOrder?.package?.image1}`);
+    setShowImage2(`${urlBack}/api/${singleOrder?.package?.image2}`);
+    setShowImage3(`${urlBack}/api/${singleOrder?.package?.image3}`);
+    setShowImage4(`${urlBack}/api/${singleOrder?.package?.image4}`);
     setValue('company_name', singleOrder?.customer?.company_name);
     setValue('company_phone', singleOrder?.customer?.company_phone);
     setValue('ruc', singleOrder?.customer?.ruc);

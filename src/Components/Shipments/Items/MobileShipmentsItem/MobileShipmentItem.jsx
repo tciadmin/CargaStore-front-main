@@ -76,7 +76,7 @@ const MobileShipmentItem = ({
           }}
         >
           <img
-            src={`${urlBack}/${image}`}
+            src={`${urlBack}/api/${image}`}
             alt="undefined"
             style={{
               width: '100%',
