@@ -27,10 +27,10 @@ export const getAllChats = (userId) => {
     dispatch({ type: GET_ALL_CHAT_PENDING });
     try {
       const allMessages = await axiosInstance.get('/chat/getAll', {
-        headers:{
-          'Authorization': `Bearer ${token}`,
-          'id': `${userId}`,
-        }
+        headers: {
+          Authorization: `Bearer ${token}`,
+          id: `${userId}`,
+        },
       });
       return dispatch({
         type: GET_ALL_CHAT_SUCCESS,
@@ -42,13 +42,18 @@ export const getAllChats = (userId) => {
     }
   };
 };
-export const getAllMessages = (chatID) => {
+export const getAllMessages = (chatID, userId) => {
   return async (dispatch) => {
     dispatch({ type: GET_ALL_MESSAGES_PENDING });
     try {
       const allMessages = await axiosInstance.get(
         `/message/getAll/${chatID}`,
-        { headers }
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            id: `${userId}`,
+          },
+        }
       );
       return dispatch({
         type: GET_ALL_MESSAGES_SUCCESS,
@@ -65,21 +70,31 @@ export const getAllMessages = (chatID) => {
 
 export const clearMessageList = () => {
   return (dispatch) => {
-    dispatch({type: CLEAR_MESSAGES_LIST});
+    dispatch({ type: CLEAR_MESSAGES_LIST });
+  };
+};
+export const postChat = async ({
+  clientId,
+  driverId,
+  orderId,
+  driverName,
+  driverLastname,
+}) => {
+  try {
+    const messageContent = `Hola soy ${driverName} ${driverLastname} y soy el conductor asignado a la orden #${orderId}`;
+    await axiosInstance.post(
+      '/chat/create',
+      { orderId, driverId, messageContent },
+      {
+        headers: {
+          id: `${clientId}`,
+        },
+      }
+    );
+  } catch (error) {
+    console.error(error);
   }
-}
-export const postChat = async({clientId, driverId, orderId, driverName, driverLastname}) => {
-    try {
-      const messageContent = `Hola soy ${driverName} ${driverLastname} y soy el conductor asignado a la orden #${orderId}`
-      await axiosInstance.post('/chat/create',{orderId, driverId, messageContent}, {
-        headers:{
-          'id': `${clientId}`
-        }
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
+};
 
 export const createMessage = ({
   id,

@@ -143,7 +143,7 @@ export const CompProfile = () => {
                   <Avatar
                     src={
                       singleDriver?.user?.profile_image &&
-                      `${urlBack}/${singleDriver?.user?.profile_image}`
+                      `${urlBack}/api/${singleDriver?.user?.profile_image}`
                       // : '/imgShipments/DriverDetails.jpg'
                     }
                     sx={{ width: '150px', height: '150px' }}

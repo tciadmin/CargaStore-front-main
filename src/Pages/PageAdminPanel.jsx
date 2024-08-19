@@ -333,7 +333,7 @@ export default function PageAdminPanel({ seccion = 0 }) {
                   >
                     <Avatar
                       mr={2}
-                      src={`${import.meta.env.VITE_URL_BACKEND}/${
+                      src={`${import.meta.env.VITE_URL_BACKEND}/api/${
                         item.user_driver.profile_image
                       }`}
                     />

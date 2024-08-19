@@ -27,7 +27,7 @@ const MobileChargeItemCard = ({
           width: '100%',
           maxWidth: 200,
         }}
-        src={`${urlBack}/${image}`}
+        src={`${urlBack}/api/${image}`}
       />
       <p>{`#${id}`}</p>
       <p> {product_name}</p>

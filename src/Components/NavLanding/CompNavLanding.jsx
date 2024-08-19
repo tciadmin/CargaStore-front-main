@@ -44,8 +44,8 @@ export default function CompNavLanding() {
   };
 
   useEffect(() => {
-    !chat && dispatch(clearMessageList())
-  }, [chat])
+    !chat && dispatch(clearMessageList());
+  }, [chat]);
 
   const userId = Cookies.get('id');
 
@@ -618,7 +618,7 @@ export default function CompNavLanding() {
                   >
                     <Avatar
                       alt={user?.name}
-                      src={`${urlBack}/${user.profile_image}`}
+                      src={`${urlBack}/api/${user.profile_image}`}
                     />
                   </IconButton>
                 </Tooltip>

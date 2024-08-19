@@ -55,7 +55,7 @@ const PageAdminPerfil = () => {
   React.useEffect(() => {
     if (user) {
       user.profile_image &&
-        setShowImage(`${urlBack}/${user.profile_image}`);
+        setShowImage(`${urlBack}/api/${user.profile_image}`);
       setValue('name', user.name);
       setValue('lastname', user.lastname);
       setValue('email', user.email);

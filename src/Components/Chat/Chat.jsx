@@ -21,7 +21,7 @@ import ReceptorMessage from './ReceptorMessage';
 import ReceptorWriting from './ReceptorWriting';
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:3000');
+const socket = io(import.meta.env.VITE_URL_BACKEND);
 
 const Chat = ({ cerrarChat }) => {
   const [arrayChat, setArrayChat] = useState([]);
@@ -50,8 +50,8 @@ const Chat = ({ cerrarChat }) => {
     if (location.pathname !== '/landing' && userId) {
       dispatch(getAllChats(userId));
     }
-    if (location.pathname === '/landing'){
-      cerrarChat()
+    if (location.pathname === '/landing') {
+      cerrarChat();
     }
   }, [dispatch, userId, location.pathname]);
 
@@ -137,7 +137,7 @@ const Chat = ({ cerrarChat }) => {
               {chatear && (
                 <Avatar
                   width="40px"
-                  src={`${serverURL}/${chats[indexReceptor].personWithChat.profile_image}`}
+                  src={`${serverURL}/api/${chats[indexReceptor].personWithChat.profile_image}`}
                   height="40px"
                 />
               )}
@@ -186,8 +186,7 @@ const Chat = ({ cerrarChat }) => {
           </Stack>
 
           <Stack direction="column">
-            {!chatear ? 
-            (
+            {!chatear ? (
               <>
                 {chats ? (
                   arrayChat.map((e, index) => {
@@ -199,14 +198,16 @@ const Chat = ({ cerrarChat }) => {
                           p={2}
                           sx={{ cursor: 'pointer' }}
                           onClick={() => {
-                            dispatch(getAllMessages(e[1].chatID));
+                            dispatch(
+                              getAllMessages(e[1].chatID, userId)
+                            );
                             setChatear(true);
                             setIndexReceptor(index);
                           }}
                         >
                           <Avatar
                             width="40px"
-                            src={`${serverURL}/${e[1].personWithChat.profile_image}`}
+                            src={`${serverURL}/api/${e[1].personWithChat.profile_image}`}
                             height="40px"
                           />
                           <Stack direction="column" ml={0.5}>
@@ -237,7 +238,11 @@ const Chat = ({ cerrarChat }) => {
                                   {e[1].message}{' '}
                                 </Typography>
                               </Grid>
-                              <Grid style={{marginLeft: '5px'}} item xs={4}>
+                              <Grid
+                                style={{ marginLeft: '5px' }}
+                                item
+                                xs={4}
+                              >
                                 <Typography
                                   fontSize={'12px'}
                                   color={'#8C94A6'}
@@ -301,7 +306,7 @@ const Chat = ({ cerrarChat }) => {
                           return (
                             <ReceptorMessage
                               key={index}
-                              image={`${serverURL}/${chats[indexReceptor].personWithChat.profile_image}`}
+                              image={`${serverURL}/api/${chats[indexReceptor].personWithChat.profile_image}`}
                               date={e.createdAt}
                               message={e.message}
                             />
@@ -315,7 +320,7 @@ const Chat = ({ cerrarChat }) => {
                     </Typography>
                   )}
                   <div ref={messagesEndRef} />
-                </Box >
+                </Box>
 
                 <Stack
                   direction="column"

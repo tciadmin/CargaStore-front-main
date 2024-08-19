@@ -184,7 +184,7 @@ export default function PageMarketplace() {
                       <MarketplaceCard
                         image={
                           item.package?.image1
-                            ? `${urlBack}/${item.package?.image1}`
+                            ? `${urlBack}/api/${item.package?.image1}`
                             : ''
                         }
                         title={item.package?.product_name}
@@ -294,7 +294,7 @@ export default function PageMarketplace() {
                       <MarketplaceCard
                         image={
                           item.package?.image1
-                            ? `${urlBack}/${item.package?.image1}`
+                            ? `${urlBack}/api/${item.package?.image1}`
                             : ''
                         }
                         title={item.package?.product_name}

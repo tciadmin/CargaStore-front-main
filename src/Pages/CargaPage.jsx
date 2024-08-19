@@ -112,16 +112,16 @@ const CargaPage = () => {
     dispatch(applicForOrder(user?.driver?.id, id));
   };
 
-  const handleAceptOrder = async() => {
+  const handleAceptOrder = async () => {
     dispatch(aceptOrder(id));
     const chatData = {
       clientId: singleOrder.customer.user.id,
       driverId: user.id,
       orderId: singleOrder.id,
       driverName: user.name,
-      driverLastname: user.lastname
-    }
-    await postChat(chatData)
+      driverLastname: user.lastname,
+    };
+    await postChat(chatData);
   };
 
   const handleDeclineOrder = () => {
@@ -219,17 +219,17 @@ const CargaPage = () => {
                   <ResponsiveImageBox
                     w="140px"
                     h="140px"
-                    url={`${urlBack}/${singleOrder.package.image1}`}
+                    url={`${urlBack}/api/${singleOrder.package.image1}`}
                   />
                   <ResponsiveImageBox
                     w="140px"
                     h="140px"
-                    url={`${urlBack}/${singleOrder.package.image2}`}
+                    url={`${urlBack}/api/${singleOrder.package.image2}`}
                   />
                   <ResponsiveImageBox
                     w="140px"
                     h="140px"
-                    url={`${urlBack}/${singleOrder.package.image3}`}
+                    url={`${urlBack}/api/${singleOrder.package.image3}`}
                   />
                 </Grid>
                 <Grid
@@ -239,7 +239,7 @@ const CargaPage = () => {
                   xs={8}
                 >
                   <ResponsiveImageBox
-                    url={`${urlBack}/${singleOrder.package.image4}`}
+                    url={`${urlBack}/api/${singleOrder.package.image4}`}
                   />
                 </Grid>
               </Grid>
@@ -345,7 +345,7 @@ const CargaPage = () => {
                   }}
                 >
                   <img
-                    src={`${urlBack}/${singleOrder.package.image1}`}
+                    src={`${urlBack}/api/${singleOrder.package.image1}`}
                     width="130px"
                     style={{
                       flex: '0 0 auto',
@@ -354,17 +354,17 @@ const CargaPage = () => {
                     }}
                   />
                   <img
-                    src={`${urlBack}/${singleOrder.package.image2}`}
+                    src={`${urlBack}/api/${singleOrder.package.image2}`}
                     width="130px"
                     style={{ flex: '0 0 auto', marginRight: '5px' }}
                   />
                   <img
-                    src={`${urlBack}/${singleOrder.package.image3}`}
+                    src={`${urlBack}/api/${singleOrder.package.image3}`}
                     width="130px"
                     style={{ flex: '0 0 auto', marginRight: '5px' }}
                   />
                   <img
-                    src={`${urlBack}/${singleOrder.package.image4}`}
+                    src={`${urlBack}/api/${singleOrder.package.image4}`}
                     width="130px"
                     style={{ flex: '0 0 auto', marginRight: '5px' }}
                   />
