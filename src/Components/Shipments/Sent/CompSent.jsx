@@ -365,6 +365,10 @@ export default function CompSent() {
                           model={row.assignedDriver?.truck.model}
                           type={row.package.type}
                           price={row.package.offered_price}
+                          profileImage={
+                            row.assignedDriver?.user_driver
+                              .profile_image
+                          }
                           driverName={
                             row.assignedDriver?.user_driver.name
                           }

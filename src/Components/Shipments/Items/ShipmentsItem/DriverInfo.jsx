@@ -1,10 +1,11 @@
 import Box from '@mui/material/Box';
-import { Typography } from '@mui/material';
+import { Avatar, Typography } from '@mui/material';
 import { Colors } from '../../../../Utils/Colors';
 import Rating from '@mui/material/Rating';
 import { format } from 'date-fns';
 
 const DriverInfo = ({
+  profileImage,
   driverName,
   rating,
   license,
@@ -36,16 +37,7 @@ const DriverInfo = ({
           width: '90%',
         }}
       >
-        <Box
-          style={{
-            display: 'flex',
-            width: '30%',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <img src="/imgShipments/DriverDetails.jpg" />
-        </Box>
+        <Avatar src={profileImage} sx={{ width: 80, height: 80 }} />
 
         <Box
           style={{
