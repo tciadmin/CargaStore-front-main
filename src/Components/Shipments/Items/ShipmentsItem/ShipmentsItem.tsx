@@ -30,6 +30,7 @@ const ShipmentsItem = ({
   model,
   type,
   price,
+  profileImage,
   driverName,
   driver_user_id,
   license,
@@ -73,6 +74,7 @@ const ShipmentsItem = ({
     userRole === 'customer' && navigate(`/carga/${code}`);
   };
 
+  const urlBack = import.meta.env.VITE_URL_BACKEND;
   return (
     <>
       <Box
@@ -471,6 +473,7 @@ const ShipmentsItem = ({
               </Box>
               {(status === 'asignado' || status === 'en curso') && (
                 <DriverInfo
+                  profileImage={`${urlBack}/api/${profileImage}`}
                   driverName={driverName}
                   rating={rating}
                   license={license}

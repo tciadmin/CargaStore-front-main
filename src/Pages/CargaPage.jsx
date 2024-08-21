@@ -629,6 +629,12 @@ const CargaPage = () => {
                   <Grid item xs={6}>
                     <Box width="100%">
                       <ConductorAsignadoCard
+                        imagen={`${
+                          import.meta.env.VITE_URL_BACKEND
+                        }/api/${
+                          singleOrder?.assignedDriver?.user_driver
+                            .profile_image
+                        }`}
                         nombre={`${singleOrder?.assignedDriver?.user_driver.name} ${singleOrder?.assignedDriver?.user_driver.lastname}`}
                         estrellas={
                           singleOrder?.assignedDriver?.rating
