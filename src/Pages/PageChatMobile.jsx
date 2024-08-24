@@ -188,7 +188,7 @@ const PageChatMobile = () => {
                       p={2}
                       sx={{ cursor: 'pointer' }}
                       onClick={() => {
-                        dispatch(getAllMessages(e[1].chatID));
+                        dispatch(getAllMessages(e[1].chatID, userId));
                         setChatear(true);
                         setIndexReceptor(index);
                       }}
