@@ -80,104 +80,105 @@ const LayoutShipments = () => {
 
   return (
     <div>
-      {mobile && user?.role === 'driver' && (
-        <Box
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            padding: '20px',
-            marginTop: '50px',
-          }}
-        >
-          <h2
+      {mobile &&
+        (user?.role === 'driver' || user?.role === 'customer') && (
+          <Box
             style={{
-              fontFamily: 'Montserrat',
-              fontSize: '20px',
-              fontWeight: 600,
-              lineHeight: '24px',
-              letterSpacing: '-0.02em',
-              textAlign: 'center',
+              display: 'flex',
+              justifyContent: 'space-between',
+              padding: '20px',
+              marginTop: '50px',
             }}
           >
-            {title}
-          </h2>
-          <img
-            onClick={handleClick}
-            style={{
-              backgroundColor: Colors.primary.constrastText,
-              cursor: 'pointer',
-            }}
-            src="/imgShipments/ArrowDashboard.svg"
-          />
+            <h2
+              style={{
+                fontFamily: 'Montserrat',
+                fontSize: '20px',
+                fontWeight: 600,
+                lineHeight: '24px',
+                letterSpacing: '-0.02em',
+                textAlign: 'center',
+              }}
+            >
+              {title}
+            </h2>
+            <img
+              onClick={handleClick}
+              style={{
+                backgroundColor: Colors.primary.constrastText,
+                cursor: 'pointer',
+              }}
+              src="/imgShipments/ArrowDashboard.svg"
+            />
 
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              'aria-labelledby': 'basic-button',
-            }}
-          >
-            <MenuItem
-              name="Pendientes"
-              value="pendiente"
-              onClick={() => {
-                setValue(0);
-                handleClose();
-              }}
-              style={{
-                fontWeight: 500,
-                color: value === 0 ? Colors.primary.main : '',
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                'aria-labelledby': 'basic-button',
               }}
             >
-              Envíos pendientes
-            </MenuItem>
-            <MenuItem
-              name="Asignado"
-              value="asignado"
-              onClick={() => {
-                setValue(1);
-                handleClose();
-              }}
-              style={{
-                fontWeight: 500,
-                color: value === 1 ? Colors.primary.main : '',
-              }}
-            >
-              Envíos asignados
-            </MenuItem>
-            <MenuItem
-              name="en curso"
-              value="en curso"
-              onClick={() => {
-                setValue(2);
-                handleClose();
-              }}
-              style={{
-                fontWeight: 500,
-                color: value === 2 ? Colors.primary.main : '',
-              }}
-            >
-              Envíos en curso
-            </MenuItem>
-            <MenuItem
-              name="finalizado"
-              value="finalizado"
-              onClick={() => {
-                setValue(3);
-                handleClose();
-              }}
-              style={{
-                fontWeight: 500,
-                color: value === 3 ? Colors.primary.main : '',
-              }}
-            >
-              Envíos finalizados
-            </MenuItem>
-          </Menu>
-        </Box>
-      )}
+              <MenuItem
+                name="Pendientes"
+                value="pendiente"
+                onClick={() => {
+                  setValue(0);
+                  handleClose();
+                }}
+                style={{
+                  fontWeight: 500,
+                  color: value === 0 ? Colors.primary.main : '',
+                }}
+              >
+                Envíos pendientes
+              </MenuItem>
+              <MenuItem
+                name="Asignado"
+                value="asignado"
+                onClick={() => {
+                  setValue(1);
+                  handleClose();
+                }}
+                style={{
+                  fontWeight: 500,
+                  color: value === 1 ? Colors.primary.main : '',
+                }}
+              >
+                Envíos asignados
+              </MenuItem>
+              <MenuItem
+                name="en curso"
+                value="en curso"
+                onClick={() => {
+                  setValue(2);
+                  handleClose();
+                }}
+                style={{
+                  fontWeight: 500,
+                  color: value === 2 ? Colors.primary.main : '',
+                }}
+              >
+                Envíos en curso
+              </MenuItem>
+              <MenuItem
+                name="finalizado"
+                value="finalizado"
+                onClick={() => {
+                  setValue(3);
+                  handleClose();
+                }}
+                style={{
+                  fontWeight: 500,
+                  color: value === 3 ? Colors.primary.main : '',
+                }}
+              >
+                Envíos finalizados
+              </MenuItem>
+            </Menu>
+          </Box>
+        )}
       {!mobile && (
         <Box
           sx={{

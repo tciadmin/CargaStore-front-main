@@ -575,8 +575,7 @@ const CargaPage = () => {
             </Grid>
           </Grid>
           <Container>
-            {!mobile &&
-              user?.role === 'admin' &&
+            {user?.role === 'admin' &&
               singleOrder?.status === 'pendiente' && (
                 <>
                   <Typography fontSize="16px" fontWeight={600}>

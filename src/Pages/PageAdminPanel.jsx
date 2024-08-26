@@ -80,7 +80,6 @@ export default function PageAdminPanel({ seccion = 0 }) {
         justifyContent: mobile ? 'flex-start' : '',
         width: '100%',
         marginTop: '64px',
-        gap: 20,
       }}
     >
       {mobile ? (

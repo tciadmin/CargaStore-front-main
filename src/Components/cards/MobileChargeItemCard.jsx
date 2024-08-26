@@ -1,5 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
+import { useNavigate } from 'react-router-dom';
 
 const MobileChargeItemCard = ({
   id,
@@ -11,8 +12,11 @@ const MobileChargeItemCard = ({
 }) => {
   const urlBack = import.meta.env.VITE_URL_BACKEND;
 
+  const navigate = useNavigate();
+
   return (
     <Box
+      onClick={() => navigate(`/carga/${id}`)}
       style={{
         padding: '10px',
         display: 'flex',
