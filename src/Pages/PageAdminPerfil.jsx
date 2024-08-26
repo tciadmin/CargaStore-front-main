@@ -77,7 +77,7 @@ const PageAdminPerfil = () => {
         <Stack
           display="flex"
           width={mobile ? '90%' : '100%'}
-          maxWidth={'650px'}
+          maxWidth={!mobile ? '650px' : '100vw'}
           flexDirection={'column'}
           justifyContent={'center'}
           alignContent={'center'}
@@ -152,7 +152,7 @@ const PageAdminPerfil = () => {
               <FormControl
                 sx={{
                   m: 1,
-                  width: mobile ? '370px' : '666px',
+                  width: mobile ? '340px' : '666px',
                 }}
                 variant="outlined"
               >
@@ -183,7 +183,7 @@ const PageAdminPerfil = () => {
               <FormControl
                 sx={{
                   m: 1,
-                  width: mobile ? '370px' : '666px',
+                  width: mobile ? '340px' : '666px',
                 }}
                 variant="outlined"
               >
@@ -219,7 +219,7 @@ const PageAdminPerfil = () => {
               <FormControl
                 sx={{
                   m: 1,
-                  width: mobile ? '370px' : '666px',
+                  width: mobile ? '340px' : '666px',
                 }}
                 variant="outlined"
               >

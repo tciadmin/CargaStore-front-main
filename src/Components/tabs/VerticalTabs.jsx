@@ -609,7 +609,7 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? '370px' : '666px',
+                    width: mobile ? '340px' : '666px',
                   }}
                   variant="outlined"
                 >
@@ -637,7 +637,7 @@ export default function VerticalTabs() {
                   Apellido
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '340px' : '666px' }}
                   variant="outlined"
                 >
                   <OutlinedInput
@@ -667,7 +667,7 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? '370px' : '666px',
+                    width: mobile ? '340px' : '666px',
                   }}
                   variant="outlined"
                 >
@@ -698,7 +698,7 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? '370px' : '666px',
+                    width: mobile ? '340px' : '666px',
                   }}
                   variant="outlined"
                 >
@@ -729,7 +729,7 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? '370px' : '666px',
+                    width: mobile ? '340px' : '666px',
                   }}
                   variant="outlined"
                 >
@@ -772,7 +772,7 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? '370px' : '666px',
+                    width: mobile ? '340px' : '666px',
                   }}
                   variant="outlined"
                 >
@@ -800,7 +800,7 @@ export default function VerticalTabs() {
                   Apellido
                 </p>
                 <FormControl
-                  sx={{ m: 1, width: mobile ? '370px' : '666px' }}
+                  sx={{ m: 1, width: mobile ? '340px' : '666px' }}
                   variant="outlined"
                 >
                   <OutlinedInput
@@ -830,7 +830,7 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? '370px' : '666px',
+                    width: mobile ? '340px' : '666px',
                   }}
                   variant="outlined"
                 >
@@ -969,7 +969,7 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? '370px' : '666px',
+                    width: mobile ? '340px' : '666px',
                   }}
                   variant="outlined"
                 >
@@ -1000,7 +1000,7 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? '370px' : '666px',
+                    width: mobile ? '340px' : '666px',
                   }}
                   variant="outlined"
                 >
@@ -1032,7 +1032,7 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? '370px' : '666px',
+                    width: mobile ? '340px' : '666px',
                   }}
                   variant="outlined"
                 >
@@ -1064,7 +1064,7 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? '370px' : '666px',
+                    width: mobile ? '340px' : '666px',
                   }}
                   variant="outlined"
                 >
@@ -1096,7 +1096,7 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? '370px' : '666px',
+                    width: mobile ? '340px' : '666px',
                   }}
                   variant="outlined"
                 >
@@ -1128,7 +1128,7 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? '370px' : '666px',
+                    width: mobile ? '340px' : '666px',
                   }}
                   variant="outlined"
                 >
@@ -1172,7 +1172,7 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? '370px' : '666px',
+                    width: mobile ? '340px' : '666px',
                   }}
                   variant="outlined"
                 >
@@ -1203,7 +1203,7 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? '370px' : '666px',
+                    width: mobile ? '340px' : '666px',
                   }}
                   variant="outlined"
                 >
@@ -1233,7 +1233,7 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? '370px' : '666px',
+                    width: mobile ? '340px' : '666px',
                   }}
                   variant="outlined"
                 >
@@ -1263,7 +1263,7 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? '370px' : '666px',
+                    width: mobile ? '340px' : '666px',
                   }}
                   variant="outlined"
                 >
@@ -1293,7 +1293,7 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? '370px' : '666px',
+                    width: mobile ? '340px' : '666px',
                   }}
                   variant="outlined"
                 >
@@ -1323,7 +1323,7 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? '370px' : '666px',
+                    width: mobile ? '340px' : '666px',
                   }}
                   variant="outlined"
                 >
@@ -1434,7 +1434,7 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? '370px' : '666px',
+                    width: mobile ? '340px' : '666px',
                   }}
                   variant="outlined"
                 >
@@ -1530,7 +1530,7 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? '370px' : '666px',
+                    width: mobile ? '340px' : '666px',
                   }}
                   variant="outlined"
                 >
@@ -1560,7 +1560,7 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? '370px' : '666px',
+                    width: mobile ? '340px' : '666px',
                   }}
                   variant="outlined"
                 >
@@ -1598,7 +1598,7 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? '370px' : '666px',
+                    width: mobile ? '340px' : '666px',
                   }}
                   variant="outlined"
                 >
@@ -1636,7 +1636,7 @@ export default function VerticalTabs() {
                 <FormControl
                   sx={{
                     m: 1,
-                    width: mobile ? '370px' : '666px',
+                    width: mobile ? '340px' : '666px',
                   }}
                   variant="outlined"
                 >
@@ -1898,7 +1898,7 @@ export default function VerticalTabs() {
               <FormControl
                 sx={{
                   m: 1,
-                  width: mobile ? "370px" : "666px",
+                  width: mobile ? "340px" : "666px",
                 }}
                 variant="outlined"
               >
@@ -1922,7 +1922,7 @@ export default function VerticalTabs() {
               <FormControl
                 sx={{
                   m: 1,
-                  width: mobile ? "370px" : "666px",
+                  width: mobile ? "340px" : "666px",
                 }}
                 variant="outlined"
               >
@@ -1946,7 +1946,7 @@ export default function VerticalTabs() {
               <FormControl
                 sx={{
                   m: 1,
-                  width: mobile ? "370px" : "666px",
+                  width: mobile ? "340px" : "666px",
                 }}
                 variant="outlined"
               >
@@ -1971,7 +1971,7 @@ export default function VerticalTabs() {
               <FormControl
                 sx={{
                   m: 1,
-                  width: mobile ? "370px" : "666px",
+                  width: mobile ? "340px" : "666px",
                 }}
                 variant="outlined"
               >
@@ -1995,7 +1995,7 @@ export default function VerticalTabs() {
               <FormControl
                 sx={{
                   m: 1,
-                  width: mobile ? "370px" : "666px",
+                  width: mobile ? "340px" : "666px",
                 }}
                 variant="outlined"
               >
