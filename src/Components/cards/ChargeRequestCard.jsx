@@ -5,6 +5,7 @@ import {
   Rating,
   Stack,
   Typography,
+  useMediaQuery,
 } from '@mui/material';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,6 +32,8 @@ const ChargeRequestCard = ({
     (state) => state.application
   );
 
+  const mobile = useMediaQuery('(max-width:720px)');
+
   const { singleOrder } = useSelector((state) => state.orders);
 
   const assignDriver = () => {
@@ -51,7 +54,7 @@ const ChargeRequestCard = ({
         direction="row"
         justifyContent={'center'}
         alignItems={'center'}
-        xs={2}
+        xs={!mobile ? 2 : 6}
       >
         <Grid item xs={4}>
           <Avatar alt={nombre} src={`${urlBack}/api/${perfilImg}`} />
@@ -74,27 +77,36 @@ const ChargeRequestCard = ({
           />{' '}
         </Grid>
       </Grid>
-      <Grid item xs={2} alignSelf={'center'}>
-        <Typography mb={3} fontSize="16px" fontWeight={600}>
-          Marca: <span style={{ fontWeight: '400' }}>{marca}</span>
-        </Typography>
-      </Grid>
-      <Grid item xs={2} alignSelf={'center'}>
-        <Typography mb={3} fontSize="16px" fontWeight={600}>
-          Modelo: <span style={{ fontWeight: '400' }}>{modelo}</span>
-        </Typography>
-      </Grid>
-      <Grid item xs={2} alignSelf={'center'}>
-        <Typography mb={3} fontSize="16px" fontWeight={600}>
-          Capacidad:{' '}
-          <span style={{ fontWeight: '400' }}>{capacidad}</span>
-        </Typography>
-      </Grid>
-      <Grid item xs={2} alignSelf={'center'}>
-        <Typography mb={3} fontSize="16px" fontWeight={600}>
-          Carga: <span style={{ fontWeight: '400' }}>{carga}</span>
-        </Typography>
-      </Grid>
+      {mobile ? (
+        <Grid item xs={3} />
+      ) : (
+        <>
+          <Grid item xs={2} alignSelf={'center'}>
+            <Typography mb={3} fontSize="16px" fontWeight={600}>
+              Marca:{' '}
+              <span style={{ fontWeight: '400' }}>{marca}</span>
+            </Typography>
+          </Grid>
+          <Grid item xs={2} alignSelf={'center'}>
+            <Typography mb={3} fontSize="16px" fontWeight={600}>
+              Modelo:{' '}
+              <span style={{ fontWeight: '400' }}>{modelo}</span>
+            </Typography>
+          </Grid>
+          <Grid item xs={2} alignSelf={'center'}>
+            <Typography mb={3} fontSize="16px" fontWeight={600}>
+              Capacidad:{' '}
+              <span style={{ fontWeight: '400' }}>{capacidad}</span>
+            </Typography>
+          </Grid>
+          <Grid item xs={2} alignSelf={'center'}>
+            <Typography mb={3} fontSize="16px" fontWeight={600}>
+              Carga:{' '}
+              <span style={{ fontWeight: '400' }}>{carga}</span>
+            </Typography>
+          </Grid>
+        </>
+      )}
       <Grid
         item
         direction="row"
