@@ -190,11 +190,20 @@ export const authUser = (user, navigate) => {
       }
     } catch (error) {
       console.error(error);
-      const { data } = error.response;
-      dispatch({
-        type: AUTH_USER_FAILURE,
-        payload: data && data,
-      });
+      // Verificamos si error.response existe y tiene un data
+      if (error.response && error.response.data) {
+        const { data } = error.response;
+        dispatch({
+          type: AUTH_USER_FAILURE,
+          payload: data,
+        });
+      } else {
+        // En caso de que no haya data, puedes despachar un payload vacío o hacer algo más
+        dispatch({
+          type: AUTH_USER_FAILURE,
+          payload: null, // o puedes omitir payload si prefieres
+        });
+      }
     }
   };
 };
