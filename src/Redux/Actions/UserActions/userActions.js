@@ -190,9 +190,10 @@ export const authUser = (user, navigate) => {
       }
     } catch (error) {
       console.error(error);
+      const { data } = error.response;
       dispatch({
         type: AUTH_USER_FAILURE,
-        payload: error.response.data,
+        payload: data && data,
       });
     }
   };
