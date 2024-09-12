@@ -1,28 +1,28 @@
 import {
   Avatar,
-  Box,
-  Button,
+  // Box,
+  // Button,
   Grid,
-  Modal,
+  // Modal,
   Rating,
   Stack,
   Typography,
   useMediaQuery,
 } from '@mui/material';
-import { html2pdf } from 'html2pdf.js';
-import React, { useRef, useState } from 'react';
-import { Colors } from '../../Utils/Colors';
+// import { html2pdf } from 'html2pdf.js';
+// import React, { useRef, useState } from 'react';
+// import { Colors } from '../../Utils/Colors';
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 500,
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  p: 0,
-};
+// const style = {
+//   position: 'absolute',
+//   top: '50%',
+//   left: '50%',
+//   transform: 'translate(-50%, -50%)',
+//   width: 500,
+//   bgcolor: 'background.paper',
+//   boxShadow: 24,
+//   p: 0,
+// };
 const ConductorAsignadoCard = ({
   nombre,
   marca,
@@ -33,26 +33,26 @@ const ConductorAsignadoCard = ({
   estrellas,
 }) => {
   const mobile = useMediaQuery('(max-width:750px)');
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const componentRef = useRef();
+  // const [open, setOpen] = useState(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
+  // const componentRef = useRef();
   //Generar pdf
-  const generatePdf = () => {
-    const opt = {
-      margin: 1,
-      filename: 'Factura_:' + Date.now() + '.pdf',
-      image: { type: 'png', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: {
-        unit: 'in',
-        format: 'letter',
-        orientation: 'portrait',
-      },
-    };
+  // const generatePdf = () => {
+  //   const opt = {
+  //     margin: 1,
+  //     filename: 'Factura_:' + Date.now() + '.pdf',
+  //     image: { type: 'png', quality: 0.98 },
+  //     html2canvas: { scale: 2 },
+  //     jsPDF: {
+  //       unit: 'in',
+  //       format: 'letter',
+  //       orientation: 'portrait',
+  //     },
+  //   };
 
-    html2pdf().set(opt).from(componentRef.current).save();
-  };
+  //   html2pdf().set(opt).from(componentRef.current).save();
+  // };
   return (
     <>
       <Grid container>
@@ -158,7 +158,7 @@ const ConductorAsignadoCard = ({
             </Stack>
           </Grid>
         </Grid>
-        <Grid
+        {/* <Grid
           item
           container
           direction={'row'}
@@ -173,9 +173,9 @@ const ConductorAsignadoCard = ({
           >
             Ver factura
           </Button>
-        </Grid>
+        </Grid> */}
       </Grid>
-      <Modal
+      {/* <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -351,7 +351,7 @@ const ConductorAsignadoCard = ({
                   5 estrellas
                 </p>
               </span> */}
-              {/* <span
+      {/* <span
                                 style={{
                                     display: "flex",
                                     gap: "5px",
@@ -368,7 +368,7 @@ const ConductorAsignadoCard = ({
                                     fue muy rápida"
                                 </p>
                             </span> */}
-              <Box
+      {/* <Box
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
@@ -417,13 +417,13 @@ const ConductorAsignadoCard = ({
             onClick={() => generatePdf()}
           >
             Ver factura
-          </Typography>
+          </Typography> */}
 
-          {/* <Button variant="contained" style={{ marginBottom: "10px" }}>
+      {/* <Button variant="contained" style={{ marginBottom: "10px" }}>
                         Efectuar pago al conductor
                     </Button> */}
-        </Box>
-      </Modal>
+      {/* //   </Box> */}
+      {/* // </Modal> */}
     </>
   );
 };
