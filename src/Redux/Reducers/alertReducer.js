@@ -33,6 +33,11 @@ import {
   PUT_CUSTOMER_SUCCESS,
 } from '../Actions/UserActions/userActions';
 
+import {
+  CHANGE_PASSWORD_SUCCESS,
+  CHANGE_PASSWORD_FAILURE,
+} from '../Actions/PasswordActions/passwordActions';
+
 const initialState = {
   message: null,
 };
@@ -152,6 +157,16 @@ export const alertReducer = (state = initialState, action) => {
         message: action.payload?.message,
       };
     case POST_FEEDBACK_FAILURE:
+      return {
+        ...state,
+        message: action.payload?.message,
+      };
+    case CHANGE_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        message: action.payload?.message,
+      };
+    case CHANGE_PASSWORD_FAILURE:
       return {
         ...state,
         message: action.payload?.message,

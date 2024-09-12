@@ -352,13 +352,11 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         passwordLoading: false,
-        error: action.error,
       };
     case CHANGE_PASSWORD_SUCCESS:
       return {
         ...state,
-        user: [state.user.password, action.payload],
-        userLoading: false,
+        passwordLoading: false,
         error: null,
       };
 
