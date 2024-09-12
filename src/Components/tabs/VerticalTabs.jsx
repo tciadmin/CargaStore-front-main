@@ -17,6 +17,7 @@ import {
   useMediaQuery,
   FormControl,
   OutlinedInput,
+  InputAdornment,
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import ResponsiveImageBox from '../imageComponents/ResponsiveImageBox';
@@ -31,6 +32,7 @@ import {
   patchTruck,
 } from '../../Redux/Actions/UserActions/userActions';
 import { Colors } from '../../Utils/Colors';
+import { changePassword } from '../../Redux/Actions/PasswordActions/passwordActions';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -73,15 +75,23 @@ export default function VerticalTabs() {
   const [open, setOpen] = React.useState(false);
 
   const [editar, setEditar] = React.useState(false);
-  const { user, userLoading } = useSelector((state) => state.user);
+  const { user, userLoading, passwordLoading } = useSelector(
+    (state) => state.user
+  );
   const [showImage, setShowImage] = React.useState(null);
 
-  const { register, watch, setValue } = useForm({
+  const {
+    register,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       profile_image: '',
       name: '',
       lastname: '',
       email: '',
+      password: '',
       description: '',
       phone: '',
       brand: '',
@@ -288,6 +298,11 @@ export default function VerticalTabs() {
         pdf_port_permit
       )
     );
+  };
+
+  const handleChangePassword = () => {
+    const { password } = watch();
+    dispatch(changePassword(password));
   };
 
   const handleChange = (event, newValue) => {
@@ -855,7 +870,7 @@ export default function VerticalTabs() {
           {editar ? (
             <Button
               variant="contained"
-              disabled={userLoading}
+              disabled={userLoading || passwordLoading}
               style={{
                 fontWeight: 600,
                 alignSelf: 'center',
@@ -1354,7 +1369,7 @@ export default function VerticalTabs() {
             {editar ? (
               <Button
                 variant="contained"
-                disabled={userLoading}
+                disabled={userLoading || passwordLoading}
                 style={{
                   fontWeight: 600,
                   alignSelf: 'center',
@@ -1439,14 +1454,44 @@ export default function VerticalTabs() {
                   variant="outlined"
                 >
                   <OutlinedInput
+                    placeholder="Mínimo 8 carácteres"
                     sx={{
                       backgroundColor: Colors.primary.contrastText,
                       borderRadius: '8px',
                       color: Colors.primary.main,
                       fontWeight: 600,
                     }}
+                    {...register('password', {
+                      required: {
+                        value: true,
+                        message: 'Este campo es requerido',
+                      },
+                      pattern: {
+                        value: /^.{9,}$/i, // Si en el input no se cumple con esta expreción regular se coloca un mensaje distinto
+                        message: 'Mínimo 8 carácteres',
+                      },
+                    })}
                     readOnly={!editar}
-                    endAdornment="Cambiar"
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <Typography
+                          sx={{
+                            cursor:
+                              (editar || passwordLoading) &&
+                              'pointer',
+                            color: Colors.primary.main,
+                          }}
+                          onClick={
+                            (errors.password ||
+                              editar ||
+                              passwordLoading) &&
+                            handleChangePassword
+                          }
+                        >
+                          Cambiar
+                        </Typography>
+                      </InputAdornment>
+                    }
                   />
                 </FormControl>
               </Stack>
@@ -2014,7 +2059,7 @@ export default function VerticalTabs() {
             (editar ? (
               <Button
                 variant="contained"
-                disabled={userLoading}
+                disabled={userLoading || passwordLoading}
                 style={{
                   fontWeight: 600,
                   alignSelf: 'center',
