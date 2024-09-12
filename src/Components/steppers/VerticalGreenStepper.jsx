@@ -1,4 +1,4 @@
-import StepItem from './StepItem';
+// import StepItem from './StepItem';
 import StepTrail from '../svg/StepTrail';
 import Box from '@mui/material/Box';
 import CircleStep from '../svg/CircleStep';
@@ -14,7 +14,6 @@ const VerticalStepItem = ({
 }) => {
   return (
     <Box
-      key={() => Date.now()}
       mb={5}
       display={'flex'}
       flexDirection="column"
