@@ -100,10 +100,10 @@ const VerticalGreenStepper = ({ steps, driverName }) => {
       justifyContent="space-evenly "
     >
       {steps &&
-        Object.entries(steps)?.map(([key, value], index, array) => {
+        Object.entries(steps).map(([key, value], index, array) => {
           return (
             <VerticalStepItem
-              key={index}
+              key={key}
               description={key}
               active={value}
               date={value}
