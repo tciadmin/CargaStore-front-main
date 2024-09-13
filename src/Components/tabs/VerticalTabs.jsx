@@ -1481,12 +1481,11 @@ export default function VerticalTabs() {
                               'pointer',
                             color: Colors.primary.main,
                           }}
-                          onClick={
-                            (errors.password ||
-                              editar ||
-                              passwordLoading) &&
-                            handleChangePassword
-                          }
+                          onClick={() => {
+                            if (errors.password || editar || passwordLoading) {
+                              handleChangePassword();
+                            }
+                          }}
                         >
                           Cambiar
                         </Typography>

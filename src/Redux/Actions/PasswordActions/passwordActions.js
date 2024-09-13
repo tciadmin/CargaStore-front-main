@@ -79,7 +79,6 @@ export const changePassword = (password) => {
         `/auth/change_password/${userId}`,
         { password }
       );
-      console.log({ response });
       return dispatch({
         type: CHANGE_PASSWORD_SUCCESS,
         payload: response.data,
