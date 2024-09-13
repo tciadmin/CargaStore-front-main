@@ -1,4 +1,3 @@
-// import StepItem from './StepItem';
 import StepTrail from '../svg/StepTrail';
 import Box from '@mui/material/Box';
 import CircleStep from '../svg/CircleStep';
@@ -100,7 +99,7 @@ const VerticalGreenStepper = ({ steps, driverName }) => {
       justifyContent="space-evenly "
     >
       {steps &&
-        Object.entries(steps).map(([key, value], index, array) => {
+        steps?.map(([key, value], index, array) => {
           return (
             <VerticalStepItem
               key={key}

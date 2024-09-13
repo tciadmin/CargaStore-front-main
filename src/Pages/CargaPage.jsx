@@ -765,7 +765,7 @@ const CargaPage = () => {
                     </p>
                   )}
                   <VerticalGreenStepper
-                    steps={orderState}
+                    steps={Object.entries(orderState)}
                     driverName={
                       singleOrder?.assignedDriver?.user_driver.name
                     }
