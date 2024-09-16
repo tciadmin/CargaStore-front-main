@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import { useState } from 'react';
 import { Grid, useMediaQuery, Menu, MenuItem } from '@mui/material';
 import MarketplaceCard from '../Components/cards/MarketplaceCard';
+import MobileChargeItemCard from '../Components/cards/MobileChargeItemCard';
 import { Colors } from '../Utils/Colors';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -167,35 +168,80 @@ export default function PageMarketplace() {
                   <ShipmentsMessage message={message} />
                 </Box>
               ) : (
-                <Grid
-                  container
-                  spacing={3}
-                  style={{ display: 'flex', gap: 30 }}
-                >
-                  {orders?.map((item) => (
-                    <Grid
-                      item
-                      xs={6}
-                      sm={4}
-                      md={3}
-                      lg={2.4}
-                      key={item.id}
+                <>
+                  {mobile ? (
+                    <Box
+                      style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(2, 1fr)',
+                        placeItems: 'center',
+                        gap: '5px',
+                        width: '100vw',
+                      }}
                     >
-                      <MarketplaceCard
-                        image={
-                          item.package?.image1
-                            ? `${urlBack}/api/${item.package?.image1}`
-                            : ''
-                        }
-                        title={item.package?.product_name}
-                        weight={item.package?.weight}
-                        price={item.package?.offered_price}
-                        typeCharge={item.package?.type}
-                        id={item.id}
-                      ></MarketplaceCard>
-                    </Grid>
-                  ))}
-                </Grid>
+                      {orders?.map((item) => (
+                        <MobileChargeItemCard
+                          key={item?.id}
+                          id={item?.id}
+                          image={item?.package?.image1}
+                          product_name={item?.package?.product_name}
+                          country={item?.customer?.country}
+                          charge_type={item?.package?.type}
+                          driver_name={
+                            item?.assignedDriver &&
+                            `${item?.assignedDriver?.user?.name} ${item?.assignedDriver?.user?.lastname}`
+                          }
+                        />
+                      ))}
+                    </Box>
+                  ) : (
+                    <>
+                      <Grid
+                        container
+                        spacing={3}
+                        style={{ display: 'flex', gap: 30 }}
+                      >
+                        {orders?.map((item) => (
+                          <MarketplaceCard
+                            key={item.id}
+                            image={
+                              item.package?.image1
+                                ? `${urlBack}/api/${item.package?.image1}`
+                                : ''
+                            }
+                            title={item.package?.product_name}
+                            weight={item.package?.weight}
+                            price={item.package?.offered_price}
+                            typeCharge={item.package?.type}
+                            id={item.id}
+                          />
+                        ))}
+                      </Grid>
+                    </>
+                  )}
+                </>
+                // <Grid
+                //   container
+                //   spacing={3}
+                //   style={{ display: 'flex', gap: 30 }}
+                // >
+
+                //   {orders?.map((item) => (
+                //     <MarketplaceCard
+                //       key={item.id}
+                //       image={
+                //         item.package?.image1
+                //           ? `${urlBack}/api/${item.package?.image1}`
+                //           : ''
+                //       }
+                //       title={item.package?.product_name}
+                //       weight={item.package?.weight}
+                //       price={item.package?.offered_price}
+                //       typeCharge={item.package?.type}
+                //       id={item.id}
+                //     />
+                //   ))}
+                // </Grid>
               )}
             </Box>
           </>
