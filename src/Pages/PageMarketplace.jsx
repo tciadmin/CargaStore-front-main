@@ -220,28 +220,6 @@ export default function PageMarketplace() {
                     </>
                   )}
                 </>
-                // <Grid
-                //   container
-                //   spacing={3}
-                //   style={{ display: 'flex', gap: 30 }}
-                // >
-
-                //   {orders?.map((item) => (
-                //     <MarketplaceCard
-                //       key={item.id}
-                //       image={
-                //         item.package?.image1
-                //           ? `${urlBack}/api/${item.package?.image1}`
-                //           : ''
-                //       }
-                //       title={item.package?.product_name}
-                //       weight={item.package?.weight}
-                //       price={item.package?.offered_price}
-                //       typeCharge={item.package?.type}
-                //       id={item.id}
-                //     />
-                //   ))}
-                // </Grid>
               )}
             </Box>
           </>
