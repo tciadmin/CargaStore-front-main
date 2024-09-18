@@ -10,6 +10,7 @@ const VerticalStepItem = ({
   date,
   driverName,
   ultimo,
+  index, // Recibiendo index como prop
 }) => {
   return (
     <Box
@@ -27,7 +28,16 @@ const VerticalStepItem = ({
           alignItems={'center'}
           spacing={5}
         >
-          <CircleStep active={description === 'enPreparacion' && index === 0 || description === 'preparado' && index === 1 || description === 'retirado' && index === 2 || description === 'enCamino' && index === 3 ? active : ''}></CircleStep>
+          <CircleStep
+            active={
+              (description === 'enPreparacion' && index === 0) ||
+              (description === 'preparado' && index === 1) ||
+              (description === 'retirado' && index === 2) ||
+              (description === 'enCamino' && index === 3)
+                ? active
+                : ''
+            }
+          ></CircleStep>
           {!ultimo && (
             <StepTrail vertical={true} active={active}></StepTrail>
           )}
@@ -45,8 +55,7 @@ const VerticalStepItem = ({
             my={1}
             sx={{ color: active ? '#007C52' : '#8C94A6' }}
           >
-            {' '}
-            {description === 'enPreparacion' 
+            {description === 'enPreparacion'
               ? 'En preparación'
               : description === 'preparado'
               ? 'Preparado'
@@ -61,7 +70,6 @@ const VerticalStepItem = ({
             my={1}
             sx={{ color: active ? '#000' : '#8C94A6' }}
           >
-            {' '}
             {date ? format(new Date(date ?? ''), 'dd/MM/yy') : ''}
           </Typography>
           <Typography
@@ -71,11 +79,10 @@ const VerticalStepItem = ({
             my={1}
             sx={{ color: active ? '#000' : '#8C94A6' }}
           >
-            {' '}
             {!active
               ? ''
               : description === 'enPreparacion'
-              ? 'El cliente está preparando el anvío'
+              ? 'El cliente está preparando el envío'
               : description === 'preparado'
               ? 'El cliente está a la espera del retiro'
               : description === 'retirado'
@@ -96,23 +103,5 @@ const VerticalGreenStepper = ({ steps, driverName }) => {
       display={'flex'}
       flexDirection={'column'}
       alignItems={'start'}
-      justifyContent="space-evenly "
-    >
-      {steps &&
-        steps?.map(([key, value], index, array) => {
-          return (
-            <VerticalStepItem
-              key={key}
-              description={key}
-              active={value}
-              date={value}
-              driverName={driverName}
-              ultimo={array.length - 1 === index}
-            />
-          );
-        })}
-    </Box>
-  );
-};
-
-export default VerticalGreenStepper;
+      justifyContent="space-evenly"
+   
