@@ -104,4 +104,23 @@ const VerticalGreenStepper = ({ steps, driverName }) => {
       flexDirection={'column'}
       alignItems={'start'}
       justifyContent="space-evenly"
-   
+    >
+      {steps &&
+        steps.map(([key, value], index, array) => {
+          return (
+            <VerticalStepItem
+              key={key}
+              index={index} // Pasando index como prop
+              description={key}
+              active={value}
+              date={value}
+              driverName={driverName}
+              ultimo={array.length - 1 === index}
+            />
+          );
+        })}
+    </Box>
+  );
+};
+
+export default VerticalGreenStepper;
