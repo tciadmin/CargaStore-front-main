@@ -89,6 +89,8 @@ export default function PageAdminPanel({ seccion = 0 }) {
       ) : (
         <Box
           sx={{
+            display: 'flex',
+            flexDirection: 'row',
             bgcolor: '#f5f5f5ff',
             width: '250px',
             height: '100%',
@@ -102,6 +104,7 @@ export default function PageAdminPanel({ seccion = 0 }) {
               maxWidth: 500,
               fontWeight: 400,
               minHeight: '100vh',
+              position: 'relative',
               bgcolor: 'transparent',
               borderRight: '1px solid lightgrey',
             }}
@@ -197,8 +200,8 @@ export default function PageAdminPanel({ seccion = 0 }) {
       {value === 0 && (
         <Stack
           direction="row"
-          justifyContent={'flex-start'}
-          maxWidth={'100%'}
+          justifyContent={'center'}
+          width={'100%'}
         >
           <CompRequests />
         </Stack>
@@ -221,7 +224,7 @@ export default function PageAdminPanel({ seccion = 0 }) {
           justifyContent="center"
           alignItems={mobile ? '' : 'center'}
           minHeight="100vh"
-          minWidth={mobile ? '100vw' : '60vw'}
+          width={mobile ? '100vw' : '100%'}
         >
           <ShipmentsMessage message={message} />
         </Box>
