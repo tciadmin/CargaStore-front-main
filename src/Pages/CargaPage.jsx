@@ -845,6 +845,9 @@ const CargaPage = () => {
                 >
                   {applicationMessage?.msg2}
                 </Typography>
+                {mobile && (
+                  <Button onClick={handleCloseModal}>Aceptar</Button>
+                )}
               </Box>
             </Box>
           </Modal>
