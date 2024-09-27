@@ -32,7 +32,7 @@ export const CompProfile = () => {
   const mobile = useMediaQuery('(max-width:720px)');
   const dispatch = useDispatch();
 
-  const { register, handleSubmit, setValue, watch } = useForm({
+  const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
       customerId: '',
       driverId: '',
@@ -462,7 +462,7 @@ export const CompProfile = () => {
                     >
                       <Rating
                         name="simple-controlled"
-                        value={formValues.score || 0}
+                        value={0}
                         onChange={(event, newValue) => {
                           setValue('score', newValue);
                         }}
