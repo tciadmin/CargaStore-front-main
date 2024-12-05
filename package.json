@@ -9,9 +9,6 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
-  "engines": {
-    "node": ">=16.x"
-  },
   "dependencies": {
     "@date-io/dayjs": "^2.16.0",
     "@emotion/react": "^11.11.4",
