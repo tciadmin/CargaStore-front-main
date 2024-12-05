@@ -22,7 +22,9 @@ import EmisorMessage from '../Components/Chat/EmisorMessage';
 import ReceptorMessage from '../Components/Chat/ReceptorMessage';
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:3000');
+const urlBack = import.meta.env.VITE_URL_BACKEND;
+
+const socket = io(urlBack);
 
 const PageChatMobile = () => {
   const [chatear, setChatear] = useState(false);

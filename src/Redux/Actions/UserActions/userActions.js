@@ -44,6 +44,8 @@ export const PATCH_DRIVER_LEGAL_DOCUMENTS_SUCCESS =
 export const PATCH_DRIVER_LEGAL_DOCUMENTS_FAILURE =
   'PATCH_DRIVER_LEGAL_DOCUMENTS_FAILURE';
 
+const urlBack = import.meta.env.VITE_URL_BACKEND;
+
 export const getAllUsers = () => {
   return async (dispatch) => {
     dispatch({ type: GET_ALL_USERS_PENDING });
@@ -327,7 +329,7 @@ export const patchDriverLegalDocuments = (
       formData.append('pdf_iess', pdf_iess);
       formData.append('pdf_port_permit', pdf_port_permit);
       const response = await axiosInstance.patch(
-        `http://localhost:3000/api/driver/patch/legal_documents/${driverId}`,
+        `${urlBack}/api/driver/patch/legal_documents/${driverId}`,
         formData
       );
       return dispatch({
