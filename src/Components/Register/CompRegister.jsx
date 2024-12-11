@@ -1,22 +1,22 @@
-import * as React from "react";
+import * as React from 'react';
 //? --------------------------------------------- MUI
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import { useMediaQuery } from "@mui/material";
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import { useMediaQuery } from '@mui/material';
 //? --------------------------------------------- STYLES
-import "./styles.css";
-import { Colors } from "../../Utils/Colors";
-import { useNavigate } from "react-router-dom";
+import './styles.css';
+import { Colors } from '../../Utils/Colors';
+import { useNavigate } from 'react-router-dom';
 
 export default function CompRegister() {
-  const mobile = useMediaQuery("(max-width:720px)");
+  const mobile = useMediaQuery('(max-width:720px)');
   const navigate = useNavigate();
 
   const nextDriver = () => {
-    navigate("/register/driver");
+    navigate('/register/driver');
   };
   const nextUser = () => {
-    navigate("/register/user");
+    navigate('/register/user');
   };
 
   const handleBack = () => {
@@ -31,35 +31,37 @@ export default function CompRegister() {
     <Box
       className="registerContainer"
       style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        width: mobile ? "" : "100%",
-        height: "100vh",
-        justifyContent: "center",
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: mobile ? '' : '100%',
+        height: '100vh',
+        justifyContent: 'center',
       }}
     >
       <Box
         style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          width: "100%",
-          height: "100vh",
-          justifyContent: "center",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          width: '100%',
+          height: '100vh',
+          justifyContent: 'center',
         }}
       >
         <Box
           style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            padding: "20px",
-            border: mobile ? "none" : "1px solid rgb(102, 113, 133, 0.3)",
-            borderRadius: "8px",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            padding: '20px',
+            border: mobile
+              ? 'none'
+              : '1px solid rgb(102, 113, 133, 0.3)',
+            borderRadius: '8px',
             gap: 10,
-            width: "80%",
-            justifyContent: "center",
+            width: '80%',
+            justifyContent: 'center',
           }}
         >
           {mobile ? (
@@ -68,7 +70,7 @@ export default function CompRegister() {
             <img src="/imgLanding/LogoCargaStore.svg" />
           )}
 
-          <h1 style={{ fontWeight: 600, fontSize: "1.5rem" }}>
+          <h1 style={{ fontWeight: 600, fontSize: '1.5rem' }}>
             Bienvenido a Carga Store
           </h1>
           <p
@@ -79,20 +81,30 @@ export default function CompRegister() {
             Elige tu perfil
           </p>
           {mobile ? (
-            ""
+            ''
           ) : (
-            <img style={{ width: "100%" }} src="/imgRegister/RegDivider.svg" />
+            <img
+              style={{ width: '100%' }}
+              src="/imgRegister/RegDivider.svg"
+            />
           )}
 
           <Box
             style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "10px",
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '10px',
             }}
           >
-            <img src="/imgRegister/LoadImg.jpg" />
+            <img
+              style={{
+                width: '324px',
+                height: '122px',
+                objectFit: 'cover',
+              }}
+              src="/imgRegister/LoadImg.jpg"
+            />
             <Button
               onClick={nextUser}
               name="user"
@@ -101,7 +113,14 @@ export default function CompRegister() {
             >
               Quiero generar una carga
             </Button>
-            <img src="/imgRegister/AssociateImg.jpg" />
+            <img
+              style={{
+                width: '324px',
+                height: '122px',
+                objectFit: 'cover',
+              }}
+              src="/imgRegister/AssociateImg.jpg"
+            />
             <Button
               onClick={nextDriver}
               name="driver"
