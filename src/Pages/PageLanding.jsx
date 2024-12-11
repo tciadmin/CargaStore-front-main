@@ -2,7 +2,6 @@ import React from 'react';
 import Hero from '../Components/sections/home/hero/Hero';
 import QuienesSomosSection from '../Components/sections/home/QuienesSomosSection';
 import NuestroServicioSection from '../Components/sections/home/NuestroServicioSection';
-import ImagenYCapacitacion from '../Components/sections/home/ImagenYCapacitacion';
 import CompCarousel from '../Components/Carousel/CompCarousel';
 import CompFooter from '../Components/Footer/CompFooter';
 import {
@@ -25,11 +24,9 @@ const PageLanding = () => {
   const mobile = useMediaQuery('(max-width: 750px)');
   return (
     <>
-      <Hero></Hero>
-      <QuienesSomosSection
-        imagen={'/home/quienes.png'}
-      ></QuienesSomosSection>
-      <NuestroServicioSection></NuestroServicioSection>
+      <Hero />
+      <QuienesSomosSection imagen={'/home/quienes.png'} />
+      <NuestroServicioSection />
       {mobile && (
         <Stack
           direction="column"
@@ -78,7 +75,6 @@ const PageLanding = () => {
           </Grid>
         </Stack>
       )}
-      <ImagenYCapacitacion></ImagenYCapacitacion>
       {!mobile && (
         <Stack
           sx={{
@@ -148,7 +144,7 @@ const PageLanding = () => {
         </Stack>
       )}
 
-      <CompCarousel></CompCarousel>
+      <CompCarousel />
       <CompFooter />
     </>
   );
