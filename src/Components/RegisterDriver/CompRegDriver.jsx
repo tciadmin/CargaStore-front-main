@@ -20,7 +20,7 @@ export default function CompRegDriver() {
   const dispatch = useDispatch();
 
   const { driverData } = useSelector((state) => state.forms);
-  const { name, lastname, email, password, confirmPassword } =
+  const { name, lastname, email, password, confirmPassword, identification } =
     driverData;
 
   const {
@@ -35,6 +35,7 @@ export default function CompRegDriver() {
       email: '',
       password: '',
       confirmPassword: '',
+      identification: '',
     },
   });
 
@@ -44,7 +45,8 @@ export default function CompRegDriver() {
     setValue('email', email);
     setValue('password', password);
     setValue('confirmPassword', confirmPassword);
-  }, [name, lastname, email, password, confirmPassword, setValue]);
+    setValue('identification', identification);
+  }, [name, lastname, email, password, confirmPassword, identification, setValue]);
 
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] =
@@ -190,6 +192,35 @@ export default function CompRegDriver() {
                 {errors.email.message}
               </p>
             )}
+            {/* //? --------------------------------------------- IDENTIFICATION */}
+            <span style={{ display: 'flex', width: '100%' }}>
+              Cédula o RUC <p style={{ color: 'red' }}>*</p>
+            </span>
+            <FormControl sx={{ m: 1 }} variant="outlined">
+              <OutlinedInput
+                {...register('identification', {
+                  required: {
+                    value: true,
+                    message: 'Este campo es requerido',
+                  },
+                  minLength: {
+                  value: 10,
+                  message: 'Debe tener al menos 10 caracteres',
+                  },
+                })}
+                placeholder="Ingrese cédula o RUC"
+                style={{
+                  borderRadius: '8px',
+                  height: '40px',
+                  width: 400,
+                }}
+              />
+              {errors.identification && (
+                <p style={{ color: 'red', width: 400 }}>
+                  {errors.identification.message}
+                </p>
+              )}
+            </FormControl>
             {/* //? --------------------------------------------- PASSWORD */}
             <span style={{ display: 'flex', width: '100%' }}>
               Crea una contraseña <p style={{ color: 'red' }}>*</p>
