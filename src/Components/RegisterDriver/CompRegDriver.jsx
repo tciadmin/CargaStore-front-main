@@ -14,13 +14,23 @@ import { Colors } from '../../Utils/Colors';
 import { driverFormData } from '../../Redux/Actions/formActions';
 import { useDispatch, useSelector } from 'react-redux';
 
+const countryCodes = [
+  { code: '+593', name: 'Ecuador', minLength: 9, maxLength: 9 },
+  { code: '+57', name: 'Colombia', minLength: 10, maxLength: 10 },
+  { code: '+51', name: 'Perú', minLength: 9, maxLength: 9 },
+  { code: '+58', name: 'Venezuela', minLength: 10, maxLength: 10 },
+  { code: '+1', name: 'Estados Unidos', minLength: 10, maxLength: 10 },
+];
+
 export default function CompRegDriver() {
   const navigate = useNavigate();
   const mobile = useMediaQuery('(max-width:720px)');
   const dispatch = useDispatch();
 
+  const [selectedCountry, setSelectedCountry] = React.useState(countryCodes[0]);
+
   const { driverData } = useSelector((state) => state.forms);
-  const { name, lastname, email, password, confirmPassword, identification } =
+  const { name, lastname, email, password, confirmPassword, identification, phone } =
     driverData;
 
   const {
@@ -36,6 +46,7 @@ export default function CompRegDriver() {
       password: '',
       confirmPassword: '',
       identification: '',
+      phone:'',
     },
   });
 
@@ -46,7 +57,8 @@ export default function CompRegDriver() {
     setValue('password', password);
     setValue('confirmPassword', confirmPassword);
     setValue('identification', identification);
-  }, [name, lastname, email, password, confirmPassword, identification, setValue]);
+    setValue('phone', phone);
+  }, [name, lastname, email, password, confirmPassword, identification, phone, setValue]);
 
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] =
@@ -221,6 +233,68 @@ export default function CompRegDriver() {
                 </p>
               )}
             </FormControl>
+            {/* //? --------------------------------------------- PHONE */}
+            <span style={{ display: 'flex', width: '100%' }}>
+              Número de celular <p style={{ color: 'red' }}>*</p>
+            </span>
+
+            <div style={{ display: 'flex', gap: '10px', width: '100%' }}>
+              {/* SELECT CÓDIGO DE PAÍS */}
+              <FormControl sx={{ m: 1 }} variant="outlined">
+                <select
+                  value={selectedCountry.code}
+                  onChange={(e) =>
+                    setSelectedCountry(
+                      countryCodes.find((c) => c.code === e.target.value)
+                    )
+                  }
+                  style={{
+                    borderRadius: '8px',
+                    height: '40px',
+                    width: '100px',
+                    padding: '0 10px',
+                  }}
+                >
+                  {countryCodes.map((country) => (
+                    <option key={country.code} value={country.code}>
+                      {country.code} ({country.name})
+                    </option>
+                  ))}
+                </select>
+              </FormControl>
+
+              {/* INPUT NÚMERO */}
+              <FormControl sx={{ m: 1 }} variant="outlined">
+                <OutlinedInput
+                  {...register('phone', {
+                    required: 'Este campo es requerido',
+                    pattern: {
+                      value: /^[0-9]+$/,
+                      message: 'Solo se permiten números',
+                    },
+                    minLength: {
+                      value: selectedCountry.minLength,
+                      message: `Debe tener mínimo ${selectedCountry.minLength} dígitos`,
+                    },
+                    maxLength: {
+                      value: selectedCountry.maxLength,
+                      message: `Debe tener máximo ${selectedCountry.maxLength} dígitos`,
+                    },
+                  })}
+                  placeholder="Número celular"
+                  style={{
+                    borderRadius: '8px',
+                    height: '40px',
+                    width: '290px',
+                  }}
+                />
+               {errors.phone && (
+                  <p style={{ color: 'red', width: 290 }}>
+                   {errors.phone.message}
+                  </p>
+                )}
+              </FormControl>
+            </div>
             {/* //? --------------------------------------------- PASSWORD */}
             <span style={{ display: 'flex', width: '100%' }}>
               Crea una contraseña <p style={{ color: 'red' }}>*</p>
