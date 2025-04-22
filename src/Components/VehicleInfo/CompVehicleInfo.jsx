@@ -25,6 +25,20 @@ export default function CompVehicleInfo() {
   const { userLoading } = useSelector((state) => state.user);
   const { brand, model, year, charge_capacity, charge_type } = driverData;
 
+  const vehicleTypes = [
+    'Camión',
+    'Camioneta',
+    'Tráiler',
+    'Plataforma',
+    'Furgón',
+    'Refrigerado',
+    'Volqueta',
+    'Cisterna',
+    'Porta vehículos',
+    'Góndola',
+    'Cama baja',
+  ];
+
   const {
     register,
     handleSubmit,
@@ -35,11 +49,14 @@ export default function CompVehicleInfo() {
     defaultValues: {
       brand: "",
       model: "",
+      vehicle_type: "",
       year: "",
       charge_capacity: "",
       charge_type: "",
     },
   });
+  
+  const watchedModel = watch("model");
 
   const [brands, setBrands] = React.useState([]);
   const [models, setModels] = React.useState([]);
@@ -169,28 +186,54 @@ export default function CompVehicleInfo() {
               Modelo<p style={{ color: "red" }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
-              <InputLabel>Modelo</InputLabel>
+            <InputLabel>Modelo</InputLabel>
+            <Select
+              {...register("model", { required: true })}
+              value={watchedModel}
+              onChange={(e) => {
+                setValue("model", e.target.value);
+              }}
+              label="Modelo"
+              style={{
+                borderRadius: "8px",
+                height: "40px",
+                width: 400,
+              }}
+            >
+              {models.map((model) => (
+                <MenuItem key={model} value={model}>
+                  {model}
+                </MenuItem>
+              ))}
+            </Select>
+            {errors.model && (
+              <p style={{ color: "red" }}>Este campo es requerido</p>
+            )}
+          </FormControl>
+            {/* //? --------------------------------------------- VEHICLE TYPE */}
+            <span style={{ display: "flex", width: "100%" }}>
+              Tipo de vehículo<p style={{ color: "red" }}>*</p>
+            </span>
+            <FormControl sx={{ m: 1 }} variant="outlined">
+              <InputLabel id="vehicle-type-label">Tipo de vehículo</InputLabel>
               <Select
-                {...register("model", { required: true })}
-                value={watchedmodel}
-                onChange={(e) => {
-                  setSelectedBrand(e.target.value)
-                  setValue("model", "")
-                }}
-                label="Modelo"
+                {...register("vehicle_type", { required: true })}
+                labelId="vehicle-type-label"
+                id="vehicle-type"
+                label="Tipo de vehículo"
                 style={{
+                  height: mobile ? "40px" : "40px",
                   borderRadius: "8px",
-                  height: "40px",
                   width: 400,
                 }}
               >
-                {models.map((model) => (
-                  <MenuItem key={model} value={model}>
-                    {model}
+                {vehicleTypes.map((type) => (
+                  <MenuItem key={type} value={type}>
+                    {type}
                   </MenuItem>
                 ))}
               </Select>
-              {errors.model && (
+              {errors.vehicle_type && (
                 <p style={{ color: "red" }}>Este campo es requerido</p>
               )}
             </FormControl>
