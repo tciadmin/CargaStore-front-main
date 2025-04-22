@@ -30,6 +30,7 @@ export default function CompRegDriver() {
     handleSubmit,
     formState: { errors },
     setValue,
+    control,
   } = useForm({
     defaultValues: {
       name: '',
