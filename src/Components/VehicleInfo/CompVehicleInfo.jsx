@@ -53,6 +53,7 @@ export default function CompVehicleInfo() {
       year: "",
       charge_capacity: "",
       charge_type: "",
+      hasGps: false,
     },
   });
   
@@ -300,6 +301,20 @@ export default function CompVehicleInfo() {
               </Select>
               {errors.type && (
                 <p style={{ color: "red" }}>{errors.type.message}</p>
+              )}
+            </FormControl>
+            {/* //? --------------------------------------------- GPS */}
+            <span style={{ display: "flex", width: "100%" }}>
+              ¿Cuenta con GPS? <p style={{ color: "red" }}>*</p>
+            </span>
+            <FormControl sx={{ m: 1 }} variant="outlined">
+              <InputLabel>¿Cuenta con GPS?</InputLabel>
+              <RadioGroup row {...register("hasGps", { required: true })}>
+                <FormControlLabel value={true} control={<Radio />} label="Sí" />
+                <FormControlLabel value={false} control={<Radio />} label="No" />
+              </RadioGroup>
+              {errors.hasGps && (
+                <p style={{ color: "red" }}>Este campo es requerido</p>
               )}
             </FormControl>
 
