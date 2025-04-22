@@ -279,10 +279,10 @@ export default function CompRegDriver() {
                   },
                   pattern: {
                     value: /^.{9,}$/i, // maximo 8 caracteres
-                    message: 'Minimo 8 caracteres',
+                    message: 'Mínimo 8 caracteres',
                   },
                 })}
-                placeholder="Minimo 8 carácteres"
+                placeholder="Mínimo 8 carácteres"
                 type={showPassword ? 'text' : 'password'}
                 style={{
                   borderRadius: '8px',
@@ -325,13 +325,13 @@ export default function CompRegDriver() {
                   },
                   pattern: {
                     value: /^.{9,}$/i, // Si en el input no se cumple con esta expreción regular se coloca un mensaje distinto
-                    message: 'Minimo 8 caracteres',
+                    message: 'Mínimo 8 caracteres',
                   },
                   validate: (value, formValues) =>
                     value === formValues.password ||
                     'La contraseña no coincide',
                 })}
-                placeholder="Máximo 8 carácteres"
+                placeholder="Mínimo 8 carácteres"
                 type={showConfirmPassword ? 'text' : 'password'}
                 style={{
                   borderRadius: '8px',
