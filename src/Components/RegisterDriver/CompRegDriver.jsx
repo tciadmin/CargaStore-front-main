@@ -79,7 +79,7 @@ export default function CompRegDriver() {
           flexDirection: 'column',
           alignItems: 'center',
           width: '100%',
-          height: '100vh',
+          minheight: '100vh',
           justifyContent: 'center',
         }}
       >
