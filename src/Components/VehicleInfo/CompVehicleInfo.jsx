@@ -2,7 +2,7 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { postUser } from "../../Redux/Actions/UserActions/userActions";
-import axios from "axios";
+import { axiosInstance } from "../../Redux/axiosInstance";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -48,31 +48,45 @@ export default function CompVehicleInfo() {
     // Obtener marcas de vehículos
     const fetchBrands = async () => {
       try {
-        const response = await axios.get("/truck/vehicle/brands");  // Endpoint para obtener marcas
-        setBrands(response.data);
+        const response = await axiosInstance.get("/truck/vehicle/brands");
+ 
+        // Asegúrate de que la respuesta sea un arreglo
+        if (Array.isArray(response.data)) {
+          setBrands(response.data);
+        } else {
+          console.error("La respuesta de marcas no es un arreglo", response.data);
+        }
       } catch (error) {
         console.error("Error fetching brands:", error);
       }
     };
-
+  
     fetchBrands();
   }, []);
+  
 
   // Obtener modelos cuando se selecciona una marca
   React.useEffect(() => {
     if (selectedBrand) {
       const fetchModels = async () => {
         try {
-          const response = await axios.get(`/truck/vehicle/models?brand=${selectedBrand}`);  // Endpoint para obtener modelos
-          setModels(response.data);
+          const response = await axiosInstance.get(`/truck/vehicle/models?brand=${selectedBrand}`);
+          
+          // Asegúrate de que la respuesta sea un arreglo
+          if (Array.isArray(response.data)) {
+            setModels(response.data);
+          } else {
+            console.error("La respuesta de modelos no es un arreglo", response.data);
+          }
         } catch (error) {
           console.error("Error fetching models:", error);
         }
       };
-
+  
       fetchModels();
     }
   }, [selectedBrand]);
+  
 
   React.useEffect(() => {
     setValue("brand", brand);
