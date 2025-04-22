@@ -48,7 +48,7 @@ export default function CompVehicleInfo() {
     // Obtener marcas de vehículos
     const fetchBrands = async () => {
       try {
-        const response = await axiosInstance.get("/truck/vehicle/brands");
+        const response = await axiosInstance.get("/api/truck/vehicle/brands");
  
         // Asegúrate de que la respuesta sea un arreglo
         if (Array.isArray(response.data)) {
@@ -70,7 +70,7 @@ export default function CompVehicleInfo() {
     if (selectedBrand) {
       const fetchModels = async () => {
         try {
-          const response = await axiosInstance.get(`/truck/vehicle/models?brand=${selectedBrand}`);
+          const response = await axiosInstance.get(`/api/truck/vehicle/models?brand=${selectedBrand}`);
           
           // Asegúrate de que la respuesta sea un arreglo
           if (Array.isArray(response.data)) {
@@ -82,7 +82,6 @@ export default function CompVehicleInfo() {
           console.error("Error fetching models:", error);
         }
       };
-  
       fetchModels();
     }
   }, [selectedBrand]);
@@ -173,7 +172,8 @@ export default function CompVehicleInfo() {
               <Select
                 {...register("model", { required: true })}
                 value={model}
-                onChange={(e) => setValue("model", e.target.value)}
+                onChange={(e) => {
+                  setValue("model", e.target.value)}}
                 label="Modelo"
                 style={{
                   borderRadius: "8px",
