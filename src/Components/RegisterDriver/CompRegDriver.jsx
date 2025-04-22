@@ -21,8 +21,6 @@ export default function CompRegDriver() {
   const mobile = useMediaQuery('(max-width:720px)');
   const dispatch = useDispatch();
 
-  const [selectedCountry, setSelectedCountry] = React.useState(countryCodes[0]);
-
   const { driverData } = useSelector((state) => state.forms);
   const { name, lastname, email, password, confirmPassword, identification, phone } =
     driverData;
