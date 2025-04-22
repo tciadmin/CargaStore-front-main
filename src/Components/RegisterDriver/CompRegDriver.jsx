@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 //? --------------------------------------------- MUI
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -13,14 +14,7 @@ import { useMediaQuery } from '@mui/material';
 import { Colors } from '../../Utils/Colors';
 import { driverFormData } from '../../Redux/Actions/formActions';
 import { useDispatch, useSelector } from 'react-redux';
-
-const countryCodes = [
-  { code: '+593', name: 'Ecuador', minLength: 9, maxLength: 9 },
-  { code: '+57', name: 'Colombia', minLength: 10, maxLength: 10 },
-  { code: '+51', name: 'Perú', minLength: 9, maxLength: 9 },
-  { code: '+58', name: 'Venezuela', minLength: 10, maxLength: 10 },
-  { code: '+1', name: 'Estados Unidos', minLength: 10, maxLength: 10 },
-];
+import PhoneInput from 'react-phone-input-2';
 
 export default function CompRegDriver() {
   const navigate = useNavigate();
@@ -237,64 +231,41 @@ export default function CompRegDriver() {
             <span style={{ display: 'flex', width: '100%' }}>
               Número de celular <p style={{ color: 'red' }}>*</p>
             </span>
-
-            <div style={{ display: 'flex', gap: '10px', width: '100%' }}>
-              {/* SELECT CÓDIGO DE PAÍS */}
-              <FormControl sx={{ m: 1 }} variant="outlined">
-                <select
-                  value={selectedCountry.code}
-                  onChange={(e) =>
-                    setSelectedCountry(
-                      countryCodes.find((c) => c.code === e.target.value)
-                    )
-                  }
-                  style={{
-                    borderRadius: '8px',
-                    height: '40px',
-                    width: '100px',
-                    padding: '0 10px',
-                  }}
-                >
-                  {countryCodes.map((country) => (
-                    <option key={country.code} value={country.code}>
-                      {country.code} ({country.name})
-                    </option>
-                  ))}
-                </select>
-              </FormControl>
-
-              {/* INPUT NÚMERO */}
-              <FormControl sx={{ m: 1 }} variant="outlined">
-                <OutlinedInput
-                  {...register('phone', {
-                    required: 'Este campo es requerido',
-                    pattern: {
-                      value: /^[0-9]+$/,
-                      message: 'Solo se permiten números',
-                    },
-                    minLength: {
-                      value: selectedCountry.minLength,
-                      message: `Debe tener mínimo ${selectedCountry.minLength} dígitos`,
-                    },
-                    maxLength: {
-                      value: selectedCountry.maxLength,
-                      message: `Debe tener máximo ${selectedCountry.maxLength} dígitos`,
-                    },
-                  })}
-                  placeholder="Número celular"
-                  style={{
-                    borderRadius: '8px',
-                    height: '40px',
-                    width: '290px',
-                  }}
-                />
-               {errors.phone && (
-                  <p style={{ color: 'red', width: 290 }}>
-                   {errors.phone.message}
-                  </p>
+            <FormControl sx={{ m: 1 }} variant="outlined" style={{ width: 400 }}>
+             <Controller
+                name="phone"
+                control={control}
+                rules={{
+                  required: 'Este campo es requerido',
+                  minLength: {
+                    value: 10,
+                    message: 'Número inválido',
+                  },
+                }}
+                render={({ field }) => (
+                  <PhoneInput
+                    {...field}
+                    country={'ec'} // puedes cambiar 'ec' por el país predeterminado que necesites
+                    enableSearch
+                    inputStyle={{
+                      width: '100%',
+                      height: '40px',
+                      borderRadius: '8px',
+                    }}
+                    buttonStyle={{
+                      borderRadius: '8px 0 0 8px',
+                    }}
+                    onChange={(value) => field.onChange(value)}
+                    value={field.value}
+                  />
                 )}
-              </FormControl>
-            </div>
+              />
+              {errors.phone && (
+                <p style={{ color: 'red', marginTop: '5px' }}>
+                  {errors.phone.message}
+                </p>
+              )}
+            </FormControl>
             {/* //? --------------------------------------------- PASSWORD */}
             <span style={{ display: 'flex', width: '100%' }}>
               Crea una contraseña <p style={{ color: 'red' }}>*</p>
