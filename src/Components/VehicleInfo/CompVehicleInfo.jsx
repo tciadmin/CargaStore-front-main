@@ -30,6 +30,7 @@ export default function CompVehicleInfo() {
     handleSubmit,
     formState: { errors },
     setValue,
+    watch,
   } = useForm({
     defaultValues: {
       brand: "",
@@ -171,8 +172,11 @@ export default function CompVehicleInfo() {
               <InputLabel>Modelo</InputLabel>
               <Select
                 {...register("model", { required: true })}
-                value={model}
-                onChange={(e) => setValue("model", e.target.value)}
+                value={watchedmodel}
+                onChange={(e) => {
+                  setSelectedBrand(e.target.value)
+                  setValue("model", "")
+                }}
                 label="Modelo"
                 style={{
                   borderRadius: "8px",
