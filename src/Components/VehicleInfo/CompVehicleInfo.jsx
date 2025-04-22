@@ -172,8 +172,7 @@ export default function CompVehicleInfo() {
               <Select
                 {...register("model", { required: true })}
                 value={model}
-                onChange={(e) => {
-                  setValue("model", e.target.value)}}
+                onChange={(e) => setValue("model", e.target.value)}
                 label="Modelo"
                 style={{
                   borderRadius: "8px",
