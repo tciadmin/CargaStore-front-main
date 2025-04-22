@@ -2,6 +2,7 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { postUser } from "../../Redux/Actions/UserActions/userActions";
+import axios from "axios";
 //? --------------------------------------------- MUI
 import Box from "@mui/material/Box";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -38,6 +39,40 @@ export default function CompVehicleInfo() {
     },
   });
 
+  const [brands, setBrands] = React.useState([]);
+  const [models, setModels] = React.useState([]);
+  const [selectedBrand, setSelectedBrand] = React.useState("");  // Marca seleccionada
+
+  React.useEffect(() => {
+    // Obtener marcas de vehículos
+    const fetchBrands = async () => {
+      try {
+        const response = await axios.get("/truck/vehicle/brands");  // Endpoint para obtener marcas
+        setBrands(response.data);
+      } catch (error) {
+        console.error("Error fetching brands:", error);
+      }
+    };
+
+    fetchBrands();
+  }, []);
+
+  // Obtener modelos cuando se selecciona una marca
+  React.useEffect(() => {
+    if (selectedBrand) {
+      const fetchModels = async () => {
+        try {
+          const response = await axios.get(`/truck/vehicle/models?brand=${selectedBrand}`);  // Endpoint para obtener modelos
+          setModels(response.data);
+        } catch (error) {
+          console.error("Error fetching models:", error);
+        }
+      };
+
+      fetchModels();
+    }
+  }, [selectedBrand]);
+
   React.useEffect(() => {
     setValue("brand", brand);
     setValue("model", model);
@@ -59,8 +94,9 @@ export default function CompVehicleInfo() {
           flexDirection: "column",
           alignItems: "center",
           width: "100%",
-          height: "100vh",
+          minHeight: "100vh",
           justifyContent: "center",
+          overflowY: "auto",
         }}
       >
         <Box
@@ -73,6 +109,7 @@ export default function CompVehicleInfo() {
             borderRadius: "8px",
             gap: 10,
             justifyContent: "center",
+            marginBottom: "20px", // Espacio debajo del encabezado
           }}
         >
           <h1 style={{ fontSize: "1.5rem" }}> Información del vehículo </h1>
@@ -90,15 +127,24 @@ export default function CompVehicleInfo() {
               Marca<p style={{ color: "red" }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
-              <OutlinedInput
+              <InputLabel>Marca</InputLabel>
+              <Select
                 {...register("brand", { required: true })}
-                placeholder="Honda"
+                value={selectedBrand}
+                onChange={(e) => setSelectedBrand(e.target.value)}
+                label="Marca"
                 style={{
                   borderRadius: "8px",
                   height: "40px",
                   width: 400,
                 }}
-              />
+              >
+                {brands.map((brand) => (
+                  <MenuItem key={brand} value={brand}>
+                    {brand}
+                  </MenuItem>
+                ))}
+              </Select>
               {errors.brand && (
                 <p style={{ color: "red" }}>Este campo es requerido</p>
               )}
@@ -108,15 +154,24 @@ export default function CompVehicleInfo() {
               Modelo<p style={{ color: "red" }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
-              <OutlinedInput
+              <InputLabel>Modelo</InputLabel>
+              <Select
                 {...register("model", { required: true })}
-                placeholder="Dyna 300"
+                value={model}
+                onChange={(e) => setValue("model", e.target.value)}
+                label="Modelo"
                 style={{
                   borderRadius: "8px",
                   height: "40px",
                   width: 400,
                 }}
-              />
+              >
+                {models.map((model) => (
+                  <MenuItem key={model} value={model}>
+                    {model}
+                  </MenuItem>
+                ))}
+              </Select>
               {errors.model && (
                 <p style={{ color: "red" }}>Este campo es requerido</p>
               )}
