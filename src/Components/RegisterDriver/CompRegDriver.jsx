@@ -81,6 +81,7 @@ export default function CompRegDriver() {
           width: '100%',
           minHeight: '100vh',
           justifyContent: 'center',
+          overflowY: 'auto',
         }}
       >
         <Box
