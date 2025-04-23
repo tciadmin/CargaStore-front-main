@@ -159,7 +159,6 @@ export default function CompVehicleInfo() {
             gap: 10,
             justifyContent: "center",
             marginBottom: "20px", // Espacio debajo del encabezado
-            maxHeight: "calc(100vh - 40px)", // Asegura que el formulario no desborde en pantallas pequeñas
           }}
         >
           <h1 style={{ fontSize: "1.5rem" }}> Información del vehículo </h1>
