@@ -7,6 +7,7 @@ import {
 const initialState = {
   truckLoading: false,
   error: null,
+  truckData: null,
 };
 
 export const truckReducer = (state = initialState, action) => {
@@ -21,6 +22,7 @@ export const truckReducer = (state = initialState, action) => {
       return {
         ...state,
         truckLoading: false,
+        truckData: action.payload,
       };
     case EDIT_TRUCK_FAILURE:
       return {

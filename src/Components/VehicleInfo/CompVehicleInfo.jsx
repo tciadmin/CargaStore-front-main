@@ -8,8 +8,7 @@ import Box from "@mui/material/Box";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
-import { useMediaQuery, Select, MenuItem } from "@mui/material";
-import InputLabel from "@mui/material/InputLabel";
+import { useMediaQuery, Select, MenuItem, TextField } from "@mui/material";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -26,7 +25,7 @@ export default function CompVehicleInfo() {
   const selectChargeType = ["Seca", "Peligrosa", "Refrigerada"];
   const { driverData } = useSelector((state) => state.forms);
   const { userLoading } = useSelector((state) => state.user);
-  const { brand, model, year, charge_capacity, charge_type } = driverData;
+  const { brand, model, vehicle_type, year, charge_capacity, charge_type, hasGps } = driverData;
 
   const vehicleTypes = [
     'Camión',
@@ -112,13 +111,25 @@ export default function CompVehicleInfo() {
   React.useEffect(() => {
     setValue("brand", brand);
     setValue("model", model);
+    setValue("vehicle_type", vehicle_type)
     setValue("year", year);
     setValue("charge_capacity", charge_capacity);
     setValue("charge_type", charge_type);
-  }, [brand, model, year, charge_capacity, charge_type, setValue]);
+    setValue('hasGps', true);
+  }, [brand, model, year, vehicle_type, charge_capacity, charge_type, hasGps, setValue]);
 
   const onSubmit = (data) => {
-    data.hasGps = data.hasGps === "true";
+    formData.append("brand", data.brand);
+    ormData.append("model", data.model);
+    formData.append("vehicle_type", data.vehicle_type);
+    formData.append("year", data.year);
+    formData.append("charge_type", data.charge_type);
+    formData.append("num_plate", data.num_plate);
+    formData.append("charge_capacity", data.charge_capacity);
+    formData.append("hasGps", data.hasGps === "true");
+    // Agregamos las imágenes
+    formData.append("truckImage", data.truckImage[0]); // el archivo está dentro de un array
+    formData.append("plateImage", data.plateImage[0]);
     dispatch(driverFormData(data));
     dispatch(postUser("driver", { ...driverData, ...data }, navigate));
   };
@@ -164,9 +175,9 @@ export default function CompVehicleInfo() {
               Marca<p style={{ color: "red" }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
-              <InputLabel>Marca</InputLabel>
               <Select
                 {...register("brand", { required: true })}
+                placeholder="Seleccione una opción"
                 value={selectedBrand}
                 onChange={(e) => setSelectedBrand(e.target.value)}
                 label="Marca"
@@ -191,9 +202,9 @@ export default function CompVehicleInfo() {
               Modelo<p style={{ color: "red" }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
-            <InputLabel>Modelo</InputLabel>
             <Select
               {...register("model", { required: true })}
+              placeholder="Seleccione una opción"
               value={watchedModel}
               onChange={(e) => {
                 setValue("model", e.target.value);
@@ -220,9 +231,9 @@ export default function CompVehicleInfo() {
               Tipo de vehículo<p style={{ color: "red" }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
-              <InputLabel id="vehicle-type-label">Tipo de vehículo</InputLabel>
               <Select
                 {...register("vehicle_type", { required: true })}
+                placeholder="Seleccione una opción"
                 labelId="vehicle-type-label"
                 id="vehicle-type"
                 label="Tipo de vehículo"
@@ -249,7 +260,7 @@ export default function CompVehicleInfo() {
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
                 {...register("year", { required: true })}
-                placeholder="2020"
+                placeholder="Ej: 2020"
                 style={{
                   borderRadius: "8px",
                   height: "40px",
@@ -267,7 +278,7 @@ export default function CompVehicleInfo() {
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
                 {...register("charge_capacity", { required: true })}
-                placeholder="2 toneladas"
+                placeholder="Ej: 2 toneladas"
                 style={{
                   borderRadius: "8px",
                   height: "40px",
@@ -291,6 +302,7 @@ export default function CompVehicleInfo() {
                     message: "Este campo es requerido",
                   },
                 })}
+                placeholder="Seleccione una opción"
                 style={{
                   height: mobile ? "40px" : "40px",
                   borderRadius: "8px",
@@ -317,6 +329,48 @@ export default function CompVehicleInfo() {
                 <FormControlLabel value="false" control={<Radio />} label="No" />
               </RadioGroup>
               {errors.hasGps && (
+                <p style={{ color: "red" }}>Este campo es requerido</p>
+              )}
+            </FormControl>
+            {/* //? --------------------------------------------- Truck Image */}
+            <FormControl fullWidth sx={{ m: 1 }}>
+              <label htmlFor="truckImage">
+                Incluir una foto del vehículo <span style={{ color: "red" }}>*</span>
+              </label>
+              <input
+                type="file"
+                id="truckImage"
+                accept="image/png, image/jpeg"
+                onChange={(e) => setValue("truckImage", e.target.files[0])}
+                style={{
+                  border: "1px solid #ccc",
+                  borderRadius: "10px",
+                  padding: "10px",
+                  marginTop: "8px",
+                }}
+              />
+              {errors.truckImage && (
+                <p style={{ color: "red" }}>Este campo es requerido</p>
+              )}
+            </FormControl>
+            {/* //? --------------------------------------------- Plate Image */}
+            <FormControl fullWidth sx={{ m: 1 }}>
+              <label htmlFor="plateImage">
+                Incluir una foto de la placa <span style={{ color: "red" }}>*</span>
+              </label>
+              <input
+                type="file"
+                id="plateImage"
+                accept="image/png, image/jpeg"
+                onChange={(e) => setValue("plateImage", e.target.files[0])}
+                style={{
+                  border: "1px solid #ccc",
+                  borderRadius: "10px",
+                  padding: "10px",
+                  marginTop: "8px",
+                }}
+              />
+              {errors.plateImage && (
                 <p style={{ color: "red" }}>Este campo es requerido</p>
               )}
             </FormControl>
