@@ -118,6 +118,7 @@ export default function CompVehicleInfo() {
   }, [brand, model, year, charge_capacity, charge_type, setValue]);
 
   const onSubmit = (data) => {
+    data.hasGps = data.hasGps === "true";
     dispatch(driverFormData(data));
     dispatch(postUser("driver", { ...driverData, ...data }, navigate));
   };
@@ -303,7 +304,7 @@ export default function CompVehicleInfo() {
                 ))}
               </Select>
               {errors.type && (
-                <p style={{ color: "red" }}>{errors.type.message}</p>
+                <p style={{ color: "red" }}>{errors.charge_type.message}</p>
               )}
             </FormControl>
             {/* //? --------------------------------------------- GPS */}
@@ -311,10 +312,9 @@ export default function CompVehicleInfo() {
               ¿Cuenta con GPS? <p style={{ color: "red" }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
-              <InputLabel>¿Cuenta con GPS?</InputLabel>
               <RadioGroup row {...register("hasGps", { required: true })}>
-                <FormControlLabel value={true} control={<Radio />} label="Sí" />
-                <FormControlLabel value={false} control={<Radio />} label="No" />
+                <FormControlLabel value="true" control={<Radio />} label="Sí" />
+                <FormControlLabel value="false" control={<Radio />} label="No" />
               </RadioGroup>
               {errors.hasGps && (
                 <p style={{ color: "red" }}>Este campo es requerido</p>

@@ -12,7 +12,6 @@ export const editTruck = (
     year,
     charge_type,
     num_plate,
-    capacity,
     charge_capacity,
   }
 ) => {
@@ -27,7 +26,6 @@ export const editTruck = (
           year,
           charge_type,
           num_plate,
-          capacity,
           charge_capacity,
         }
       );
