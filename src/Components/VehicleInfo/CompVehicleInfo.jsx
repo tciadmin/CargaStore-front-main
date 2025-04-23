@@ -158,6 +158,7 @@ export default function CompVehicleInfo() {
             gap: 10,
             justifyContent: "center",
             marginBottom: "20px", // Espacio debajo del encabezado
+            overflowY: "auto",
           }}
         >
           <h1 style={{ fontSize: "1.5rem" }}> Información del vehículo </h1>
