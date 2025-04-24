@@ -8,7 +8,7 @@ import Box from "@mui/material/Box";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
-import { useMediaQuery, Select, MenuItem, TextField, InputLabel } from "@mui/material";
+import { useMediaQuery, Select, MenuItem, TextField } from "@mui/material";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -138,30 +138,25 @@ export default function CompVehicleInfo() {
     <Box className="registerContainer">
       <Box
         style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          padding: "20px",
-          border: mobile ? "none" : "1px solid rgba(102, 113, 133, 0.3)",
-          borderRadius: "8px",
-          gap: 2,
-          marginBottom: "20px",
-          backgroundColor: "#fff",
-          width: mobile ? "100%" : "80%",
-          maxWidth: "600px",
-          boxSizing: "border-box",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          minHeight: '100vh',
+          justifyContent: 'center',
         }}
       >
         <Box
           style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            padding: "20px",
-            border: mobile ? "none" : "1px solid rgb(102, 113, 133, 0.3)",
-            borderRadius: "8px",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            padding: '20px',
+            border: mobile
+              ? 'none'
+              : '1px solid rgb(102, 113, 133, 0.3)',
+            borderRadius: '8px',
             gap: 10,
-            justifyContent: "center",
+            justifyContent: 'center',
             marginBottom: "20px", // Espacio debajo del encabezado
           }}
         >
@@ -181,7 +176,6 @@ export default function CompVehicleInfo() {
               Marca<p style={{ color: "red" }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
-              <InputLabel>Marca</InputLabel>
               <Select
                 {...register("brand", { required: true })}
                 placeholder="Seleccione una opción"
