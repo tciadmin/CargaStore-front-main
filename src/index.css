@@ -4,20 +4,12 @@
   box-sizing: border-box;
 }
 
-html {
-  min-width: 100%;
-  min-height: 100%;
-  font-family: "Montserrat", sans-serif !important;
-}
-
-body {
+html, body, #root {
   width: 100%;
+  min-height: 100%; /* NECESARIO para que 100vh funcione como debe */
   font-family: "Montserrat", sans-serif !important;
 }
 
 Button {
   font-family: "Montserrat", sans-serif !important;
-}
-body {
-  margin: 0;
 }
