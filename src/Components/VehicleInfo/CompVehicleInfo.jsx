@@ -142,7 +142,7 @@ export default function CompVehicleInfo() {
           flexDirection: 'column',
           alignItems: 'center',
           width: '100%',
-          minHeight: '100vh',
+          maxHeight: '100vh',
           justifyContent: 'center',
         }}
       >
