@@ -1,10 +1,8 @@
 .registerContainer {
   display: flex;
   flex-wrap: wrap;
-  max-width: 1200px; /* Controla el ancho total en pantallas grandes */
-  margin: 0 auto;
+  width: 100%;
   padding: 40px 20px;
-  gap: 20px;
 }
 
 .imgContainer {
