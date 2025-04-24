@@ -1,7 +1,10 @@
 .registerContainer {
   display: flex;
-  width: 100%;
+  flex-wrap: wrap;
+  max-width: 1200px; /* Controla el ancho total en pantallas grandes */
+  margin: 0 auto;
   padding: 40px 20px;
+  gap: 20px;
 }
 
 .imgContainer {
@@ -9,8 +12,9 @@
 }
 
 .imgContainer img {
-  height: 100%;
-  object-fit: cover;
+  max-width: 100%;   /* Hace que la imagen se ajuste al ancho del contenedor */
+  max-height: 100%;  /* Hace que la imagen se ajuste a la altura del contenedor */
+  object-fit: contain;
 }
 
 .MuiStepConnector-line.MuiStepConnector-lineVertical.css-8t49rw-MuiStepConnector-line {

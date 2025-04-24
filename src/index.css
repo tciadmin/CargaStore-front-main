@@ -6,7 +6,9 @@
 
 html, body, #root {
   width: 100%;
-  min-height: 100%; /* NECESARIO para que 100vh funcione como debe */
+  min-height: 100%;
+  overflow-x: hidden; /* Previene scroll horizontal */
+  overflow-y: auto;   /* Activa scroll vertical */
   font-family: "Montserrat", sans-serif !important;
 }
 
