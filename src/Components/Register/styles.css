@@ -1,8 +1,7 @@
 .registerContainer {
   display: flex;
-  flex-wrap: wrap;
+  min-height: 100vh;
   width: 100%;
-  padding: 40px 20px;
 }
 
 .imgContainer {
