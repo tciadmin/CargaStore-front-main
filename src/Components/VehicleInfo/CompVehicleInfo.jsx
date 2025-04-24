@@ -119,8 +119,10 @@ export default function CompVehicleInfo() {
   }, [brand, model, year, vehicle_type, charge_capacity, charge_type, hasGps, setValue]);
 
   const onSubmit = (data) => {
+    const formData = new FormData();
+
     formData.append("brand", data.brand);
-    ormData.append("model", data.model);
+    formData.append("model", data.model);
     formData.append("vehicle_type", data.vehicle_type);
     formData.append("year", data.year);
     formData.append("charge_type", data.charge_type);
@@ -202,29 +204,29 @@ export default function CompVehicleInfo() {
               Modelo<p style={{ color: "red" }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
-            <Select
-              {...register("model", { required: true })}
-              placeholder="Seleccione una opción"
-              value={watchedModel}
-              onChange={(e) => {
-                setValue("model", e.target.value);
-              }}
-              style={{
-                borderRadius: "8px",
-                height: "40px",
-                width: 400,
-              }}
-            >
-              {models.map((model) => (
-                <MenuItem key={model} value={model}>
-                  {model}
-                </MenuItem>
-              ))}
-            </Select>
-            {errors.model && (
-              <p style={{ color: "red" }}>Este campo es requerido</p>
-            )}
-          </FormControl>
+              <Select
+                {...register("model", { required: true })}
+                placeholder="Seleccione una opción"
+                value={watchedModel}
+                onChange={(e) => {
+                  setValue("model", e.target.value);
+                }}
+                style={{
+                  borderRadius: "8px",
+                  height: "40px",
+                  width: 400,
+                }}
+              >
+                {models.map((model) => (
+                  <MenuItem key={model} value={model}>
+                    {model}
+                  </MenuItem>
+                ))}
+              </Select>
+              {errors.model && (
+                <p style={{ color: "red" }}>Este campo es requerido</p>
+              )}
+            </FormControl>
             {/* //? --------------------------------------------- VEHICLE TYPE */}
             <span style={{ display: "flex", width: "100%" }}>
               Tipo de vehículo<p style={{ color: "red" }}>*</p>
@@ -337,6 +339,14 @@ export default function CompVehicleInfo() {
                 type="file"
                 id="truckImage"
                 accept="image/png, image/jpeg"
+                {...register("truckImage", {
+                  required: "Este campo es obligatorio",
+                  validate: {
+                    validType: (file) =>
+                      ["image/jpeg", "image/png"].includes(file?.type) ||
+                      "Solo se permiten imágenes PNG o JPEG",
+                  },
+                })}
                 onChange={(e) => setValue("truckImage", e.target.files[0])}
                 style={{
                   border: "1px solid #ccc",
@@ -346,7 +356,7 @@ export default function CompVehicleInfo() {
                 }}
               />
               {errors.truckImage && (
-                <p style={{ color: "red" }}>Este campo es requerido</p>
+                <p style={{ color: "red" }}>{errors.truckImage.message}</p>
               )}
             </FormControl>
             {/* //? --------------------------------------------- Plate Image */}
@@ -358,6 +368,14 @@ export default function CompVehicleInfo() {
                 type="file"
                 id="plateImage"
                 accept="image/png, image/jpeg"
+                {...register("plateImage", {
+                  required: "Este campo es obligatorio",
+                  validate: {
+                    validType: (file) =>
+                      ["image/jpeg", "image/png"].includes(file?.type) ||
+                      "Solo se permiten imágenes PNG o JPEG",
+                  },
+                })}
                 onChange={(e) => setValue("plateImage", e.target.files[0])}
                 style={{
                   border: "1px solid #ccc",
@@ -367,7 +385,7 @@ export default function CompVehicleInfo() {
                 }}
               />
               {errors.plateImage && (
-                <p style={{ color: "red" }}>Este campo es requerido</p>
+                <p style={{ color: "red" }}>{errors.plateImage.message}</p>
               )}
             </FormControl>
 

@@ -101,7 +101,7 @@ export const postUser = (userType, userData, navigate) => {
       if (userType === 'driver') {
         //Destructuramos los datos del conductor en caso de que
         //userType sea 'driver'
-        let { brand, model, year, charge_capacity, charge_type } =
+        let { brand, model, vehicle_type, year, charge_capacity, charge_type, hasGps } =
           userData;
         //Hacemos la peticion al endpoint de creacion de conductor
         //y le pasamos como id del usuario el de la respuesta de newUser
@@ -110,9 +110,11 @@ export const postUser = (userType, userData, navigate) => {
           {
             brand,
             model,
+            vehicle_type,
             year: parseInt(year),
             charge_capacity,
             charge_type,
+            hasGps,
           }
         );
 
