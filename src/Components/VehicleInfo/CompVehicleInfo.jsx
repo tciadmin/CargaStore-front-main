@@ -141,11 +141,15 @@ export default function CompVehicleInfo() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          width: "100%",
-          minHeight: "100vh",
-          justifyContent: "center",
-          overflowY: "auto",
           padding: "20px",
+          border: mobile ? "none" : "1px solid rgba(102, 113, 133, 0.3)",
+          borderRadius: "8px",
+          gap: 2,
+          marginBottom: "20px",
+          backgroundColor: "#fff",
+          width: mobile ? "100%" : "80%",
+          maxWidth: "600px",
+          boxSizing: "border-box",
         }}
       >
         <Box
@@ -164,24 +168,25 @@ export default function CompVehicleInfo() {
           <h1 style={{ fontSize: "1.5rem" }}> Información del vehículo </h1>
 
           <form
+            onSubmit={handleSubmit(onSubmit)}
             style={{
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              width: "100%",
             }}
-            onSubmit={handleSubmit(onSubmit)}
           >
             {/* //? --------------------------------------------- BRAND */}
             <span style={{ display: "flex", width: "100%" }}>
               Marca<p style={{ color: "red" }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
+              <InputLabel>Marca</InputLabel>
               <Select
                 {...register("brand", { required: true })}
                 placeholder="Seleccione una opción"
                 value={selectedBrand}
                 onChange={(e) => setSelectedBrand(e.target.value)}
-                label="Marca"
                 style={{
                   borderRadius: "8px",
                   height: "40px",
@@ -210,7 +215,6 @@ export default function CompVehicleInfo() {
               onChange={(e) => {
                 setValue("model", e.target.value);
               }}
-              label="Modelo"
               style={{
                 borderRadius: "8px",
                 height: "40px",
@@ -235,9 +239,6 @@ export default function CompVehicleInfo() {
               <Select
                 {...register("vehicle_type", { required: true })}
                 placeholder="Seleccione una opción"
-                labelId="vehicle-type-label"
-                id="vehicle-type"
-                label="Tipo de vehículo"
                 style={{
                   height: mobile ? "40px" : "40px",
                   borderRadius: "8px",
@@ -256,7 +257,7 @@ export default function CompVehicleInfo() {
             </FormControl>
             {/* //? --------------------------------------------- YEAR */}
             <span style={{ display: "flex", width: "100%" }}>
-              Año del camión<p style={{ color: "red" }}>*</p>
+              Año del vehículo<p style={{ color: "red" }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
