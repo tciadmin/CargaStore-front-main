@@ -28,6 +28,7 @@ export default function CompCompanyInfo() {
     handleSubmit,
     formState: { errors },
     setValue,
+    control,
   } = useForm({
     defaultValues: {
       company_name: '',
