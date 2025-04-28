@@ -12,6 +12,7 @@ import { useMediaQuery } from '@mui/material';
 import { Colors } from '../../Utils/Colors';
 import { useDispatch, useSelector } from 'react-redux';
 import { clientFormData } from '../../Redux/Actions/formActions';
+import PhoneInput from 'react-phone-input-2';
 
 export default function CompCompanyInfo() {
   const mobile = useMediaQuery('(max-width:720px)');
@@ -20,7 +21,7 @@ export default function CompCompanyInfo() {
 
   const { clientData } = useSelector((state) => state.forms);
   const { userLoading } = useSelector((state) => state.user);
-  const { company_name, address, city, company_phone } = clientData;
+  const { company_name, company_ident, address, city, company_phone } = clientData;
 
   const {
     register,
@@ -30,6 +31,7 @@ export default function CompCompanyInfo() {
   } = useForm({
     defaultValues: {
       company_name: '',
+      company_ident: '',
       address: '',
       city: '',
       company_phone: '',
@@ -38,10 +40,11 @@ export default function CompCompanyInfo() {
 
   React.useEffect(() => {
     setValue('company_name', company_name);
+    setValue('company_ident', company_ident);
     setValue('address', address);
     setValue('city', city);
     setValue('company_phone', company_phone);
-  }, [company_name, address, city, company_phone, setValue]);
+  }, [company_name, company_ident, address, city, company_phone, setValue]);
 
   const onSubmit = (data) => {
     dispatch(clientFormData(data));
@@ -111,6 +114,35 @@ export default function CompCompanyInfo() {
                 </p>
               )}
             </FormControl>
+            {/* //? -------------------------------- COMPANY IDENTIFICATION */}
+            <span style={{ display: 'flex', width: '100%' }}>
+            Número de identificación fiscal <p style={{ color: 'red' }}>*</p>
+            </span>
+            <FormControl sx={{ m: 1 }} variant="outlined">
+              <OutlinedInput
+                {...register('company_ident', {
+                  required: {
+                    value: true,
+                    message: 'Este campo es requerido',
+                  },
+                  minLength: {
+                  value: 9,
+                  message: 'Debe tener al menos 9 caracteres',
+                  },
+                })}
+                placeholder="Ingrese el Nº de identificación"
+                style={{
+                  borderRadius: '8px',
+                  height: '40px',
+                  width: 400,
+                }}
+              />
+              {errors.company_ident && (
+                <p style={{ color: 'red', width: 400 }}>
+                  {errors.company_ident.message}
+                </p>
+              )}
+            </FormControl>
             {/* //? --------------------------------------------- ADDRESS */}
             <span style={{ display: 'flex', width: '100%' }}>
               Dirección<p style={{ color: 'red' }}>*</p>
@@ -151,24 +183,42 @@ export default function CompCompanyInfo() {
                 </p>
               )}
             </FormControl>
-            {/* //? --------------------------------------------- CONTACT PHONE */}
+            {/* //? --------------------------------------------- PHONE */}
             <span style={{ display: 'flex', width: '100%' }}>
-              Teléfono de contacto
-              <p style={{ color: 'red' }}>*</p>
+              Número de celular <p style={{ color: 'red' }}>*</p>
             </span>
-            <FormControl sx={{ m: 1 }} variant="outlined">
-              <OutlinedInput
-                {...register('company_phone', { required: true })}
-                placeholder="123456"
-                style={{
-                  borderRadius: '8px',
-                  height: '40px',
-                  width: 400,
+            <FormControl sx={{ m: 1 }} variant="outlined" style={{ width: 400 }}>
+             <Controller
+                name="company_phone"
+                control={control}
+                rules={{
+                  required: 'Este campo es requerido',
+                  minLength: {
+                    value: 10,
+                    message: 'Número inválido',
+                  },
                 }}
+                render={({ field }) => (
+                  <PhoneInput
+                    {...field}
+                    country={'ec'} // puedes cambiar 'ec' por el país predeterminado que necesites
+                    enableSearch
+                    inputStyle={{
+                      width: '100%',
+                      height: '40px',
+                      borderRadius: '8px',
+                    }}
+                    buttonStyle={{
+                      borderRadius: '8px 0 0 8px',
+                    }}
+                    onChange={(value) => field.onChange(value)}
+                    value={field.value}
+                  />
+                )}
               />
               {errors.company_phone && (
-                <p style={{ color: 'red' }}>
-                  Este campo es requerido
+                <p style={{ color: 'red', marginTop: '5px' }}>
+                  {errors.company_phone.message}
                 </p>
               )}
             </FormControl>

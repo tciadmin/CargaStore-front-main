@@ -132,13 +132,13 @@ export const postUser = (userType, userData, navigate) => {
       } else if (userType === 'customer') {
         //Destructuramos los datos del cliente en caso de que
         //userType sea 'customer'
-        const { company_name, address, city, company_phone } =
+        const { company_name, company_ident, address, city, company_phone } =
           userData;
         //Hacemos la peticion al endpoint de creacion de cliente
         //y le pasamos como id del usuario el de la respuesta de newUser
         const customer = await axiosInstance.post(
           `/customer/create/${data?.user.id}`,
-          { company_name, address, city, company_phone }
+          { company_name, company_ident, address, city, company_phone }
         );
         Cookies.set('id', data?.user.id, {
           expires: 1,
@@ -215,7 +215,7 @@ export const authUser = (user, navigate) => {
 export const patchCustomer = (
   customerId,
   company_name,
-  ruc,
+  company_ident,
   company_phone,
   address,
   country,
@@ -226,7 +226,7 @@ export const patchCustomer = (
     try {
       const response = await axiosInstance.put(
         `/customer/edit/${customerId}`,
-        { company_name, ruc, company_phone, address, country, city },
+        { company_name, company_ident, company_phone, address, country, city },
         {
           headers,
         }
