@@ -151,7 +151,7 @@ export default function CompCompanyInfo() {
             <FormControl sx={{ m: 1 }} variant="outlined">
               <OutlinedInput
                 {...register('address', { required: true })}
-                placeholder="Calle 1"
+                placeholder="C. Principal y Secundaria, Numeración"
                 style={{
                   borderRadius: '8px',
                   height: '40px',
