@@ -126,7 +126,7 @@ export const postUser = (userType, userData, navigate) => {
           sameSite: 'Strict',
           path: '/',
         });
-        dispatch({
+        await dispatch({
           type: POST_USER_SUCCESS,
           payload: driver.data,
         });

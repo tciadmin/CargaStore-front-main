@@ -55,7 +55,7 @@ export default function CompVehicleInfo() {
       year: "",
       charge_capacity: "",
       charge_type: "",
-      hasGps: false,
+      hasGps,
     },
   });
   
@@ -115,7 +115,7 @@ export default function CompVehicleInfo() {
     setValue("year", year);
     setValue("charge_capacity", charge_capacity);
     setValue("charge_type", charge_type);
-    setValue('hasGps', true);
+    setValue('hasGps', hasGps);
   }, [brand, model, year, vehicle_type, charge_capacity, charge_type, hasGps, setValue]);
 
   const onSubmit = (data) => {
@@ -133,7 +133,7 @@ export default function CompVehicleInfo() {
     formData.append("truckImage", data.truckImage[0]); // el archivo está dentro de un array
     formData.append("plateImage", data.plateImage[0]);
     dispatch(driverFormData(data));
-    dispatch(postUser("driver", { ...driverData, ...data }, navigate));
+    dispatch(postUser("driver", data, navigate));
   };
 
   return (
