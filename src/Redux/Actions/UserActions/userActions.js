@@ -105,17 +105,19 @@ export const postUser = (userType, userData, navigate) => {
           userData;
         //Hacemos la peticion al endpoint de creacion de conductor
         //y le pasamos como id del usuario el de la respuesta de newUser
+        const formData = new FormData();
+        formData.append('brand', brand);
+        formData.append('model', model);
+        formData.append('vehicle_type', vehicle_type);
+        formData.append('year', parseInt(year));
+        formData.append('charge_capacity', charge_capacity);
+        formData.append('charge_type', charge_type);
+        formData.append('hasGps', hasGps);
+
         const driver = await axiosInstance.post(
           `/driver/create/${data?.user.id}`,
-          {
-            brand,
-            model,
-            vehicle_type,
-            year: parseInt(year),
-            charge_capacity,
-            charge_type,
-            hasGps,
-          }
+          formData,
+          { headers } // Este headers ya fue definido arriba con el token
         );
 
         Cookies.set('id', data?.user.id, {
