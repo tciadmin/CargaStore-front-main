@@ -322,12 +322,18 @@ export default function CompVehicleInfo() {
               ¿Cuenta con GPS? <p style={{ color: "red" }}>*</p>
             </span>
             <FormControl sx={{ m: 1 }} variant="outlined">
-              <RadioGroup row {...register("hasGps", { required: true })}>
+              <RadioGroup 
+                row 
+                {...register("hasGps", { 
+                  required: "Este campo es obligatorio", 
+                })}
+              >
                 <FormControlLabel value="true" control={<Radio />} label="Sí" />
                 <FormControlLabel value="false" control={<Radio />} label="No" />
               </RadioGroup>
               {errors.hasGps && (
-                <p style={{ color: "red" }}>Este campo es requerido</p>
+                <p style={{ color: "red" }}>{errors.hasGps.message} {/* Aquí mostramos el mensaje de error */}
+                </p>
               )}
             </FormControl>
             {/* //? --------------------------------------------- Truck Image */}
