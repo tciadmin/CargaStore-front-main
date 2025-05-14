@@ -338,13 +338,14 @@ export default function CompVehicleInfo() {
               <input
                 type="file"
                 id="truckImage"
-                accept="image/png, image/jpeg"
+                accept="image/png, image/jpeg, image/jpg"
                 {...register("truckImage", {
                   required: "Este campo es obligatorio",
                   validate: {
-                    validType: (file) =>
-                      ["image/jpeg", "image/png"].includes(file?.type) ||
-                      "Solo se permiten imágenes PNG o JPEG",
+                    validType: (fileList) =>
+                      fileList && fileList[0] && 
+                      ["image/jpeg", "image/png", "image/jpg"].includes(fileList[0].type) ||
+                      "Solo se permiten imágenes PNG, JPG o JPEG",
                   },
                 })}
                 onChange={(e) => setValue("truckImage", e.target.files)}
@@ -367,13 +368,14 @@ export default function CompVehicleInfo() {
               <input
                 type="file"
                 id="plateImage"
-                accept="image/png, image/jpeg"
+                accept="image/png, image/jpeg, image/jpg"
                 {...register("plateImage", {
                   required: "Este campo es obligatorio",
                   validate: {
-                    validType: (file) =>
-                      ["image/jpeg", "image/png"].includes(file?.type) ||
-                      "Solo se permiten imágenes PNG o JPEG",
+                    validType: (fileList) =>
+                      fileList && fileList[0] && 
+                      ["image/jpeg", "image/png", "image/jpg"].includes(fileList[0].type) ||
+                      "Solo se permiten imágenes PNG, JPG o JPEG",
                   },
                 })}
                 onChange={(e) => setValue("plateImage", e.target.files)}
