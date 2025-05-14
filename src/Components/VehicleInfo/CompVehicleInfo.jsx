@@ -348,7 +348,6 @@ export default function CompVehicleInfo() {
                       "Solo se permiten imágenes PNG, JPG o JPEG",
                   },
                 })}
-                onChange={(e) => setValue("truckImage", e.target.files)}
                 style={{
                   border: "1px solid #ccc",
                   borderRadius: "10px",
@@ -378,7 +377,6 @@ export default function CompVehicleInfo() {
                       "Solo se permiten imágenes PNG, JPG o JPEG",
                   },
                 })}
-                onChange={(e) => setValue("plateImage", e.target.files)}
                 style={{
                   border: "1px solid #ccc",
                   borderRadius: "10px",
