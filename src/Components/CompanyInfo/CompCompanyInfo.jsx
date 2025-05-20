@@ -194,9 +194,12 @@ export default function CompCompanyInfo() {
                 control={control}
                 rules={{
                   required: 'Este campo es requerido',
-                  minLength: {
-                    value: 10,
-                    message: 'Número inválido',
+                  validate: (value) => {
+                    const cleanValue = value.replace(/\D/g, '');
+                    if (cleanValue.length < 10 || cleanValue.length > 16) {
+                      return 'Número inválido';
+                    }
+                    return true;
                   },
                 }}
                 render={({ field }) => (
@@ -226,7 +229,7 @@ export default function CompCompanyInfo() {
             <Button
               variant="contained"
               type="submit"
-              disabled={userLoading}
+              disabled={userLoading || Object.keys(errors).length > 0}
               sx={{
                 m: 1,
                 height: '40px',

@@ -397,20 +397,20 @@ export default function CompVehicleInfo() {
 
             <Button
               variant="contained"
-              disabled={userLoading}
+              type="submit"
+              disabled={userLoading || Object.keys(errors).length > 0}
               sx={{
                 m: 1,
-                height: "40px",
-                width: 400,
+                height: '40px',
+                 width: 400,
               }}
               style={{
                 color: Colors.primary.contrastText,
                 backgroundColor: Colors.primary.main,
-                borderRadius: "8px",
+                borderRadius: '8px',
               }}
-              type="submit"
             >
-              {userLoading ? "Cargando" : "Registrarse"}
+              {userLoading ? 'Cargando' : 'Registrarse'}
             </Button>
           </form>
         </Box>

@@ -376,7 +376,7 @@ export default function CompRegDriver() {
                 borderRadius: '8px',
               }}
             >
-              Siguiente paso
+              Siguiente Paso
             </Button>
           </form>
         </Box>
